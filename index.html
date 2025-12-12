@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="https://stallioni.com/logo.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stallioni - Top IT Outsourcing Company in India | Build Remote Teams</title>
+  <meta name="description"
+    content="Stallioni is a top IT outsourcing company in India. Hire dedicated Indian developers to build elite remote teams for web, mobile & AI solutions, cost-effectively." />
+
+  <!-- SEO Tags -->
+  <link rel="canonical" href="https://stallioni.com/" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- TailwindCSS CDN (temporary - will switch to local after fixing v4 issue) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#F26522',
+              dark: '#1A233D',
+              light: '#F5F7FA',
+            },
+          },
+          fontFamily: {
+            sans: ['Roboto', 'sans-serif'],
+          },
+          animation: {
+            marquee: 'marquee 35s linear infinite',
+            'fade-in': 'fadeIn 0.3s ease-out forwards',
+            'modal-pop-in': 'modalPopIn 0.3s ease-out forwards',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-100%)' },
+            },
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+            modalPopIn: {
+              '0%': { opacity: 0, transform: 'translateY(20px) scale(0.95)' },
+              '100%': { opacity: 1, transform: 'translateY(0) scale(1)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .article-content h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #1A233D;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .article-content h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1A233D;
+      margin-top: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .article-content p {
+      font-size: 1.125rem;
+      color: #334155;
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+
+    .article-content ul {
+      list-style-type: disc;
+      list-style-position: inside;
+      margin-bottom: 1rem;
+      padding-left: 1rem;
+    }
+
+    .article-content ul li {
+      font-size: 1.125rem;
+      color: #334155;
+      margin-bottom: 0.5rem;
+    }
+
+    .article-content a {
+      color: #F26522;
+      text-decoration: underline;
+    }
+
+    .article-content a:hover {
+      opacity: 0.8;
+    }
+
+    .article-content img {
+      display: block;
+      width: 100%;
+      max-width: 48rem;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.20.0"
+  }
+}
+</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZ2SZ03V71"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-WZ2SZ03V71');
+  </script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="bg-white font-sans">
+  <div id="root"></div>
+  <noscript>
+    <h1>Stallioni - Top IT Outsourcing Company in India</h1>
+    <p>Stallioni is a top IT outsourcing company in India. Hire dedicated Indian developers to build elite remote teams
+      for web, mobile & AI solutions, cost-effectively.</p>
+    <p>You need to enable JavaScript to run this app.</p>
+  </noscript>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>

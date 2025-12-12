@@ -1,0 +1,127 @@
+{
+  "services": [
+    {
+      "title": "Website Design & Development",
+      "items": [
+        "UI/UX Design",
+        "Website Development",
+        "Frontend Development (React, Vue, Svelte)",
+        "Responsive & Mobile-First Development",
+        "Landing Page Design",
+        "Design Systems"
+      ]
+    },
+    {
+      "title": "Custom Web Application Development",
+      "items": [
+        "Business Web Applications (CRM, ERP, HR, Workflow)",
+        "SaaS Development",
+        "API Development (REST / GraphQL)",
+        "Third-Party Integrations",
+        "Microservices Architecture",
+        "Web Portals (Customer, Vendor, Partner)"
+      ]
+    },
+    {
+      "title": "E-Commerce Development",
+      "items": [
+        "WooCommerce Development",
+        "Shopify Development",
+        "Magento Development",
+        "BigCommerce Development",
+        "Custom E-Commerce Solutions",
+        "Multi-Vendor Marketplace Development",
+        "Payment Gateway Integrations"
+      ]
+    },
+    {
+      "title": "CMS Development",
+      "items": [
+        "WordPress Development",
+        "Joomla Development",
+        "Drupal Development",
+        "Squarespace Development",
+        "Wix Development",
+        "Webflow Development",
+        "Ghost / Craft / Typo3 / HubSpot CMS",
+        "Headless CMS (Strapi, Sanity, Contentful, Prismic)"
+      ]
+    },
+    {
+      "title": "PHP Development",
+      "items": [
+        "Laravel Development",
+        "Symfony Development",
+        "CodeIgniter Development",
+        "Core PHP Development",
+        "PHP API Development",
+        "Migration from Legacy PHP Systems"
+      ]
+    },
+    {
+      "title": "Mobile App Development",
+      "items": [
+        "iOS App Development",
+        "Android App Development",
+        "Flutter Development",
+        "React Native Development",
+        "Progressive Web Apps (PWA)"
+      ]
+    },
+    {
+      "title": "Maintenance & Support",
+      "items": [
+        "Website Maintenance",
+        "Application Maintenance",
+        "Security Audits & Monitoring",
+        "Performance Optimization",
+        "Backup & Recovery",
+        "Hosting Support"
+      ]
+    },
+    {
+      "title": "SEO & Digital Marketing",
+      "items": [
+        "Technical SEO",
+        "On-Page & Off-Page SEO",
+        "Local SEO",
+        "Google Ads",
+        "Social Media Ads",
+        "Content Writing & Strategy"
+      ]
+    },
+    {
+      "title": "Cloud & DevOps Services",
+      "items": [
+        "AWS / Azure / Google Cloud Setup",
+        "Cloud Migration",
+        "CI/CD Automation",
+        "Docker & Kubernetes",
+        "Infrastructure as Code",
+        "Logging & Monitoring"
+      ]
+    },
+    {
+      "title": "Quality Assurance & Testing",
+      "items": [
+        "Manual Testing",
+        "Automated Testing",
+        "API Testing",
+        "Performance & Load Testing",
+        "Cross-Browser Testing"
+      ]
+    },
+    {
+      "title": "AI, Automation & Modern Technologies",
+      "items": [
+        "AI Chatbots",
+        "Recommendation Engines",
+        "NLP Features",
+        "Business Process Automation",
+        "Real-Time Apps (WebSockets)",
+        "WebRTC (Video/Voice)",
+        "AR/VR Experiences"
+      ]
+    }
+  ]
+}
