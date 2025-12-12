@@ -178,7 +178,7 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
     <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center relative">
         <a href="/" onClick={(e) => handleNav(e, '/')} className="flex items-center space-x-2">
-          <img src="https://stallioni.com/logo.svg" alt="Stallioni Logo" className="h-8 md:h-10" />
+          <img src="/logo.svg" alt="Stallioni Logo" className="h-8 md:h-10" />
         </a>
 
         {/* Desktop Navigation */}
