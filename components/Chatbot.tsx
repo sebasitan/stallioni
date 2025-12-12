@@ -16,7 +16,7 @@ const EmailTranscriptModal: React.FC<{
     onSend: (email: string) => Promise<void>;
 }> = ({ isOpen, onClose, onSend }) => {
     const [isSending, setIsSending] = useState(false);
-    
+
     if (!isOpen) return null;
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -62,7 +62,7 @@ const Chatbot: React.FC = () => {
     const [isBubbleVisible, setIsBubbleVisible] = useState(false);
     const [showEmailModal, setShowEmailModal] = useState(false);
     const [isMaximized, setIsMaximized] = useState(false);
-    
+
     const { navigate } = useNavigation();
     const { showToast } = useToast();
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -93,7 +93,7 @@ const Chatbot: React.FC = () => {
         }, 3000);
         return () => clearTimeout(timer);
     }, []);
-    
+
     useEffect(() => {
         if (isOpen) {
             setIsBubbleVisible(false);
@@ -105,28 +105,28 @@ const Chatbot: React.FC = () => {
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-        if(isOpen && !showEmailModal) {
+        if (isOpen && !showEmailModal) {
             inputRef.current?.focus();
         }
     }, [messages, isLoading, isOpen, showEmailModal]);
 
     const sendMessage = async (messageText: string) => {
         if (!messageText) return;
-    
+
         const newMessages: Message[] = [...messages, { role: 'user', text: messageText }];
         setMessages(newMessages);
         setIsLoading(true);
 
         try {
-            const response = await fetch('/proxy/api/chat.php', {
+            const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     message: messageText,
                     // Send the history *before* this new message for context
-                    history: messages 
+                    history: messages
                 }),
             });
 
@@ -138,7 +138,7 @@ const Chatbot: React.FC = () => {
 
             const data = await response.json();
             const modelResponse = data.text;
-            
+
             setMessages(prev => [...prev, { role: 'model', text: modelResponse }]);
 
         } catch (error) {
@@ -148,7 +148,7 @@ const Chatbot: React.FC = () => {
             setIsLoading(false);
         }
     };
-    
+
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -191,7 +191,7 @@ const Chatbot: React.FC = () => {
             setIsOpen(false);
             return;
         }
-        
+
         if (lowerReply.includes('get phone number') || lowerReply.includes('call')) {
             const url = `tel:+${getCallPhone()}`;
             window.location.href = url;
@@ -209,7 +209,7 @@ const Chatbot: React.FC = () => {
         setIsBubbleVisible(false);
         sessionStorage.setItem('ariaBubbleDismissed', 'true');
     };
-    
+
     const finalClose = () => {
         setShowEmailModal(false);
         setIsOpen(false);
@@ -229,7 +229,7 @@ const Chatbot: React.FC = () => {
         setIsBubbleVisible(false);
         setIsOpen(true);
     };
-    
+
     const handleSendTranscript = async (userEmail: string) => {
         const formattedTranscript = messages.map(msg =>
             `${msg.role === 'user' ? 'You' : 'Aria'}: ${msg.text.split('\n[')[0]}` // Remove quick replies from transcript
@@ -262,7 +262,7 @@ const Chatbot: React.FC = () => {
             finalClose();
         }
     };
-    
+
     const parseMessage = (text: string) => {
         const lines = text.split('\n');
         const mainText = [];
@@ -285,24 +285,23 @@ const Chatbot: React.FC = () => {
             <img src={ARIA_AVATAR_URL} alt="Aria avatar" className="w-7 h-7 rounded-full flex-shrink-0" />
             <div className="bg-slate-200 text-brand-dark rounded-bl-md rounded-2xl p-3">
                 <div className="flex items-center space-x-1.5">
-                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0s'}}></span>
-                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
-                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></span>
+                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></span>
+                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></span>
                 </div>
             </div>
         </div>
     );
 
-    const containerClasses = `fixed z-[100] transition-opacity duration-300 ease-in-out ${
-        isMaximized ? 'inset-0 sm:inset-6' : 'bottom-6 right-6'
-    }`;
-    
+    const containerClasses = `fixed z-[100] transition-opacity duration-300 ease-in-out ${isMaximized ? 'inset-0 sm:inset-6' : 'bottom-6 right-6'
+        }`;
+
     const chatWindowClasses = isMaximized
         ? 'w-full h-full'
         : 'w-[calc(100vw-3rem)] max-w-sm h-[70vh] max-h-[500px]';
 
     if (!isOpen) {
-         return (
+        return (
             <div className="fixed bottom-6 right-6 z-50">
                 {isBubbleVisible && (
                     <div className="absolute bottom-20 right-0 w-64 bg-white p-4 rounded-xl shadow-lg animate-fade-in border border-slate-200/80" role="alert">
@@ -319,7 +318,7 @@ const Chatbot: React.FC = () => {
                     aria-expanded={false}
                     className="relative mt-4 ml-auto block w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center shadow-xl hover:bg-opacity-90 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-orange-300"
                 >
-                    <ChatbotIcon className="w-8 h-8"/>
+                    <ChatbotIcon className="w-8 h-8" />
                 </button>
             </div>
         )
@@ -348,12 +347,12 @@ const Chatbot: React.FC = () => {
                 </header>
                 <div className="flex-1 p-4 overflow-y-auto no-scrollbar space-y-2">
                     {messages.map((msg, index) => {
-                         const { text: messageText, replies } = parseMessage(msg.text);
-                         const isLastMessage = index === messages.length - 1;
+                        const { text: messageText, replies } = parseMessage(msg.text);
+                        const isLastMessage = index === messages.length - 1;
 
-                         return (
+                        return (
                             <div key={index}>
-                                 <div className={`flex items-end gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`flex items-end gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     {msg.role === 'model' && (
                                         <img src={ARIA_AVATAR_URL} alt="Aria avatar" className="w-7 h-7 rounded-full flex-shrink-0" />
                                     )}
@@ -363,11 +362,11 @@ const Chatbot: React.FC = () => {
                                         </div>
                                     )}
                                 </div>
-                                 {isLastMessage && !isLoading && replies.length > 0 && (
+                                {isLastMessage && !isLoading && replies.length > 0 && (
                                     <div className="flex flex-wrap gap-2 mt-3 justify-start pl-10">
                                         {replies.map((reply, i) => (
-                                            <button 
-                                                key={i} 
+                                            <button
+                                                key={i}
                                                 onClick={() => handleQuickReplyClick(reply)}
                                                 className="px-3 py-1.5 text-sm font-semibold text-brand-orange bg-brand-orange/10 border border-brand-orange/20 rounded-full hover:bg-brand-orange/20 transition-colors"
                                             >
@@ -377,7 +376,7 @@ const Chatbot: React.FC = () => {
                                     </div>
                                 )}
                             </div>
-                         )
+                        )
                     })}
 
                     {isLoading && <TypingIndicator />}
