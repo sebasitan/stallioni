@@ -206,46 +206,48 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
 
                   {/* Mega Menu Dropdown */}
                   <div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-4 w-[98vw] max-w-[1400px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
-                    <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl shadow-xl border border-gray-100 p-8 grid grid-cols-4 gap-y-8 gap-x-6">
-                      {MEGA_MENU_ITEMS.map((col) => (
-                        <div key={col.title} className="flex flex-col space-y-3">
-                          <a
-                            href={col.href}
-                            onClick={(e) => handleNav(e, col.href)}
-                            className="text-brand-dark font-bold text-lg hover:text-white border-b border-gray-100 pb-2 flex items-center gap-2 group/category p-2 -ml-2 rounded-lg hover:bg-brand-orange transition-all duration-200"
-                          >
-                            <span className="text-brand-orange group-hover/category:text-white transition-colors">
-                              {col.icon}
-                            </span>
-                            <span>{col.title}</span>
-                          </a>
-                          <div className="flex flex-col space-y-2">
-                            {col.items.map(item => (
-                              <a
-                                key={item.label}
-                                href={item.href}
-                                onClick={(e) => handleNav(e, item.href)}
-                                className="text-gray-600 hover:text-white hover:translate-x-1 transition-all duration-200 text-base font-medium leading-tight block p-2 -ml-2 rounded hover:bg-brand-orange"
-                              >
-                                {item.label}
-                              </a>
-                            ))}
+                    <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl shadow-xl border border-gray-100 max-h-[80vh] overflow-y-auto">
+                      <div className="p-8 grid grid-cols-4 gap-y-8 gap-x-6">
+                        {MEGA_MENU_ITEMS.map((col) => (
+                          <div key={col.title} className="flex flex-col space-y-3">
+                            <a
+                              href={col.href}
+                              onClick={(e) => handleNav(e, col.href)}
+                              className="text-brand-dark font-bold text-lg hover:text-white border-b border-gray-100 pb-2 flex items-center gap-2 group/category p-2 -ml-2 rounded-lg hover:bg-brand-orange transition-all duration-200"
+                            >
+                              <span className="text-brand-orange group-hover/category:text-white transition-colors">
+                                {col.icon}
+                              </span>
+                              <span>{col.title}</span>
+                            </a>
+                            <div className="flex flex-col space-y-2">
+                              {col.items.map(item => (
+                                <a
+                                  key={item.label}
+                                  href={item.href}
+                                  onClick={(e) => handleNav(e, item.href)}
+                                  className="text-gray-600 hover:text-white hover:translate-x-1 transition-all duration-200 text-base font-medium leading-tight block p-2 -ml-2 rounded hover:bg-brand-orange"
+                                >
+                                  {item.label}
+                                </a>
+                              ))}
+                            </div>
                           </div>
+                        ))}
+                        {/* CTA Box in Menu */}
+                        <div className="col-span-4 mt-2 pt-4 border-t border-gray-100 flex justify-between items-center bg-gray-50 p-4 rounded-xl">
+                          <div>
+                            <h4 className="font-bold text-gray-900">Need a Custom Solution?</h4>
+                            <p className="text-sm text-gray-500">Our experts are ready to build exactly what you need.</p>
+                          </div>
+                          <a
+                            href="/contact"
+                            onClick={(e) => handleNav(e, '/contact')}
+                            className="bg-brand-orange text-white px-6 py-2 rounded-lg font-bold hover:bg-opacity-90 transition-all text-sm"
+                          >
+                            Get a Quote
+                          </a>
                         </div>
-                      ))}
-                      {/* CTA Box in Menu */}
-                      <div className="col-span-4 mt-2 pt-4 border-t border-gray-100 flex justify-between items-center bg-gray-50 p-4 rounded-xl">
-                        <div>
-                          <h4 className="font-bold text-gray-900">Need a Custom Solution?</h4>
-                          <p className="text-sm text-gray-500">Our experts are ready to build exactly what you need.</p>
-                        </div>
-                        <a
-                          href="/contact"
-                          onClick={(e) => handleNav(e, '/contact')}
-                          className="bg-brand-orange text-white px-6 py-2 rounded-lg font-bold hover:bg-opacity-90 transition-all text-sm"
-                        >
-                          Get a Quote
-                        </a>
                       </div>
                     </div>
                   </div>
