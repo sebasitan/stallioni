@@ -159,6 +159,7 @@ const MEGA_MENU_ITEMS = [
 
 const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const { navigate } = useNavigation();
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
@@ -188,10 +189,18 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
 
             if (link.label === 'Services') {
               return (
-                <div key={link.href} className="relative group">
+                <div
+                  key={link.href}
+                  className="relative group"
+                  onMouseEnter={() => setIsServicesOpen(true)}
+                  onMouseLeave={() => setIsServicesOpen(false)}
+                >
                   <a
                     href={link.href}
-                    onClick={(e) => handleNav(e, link.href)}
+                    onClick={(e) => {
+                      handleNav(e, link.href);
+                      setIsServicesOpen(false);
+                    }}
                     className={`text-base font-medium px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-1 ${isActive
                       ? 'bg-blue-900 text-white'
                       : 'text-brand-dark hover:bg-blue-100 hover:text-blue-600 group-hover:text-blue-600'
@@ -199,20 +208,23 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
                   >
                     {link.label}
                     {/* Chevron Down */}
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </a>
 
                   {/* Mega Menu Dropdown */}
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-4 w-[98vw] max-w-[1400px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none group-hover:pointer-events-auto">
+                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 pt-4 w-[98vw] max-w-[1400px] transition-all duration-300 ${isServicesOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
                     <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl shadow-xl border border-gray-100 max-h-[80vh] overflow-y-auto">
                       <div className="p-8 grid grid-cols-4 gap-y-8 gap-x-6">
                         {MEGA_MENU_ITEMS.map((col) => (
                           <div key={col.title} className="flex flex-col space-y-3">
                             <a
                               href={col.href}
-                              onClick={(e) => handleNav(e, col.href)}
+                              onClick={(e) => {
+                                handleNav(e, col.href);
+                                setIsServicesOpen(false);
+                              }}
                               className="text-brand-dark font-bold text-lg hover:text-white border-b border-gray-100 pb-2 flex items-center gap-2 group/category p-2 -ml-2 rounded-lg hover:bg-brand-orange transition-all duration-200"
                             >
                               <span className="text-brand-orange group-hover/category:text-white transition-colors">
@@ -225,7 +237,10 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
                                 <a
                                   key={item.label}
                                   href={item.href}
-                                  onClick={(e) => handleNav(e, item.href)}
+                                  onClick={(e) => {
+                                    handleNav(e, item.href);
+                                    setIsServicesOpen(false);
+                                  }}
                                   className="text-gray-600 hover:text-white hover:translate-x-1 transition-all duration-200 text-base font-medium leading-tight block p-2 -ml-2 rounded hover:bg-brand-orange"
                                 >
                                   {item.label}
@@ -242,7 +257,10 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
                           </div>
                           <a
                             href="/contact"
-                            onClick={(e) => handleNav(e, '/contact')}
+                            onClick={(e) => {
+                              handleNav(e, '/contact');
+                              setIsServicesOpen(false);
+                            }}
                             className="bg-brand-orange text-white px-6 py-2 rounded-lg font-bold hover:bg-opacity-90 transition-all text-sm"
                           >
                             Get a Quote

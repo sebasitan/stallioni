@@ -94,34 +94,115 @@ const HomePage: React.FC = () => {
             </div>
 
             <div className="relative z-10 max-w-7xl mx-auto">
-                <div className="text-center mb-10">
-                    <div className="inline-block px-4 py-1.5 rounded-full bg-brand-light text-brand-dark font-bold text-sm tracking-wide uppercase mb-4">
+                <div className="text-center mb-12">
+                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-brand-orange/10 to-blue-500/10 border border-brand-orange/20 text-brand-orange font-bold text-sm tracking-wider uppercase mb-6 backdrop-blur-sm shadow-sm">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                         Why Choose Us
                     </div>
-                    <h3 className="text-2xl md:text-4xl font-bold text-brand-dark">The Advantage You Can’t Ignore</h3>
+                    <h3 className="text-3xl md:text-5xl font-extrabold text-brand-dark mb-4 tracking-tight">
+                        The Advantage You <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-blue-600">Can't Ignore</span>
+                    </h3>
+                    <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                        Discover what sets us apart from the competition
+                    </p>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {[
-                        { title: "Cost Efficiency", desc: "Save up to 60% on development costs", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01" /></svg> },
-                        { title: "Rapid Assembly", desc: "Build a high-performance remote team in days—not months", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg> },
-                        { title: "Top-Tier Talent", desc: "Work with top-tier developers trained in global standards", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
-                        { title: "Agile Speed", desc: "Enjoy faster delivery timelines powered by agile execution", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg> },
-                        { title: "Scalability", desc: "Scale effortlessly as your business grows", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg> },
-                        { title: "Simplicity", desc: "Experience a smooth, transparent, and stress-free outsourcing process", icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
+                        {
+                            title: "Cost Efficiency",
+                            desc: "Save up to 60% on development costs without compromising on quality",
+                            gradient: "from-emerald-500 to-teal-600",
+                            bgGradient: "from-emerald-50 to-teal-50",
+                            icon: <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+                            number: "01"
+                        },
+                        {
+                            title: "Rapid Assembly",
+                            desc: "Build a high-performance remote team in days—not months",
+                            gradient: "from-blue-500 to-indigo-600",
+                            bgGradient: "from-blue-50 to-indigo-50",
+                            icon: <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>,
+                            number: "02"
+                        },
+                        {
+                            title: "Top-Tier Talent",
+                            desc: "Work with elite developers trained in global standards and best practices",
+                            gradient: "from-purple-500 to-pink-600",
+                            bgGradient: "from-purple-50 to-pink-50",
+                            icon: <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+                            number: "03"
+                        },
+                        {
+                            title: "Agile Speed",
+                            desc: "Enjoy faster delivery timelines powered by agile methodologies and execution",
+                            gradient: "from-orange-500 to-red-600",
+                            bgGradient: "from-orange-50 to-red-50",
+                            icon: <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+                            number: "04"
+                        },
+                        {
+                            title: "Scalability",
+                            desc: "Scale your team and infrastructure effortlessly as your business grows",
+                            gradient: "from-cyan-500 to-blue-600",
+                            bgGradient: "from-cyan-50 to-blue-50",
+                            icon: <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11l5-5m0 0l5 5m-5-5v12" /></svg>,
+                            number: "05"
+                        },
+                        {
+                            title: "Seamless Process",
+                            desc: "Experience a smooth, transparent, and stress-free outsourcing journey",
+                            gradient: "from-violet-500 to-purple-600",
+                            bgGradient: "from-violet-50 to-purple-50",
+                            icon: <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+                            number: "06"
+                        },
                     ].map((item, i) => (
-                        <div key={i} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 group">
-                            <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
-                                {item.icon}
+                        <FadeIn key={i} delay={i * 100}>
+                            <div className="relative bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-slate-100/50 group overflow-hidden h-full">
+                                {/* Gradient background overlay */}
+                                <div className={`absolute inset-0 bg-gradient-to-br ${item.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`}></div>
+
+                                {/* Number badge */}
+                                <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-400 group-hover:bg-white group-hover:text-brand-orange transition-all duration-300 z-10">
+                                    {item.number}
+                                </div>
+
+                                {/* Icon with gradient */}
+                                <div className={`relative w-16 h-16 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-md group-hover:shadow-xl z-10`}>
+                                    <div className="text-white">
+                                        {item.icon}
+                                    </div>
+                                </div>
+
+                                {/* Content */}
+                                <div className="relative z-10">
+                                    <h4 className="text-2xl font-extrabold text-brand-dark mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-brand-orange group-hover:to-blue-600 transition-all duration-300">
+                                        {item.title}
+                                    </h4>
+                                    <p className="text-slate-600 leading-relaxed text-base group-hover:text-slate-700">
+                                        {item.desc}
+                                    </p>
+                                </div>
+
+                                {/* Decorative corner element */}
+                                <div className={`absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-to-br ${item.gradient} rounded-full opacity-5 group-hover:opacity-10 transition-opacity duration-500`}></div>
                             </div>
-                            <h4 className="text-xl font-bold text-brand-dark mb-3">{item.title}</h4>
-                            <p className="text-slate-600">{item.desc}</p>
-                        </div>
+                        </FadeIn>
                     ))}
                 </div>
-                <p className="text-center text-xl font-bold text-brand-orange mt-16 max-w-2xl mx-auto border-t border-slate-200 pt-8">
-                    We don’t just write code. We build your competitive advantage.
-                </p>
+
+                {/* Bottom CTA with enhanced styling */}
+                <div className="mt-16 text-center">
+                    <div className="inline-block bg-gradient-to-r from-brand-orange/5 to-blue-500/5 backdrop-blur-sm border border-brand-orange/20 rounded-2xl p-8 shadow-lg max-w-3xl mx-auto">
+                        <p className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-red-500 to-blue-600 mb-2">
+                            We don't just write code.
+                        </p>
+                        <p className="text-xl md:text-2xl font-bold text-brand-dark">
+                            We build your competitive advantage.
+                        </p>
+                    </div>
+                </div>
             </div>
         </Section>
     );
