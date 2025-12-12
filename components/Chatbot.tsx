@@ -141,9 +141,15 @@ const Chatbot: React.FC = () => {
 
             setMessages(prev => [...prev, { role: 'model', text: modelResponse }]);
 
-        } catch (error) {
-            console.error("Error sending message to proxy:", error);
-            setMessages(prev => [...prev, { role: 'model', text: "I'm sorry, I encountered an error. Please check the server configuration and try again." }]);
+        } catch (error: any) {
+            console.error("Chat Error:", error);
+            const errorMessage = error.message || "I'm sorry, I encountered an error.";
+            // If it's the specific config error, guide the user
+            const displayText = errorMessage.includes("GEMINI_API_KEY")
+                ? "System Error: The Google Gemini API Key is missing in Vercel Environment Variables."
+                : errorMessage.includes("404") ? "System Error: API route not found. Check deployment." : "I'm sorry, I encountered an error. Please check the system resources.";
+
+            setMessages(prev => [...prev, { role: 'model', text: displayText }]);
         } finally {
             setIsLoading(false);
         }

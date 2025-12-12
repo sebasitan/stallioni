@@ -1,5 +1,4 @@
-
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { PORTFOLIO_ITEMS } from '../constants';
 import { PortfolioCategory, Industry, PortfolioItem } from '../types';
 import FadeIn from '../components/FadeIn';
@@ -91,90 +90,64 @@ const getCountryCode = (location: string) => {
     return 'un';
 };
 
-const FilterSidebar: React.FC<{
-    filters: any;
-    setFilters: React.Dispatch<React.SetStateAction<any>>;
-    availableIndustries: Industry[];
-    availableTechnologies: string[];
-}> = ({ filters, setFilters, availableIndustries, availableTechnologies }) => {
+// New Dropdown Component for Top Filters
+const FilterDropdown: React.FC<{
+    label: string;
+    options: string[];
+    selected: string[];
+    onChange: (option: string) => void;
+}> = ({ label, options, selected, onChange }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const handleIndustryChange = (industry: Industry) => {
-        setFilters(prev => {
-            const newIndustries = prev.industries.includes(industry)
-                ? prev.industries.filter((i: Industry) => i !== industry)
-                : [...prev.industries, industry];
-            return { ...prev, industries: newIndustries };
-        });
-    };
-
-    const handleTechnologyChange = (tech: string) => {
-        setFilters(prev => {
-            const newTechs = prev.technologies.includes(tech)
-                ? prev.technologies.filter((t: string) => t !== tech)
-                : [...prev.technologies, tech];
-            return { ...prev, technologies: newTechs };
-        });
-    };
-
-    const Checkbox: React.FC<{ label: string; checked: boolean; onChange: () => void }> = ({ label, checked, onChange }) => (
-        <label className="flex items-center space-x-3 cursor-pointer group py-1.5 hover:bg-slate-50 rounded px-2 -mx-2 transition-colors">
-            <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${checked ? 'bg-brand-orange border-brand-orange' : 'border-slate-300 bg-white group-hover:border-brand-orange/50'}`}>
-                {checked && <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
-            </div>
-            <span className={`text-slate-700 text-sm group-hover:text-brand-dark transition-colors ${checked ? 'font-semibold' : ''}`}>{label}</span>
-        </label>
-    );
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden sticky top-24">
-            <div className="p-5 bg-slate-50 border-b border-slate-200">
-                <h2 className="font-bold text-brand-dark flex items-center gap-2">
-                    <svg className="w-5 h-5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
-                    Refine Results
-                </h2>
-            </div>
+        <div className="relative" ref={dropdownRef}>
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all text-sm font-semibold whitespace-nowrap ${selected.length > 0
+                        ? 'bg-brand-orange text-white border-brand-orange hover:bg-opacity-90 shadow-md'
+                        : 'bg-white text-slate-700 border-slate-300 hover:border-brand-orange hover:text-brand-orange'
+                    }`}
+            >
+                <span>{label}</span>
+                {selected.length > 0 && (
+                    <span className="bg-white text-brand-orange text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                        {selected.length}
+                    </span>
+                )}
+                <svg className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
 
-            <div className="divide-y divide-slate-100">
-                {/* Industry Filter Accordion */}
-                <details className="group" open>
-                    <summary className="flex justify-between items-center font-bold p-5 cursor-pointer hover:bg-slate-50 transition-colors text-slate-800 list-none">
-                        <span>Industry</span>
-                        <span className="transition group-open:rotate-180">
-                            <svg fill="none" height="20" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                    </summary>
-                    <div className="px-5 pb-5 pt-0 space-y-1 max-h-60 overflow-y-auto no-scrollbar">
-                        {availableIndustries.map(industry => (
-                            <Checkbox key={industry} label={industry} checked={filters.industries.includes(industry)} onChange={() => handleIndustryChange(industry)} />
+            {isOpen && (
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 z-50 animate-fade-in p-2">
+                    <div className="max-h-64 overflow-y-auto no-scrollbar space-y-1">
+                        {options.map(option => (
+                            <label key={option} className="flex items-center space-x-3 px-3 py-2 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
+                                <div className={`w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 transition-colors ${selected.includes(option) ? 'bg-brand-orange border-brand-orange' : 'border-slate-300 bg-white'}`}>
+                                    {selected.includes(option) && <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                                </div>
+                                <span className={`text-sm text-slate-700 ${selected.includes(option) ? 'font-semibold' : ''}`}>{option}</span>
+                                <input
+                                    type="checkbox"
+                                    className="hidden"
+                                    checked={selected.includes(option)}
+                                    onChange={() => onChange(option)}
+                                />
+                            </label>
                         ))}
                     </div>
-                </details>
-
-                {/* Technology Filter Accordion */}
-                <details className="group" open>
-                    <summary className="flex justify-between items-center font-bold p-5 cursor-pointer hover:bg-slate-50 transition-colors text-slate-800 list-none">
-                        <span>Technology</span>
-                        <span className="transition group-open:rotate-180">
-                            <svg fill="none" height="20" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                    </summary>
-                    <div className="px-5 pb-5 pt-0 space-y-1 max-h-60 overflow-y-auto no-scrollbar">
-                        {availableTechnologies.map(tech => (
-                            <Checkbox key={tech} label={tech} checked={filters.technologies.includes(tech)} onChange={() => handleTechnologyChange(tech)} />
-                        ))}
-                    </div>
-                </details>
-            </div>
-
-            {(filters.industries.length > 0 || filters.technologies.length > 0) && (
-                <div className="p-4 bg-slate-50 border-t border-slate-200 text-center">
-                    <button
-                        onClick={() => setFilters(prev => ({ ...prev, industries: [], technologies: [] }))}
-                        className="text-sm font-semibold text-red-500 hover:text-red-700 transition-colors flex items-center justify-center gap-1 mx-auto"
-                    >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                        Clear Filters
-                    </button>
                 </div>
             )}
         </div>
@@ -212,16 +185,42 @@ const PortfolioPage: React.FC = () => {
         setFilters(prev => ({ ...prev, category }));
     };
 
+    const handleIndustryChange = (industry: string) => {
+        setFilters(prev => {
+            const newIndustries = prev.industries.includes(industry as Industry)
+                ? prev.industries.filter(i => i !== industry)
+                : [...prev.industries, industry as Industry];
+            return { ...prev, industries: newIndustries };
+        });
+    };
+
+    const handleTechnologyChange = (tech: string) => {
+        setFilters(prev => {
+            const newTechs = prev.technologies.includes(tech)
+                ? prev.technologies.filter(t => t !== tech)
+                : [...prev.technologies, tech];
+            return { ...prev, technologies: newTechs };
+        });
+    };
+
+    const clearFilters = () => {
+        setFilters({ category: 'All', industries: [], technologies: [] });
+        setSearchQuery('');
+    };
+
     return (
         <div className="bg-slate-50 min-h-screen">
             <PageHeader />
 
-            {/* Top Bar: Tabs & Search */}
-            <div className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-                <div className="container mx-auto px-6 py-4">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        {/* Scrollable Categories */}
-                        <div className="overflow-x-auto pb-2 md:pb-0 no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
+            {/* Unified Top Control Bar */}
+            <div className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm transition-all duration-300">
+                <div className="container mx-auto px-6 py-6 space-y-6">
+
+                    {/* Top Row: Categories & Search */}
+                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+
+                        {/* Categories (Horizontal Scroll) */}
+                        <div className="overflow-x-auto pb-2 lg:pb-0 no-scrollbar -mx-6 px-6 lg:mx-0 lg:px-0">
                             <div className="flex space-x-2">
                                 {categoryFilters.map(cat => (
                                     <button
@@ -239,70 +238,84 @@ const PortfolioPage: React.FC = () => {
                         </div>
 
                         {/* Search Bar */}
-                        <div className="relative w-full md:w-80 flex-shrink-0 group">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <div className="relative w-full lg:w-96 flex-shrink-0 group">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                 <svg className="h-5 w-5 text-slate-400 group-focus-within:text-brand-orange transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
                             <input
                                 type="text"
-                                className="block w-full pl-10 pr-3 py-2.5 border border-slate-200 rounded-full leading-5 bg-slate-50 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition-all duration-200 sm:text-sm"
-                                placeholder="Search case studies..."
+                                className="block w-full pl-11 pr-4 py-3 border border-slate-200 rounded-full leading-5 bg-slate-50 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition-all duration-200"
+                                placeholder="Search by name, tech, or keywords..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
+                    </div>
+
+                    {/* Bottom Row: Detailed Filters */}
+                    <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-slate-100">
+                        <span className="text-sm font-bold text-slate-400 uppercase tracking-wider mr-2">Filter By:</span>
+
+                        <FilterDropdown
+                            label="Industry"
+                            options={availableIndustries}
+                            selected={filters.industries}
+                            onChange={handleIndustryChange}
+                        />
+
+                        <FilterDropdown
+                            label="Technology"
+                            options={availableTechnologies}
+                            selected={filters.technologies}
+                            onChange={handleTechnologyChange}
+                        />
+
+                        {(filters.industries.length > 0 || filters.technologies.length > 0 || filters.category !== 'All' || searchQuery) && (
+                            <button
+                                onClick={clearFilters}
+                                className="ml-auto text-sm font-bold text-red-500 hover:text-red-600 transition-colors flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-red-50"
+                            >
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                                Clear All
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
 
             <section className="py-12 md:py-16">
                 <div className="container mx-auto px-6 max-w-screen-xl">
-                    <div className="flex flex-col lg:flex-row gap-8">
-
-                        {/* Sidebar */}
-                        <aside className="lg:w-1/4 xl:w-1/5 flex-shrink-0">
-                            <div className="lg:sticky lg:top-24">
-                                <FilterSidebar
-                                    filters={filters}
-                                    setFilters={setFilters}
-                                    availableIndustries={availableIndustries}
-                                    availableTechnologies={availableTechnologies}
-                                />
-                            </div>
-                        </aside>
-
-                        {/* Main Grid */}
-                        <main className="lg:w-3/4 xl:w-4/5 flex-grow">
-                            {/* Active Filters Display could go here if needed */}
+                    <div className="flex flex-col">
+                        <main className="w-full">
 
                             {filteredItems.length > 0 ? (
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                                    {filteredItems.map((item, index) => (
-                                        <FadeIn key={item.id} delay={index * 50}>
-                                            <PortfolioCard item={item} />
-                                        </FadeIn>
-                                    ))}
-                                </div>
+                                <>
+                                    <p className="text-slate-500 mb-6 font-medium">Found <span className="text-brand-dark font-bold">{filteredItems.length}</span> success stories</p>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                                        {filteredItems.map((item, index) => (
+                                            <FadeIn key={item.id} delay={index * 50}>
+                                                <PortfolioCard item={item} />
+                                            </FadeIn>
+                                        ))}
+                                    </div>
+                                </>
                             ) : (
                                 <FadeIn>
-                                    <div className="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-slate-200 shadow-sm text-center px-4">
-                                        <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6">
-                                            <svg className="w-10 h-10 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <div className="flex flex-col items-center justify-center py-24 bg-white rounded-2xl border border-slate-200 shadow-sm text-center px-4">
+                                        <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mb-6">
+                                            <svg className="w-12 h-12 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         </div>
-                                        <h3 className="text-2xl font-bold text-brand-dark mb-2">No Projects Found</h3>
-                                        <p className="text-slate-500 max-w-sm mx-auto mb-8">
-                                            We couldn't find any case studies matching "<strong>{searchQuery}</strong>" with the selected filters.
+                                        <h3 className="text-2xl font-bold text-brand-dark mb-3">No Projects Found</h3>
+                                        <p className="text-slate-500 max-w-md mx-auto mb-8 text-lg">
+                                            We couldn't find any case studies matching your criteria. Try adjusting keywords or clearing some filters.
                                         </p>
                                         <button
-                                            onClick={() => {
-                                                setSearchQuery('');
-                                                setFilters({ category: 'All', industries: [], technologies: [] });
-                                            }}
-                                            className="px-6 py-2.5 bg-brand-orange text-white rounded-full font-bold hover:shadow-lg hover:bg-opacity-90 transition-all transform hover:-translate-y-1"
+                                            onClick={clearFilters}
+                                            className="px-8 py-3 bg-brand-orange text-white rounded-full font-bold hover:shadow-lg hover:bg-opacity-90 transition-all transform hover:-translate-y-1"
                                         >
                                             Clear All Filters
                                         </button>
@@ -318,4 +331,3 @@ const PortfolioPage: React.FC = () => {
 };
 
 export default PortfolioPage;
-
