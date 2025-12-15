@@ -124,300 +124,300 @@ const CareersPage: React.FC = () => {
     ];
 
     return (
-        <>
-            {/* HERO SECTION */}
-            <div className="bg-brand-dark text-white py-20 md:py-28">
-                <div className="container mx-auto px-6 max-w-7xl">
+        <div className="bg-slate-50 min-h-screen">
+            {/* HERRO SECTION */}
+            <div className="relative bg-brand-dark text-white pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
+                {/* Abstract Background Shapes */}
+                <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+                   <div className="absolute -top-[20%] -right-[10%] w-[700px] h-[700px] bg-brand-orange/10 rounded-full blur-3xl"></div>
+                   <div className="absolute bottom-[10%] -left-[10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl"></div>
+                </div>
+
+                <div className="relative container mx-auto px-6 max-w-7xl z-10 text-center">
                     <FadeIn>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-                            Careers at Stallioni – Join Our Global Remote Talent Network
+                        <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-brand-orange text-sm font-bold tracking-wider mb-6">
+                            WE ARE HIRING
+                        </span>
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 tracking-tight leading-tight">
+                            Join Our Global <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-400">Talent Network</span>
                         </h1>
-                        <div className="h-1 w-24 bg-brand-orange mb-8"></div>
-                        <div className="max-w-4xl text-lg md:text-xl text-slate-200 space-y-4 leading-relaxed">
-                            <p>
-                                At <strong className="text-white">STALLIONI NET SOLUTIONS</strong>, we believe great products are built by great people — wherever they are in the world.
-                            </p>
-                            <p>
-                                We work with talented freelancers and contract-based developers who want to build innovative digital solutions for global clients.
-                            </p>
-                            <p>
-                                If you're driven, passionate, and ready to work on exciting international projects, you're in the right place.
-                            </p>
-                            <p className="text-brand-orange font-semibold text-2xl mt-6">
-                                Join a company that values flexibility, creativity, and technical excellence.
-                            </p>
-                        </div>
+                        <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+                            At Stallioni, we don't just build software; we craft digital experiences. We're looking for passionate freelancers and contract developers ready to make an impact on a global scale.
+                        </p>
                     </FadeIn>
                 </div>
             </div>
 
             {/* WHY WORK WITH US */}
-            <section className="py-16 md:py-24 bg-white">
+            <section className="py-20 md:py-32 relative">
                 <div className="container mx-auto px-6 max-w-7xl">
                     <FadeIn>
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-brand-dark mb-6 text-center">
-                            Why Work With Stallioni?
-                        </h2>
-                        <p className="text-xl text-slate-700 mb-12 text-center max-w-4xl mx-auto">
-                            We offer a work environment that empowers freelancers and contract developers to grow fast and work on meaningful digital products.
-                        </p>
-
-                        <div className="mt-16">
-                            <h3 className="text-2xl md:text-3xl font-bold text-brand-dark mb-8 text-center">
-                                Benefits of Working With Us
-                            </h3>
-
-                            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                                {[
-                                    { icon: '🌍', text: '100% Remote Work – work from anywhere' },
-                                    { icon: '📝', text: 'Flexible project-based contracts' },
-                                    { icon: '🌎', text: 'Opportunity to work with global clients (USA, UK, Middle East, Australia)' },
-                                    { icon: '💰', text: 'Fast payments & transparent communication' },
-                                    { icon: '🚀', text: 'Exposure to cutting-edge technologies & real-world projects' },
-                                    { icon: '🤝', text: 'Supportive project managers & collaborative teams' },
-                                    { icon: '⭐', text: 'Long-term contract opportunities for consistent performers' }
-                                ].map((benefit, idx) => (
-                                    <div key={idx} className="flex items-start gap-4 bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-shadow">
-                                        <span className="text-4xl">{benefit.icon}</span>
-                                        <p className="text-lg text-slate-700 font-medium">{benefit.text}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <p className="text-2xl font-bold text-center text-brand-orange mt-12 italic">
-                                At Stallioni, you don't just work — you grow, you innovate, you build the future.
-                            </p>
-                        </div>
-                    </FadeIn>
-                </div>
-            </section>
-
-            {/* CURRENT OPEN POSITIONS */}
-            <section className="py-16 md:py-24 bg-gray-50">
-                <div className="container mx-auto px-6 max-w-7xl">
-                    <FadeIn>
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-brand-dark mb-4">
-                                Current Open Positions
+                        <div className="text-center mb-20">
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-dark mb-6">
+                                Why Choose Stallioni?
                             </h2>
-                            <p className="text-xl text-slate-600">
-                                <span className="font-semibold">(Freelance / Contract Only)</span>
-                            </p>
-                            <p className="text-lg text-slate-600 mt-4 max-w-3xl mx-auto">
-                                Below are the roles we're currently hiring for. If your skills match, apply today and start working on exciting international projects.
+                            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                                We believe in empowering our team with the freedom to work from anywhere while tackling challenging, high-impact projects.
                             </p>
                         </div>
 
-                        {/* JOB LISTINGS */}
-                        <div className="space-y-8 max-w-6xl mx-auto">
-                            {jobs.map((job, idx) => (
-                                <FadeIn key={job.id} delay={idx * 100}>
-                                    <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow">
-                                        <div className="p-8 md:p-10">
-                                            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                                                <div>
-                                                    <h2 className="text-3xl font-extrabold text-brand-dark mb-2">
-                                                        {job.title}
-                                                    </h2>
-                                                    <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
-                                                        {job.type}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            {/* RESPONSIBILITIES */}
-                                            <div className="mb-8">
-                                                <h3 className="text-xl font-bold text-brand-dark mb-4">Responsibilities</h3>
-                                                <ul className="space-y-3">
-                                                    {job.responsibilities.map((item, i) => (
-                                                        <li key={i} className="flex items-start gap-3">
-                                                            <svg className="w-6 h-6 text-brand-orange flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                                            </svg>
-                                                            <span className="text-slate-700">{item}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-
-                                            {/* REQUIREMENTS */}
-                                            <div className="mb-8">
-                                                <h3 className="text-xl font-bold text-brand-dark mb-4">Requirements</h3>
-                                                <ul className="space-y-3">
-                                                    {job.requirements.map((item, i) => (
-                                                        <li key={i} className="flex items-start gap-3">
-                                                            <svg className="w-6 h-6 text-brand-orange flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                                            </svg>
-                                                            <span className="text-slate-700">{item}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-
-                                            <button
-                                                onClick={() => handleApply(job.title)}
-                                                className="bg-brand-orange text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
-                                            >
-                                                Apply for {job.title}
-                                            </button>
-                                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {[
+                                { icon: '🌍', title: '100% Remote', desc: 'Work from the comfort of your home or anywhere in the world.' },
+                                { icon: '📝', title: 'Flexible Contracts', desc: 'Project-based engagements that fit your schedule and lifestyle.' },
+                                { icon: '🚀', title: 'Global Impact', desc: 'Collaborate with clients from the USA, UK, Middle East, and Australia.' },
+                                { icon: '💰', title: 'Competitive Pay', desc: 'Transparent, timely payments for your hard work and expertise.' },
+                                { icon: '⚡', title: 'Cutting Edge', desc: 'Work with the latest tech stacks and modern development practices.' },
+                                { icon: '🌱', title: 'Career Growth', desc: 'Long-term opportunities for consistent, high-performing partners.' }
+                            ].map((benefit, idx) => (
+                                <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group">
+                                    <div className="text-4xl mb-6 bg-slate-50 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                        {benefit.icon}
                                     </div>
-                                </FadeIn>
+                                    <h3 className="text-xl font-bold text-brand-dark mb-3 group-hover:text-brand-orange transition-colors">
+                                        {benefit.title}
+                                    </h3>
+                                    <p className="text-slate-600 leading-relaxed">
+                                        {benefit.desc}
+                                    </p>
+                                </div>
                             ))}
                         </div>
                     </FadeIn>
                 </div>
             </section>
 
-            {/* CTA SECTION */}
-            <section className="py-16 md:py-24 bg-brand-dark text-white">
-                <div className="container mx-auto px-6 max-w-5xl text-center">
+            {/* CURRENT OPEN POSITIONS */}
+            <section className="py-20 md:py-32 bg-white relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-slate-50 to-white"></div>
+                <div className="container mx-auto px-6 max-w-7xl relative">
                     <FadeIn>
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6">
-                            Build Your Future with Stallioni
-                        </h2>
-                        <p className="text-xl md:text-2xl text-slate-300 mb-8 leading-relaxed">
-                            Whether you're a WordPress expert, React specialist, PHP engineer, or AI developer, Stallioni gives you the platform to work on real projects that make an impact — with the freedom of freelancing.
-                        </p>
-                        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-10 max-w-3xl mx-auto">
-                            <p className="text-2xl font-bold mb-4">We're not just offering jobs.</p>
-                            <p className="text-xl text-slate-300">
-                                We're offering opportunities, growth, and long-term partnerships.
-                            </p>
+                        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                            <div className="max-w-2xl">
+                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-dark mb-4">
+                                    Open Positions
+                                </h2>
+                                <p className="text-lg text-slate-600">
+                                    Ready to start your next chapter? Explore our current freelance and contract opportunities.
+                                </p>
+                            </div>
+                            <div className="hidden md:block">
+                                <span className="text-sm font-semibold text-brand-orange bg-brand-orange/10 px-4 py-2 rounded-full">
+                                    {jobs.length} roles available
+                                </span>
+                            </div>
                         </div>
-                        <button
-                            onClick={() => {
-                                setApplicationForm({ position: 'General Application', show: true });
-                                setTimeout(() => document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' }), 100);
-                            }}
-                            className="inline-flex items-center gap-3 bg-brand-orange text-white font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-2xl hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 text-lg"
-                        >
-                            <span>Apply Today — Join Our Remote Global Talent Network</span>
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </button>
+
+                        <div className="grid gap-8">
+                            {jobs.map((job, idx) => (
+                                <div key={job.id} className="group relative">
+                                    <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-orange to-purple-600 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 blur-sm"></div>
+                                    <div className="relative bg-white rounded-2xl border border-slate-200 p-8 md:p-10 shadow-sm hover:shadow-lg transition-all duration-300">
+                                        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+                                            <div className="flex-1">
+                                                <div className="flex flex-wrap items-center gap-3 mb-4">
+                                                    <h3 className="text-2xl md:text-3xl font-bold text-brand-dark">
+                                                        {job.title}
+                                                    </h3>
+                                                    <span className="bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                                                        {job.type}
+                                                    </span>
+                                                </div>
+                                                
+                                                <div className="grid md:grid-cols-2 gap-8 mt-8">
+                                                    <div>
+                                                        <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">You Will Do</h4>
+                                                        <ul className="space-y-3">
+                                                            {job.responsibilities.map((resp, i) => (
+                                                                <li key={i} className="flex items-baseline gap-3 text-slate-600">
+                                                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange mt-2 flex-shrink-0"></span>
+                                                                    <span>{resp}</span>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">You Should Have</h4>
+                                                        <ul className="space-y-3">
+                                                            {job.requirements.map((req, i) => (
+                                                                <li key={i} className="flex items-baseline gap-3 text-slate-600">
+                                                                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2 flex-shrink-0"></span>
+                                                                    <span>{req}</span>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="lg:mt-2">
+                                                <button
+                                                    onClick={() => handleApply(job.title)}
+                                                    className="w-full lg:w-auto bg-brand-dark text-white font-bold py-4 px-8 rounded-xl hover:bg-brand-orange transition-colors duration-300 shadow-lg whitespace-nowrap"
+                                                >
+                                                    Apply Now
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </FadeIn>
                 </div>
             </section>
 
-            {/* APPLICATION FORM */}
-            {applicationForm.show && (
-                <section id="application-form" className="py-16 bg-gray-50">
-                    <div className="container mx-auto px-6 max-w-3xl">
+             {/* Application Form Section/Modal Area */}
+            <div id="application-form" className={`transition-all duration-500 ease-in-out ${applicationForm.show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none absolute bottom-0 left-0 w-full'}`}>
+               {applicationForm.show && (
+                <section className="py-24 bg-slate-50 border-t border-slate-200">
+                    <div className="container mx-auto px-6 max-w-4xl">
                         <FadeIn>
-                            <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
-                                <div className="text-center mb-8">
-                                    <h3 className="text-3xl font-extrabold text-brand-dark mb-2">
-                                        Apply for {applicationForm.position}
+                            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
+                                <div className="bg-brand-dark p-10 text-center relative overflow-hidden">
+                                     <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                                    <h3 className="text-3xl font-bold text-white mb-2 relative z-10">
+                                        Apply for <span className="text-brand-orange">{applicationForm.position}</span>
                                     </h3>
-                                    <p className="text-slate-600">We're excited to hear from you!</p>
+                                    <p className="text-slate-300 relative z-10">Please fill out the form below to get started.</p>
                                 </div>
+                                
+                                <div className="p-10 md:p-14">
+                                    <form onSubmit={handleSubmit} className="space-y-8">
+                                        <input type="hidden" name="_subject" value={`New Application: ${applicationForm.position}`} />
+                                        <input type="hidden" name="_captcha" value="false" />
+                                        <input type="text" name="_honey" style={{ display: 'none' }} />
+                                        <input type="hidden" name="position" value={applicationForm.position} />
 
-                                <form onSubmit={handleSubmit} className="space-y-6">
-                                    <input type="hidden" name="_subject" value={`New Application: ${applicationForm.position}`} />
-                                    <input type="hidden" name="_captcha" value="false" />
-                                    <input type="text" name="_honey" style={{ display: 'none' }} />
-                                    <input type="hidden" name="position" value={applicationForm.position} />
+                                        <div className="grid md:grid-cols-2 gap-8">
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Full Name</label>
+                                                <input
+                                                    type="text"
+                                                    name="name"
+                                                    required
+                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
+                                                    placeholder="Jane Doe"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Email Address</label>
+                                                <input
+                                                    type="email"
+                                                    name="email"
+                                                    required
+                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
+                                                    placeholder="jane@example.com"
+                                                />
+                                            </div>
+                                        </div>
 
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Full Name *</label>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                required
-                                                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange transition"
-                                                placeholder="John Doe"
-                                            />
+                                        <div className="grid md:grid-cols-2 gap-8">
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Phone (Optional)</label>
+                                                <input
+                                                    type="tel"
+                                                    name="phone"
+                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
+                                                    placeholder="+1 (555) 000-0000"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">LinkedIn Profile</label>
+                                                <input
+                                                    type="url"
+                                                    name="linkedin"
+                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
+                                                    placeholder="https://linkedin.com/in/..."
+                                                />
+                                            </div>
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Email *</label>
-                                            <input
-                                                type="email"
-                                                name="email"
-                                                required
-                                                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange transition"
-                                                placeholder="john@example.com"
-                                            />
-                                        </div>
-                                    </div>
 
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        <div>
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
-                                            <input
-                                                type="tel"
-                                                name="phone"
-                                                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange transition"
-                                                placeholder="+1 234 567 8900"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">LinkedIn Profile</label>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Portfolio / GitHub</label>
                                             <input
                                                 type="url"
-                                                name="linkedin"
-                                                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange transition"
-                                                placeholder="https://linkedin.com/in/..."
+                                                name="portfolio"
+                                                className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
+                                                placeholder="https://github.com/..."
                                             />
                                         </div>
-                                    </div>
 
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Portfolio/GitHub URL</label>
-                                        <input
-                                            type="url"
-                                            name="portfolio"
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange transition"
-                                            placeholder="https://github.com/username or https://portfolio.com"
-                                        />
-                                    </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Resume (PDF, DOC)</label>
+                                            <div className="relative">
+                                                <input
+                                                    type="file"
+                                                    name="attachment"
+                                                    accept=".pdf,.doc,.docx"
+                                                    required
+                                                    className="w-full cursor-pointer file:mr-5 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 text-slate-500 font-medium p-2 border border-slate-200 rounded-xl bg-slate-50 decoration-none"
+                                                />
+                                            </div>
+                                        </div>
 
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Resume/CV (PDF, DOC, DOCX) *</label>
-                                        <input
-                                            type="file"
-                                            name="attachment"
-                                            accept=".pdf,.doc,.docx"
-                                            required
-                                            className="w-full text-sm text-slate-600 file:mr-4 file:py-3 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-opacity-90 file:cursor-pointer"
-                                        />
-                                    </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Cover Letter</label>
+                                            <textarea
+                                                name="message"
+                                                rows={5}
+                                                className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
+                                                placeholder="Tell us what makes you unique..."
+                                            ></textarea>
+                                        </div>
 
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Cover Letter / Message</label>
-                                        <textarea
-                                            name="message"
-                                            rows={6}
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange transition"
-                                            placeholder="Tell us why you're a great fit for this role..."
-                                        ></textarea>
-                                    </div>
-
-                                    <div className="flex gap-4 justify-end">
-                                        <button
-                                            type="button"
-                                            onClick={() => setApplicationForm({ position: '', show: false })}
-                                            className="px-8 py-3 border-2 border-gray-300 text-slate-700 font-semibold rounded-full hover:bg-gray-50 transition"
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="px-8 py-3 bg-brand-orange text-white font-bold rounded-full hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
-                                        >
-                                            Submit Application
-                                        </button>
-                                    </div>
-                                </form>
+                                        <div className="flex items-center justify-end gap-6 pt-6">
+                                            <button
+                                                type="button"
+                                                onClick={() => setApplicationForm({ position: '', show: false })}
+                                                className="px-6 py-3 font-bold text-slate-500 hover:text-slate-800 transition-colors"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                type="submit"
+                                                className="px-10 py-4 bg-brand-orange text-white font-bold rounded-xl shadow-lg hover:shadow-brand-orange/40 hover:-translate-y-1 transition-all duration-300"
+                                            >
+                                                Submit Application
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </FadeIn>
                     </div>
                 </section>
+               )}
+            </div>
+
+            {/* GENERAL CTA SECTION */}
+            {!applicationForm.show && (
+                <section className="bg-brand-dark text-white py-24 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5 mix-blend-overlay"></div>
+                    <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
+                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-brand-orange text-sm font-bold mb-8">
+                            <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+                            Always Scouting Talent
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
+                            Don't see the right fit?
+                        </h2>
+                        <p className="text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl mx-auto">
+                            We are constantly growing. Send us your general application and we'll keep you in mind for future opportunities.
+                        </p>
+                        <button
+                             onClick={() => {
+                                setApplicationForm({ position: 'General Application', show: true });
+                                setTimeout(() => document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' }), 100);
+                            }}
+                            className="bg-white text-brand-dark font-bold py-4 px-10 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 shadow-2xl hover:shadow-brand-orange/50 text-lg"
+                        >
+                            Submit General Application
+                        </button>
+                    </div>
+                </section>
             )}
-        </>
+        </div>
     );
 };
 

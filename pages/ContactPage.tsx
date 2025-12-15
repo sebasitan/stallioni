@@ -239,14 +239,14 @@ const ContactPage: React.FC = () => {
                                     <h3 className="text-xl font-bold text-brand-dark mb-4">Our Locations</h3>
                                     <div className="h-48 bg-slate-100 rounded-lg overflow-hidden">
                                         <iframe
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.991232811927!2d77.11352427587756!3d11.22238385150868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f50f2f3513a9%3A0x194a50682859e984!2sStallioni%20Technology!5e0!3m2!1sen!2sin!4v1720108342790!5m2!1sen!2sin"
+                                            src="https://maps.google.com/maps?q=Stallioni%20Net%20Solutions%20Annur&t=&z=13&ie=UTF8&iwloc=&output=embed"
                                             width="100%"
                                             height="100%"
                                             style={{ border: 0 }}
                                             allowFullScreen={true}
                                             loading="lazy"
                                             referrerPolicy="no-referrer-when-downgrade"
-                                            title="Stallioni Headquarters Location"
+                                            title="Stallioni Net Solutions Location"
                                         ></iframe>
                                     </div>
                                     <div className="mt-4">
