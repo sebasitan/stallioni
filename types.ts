@@ -41,7 +41,7 @@ export enum Industry {
 }
 
 export interface PortfolioItem {
-  id: number;
+  id: string | number;
   title: string;
   category: PortfolioCategory;
   industry: Industry;
@@ -53,7 +53,7 @@ export interface PortfolioItem {
 }
 
 export interface BlogPost {
-  id: number;
+  id: string | number;
   title: string;
   category: string;
   imageUrl: string;

@@ -7,13 +7,102 @@ export interface JobOpening {
     status: 'open' | 'closed';
 }
 
+
+
 const STORAGE_KEY = 'stallioni_jobs';
+
+const INITIAL_JOBS: JobOpening[] = [
+    {
+        id: 'wordpress-developer',
+        title: 'WordPress Developer',
+        type: 'Freelance / Contract',
+        responsibilities: [
+            'Build custom WordPress websites, themes, and plugins',
+            'Optimize website speed, SEO structure, and security',
+            'Work with ACF, Elementor, Divi, WPBakery, or custom builders',
+            'Handle migrations, bug fixes, and WordPress updates',
+            'Collaborate with designers and backend developers'
+        ],
+        requirements: [
+            '2+ years of WordPress development experience',
+            'Strong PHP & MySQL fundamentals',
+            'Experience with APIs, WooCommerce, and custom post types',
+            'Clear communication & ability to meet deadlines',
+            'Portfolio of previous WordPress projects'
+        ],
+        status: 'open'
+    },
+    {
+        id: 'react-developer',
+        title: 'React Developer',
+        type: 'Freelance / Contract',
+        responsibilities: [
+            'Build modern, responsive front-end applications using React',
+            'Integrate APIs and work with backend teams',
+            'Optimize components for speed & performance',
+            'Convert UI/UX designs into functional code',
+            'Write reusable components and modular architecture'
+        ],
+        requirements: [
+            '2+ years of experience with React.js',
+            'Strong JavaScript, HTML, CSS',
+            'Experience with Redux, hooks, REST APIs',
+            'Familiarity with Git, Figma, and agile workflows',
+            'Strong problem-solving skills'
+        ],
+        status: 'open'
+    },
+    {
+        id: 'php-developer',
+        title: 'PHP Developer',
+        type: 'Freelance / Contract',
+        responsibilities: [
+            'Develop custom PHP applications',
+            'Maintain and optimize existing platforms',
+            'Work with MySQL databases and REST APIs',
+            'Debug, fix issues, and improve application performance',
+            'Collaborate with frontend and backend teams'
+        ],
+        requirements: [
+            '2+ years of experience with Core PHP or PHP frameworks',
+            'Strong knowledge of MySQL',
+            'Familiar with MVC architecture',
+            'Experience with Laravel or CodeIgniter is a plus',
+            'Ability to write clean, secure, optimized code'
+        ],
+        status: 'open'
+    },
+    {
+        id: 'ai-developer',
+        title: 'AI Developer',
+        type: 'Freelance / Contract',
+        responsibilities: [
+            'Build AI-driven tools, chatbots, automation scripts',
+            'Work with LLMs, AI APIs (OpenAI, Claude, Gemini, etc.)',
+            'Train and fine-tune machine learning models',
+            'Integrate AI features into web or mobile apps',
+            'Provide solutions for automation, prediction, analytics'
+        ],
+        requirements: [
+            'Strong understanding of Python & machine learning',
+            'Experience with AI APIs and frameworks (TensorFlow, PyTorch)',
+            'Ability to build prototypes quickly',
+            'Knowledge of prompt engineering & automation',
+            'Portfolio or sample AI projects preferred'
+        ],
+        status: 'open'
+    }
+];
 
 // Get all job openings
 export function getJobOpenings(): JobOpening[] {
     try {
         const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
+        if (!data) {
+            saveJobOpenings(INITIAL_JOBS);
+            return INITIAL_JOBS;
+        }
+        return JSON.parse(data);
     } catch (error) {
         console.error('Error loading jobs:', error);
         return [];

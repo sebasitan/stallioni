@@ -1,4 +1,5 @@
 import { BlogPost } from '../types';
+import { BLOG_POSTS } from '../constants';
 
 const STORAGE_KEY = 'stallioni_blog';
 
@@ -6,7 +7,19 @@ const STORAGE_KEY = 'stallioni_blog';
 export function getBlogPosts(): BlogPost[] {
     try {
         const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
+        if (!data) {
+            // Seed with initial data if empty
+            // We need to ensure we don't save just the reference, but a copy
+            const initialPosts = [...BLOG_POSTS];
+            // Format IDs to be consistent if needed, but constants have numeric 1. 
+            // Admin adds string IDs 'blog-timestamp'.
+            // Let's coerce IDs to strings to be safe for future edits
+            const formattedInitial = initialPosts.map(p => ({ ...p, id: p.id.toString() }));
+
+            saveBlogPosts(formattedInitial);
+            return formattedInitial;
+        }
+        return JSON.parse(data);
     } catch (error) {
         console.error('Error loading blog posts:', error);
         return [];

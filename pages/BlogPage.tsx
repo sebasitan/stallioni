@@ -1,6 +1,5 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { BLOG_POSTS } from '../constants';
 import { BlogPost } from '../types';
 import FadeIn from '../components/FadeIn';
 import { useNavigation } from '../App';
@@ -76,16 +75,9 @@ const BlogPage: React.FC = () => {
     const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
 
     useEffect(() => {
-        // combine static posts with dynamic posts from local storage
-        const dynamicPosts = getBlogPosts();
-        // Avoid duplicates if IDs clash, though dynamic IDs are timestamp based
-        // Priority to dynamic posts
-        const combined = [...dynamicPosts, ...BLOG_POSTS];
-
-        // Remove duplicates by ID just in case
-        const uniquePosts = Array.from(new Map(combined.map(item => [item.id, item])).values());
-
-        setAllPosts(uniquePosts);
+        // Fetch posts from local storage (which seeds itself with defaults if empty)
+        const storedPosts = getBlogPosts();
+        setAllPosts(storedPosts);
     }, []);
 
     const categories = useMemo(() => ['All', ...Array.from(new Set(allPosts.map(p => p.category)))], [allPosts]);

@@ -1,4 +1,5 @@
 import { PortfolioItem } from '../types';
+import { PORTFOLIO_ITEMS } from '../constants';
 
 const STORAGE_KEY = 'stallioni_portfolio';
 
@@ -6,7 +7,15 @@ const STORAGE_KEY = 'stallioni_portfolio';
 export function getPortfolioItems(): PortfolioItem[] {
     try {
         const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
+        if (!data) {
+            const initialItems = [...PORTFOLIO_ITEMS];
+            // Ensure IDs are handled as strings if we want consistency, but mixed is now allowed.
+            // Let's explicitly cast to match our new loose type
+            const formattedInitial = initialItems.map(p => ({ ...p, id: p.id.toString() }));
+            savePortfolioItems(formattedInitial);
+            return formattedInitial;
+        }
+        return JSON.parse(data);
     } catch (error) {
         console.error('Error loading portfolio:', error);
         return [];

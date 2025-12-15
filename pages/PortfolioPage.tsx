@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { PORTFOLIO_ITEMS } from '../constants';
 import { PortfolioCategory, Industry, PortfolioItem } from '../types';
 import FadeIn from '../components/FadeIn';
 import { getPortfolioItems } from '../utils/portfolioStorage';
@@ -180,13 +179,7 @@ const PortfolioPage: React.FC = () => {
     useEffect(() => {
         // combine static items with dynamic items from local storage
         const dynamicItems = getPortfolioItems();
-        // Priority to dynamic items
-        const combined = [...dynamicItems, ...PORTFOLIO_ITEMS];
-
-        // Remove duplicates by ID
-        const uniqueItems = Array.from(new Map(combined.map(item => [item.id, item])).values());
-
-        setAllItems(uniqueItems);
+        setAllItems(dynamicItems);
     }, []);
 
     const categoryFilters: ('All' | PortfolioCategory)[] = ['All', ...Object.values(PortfolioCategory)];
