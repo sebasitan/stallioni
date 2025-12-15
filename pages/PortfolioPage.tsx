@@ -2,6 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { PORTFOLIO_ITEMS } from '../constants';
 import { PortfolioCategory, Industry, PortfolioItem } from '../types';
 import FadeIn from '../components/FadeIn';
+import { getPortfolioItems } from '../utils/portfolioStorage';
 
 const PageHeader: React.FC = () => (
     <div className="relative bg-brand-dark pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden text-center">
@@ -174,13 +175,26 @@ const PortfolioPage: React.FC = () => {
         industries: [] as Industry[],
         technologies: [] as string[],
     });
+    const [allItems, setAllItems] = useState<PortfolioItem[]>([]);
+
+    useEffect(() => {
+        // combine static items with dynamic items from local storage
+        const dynamicItems = getPortfolioItems();
+        // Priority to dynamic items
+        const combined = [...dynamicItems, ...PORTFOLIO_ITEMS];
+
+        // Remove duplicates by ID
+        const uniqueItems = Array.from(new Map(combined.map(item => [item.id, item])).values());
+
+        setAllItems(uniqueItems);
+    }, []);
 
     const categoryFilters: ('All' | PortfolioCategory)[] = ['All', ...Object.values(PortfolioCategory)];
-    const availableIndustries = useMemo(() => [...new Set(PORTFOLIO_ITEMS.map(item => item.industry))].sort(), []);
-    const availableTechnologies = useMemo(() => [...new Set(PORTFOLIO_ITEMS.flatMap(item => item.technologies))].sort(), []);
+    const availableIndustries = useMemo(() => [...new Set(allItems.map(item => item.industry))].sort(), [allItems]);
+    const availableTechnologies = useMemo(() => [...new Set(allItems.flatMap(item => item.technologies))].sort(), [allItems]);
 
     const filteredItems = useMemo(() => {
-        return PORTFOLIO_ITEMS.filter(item => {
+        return allItems.filter(item => {
             const matchesSearch = searchQuery === '' ||
                 item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||

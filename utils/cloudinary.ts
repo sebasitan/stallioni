@@ -29,7 +29,17 @@ export async function uploadToCloudinary(file: File): Promise<string> {
         }
 
         const data = await response.json();
-        return data.secure_url;
+
+        // Optimize the URL for web usage
+        // Insert transformations after /upload/
+        // Transformations: f_auto (auto format), q_auto (auto quality), c_limit (limit size), w_1600 (max width 1600px)
+        let optimizedUrl = data.secure_url;
+        if (optimizedUrl.includes('/upload/')) {
+            const parts = optimizedUrl.split('/upload/');
+            optimizedUrl = `${parts[0]}/upload/f_auto,q_auto,c_limit,w_1600/${parts[1]}`;
+        }
+
+        return optimizedUrl;
     } catch (error) {
         console.error('Cloudinary upload error:', error);
         throw error;

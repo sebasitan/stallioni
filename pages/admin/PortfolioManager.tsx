@@ -6,12 +6,14 @@ import {
     updatePortfolioItem,
     deletePortfolioItem
 } from '../../utils/portfolioStorage';
+import { uploadToCloudinary } from '../../utils/cloudinary';
 
 const PortfolioManager: React.FC = () => {
     const [items, setItems] = useState<PortfolioItem[]>([]);
     const [editingItem, setEditingItem] = useState<PortfolioItem | null>(null);
     const [showForm, setShowForm] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isUploading, setIsUploading] = useState(false);
 
     // Form state
     const [formData, setFormData] = useState<Partial<PortfolioItem>>({
@@ -68,6 +70,22 @@ const PortfolioManager: React.FC = () => {
         });
         setEditingItem(null);
         setShowForm(false);
+        setIsUploading(false);
+    };
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setIsUploading(true);
+        try {
+            const url = await uploadToCloudinary(file);
+            setFormData(prev => ({ ...prev, image: url }));
+        } catch (error) {
+            alert('Failed to upload image');
+        } finally {
+            setIsUploading(false);
+        }
     };
 
     const filteredItems = items.filter(item =>
@@ -152,17 +170,32 @@ const PortfolioManager: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Image URL *</label>
-                                <input
-                                    type="url"
-                                    required
-                                    value={formData.image}
-                                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                                    placeholder="https://example.com/image.jpg or Cloudinary URL"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
-                                />
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">Image *</label>
+                                <div className="space-y-3">
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="url"
+                                            required
+                                            value={formData.image}
+                                            onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                                            placeholder="Enter image URL or upload..."
+                                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
+                                        />
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-sm text-slate-500">Or upload:</span>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleImageUpload}
+                                            disabled={isUploading}
+                                            className="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-orange/10 file:text-brand-orange hover:file:bg-brand-orange/20"
+                                        />
+                                        {isUploading && <span className="text-sm text-brand-orange animate-pulse">Uploading...</span>}
+                                    </div>
+                                </div>
                                 {formData.image && (
-                                    <img src={formData.image} alt="Preview" className="mt-2 h-32 object-cover rounded" />
+                                    <img src={formData.image} alt="Preview" className="mt-3 h-32 object-cover rounded-lg border border-slate-200" />
                                 )}
                             </div>
 

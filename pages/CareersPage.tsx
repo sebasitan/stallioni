@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FadeIn from '../components/FadeIn';
 import { getContactEmail } from '../constants';
 import { useToast } from '../App';
 import { uploadToCloudinary } from '../utils/cloudinary';
+import { getJobOpenings, JobOpening } from '../utils/careersStorage';
 
 const CareersPage: React.FC = () => {
     const { showToast } = useToast();
@@ -57,7 +58,7 @@ const CareersPage: React.FC = () => {
             });
 
             if (response.ok) {
-                showToast('Application submitted successfully! We\'ll be in touch soon.', 'success');
+                showToast("Application submitted successfully! Good luck, we'll review your profile soon.", 'success');
                 form.reset();
                 setApplicationForm({ position: '', show: false });
             } else {
@@ -74,84 +75,116 @@ const CareersPage: React.FC = () => {
         }
     };
 
-    const jobs = [
-        {
-            id: 'wordpress-developer',
-            title: 'WordPress Developer',
-            type: 'Freelance / Contract',
-            responsibilities: [
-                'Build custom WordPress websites, themes, and plugins',
-                'Optimize website speed, SEO structure, and security',
-                'Work with ACF, Elementor, Divi, WPBakery, or custom builders',
-                'Handle migrations, bug fixes, and WordPress updates',
-                'Collaborate with designers and backend developers'
-            ],
-            requirements: [
-                '2+ years of WordPress development experience',
-                'Strong PHP & MySQL fundamentals',
-                'Experience with APIs, WooCommerce, and custom post types',
-                'Clear communication & ability to meet deadlines',
-                'Portfolio of previous WordPress projects'
-            ]
-        },
-        {
-            id: 'react-developer',
-            title: 'React Developer',
-            type: 'Freelance / Contract',
-            responsibilities: [
-                'Build modern, responsive front-end applications using React',
-                'Integrate APIs and work with backend teams',
-                'Optimize components for speed & performance',
-                'Convert UI/UX designs into functional code',
-                'Write reusable components and modular architecture'
-            ],
-            requirements: [
-                '2+ years of experience with React.js',
-                'Strong JavaScript, HTML, CSS',
-                'Experience with Redux, hooks, REST APIs',
-                'Familiarity with Git, Figma, and agile workflows',
-                'Strong problem-solving skills'
-            ]
-        },
-        {
-            id: 'php-developer',
-            title: 'PHP Developer',
-            type: 'Freelance / Contract',
-            responsibilities: [
-                'Develop custom PHP applications',
-                'Maintain and optimize existing platforms',
-                'Work with MySQL databases and REST APIs',
-                'Debug, fix issues, and improve application performance',
-                'Collaborate with frontend and backend teams'
-            ],
-            requirements: [
-                '2+ years of experience with Core PHP or PHP frameworks',
-                'Strong knowledge of MySQL',
-                'Familiar with MVC architecture',
-                'Experience with Laravel or CodeIgniter is a plus',
-                'Ability to write clean, secure, optimized code'
-            ]
-        },
-        {
-            id: 'ai-developer',
-            title: 'AI Developer',
-            type: 'Freelance / Contract',
-            responsibilities: [
-                'Build AI-driven tools, chatbots, automation scripts',
-                'Work with LLMs, AI APIs (OpenAI, Claude, Gemini, etc.)',
-                'Train and fine-tune machine learning models',
-                'Integrate AI features into web or mobile apps',
-                'Provide solutions for automation, prediction, analytics'
-            ],
-            requirements: [
-                'Strong understanding of Python & machine learning',
-                'Experience with AI APIs and frameworks (TensorFlow, PyTorch)',
-                'Ability to build prototypes quickly',
-                'Knowledge of prompt engineering & automation',
-                'Portfolio or sample AI projects preferred'
-            ]
+    const [jobs, setJobs] = useState<JobOpening[]>([]);
+
+    useEffect(() => {
+        // Load only OPEN jobs from storage
+        // If storage is empty, we could fall back to defaults, but for now we assume Admin populates it
+        // Or we could initialize storage with defaults once. 
+        // For simplicity, let's just read what's there and if empty, maybe use a default list to seed it? 
+        // Actually, let's just fetch all and filter for open.
+
+        const allJobs = getJobOpenings();
+
+        // If no jobs in storage, use the hardcoded ones as the "default" state for the page for now
+        // But better is to respect what the admin manages. 
+        // For this task, let's merge/prioritize dynamic.
+
+        // To keep it simple and effective: if Admin has added jobs, show them. 
+        // If not, revert to the hardcoded list so the page isn't empty initially.
+        // But wait, the user asked "if i create new blog will update frontend?".
+        // So we strictly need dynamic data.
+
+        let displayJobs = allJobs.filter(j => j.status === 'open');
+
+        if (allJobs.length === 0) {
+            // Fallback to hardcoded if nothing in storage yet
+            displayJobs = [
+                {
+                    id: 'wordpress-developer',
+                    title: 'WordPress Developer',
+                    type: 'Freelance / Contract',
+                    responsibilities: [
+                        'Build custom WordPress websites, themes, and plugins',
+                        'Optimize website speed, SEO structure, and security',
+                        'Work with ACF, Elementor, Divi, WPBakery, or custom builders',
+                        'Handle migrations, bug fixes, and WordPress updates',
+                        'Collaborate with designers and backend developers'
+                    ],
+                    requirements: [
+                        '2+ years of WordPress development experience',
+                        'Strong PHP & MySQL fundamentals',
+                        'Experience with APIs, WooCommerce, and custom post types',
+                        'Clear communication & ability to meet deadlines',
+                        'Portfolio of previous WordPress projects'
+                    ],
+                    status: 'open'
+                },
+                {
+                    id: 'react-developer',
+                    title: 'React Developer',
+                    type: 'Freelance / Contract',
+                    responsibilities: [
+                        'Build modern, responsive front-end applications using React',
+                        'Integrate APIs and work with backend teams',
+                        'Optimize components for speed & performance',
+                        'Convert UI/UX designs into functional code',
+                        'Write reusable components and modular architecture'
+                    ],
+                    requirements: [
+                        '2+ years of experience with React.js',
+                        'Strong JavaScript, HTML, CSS',
+                        'Experience with Redux, hooks, REST APIs',
+                        'Familiarity with Git, Figma, and agile workflows',
+                        'Strong problem-solving skills'
+                    ],
+                    status: 'open'
+                },
+                {
+                    id: 'php-developer',
+                    title: 'PHP Developer',
+                    type: 'Freelance / Contract',
+                    responsibilities: [
+                        'Develop custom PHP applications',
+                        'Maintain and optimize existing platforms',
+                        'Work with MySQL databases and REST APIs',
+                        'Debug, fix issues, and improve application performance',
+                        'Collaborate with frontend and backend teams'
+                    ],
+                    requirements: [
+                        '2+ years of experience with Core PHP or PHP frameworks',
+                        'Strong knowledge of MySQL',
+                        'Familiar with MVC architecture',
+                        'Experience with Laravel or CodeIgniter is a plus',
+                        'Ability to write clean, secure, optimized code'
+                    ],
+                    status: 'open'
+                },
+                {
+                    id: 'ai-developer',
+                    title: 'AI Developer',
+                    type: 'Freelance / Contract',
+                    responsibilities: [
+                        'Build AI-driven tools, chatbots, automation scripts',
+                        'Work with LLMs, AI APIs (OpenAI, Claude, Gemini, etc.)',
+                        'Train and fine-tune machine learning models',
+                        'Integrate AI features into web or mobile apps',
+                        'Provide solutions for automation, prediction, analytics'
+                    ],
+                    requirements: [
+                        'Strong understanding of Python & machine learning',
+                        'Experience with AI APIs and frameworks (TensorFlow, PyTorch)',
+                        'Ability to build prototypes quickly',
+                        'Knowledge of prompt engineering & automation',
+                        'Portfolio or sample AI projects preferred'
+                    ],
+                    status: 'open'
+                }
+            ];
         }
-    ];
+
+        setJobs(displayJobs);
+    }, []);
 
     return (
         <div className="bg-slate-50 min-h-screen">

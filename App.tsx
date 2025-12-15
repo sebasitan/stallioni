@@ -168,8 +168,8 @@ const AppContent: React.FC = () => {
                 <Route path="/contact" element={<ContactPage />} />
 
                 {/* Admin routes */}
-                <Route path="/admin/login" element={<AdminLogin />} />
-                <Route path="/admin" element={
+                <Route path="/seba/login" element={<AdminLogin />} />
+                <Route path="/seba" element={
                   <ProtectedRoute>
                     <AdminDashboard />
                   </ProtectedRoute>

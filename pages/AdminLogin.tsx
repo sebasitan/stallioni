@@ -22,7 +22,7 @@ const AdminLogin: React.FC = () => {
         const success = login(username, password);
 
         if (success) {
-            navigate('/admin');
+            navigate('/seba');
         } else {
             setError('Invalid username or password');
             setPassword('');

@@ -1,9 +1,10 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { BLOG_POSTS } from '../constants';
 import { BlogPost } from '../types';
 import FadeIn from '../components/FadeIn';
 import { useNavigation } from '../App';
+import { getBlogPosts } from '../utils/blogStorage';
 
 const PageHeader: React.FC = () => (
     <div className="bg-white py-16 text-center border-b border-slate-200">
@@ -72,12 +73,39 @@ const FeaturedPostCard: React.FC<{ post: BlogPost }> = ({ post }) => {
 const BlogPage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterCategory, setFilterCategory] = useState('All');
+    const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
 
-    const categories = useMemo(() => ['All', ...Array.from(new Set(BLOG_POSTS.map(p => p.category)))], []);
+    useEffect(() => {
+        // combine static posts with dynamic posts from local storage
+        const dynamicPosts = getBlogPosts();
+        // Avoid duplicates if IDs clash, though dynamic IDs are timestamp based
+        // Priority to dynamic posts
+        const combined = [...dynamicPosts, ...BLOG_POSTS];
+
+        // Remove duplicates by ID just in case
+        const uniquePosts = Array.from(new Map(combined.map(item => [item.id, item])).values());
+
+        setAllPosts(uniquePosts);
+    }, []);
+
+    const categories = useMemo(() => ['All', ...Array.from(new Set(allPosts.map(p => p.category)))], [allPosts]);
 
     const filteredPosts = useMemo(() => {
-        // Sort posts by ID descending to get the latest first
-        const sortedPosts = [...BLOG_POSTS].sort((a, b) => b.id - a.id);
+        // Sort posts by ID descending (assuming numeric/timestamp IDs) to get latest first
+        const sortedPosts = [...allPosts].sort((a, b) => {
+            // Handle numeric IDs vs String IDs
+            const idA = Number(a.id) || 0;
+            const idB = Number(b.id) || 0;
+
+            // If string IDs like 'blog-123'
+            if (typeof a.id === 'string' && a.id.startsWith('blog-')) {
+                const timeA = parseInt(a.id.split('-')[1]);
+                const timeB = typeof b.id === 'string' && b.id.startsWith('blog-') ? parseInt(b.id.split('-')[1]) : 0;
+                return timeB - timeA;
+            }
+
+            return idB - idA;
+        });
 
         return sortedPosts
             .filter(post => filterCategory === 'All' || post.category === filterCategory)

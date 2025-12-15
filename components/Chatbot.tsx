@@ -257,7 +257,7 @@ const Chatbot: React.FC = () => {
                 headers: { 'Accept': 'application/json' },
             });
             if (response.ok) {
-                showToast('Transcript sent successfully!', 'success');
+                showToast("Transcript sent! Check your inbox for the conversation history.", 'success');
             } else {
                 throw new Error('Failed to send transcript');
             }

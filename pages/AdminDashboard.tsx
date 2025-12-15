@@ -9,19 +9,19 @@ const AdminDashboard: React.FC = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/admin/login');
+        navigate('/seba/login');
     };
 
     const menuItems = [
-        { path: '/admin', label: 'Dashboard', icon: '📊' },
-        { path: '/admin/portfolio', label: 'Portfolio', icon: '💼' },
-        { path: '/admin/blog', label: 'Blog Posts', icon: '📝' },
-        { path: '/admin/careers', label: 'Careers', icon: '👥' },
+        { path: '/seba', label: 'Dashboard', icon: '📊' },
+        { path: '/seba/portfolio', label: 'Portfolio', icon: '💼' },
+        { path: '/seba/blog', label: 'Blog Posts', icon: '📝' },
+        { path: '/seba/careers', label: 'Careers', icon: '👥' },
     ];
 
     const isActive = (path: string) => {
-        if (path === '/admin') {
-            return location.pathname === '/admin';
+        if (path === '/seba') {
+            return location.pathname === '/seba';
         }
         return location.pathname.startsWith(path);
     };
@@ -63,8 +63,8 @@ const AdminDashboard: React.FC = () => {
                                     <button
                                         onClick={() => navigate(item.path)}
                                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive(item.path)
-                                                ? 'bg-brand-orange text-white font-semibold'
-                                                : 'text-slate-700 hover:bg-gray-100'
+                                            ? 'bg-brand-orange text-white font-semibold'
+                                            : 'text-slate-700 hover:bg-gray-100'
                                             }`}
                                     >
                                         <span className="text-xl">{item.icon}</span>

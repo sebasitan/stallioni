@@ -63,7 +63,19 @@ const ContactPage: React.FC = () => {
             });
 
             if (response.ok) {
-                showToast('Your inquiry has been sent successfully!', 'success');
+                // Tailor message based on the hidden subject field to be more relevant
+                const subject = formData.get('_subject') as string;
+                let successMessage = 'Your inquiry has been sent successfully!';
+
+                if (subject.includes('Project')) {
+                    successMessage = "Thanks for your project inquiry! We'll review your details and get back to you within 24 hours.";
+                } else if (subject.includes('Partnership')) {
+                    successMessage = "Thanks for your partnership interest! We look forward to exploring collaboration opportunities.";
+                } else if (subject.includes('General')) {
+                    successMessage = "Thanks for reaching out! We've received your message and will respond shortly.";
+                }
+
+                showToast(successMessage, 'success');
                 form.reset();
             } else {
                 throw new Error('Form submission failed');
