@@ -110,6 +110,56 @@ const Chatbot: React.FC = () => {
         }
     }, [messages, isLoading, isOpen, showEmailModal]);
 
+    const getLocalResponse = (text: string): string => {
+        const lowerText = text.toLowerCase();
+
+        // Greetings
+        if (lowerText.match(/^(hi|hello|hey|greetings)/)) {
+            return "Hello! I'm Aria, your Stallioni Assistant. How can I help you today? I can answer questions about our services, pricing, or help you hire a developer.";
+        }
+
+        // Services
+        if (lowerText.includes('web') || lowerText.includes('site')) {
+            return "We specialize in building high-performance websites using React, Next.js, WordPress, and more. Are you looking to build a new site or redesign an existing one?";
+        }
+        if (lowerText.includes('mobile') || lowerText.includes('app') || lowerText.includes('ios') || lowerText.includes('android')) {
+            return "Our mobile team builds native and cross-platform apps using React Native and Flutter. We can help you launch on both iOS and Android.";
+        }
+        if (lowerText.includes('ecommerce') || lowerText.includes('shop') || lowerText.includes('store')) {
+            return "We are experts in E-commerce! We work with Shopify, WooCommerce, and Magento to build scalable online stores that drive sales.";
+        }
+        if (lowerText.includes('seo') || lowerText.includes('ranking') || lowerText.includes('traffic')) {
+            return "Our SEO services are designed to boost your organic traffic. We handle technical SEO, content strategy, and link building to get you to page 1.";
+        }
+        if (lowerText.includes('ai') || lowerText.includes('artificial intelligence') || lowerText.includes('ml')) {
+            return "We help businesses leverage the power of AI. From chatbots to predictive analytics, our Python experts can build custom AI solutions for you.";
+        }
+
+        // Action-oriented
+        if (lowerText.includes('hire') || lowerText.includes('developer') || lowerText.includes('team')) {
+            return "Excellent! We have top-tier developers ready to join your team. You can check our [Careers Page] or tell me what technology you need expertise in.";
+        }
+        if (lowerText.includes('cost') || lowerText.includes('price') || lowerText.includes('quote') || lowerText.includes('rate') || lowerText.includes('estimate')) {
+            return "Our pricing is flexible and depends on the project scope. I can help you get a free quote. Would you like to [Get a project estimate]?";
+        }
+        if (lowerText.includes('contact') || lowerText.includes('email') || lowerText.includes('phone') || lowerText.includes('call') || lowerText.includes('address')) {
+            const email = getContactEmail();
+            const phone = getCallPhone();
+            return `You can reach us via email at ${email}, or call us directly at +${phone}. You can also visit our [Contact Page] for more options.`;
+        }
+
+        // About/Company
+        if (lowerText.includes('location') || lowerText.includes('where')) {
+            return "We are a global company with our development center based in India, serving clients in over 35 countries including the USA, UK, and UAE.";
+        }
+        if (lowerText.includes('portfolio') || lowerText.includes('work') || lowerText.includes('case study')) {
+            return "We have successfully delivered over 900+ projects. You can explore our huge success stories on our [Portfolio Page].";
+        }
+
+        // Default Fallback
+        return "I'm not sure I understood that perfectly. Could you rephrase? \n\nYou can also [Get a project estimate] or browse our [Services] directly.";
+    };
+
     const sendMessage = async (messageText: string) => {
         if (!messageText) return;
 
@@ -117,42 +167,12 @@ const Chatbot: React.FC = () => {
         setMessages(newMessages);
         setIsLoading(true);
 
-        try {
-            const response = await fetch('/api/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: messageText,
-                    // Send the history *before* this new message for context
-                    history: messages
-                }),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error("Backend Error:", errorData);
-                throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            const modelResponse = data.text;
-
-            setMessages(prev => [...prev, { role: 'model', text: modelResponse }]);
-
-        } catch (error: any) {
-            console.error("Chat Error:", error);
-            const errorMessage = error.message || "I'm sorry, I encountered an error.";
-            // If it's the specific config error, guide the user
-            const displayText = errorMessage.includes("GEMINI_API_KEY")
-                ? "System Error: The Google Gemini API Key is missing in Vercel Environment Variables."
-                : errorMessage.includes("404") ? "System Error: API route not found. Check deployment." : "I'm sorry, I encountered an error. Please check the system resources.";
-
-            setMessages(prev => [...prev, { role: 'model', text: displayText }]);
-        } finally {
+        // Simulate network delay for "AI" feel
+        setTimeout(() => {
+            const responseText = getLocalResponse(messageText);
+            setMessages(prev => [...prev, { role: 'model', text: responseText }]);
             setIsLoading(false);
-        }
+        }, 1000);
     };
 
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -174,7 +194,7 @@ const Chatbot: React.FC = () => {
             return;
         }
 
-        if (lowerReply.includes('contact page')) {
+        if (lowerReply.includes('contact page') || lowerReply.includes('[contact page]')) {
             navigate('/contact');
             setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: "Taking you to our contact page." }]);
             setIsOpen(false);
@@ -206,7 +226,7 @@ const Chatbot: React.FC = () => {
             return;
         }
 
-        // Default: send to Gemini
+        // Default: send to simulated AI
         sendMessage(replyText);
     };
 

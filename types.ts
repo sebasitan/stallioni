@@ -62,6 +62,10 @@ export interface BlogPost {
   date: string; // Should be in YYYY-MM-DD format for schema
   readTime: string;
   content?: string;
+  // SEO Fields
+  metaTitle?: string;
+  metaDescription?: string;
+  keywords?: string;
 }
 
 export interface TeamMember {

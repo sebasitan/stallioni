@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { BLOG_POSTS } from '../constants';
 import { BlogPost } from '../types';
+import { getBlogPost } from '../utils/blogStorage';
+import MetaManager from '../components/MetaManager';
+import { getBlogPostMetadata } from '../seo';
 import { useNavigation, useModal } from '../App';
 import FadeIn from '../components/FadeIn';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -17,7 +19,9 @@ const EmailIcon = () => (<svg className="w-6 h-6" fill="currentColor" viewBox="0
 
 const BlogPostPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const post = BLOG_POSTS.find(p => p.id === parseInt(id || '0', 10));
+  // Use getBlogPost from storage to find both static and dynamic posts
+  // The route parameter ID could be 'blog-timestamp' or '1'
+  const post = id ? getBlogPost(id) || getBlogPost(Number(id).toString()) : null;
   const { navigate } = useNavigation();
   const { openModal } = useModal();
   const contentRef = useRef<HTMLDivElement>(null);
@@ -70,8 +74,33 @@ const BlogPostPage: React.FC = () => {
     { label: post.title }
   ];
 
+
+
+  // Generate SEO Metadata
+  const seoMetadata = {
+    ...getBlogPostMetadata(post),
+    ogUrl: window.location.href, // Ensure current URL is used
+    // Ensure required properties are present if helper returns partial
+    ogType: 'article' as const,
+    title: post.metaTitle || `${post.title} | Stallioni Blog`,
+    description: post.metaDescription || post.excerpt,
+    keywords: post.keywords || `Stallioni blog, ${post.category}, IT outsourcing`,
+    ogTitle: post.metaTitle || post.title,
+    ogDescription: post.metaDescription || post.excerpt,
+    ogImage: post.imageUrl,
+    structuredData: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      'headline': post.metaTitle || post.title,
+      'image': post.imageUrl,
+      'datePublished': post.date,
+      'author': { '@type': 'Person', 'name': post.author }
+    })
+  };
+
   return (
     <div className="bg-white">
+      <MetaManager {...seoMetadata} />
       <article className="py-12 md:py-20">
         <div className="container mx-auto px-6 max-w-4xl">
           <FadeIn>

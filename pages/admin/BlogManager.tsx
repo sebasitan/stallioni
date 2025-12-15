@@ -21,7 +21,10 @@ const BlogManager: React.FC = () => {
         imageUrl: '',
         category: '',
         author: 'Stallioni Team',
-        readTime: 5
+        readTime: 5,
+        metaTitle: '',
+        metaDescription: '',
+        keywords: ''
     });
 
     useEffect(() => {
@@ -66,7 +69,10 @@ const BlogManager: React.FC = () => {
             imageUrl: '',
             category: '',
             author: 'Stallioni Team',
-            readTime: 5
+            readTime: 5,
+            metaTitle: '',
+            metaDescription: '',
+            keywords: ''
         });
         setEditingPost(null);
         setShowForm(false);
@@ -206,6 +212,48 @@ const BlogManager: React.FC = () => {
                                 )}
                             </div>
 
+
+
+                            <div className="border-t border-slate-200 pt-6 mt-6">
+                                <h4 className="text-lg font-bold text-brand-dark mb-4">SEO Settings</h4>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Meta Title</label>
+                                        <input
+                                            type="text"
+                                            value={formData.metaTitle || ''}
+                                            onChange={(e) => setFormData({ ...formData, metaTitle: e.target.value })}
+                                            placeholder={formData.title || 'Enter meta title...'}
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
+                                        />
+                                        <p className="text-xs text-slate-500 mt-1">Recommended length: 50-60 characters</p>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Meta Description</label>
+                                        <textarea
+                                            rows={3}
+                                            value={formData.metaDescription || ''}
+                                            onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
+                                            placeholder={formData.excerpt || 'Enter meta description...'}
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
+                                        />
+                                        <p className="text-xs text-slate-500 mt-1">Recommended length: 150-160 characters</p>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Keywords (comma-separated)</label>
+                                        <input
+                                            type="text"
+                                            value={formData.keywords || ''}
+                                            onChange={(e) => setFormData({ ...formData, keywords: e.target.value })}
+                                            placeholder="technology, web development, react..."
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="flex gap-3 pt-4">
                                 <button
                                     type="submit"
@@ -223,57 +271,59 @@ const BlogManager: React.FC = () => {
                             </div>
                         </form>
                     </div>
-                </div>
+                </div >
             )}
 
-            {posts.length === 0 ? (
-                <div className="bg-white rounded-xl shadow-md p-12 text-center">
-                    <p className="text-slate-600 text-lg">No blog posts yet. Create your first one!</p>
-                </div>
-            ) : (
-                <div className="space-y-4">
-                    {posts.map((post) => (
-                        <div key={post.id} className="bg-white rounded-xl shadow-md p-6 flex gap-6">
-                            <img
-                                src={post.imageUrl}
-                                alt={post.title}
-                                className="w-48 h-32 object-cover rounded-lg flex-shrink-0"
-                            />
-                            <div className="flex-1">
-                                <div className="flex items-start justify-between mb-2">
-                                    <div>
-                                        <h3 className="text-xl font-bold text-brand-dark mb-1">{post.title}</h3>
-                                        <div className="flex items-center gap-3 text-sm text-slate-500">
-                                            <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">
-                                                {post.category}
-                                            </span>
-                                            <span>{post.author}</span>
-                                            <span>{post.readTime} min read</span>
-                                            <span>{post.date}</span>
+            {
+                posts.length === 0 ? (
+                    <div className="bg-white rounded-xl shadow-md p-12 text-center">
+                        <p className="text-slate-600 text-lg">No blog posts yet. Create your first one!</p>
+                    </div>
+                ) : (
+                    <div className="space-y-4">
+                        {posts.map((post) => (
+                            <div key={post.id} className="bg-white rounded-xl shadow-md p-6 flex gap-6">
+                                <img
+                                    src={post.imageUrl}
+                                    alt={post.title}
+                                    className="w-48 h-32 object-cover rounded-lg flex-shrink-0"
+                                />
+                                <div className="flex-1">
+                                    <div className="flex items-start justify-between mb-2">
+                                        <div>
+                                            <h3 className="text-xl font-bold text-brand-dark mb-1">{post.title}</h3>
+                                            <div className="flex items-center gap-3 text-sm text-slate-500">
+                                                <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded">
+                                                    {post.category}
+                                                </span>
+                                                <span>{post.author}</span>
+                                                <span>{post.readTime} min read</span>
+                                                <span>{post.date}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <p className="text-slate-600 mb-4 line-clamp-2">{post.excerpt}</p>
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={() => handleEdit(post)}
-                                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-semibold"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(post.id)}
-                                        className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition text-sm font-semibold"
-                                    >
-                                        Delete
-                                    </button>
+                                    <p className="text-slate-600 mb-4 line-clamp-2">{post.excerpt}</p>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => handleEdit(post)}
+                                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-semibold"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(post.id)}
+                                            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition text-sm font-semibold"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
+                        ))}
+                    </div>
+                )
+            }
+        </div >
     );
 };
 

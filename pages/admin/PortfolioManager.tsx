@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PortfolioItem } from '../../types';
+import { PortfolioItem, PortfolioCategory } from '../../types';
 import {
     getPortfolioItems,
     addPortfolioItem,
@@ -150,11 +150,11 @@ const PortfolioManager: React.FC = () => {
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
                                 >
                                     <option value="">Select category</option>
-                                    <option value="web">Web Development</option>
-                                    <option value="mobile">Mobile App</option>
-                                    <option value="ecommerce">E-commerce</option>
-                                    <option value="design">Design</option>
-                                    <option value="other">Other</option>
+                                    {Object.values(PortfolioCategory).map((category) => (
+                                        <option key={category} value={category}>
+                                            {category}
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
 

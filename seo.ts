@@ -244,10 +244,12 @@ const getServiceMetadata = (service: ServiceDetail): Partial<PageMetadata> => {
 };
 
 
-const getBlogPostMetadata = (post: BlogPost): Partial<PageMetadata> => ({
-  title: `${post.title} | Stallioni Blog`,
-  description: post.excerpt,
-  keywords: `Stallioni blog, ${post.category}, ${post.title.split(' ').slice(0, 5).join(', ')}, IT outsourcing insights`,
+export const getBlogPostMetadata = (post: BlogPost): Partial<PageMetadata> => ({
+  title: post.metaTitle || `${post.title} | Stallioni Blog`,
+  description: post.metaDescription || post.excerpt,
+  keywords: post.keywords || `Stallioni blog, ${post.category}, ${post.title.split(' ').slice(0, 5).join(', ')}, IT outsourcing insights`,
+  ogTitle: post.metaTitle || `${post.title} | Stallioni Blog`,
+  ogDescription: post.metaDescription || post.excerpt,
   ogImage: post.imageUrl.startsWith('https://images.unsplash.com/')
     ? post.imageUrl.split('?')[0] + '?q=80&w=1200&h=630&auto=format&fit=crop'
     : post.imageUrl,

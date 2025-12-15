@@ -7,13 +7,13 @@ const AnimatedHeroBackground: React.FC = () => {
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        
+
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
         let animationFrameId: number;
         let particles: Particle[] = [];
-        
+
         const setCanvasDimensions = () => {
             const dpr = window.devicePixelRatio || 1;
             const rect = canvas.getBoundingClientRect();
@@ -64,11 +64,13 @@ const AnimatedHeroBackground: React.FC = () => {
             particles = [];
             const canvasWidth = canvas.width / (window.devicePixelRatio || 1);
             const canvasHeight = canvas.height / (window.devicePixelRatio || 1);
-            
-            const particleDensity = 25000;
-            const maxParticles = 200;
+
+            const isMobile = window.innerWidth < 768;
+            const particleDensity = isMobile ? 40000 : 25000; // Fewer particles on mobile (higher density number means fewer particles)
+            const maxParticles = isMobile ? 40 : 150; // Hard cap reducing significantly for mobile
+
             let particleCount = Math.min(maxParticles, Math.floor((canvasWidth * canvasHeight) / particleDensity));
-            
+
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle(canvasWidth, canvasHeight));
             }
@@ -76,7 +78,8 @@ const AnimatedHeroBackground: React.FC = () => {
 
         const connectParticles = () => {
             if (!ctx) return;
-            const maxDistance = 100;
+            const isMobile = window.innerWidth < 768;
+            const maxDistance = isMobile ? 60 : 100; // Shorter connections on mobile
             const maxDistanceSq = maxDistance * maxDistance;
 
             for (let i = 0; i < particles.length; i++) {
@@ -97,18 +100,18 @@ const AnimatedHeroBackground: React.FC = () => {
                 }
             }
         };
-        
+
         const animate = () => {
             if (!ctx || !canvas) return;
             const canvasWidth = canvas.width / (window.devicePixelRatio || 1);
             const canvasHeight = canvas.height / (window.devicePixelRatio || 1);
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-            
+
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
-            
+
             connectParticles();
 
             animationFrameId = requestAnimationFrame(animate);

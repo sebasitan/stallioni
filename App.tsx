@@ -1,30 +1,35 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, createContext, useContext, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import ServicesPage from './pages/ServicesPage';
-import PortfolioPage from './pages/PortfolioPage';
-import BlogPage from './pages/BlogPage';
-import CareersPage from './pages/CareersPage';
-import ContactPage from './pages/ContactPage';
 import Chatbot from './components/Chatbot';
-import BlogPostPage from './pages/BlogPostPage';
 import ContactModal from './components/ContactModal';
 import Toast from './components/Toast';
 import MetaManager from './components/MetaManager';
 import { getPageMetadata, PageMetadata } from './seo';
+import LoadingSpinner from './components/LoadingSpinner';
 
-// Admin imports
-import { AuthProvider } from './contexts/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminHome from './pages/admin/AdminHome';
-import PortfolioManager from './pages/admin/PortfolioManager';
-import BlogManager from './pages/admin/BlogManager';
-import CareersManager from './pages/admin/CareersManager';
+// Lazy Load Pages
+const HomePage = lazy(() => import('./pages/HomePage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const PortfolioPage = lazy(() => import('./pages/PortfolioPage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const CareersPage = lazy(() => import('./pages/CareersPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+
+// Admin imports (Lazy)
+import { AuthProvider as StaticAuthProvider } from './contexts/AuthContext';
+
+
+const ProtectedRoute = lazy(() => import('./components/ProtectedRoute'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const AdminHome = lazy(() => import('./pages/admin/AdminHome'));
+const PortfolioManager = lazy(() => import('./pages/admin/PortfolioManager'));
+const BlogManager = lazy(() => import('./pages/admin/BlogManager'));
+const CareersManager = lazy(() => import('./pages/admin/CareersManager'));
 
 // Add this to avoid TypeScript errors for gtag
 declare global {
@@ -155,31 +160,33 @@ const AppContent: React.FC = () => {
           <div className="flex flex-col min-h-screen">
             <Header currentRoute={location.pathname} />
             <main className="flex-grow">
-              <Routes>
-                {/* Public routes */}
-                <Route path="/" element={<HomePage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/services" element={<ServicesPage />} />
-                <Route path="/services/:serviceId" element={<ServicesPage />} />
-                <Route path="/portfolio" element={<PortfolioPage />} />
-                <Route path="/blog" element={<BlogPage />} />
-                <Route path="/blog/:postId" element={<BlogPostPage />} />
-                <Route path="/careers" element={<CareersPage />} />
-                <Route path="/contact" element={<ContactPage />} />
+              <Suspense fallback={<LoadingSpinner />}>
+                <Routes>
+                  {/* Public routes */}
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/services" element={<ServicesPage />} />
+                  <Route path="/services/:serviceId" element={<ServicesPage />} />
+                  <Route path="/portfolio" element={<PortfolioPage />} />
+                  <Route path="/blog" element={<BlogPage />} />
+                  <Route path="/blog/:postId" element={<BlogPostPage />} />
+                  <Route path="/careers" element={<CareersPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
 
-                {/* Admin routes */}
-                <Route path="/seba/login" element={<AdminLogin />} />
-                <Route path="/seba" element={
-                  <ProtectedRoute>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                }>
-                  <Route index element={<AdminHome />} />
-                  <Route path="portfolio" element={<PortfolioManager />} />
-                  <Route path="blog" element={<BlogManager />} />
-                  <Route path="careers" element={<CareersManager />} />
-                </Route>
-              </Routes>
+                  {/* Admin routes */}
+                  <Route path="/seba/login" element={<AdminLogin />} />
+                  <Route path="/seba" element={
+                    <ProtectedRoute>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  }>
+                    <Route index element={<AdminHome />} />
+                    <Route path="portfolio" element={<PortfolioManager />} />
+                    <Route path="blog" element={<BlogManager />} />
+                    <Route path="careers" element={<CareersManager />} />
+                  </Route>
+                </Routes>
+              </Suspense>
             </main>
             <Footer />
             <Chatbot />
@@ -198,11 +205,11 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
+    <StaticAuthProvider>
       <BrowserRouter>
         <AppContent />
       </BrowserRouter>
-    </AuthProvider>
+    </StaticAuthProvider>
   );
 };
 
