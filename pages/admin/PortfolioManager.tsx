@@ -20,7 +20,7 @@ const PortfolioManager: React.FC = () => {
         title: '',
         category: '',
         description: '',
-        image: '',
+        imageUrl: '',
         technologies: [],
         link: ''
     });
@@ -64,7 +64,7 @@ const PortfolioManager: React.FC = () => {
             title: '',
             category: '',
             description: '',
-            image: '',
+            imageUrl: '',
             technologies: [],
             link: ''
         });
@@ -80,7 +80,7 @@ const PortfolioManager: React.FC = () => {
         setIsUploading(true);
         try {
             const url = await uploadToCloudinary(file);
-            setFormData(prev => ({ ...prev, image: url }));
+            setFormData(prev => ({ ...prev, imageUrl: url }));
         } catch (error) {
             alert('Failed to upload image');
         } finally {
@@ -176,8 +176,8 @@ const PortfolioManager: React.FC = () => {
                                         <input
                                             type="url"
                                             required
-                                            value={formData.image}
-                                            onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                                            value={formData.imageUrl}
+                                            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                                             placeholder="Enter image URL or upload..."
                                             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
                                         />
@@ -194,8 +194,8 @@ const PortfolioManager: React.FC = () => {
                                         {isUploading && <span className="text-sm text-brand-orange animate-pulse">Uploading...</span>}
                                     </div>
                                 </div>
-                                {formData.image && (
-                                    <img src={formData.image} alt="Preview" className="mt-3 h-32 object-cover rounded-lg border border-slate-200" />
+                                {formData.imageUrl && (
+                                    <img src={formData.imageUrl} alt="Preview" className="mt-3 h-32 object-cover rounded-lg border border-slate-200" />
                                 )}
                             </div>
 
@@ -254,7 +254,7 @@ const PortfolioManager: React.FC = () => {
                     {filteredItems.map((item) => (
                         <div key={item.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition">
                             <img
-                                src={item.image}
+                                src={item.imageUrl}
                                 alt={item.title}
                                 className="w-full h-48 object-cover"
                             />

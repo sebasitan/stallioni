@@ -18,7 +18,7 @@ const BlogManager: React.FC = () => {
         title: '',
         excerpt: '',
         content: '',
-        image: '',
+        imageUrl: '',
         category: '',
         author: 'Stallioni Team',
         readTime: 5
@@ -63,7 +63,7 @@ const BlogManager: React.FC = () => {
             title: '',
             excerpt: '',
             content: '',
-            image: '',
+            imageUrl: '',
             category: '',
             author: 'Stallioni Team',
             readTime: 5
@@ -80,7 +80,7 @@ const BlogManager: React.FC = () => {
         setIsUploading(true);
         try {
             const url = await uploadToCloudinary(file);
-            setFormData(prev => ({ ...prev, image: url }));
+            setFormData(prev => ({ ...prev, imageUrl: url }));
         } catch (error) {
             alert('Failed to upload image');
         } finally {
@@ -183,8 +183,8 @@ const BlogManager: React.FC = () => {
                                         <input
                                             type="url"
                                             required
-                                            value={formData.image}
-                                            onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                                            value={formData.imageUrl}
+                                            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                                             placeholder="Enter image URL or upload..."
                                             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
                                         />
@@ -201,8 +201,8 @@ const BlogManager: React.FC = () => {
                                         {isUploading && <span className="text-sm text-brand-orange animate-pulse">Uploading...</span>}
                                     </div>
                                 </div>
-                                {formData.image && (
-                                    <img src={formData.image} alt="Preview" className="mt-3 h-40 object-cover rounded-lg border border-slate-200" />
+                                {formData.imageUrl && (
+                                    <img src={formData.imageUrl} alt="Preview" className="mt-3 h-40 object-cover rounded-lg border border-slate-200" />
                                 )}
                             </div>
 
@@ -235,7 +235,7 @@ const BlogManager: React.FC = () => {
                     {posts.map((post) => (
                         <div key={post.id} className="bg-white rounded-xl shadow-md p-6 flex gap-6">
                             <img
-                                src={post.image}
+                                src={post.imageUrl}
                                 alt={post.title}
                                 className="w-48 h-32 object-cover rounded-lg flex-shrink-0"
                             />
