@@ -100,7 +100,14 @@
   <link rel="dns-prefetch" href="https://images.unsplash.com">
 
   <!-- Font Loading with display=swap for better performance -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Font Loading with non-blocking strategy -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+    media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
+  </noscript>
 
   <script type="importmap">
 {
@@ -113,13 +120,16 @@
 }
 </script>
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZ2SZ03V71"></script>
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-WZ2SZ03V71"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    gtag('config', 'G-WZ2SZ03V71');
+    // Defer config until idle or load
+    window.addEventListener('load', () => {
+      gtag('config', 'G-WZ2SZ03V71');
+    });
   </script>
   <link rel="stylesheet" href="/index.css">
 </head>

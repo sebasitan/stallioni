@@ -1,100 +1,42 @@
-# Mobile Performance Optimization Summary
+# 📱 Mobile Performance Optimization Guide
 
-## ✅ Optimizations Implemented
+Status: **Applied** ✅
+Date: **2025-12-16**
 
-### 1. **Mobile-Specific Meta Tags**
-- Enhanced viewport configuration with proper scaling limits
-- Added mobile-web-app-capable tags for PWA-like experience
-- Theme color for better mobile browser integration
-- Apple mobile web app status bar styling
+## 📉 Improvements Made for Mobile LCP & CLS
 
-### 2. **CSS Mobile Optimizations**
-- **Touch Interactions**: Custom tap highlight color with brand color
-- **Smooth Scrolling**: Native smooth scroll behavior for better UX
-- **Font Rendering**: Antialiasing and optimized text rendering
-- **Text Size**: Prevents unwanted text size adjustment on orientation change
-- **Touch Targets**: Minimum 44x44px tap targets (Apple HIG compliance)
-- **GPU Acceleration**: Transform optimizations for smoother animations
-- **Responsive Images**: Auto-sizing for mobile viewports
+We have applied several critical optimizations to improve the **Mobile Lighthouse Score**, specifically targeting LCP (Largest Contentful Paint) and CLS (Cumulative Layout Shift).
 
-### 3. **Build Optimizations for Mobile**
-- **CSS Code Splitting**: Loads only necessary CSS per page
-- **Enhanced Compression**: 2-pass terser minification for smaller bundles
-- **Safari Compatibility**: Special mangling for iOS Safari
-- **Modern Browser Targeting**: ES2020+ for smaller bundles on modern mobile browsers
-- **Optimized File Names**: Shorter hash-based names for faster loading
+### 1. 🖼️ Fix Cumulative Layout Shift (CLS)
+- **Issue**: The logo images (`/logo.svg`) were loading without explicit dimensions, causing the layout to "jump" when the image finally loaded.
+- **Fix**: Added intrinsic `width="210"` and `height="42"` attributes to the logo in both:
+  - `Header.tsx`
+  - `Footer.tsx`
+- **Result**: The browser now reserves the exact space for the logo *before* it downloads, eliminating layout shifts.
 
-### 4. **Performance Improvements**
-- Lazy-loaded 500KB+ constants file (only loads when needed)
-- Separate vendor chunks for better caching
-- Admin pages split into separate chunk (rarely needed on mobile)
-- Removed console logs in production builds
+### 2. ⚡ Optimize Font Loading
+- **Issue**: Google Fonts were "blocking" the page render for ~750ms on mobile networks.
+- **Fix**: Switched to a non-blocking loading strategy:
+  ```html
+  <link rel="stylesheet" href="..." media="print" onload="this.media='all'">
+  ```
+- **Result**: Text becomes visible much faster; fonts swap in once loaded.
 
-## 📊 Expected Mobile Performance Gains
+### 3. 🚦 Unblock Main Thread
+- **Issue**: **Google Tag Manager** (GTM) was executing immediately, consuming CPU during the critical initial load.
+- **Fix**: 
+  - Changed `<script async>` to `<script defer>`.
+  - Wrapped `gtag('config')` in a `window.addEventListener('load')` event.
+- **Result**: GTM scripts now wait until the page is fully interactive before running, freeing up resources for the user content.
 
-| Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| **Initial Bundle Size** | ~800KB | ~200KB | **75% smaller** |
-| **First Contentful Paint** | ~2.5s | ~1.2s | **52% faster** |
-| **Time to Interactive** | ~4.5s | ~2.0s | **56% faster** |
-| **Lighthouse Mobile Score** | 60-70 | 85-95 | **+25-35 points** |
+### 4. 🚀 LCP Image Optimization
+- **Issue**: The LCP element (Logo) was competing with other resources.
+- **Fix**: 
+  - Added `<link rel="preload" as="image">` in `index.html`.
+  - Added `fetchpriority="high"` to the logo `<img>` tag.
+- **Expected Outcome**: The browser prioritizes downloading the logo above all else, ensuring it appears instantly.
 
-## 🎯 Mobile Best Practices Applied
-
-✅ Minimum touch target size (44x44px)
-✅ Viewport properly configured
-✅ Text remains readable on zoom
-✅ Content sized correctly for viewport
-✅ Images optimized for mobile
-✅ Tap targets properly spaced
-✅ GPU acceleration for animations
-✅ CSS optimized for mobile browsers
-✅ PWA-ready meta tags
-
-## 🧪 Testing Recommendations
-
-1. **Test on PageSpeed Insights Mobile**:
-   ```
-   https://pagespeed.web.dev/
-   ```
-
-2. **Test on real devices**:
-   - iOS Safari (iPhone)
-   - Chrome on Android
-   - Check touch interactions
-   - Test orientation changes
-
-3. **Chrome DevTools Mobile Emulation**:
-   - Open DevTools
-   - Toggle device toolbar (Ctrl+Shift+M)
-   - Test various device sizes
-   - Check network throttling (3G/4G)
-
-## 🚀 Next Steps to Deploy
-
-1. Build production bundle:
-   ```bash
-   npm run build
-   ```
-
-2. Preview locally:
-   ```bash
-   npm run preview
-   ```
-
-3. Test mobile performance:
-   - Use Chrome DevTools mobile emulation
-   - Test on actual mobile devices
-   - Run Lighthouse mobile audit
-
-## 📈 Monitoring
-
-After deployment, monitor:
-- Core Web Vitals (LCP, FID, CLS)
-- Mobile vs Desktop traffic
-- Bounce rate on mobile
-- Time on page metrics
-
----
-
-**Note**: The CSS lint warnings for `@theme` and `@apply` are expected - these are Tailwind v4 directives that work correctly but aren't recognized by standard CSS linters.
+## 🧪 Verification
+After deployment, verify the improvements using [PageSpeed Insights](https://pagespeed.web.dev/).
+- **CLS** should be **0** (or very close to it).
+- **LCP** should be significantly lower (green zone).

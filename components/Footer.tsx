@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Section */}
           <div>
-            <img src="https://stallioni.com/logo.svg" alt="Stallioni Logo" className="h-10 mb-4 filter brightness-0 invert" />
+            <img src="/logo.svg" alt="Stallioni Logo" className="h-10 mb-4 filter brightness-0 invert w-auto" width="210" height="42" />
             <p className="text-blue-200">
               Web, E-commerce, Mobile & AI-Powered Solutions for a global clientele.
             </p>
