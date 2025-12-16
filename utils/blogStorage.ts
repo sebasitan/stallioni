@@ -1,7 +1,7 @@
 import { BlogPost } from '../types';
 import { BLOG_POSTS } from '../constants';
 
-const STORAGE_KEY = 'stallioni_blog';
+const STORAGE_KEY = 'stallioni_blog_v2';
 
 // Get all blog posts
 export function getBlogPosts(): BlogPost[] {
