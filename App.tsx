@@ -6,7 +6,7 @@ import Chatbot from './components/Chatbot';
 import ContactModal from './components/ContactModal';
 import Toast from './components/Toast';
 import MetaManager from './components/MetaManager';
-import { getPageMetadata, PageMetadata } from './seo';
+import { getPageMetadata, PageMetadata, defaultMetadata } from './seo';
 import LoadingSpinner from './components/LoadingSpinner';
 
 // Lazy Load Pages
@@ -95,7 +95,11 @@ export const useNavigation = () => {
 const AppContent: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [metadata, setMetadata] = useState<PageMetadata>(getPageMetadata(location.pathname));
+  const [metadata, setMetadata] = useState<PageMetadata>({
+    ...defaultMetadata,
+    ogUrl: 'https://stallioni.com',
+    structuredData: ''
+  });
 
   // --- Modal State ---
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -125,8 +129,8 @@ const AppContent: React.FC = () => {
   // --- End Toast State ---
 
   useEffect(() => {
-    // Update metadata when route changes
-    setMetadata(getPageMetadata(location.pathname));
+    // Update metadata when route changes (async)
+    getPageMetadata(location.pathname).then(setMetadata);
     window.scrollTo(0, 0);
 
     // --- Google Analytics SPA Pageview Tracking ---

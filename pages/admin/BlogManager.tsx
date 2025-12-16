@@ -87,8 +87,8 @@ const BlogManager: React.FC = () => {
         try {
             const url = await uploadToCloudinary(file);
             setFormData(prev => ({ ...prev, imageUrl: url }));
-        } catch (error) {
-            alert('Failed to upload image');
+        } catch (error: any) {
+            alert(`Failed to upload image: ${error.message}`);
         } finally {
             setIsUploading(false);
         }

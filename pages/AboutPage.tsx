@@ -118,6 +118,8 @@ const AboutPage: React.FC = () => {
                                 src="https://images.unsplash.com/photo-1522071820081-009f0129c7da?q=80&w=800&h=900&auto=format&fit=crop"
                                 alt="Expert offshore development team from India collaborating on projects"
                                 loading="lazy"
+                                width="800"
+                                height="900"
                                 className="rounded-2xl shadow-2xl w-full object-cover"
                             />
 

@@ -1,11 +1,13 @@
 
-import React, { useState } from 'react';
+
+import React, { useState, lazy, Suspense } from 'react';
 import { SERVICES_OVERVIEW, PORTFOLIO_ITEMS, TESTIMONIALS } from '../constants';
 import FadeIn from '../components/FadeIn';
-import AnimatedHeroBackground from '../components/AnimatedHeroBackground';
-import TechnologyTicker from '../components/TechnologyTicker';
 import { useNavigation, useModal } from '../App';
 import { WebDevIcon, MobileDevIcon, FullStackIcon, EcommIcon, DesignIcon, CrmIcon } from '../components/IconComponents';
+
+// Lazy load TechnologyTicker only
+const TechnologyTicker = lazy(() => import('../components/TechnologyTicker'));
 
 const HomePage: React.FC = () => {
     const { navigate } = useNavigation();
@@ -34,8 +36,15 @@ const HomePage: React.FC = () => {
 
         return (
             <div className="relative bg-brand-dark text-white overflow-hidden min-h-screen flex items-center">
-                <div className="absolute inset-0 z-0 opacity-40">
-                    <AnimatedHeroBackground />
+                {/* Lightweight CSS-only animated background */}
+                <div className="absolute inset-0 z-0">
+                    {/* Animated gradient orbs */}
+                    <div className="absolute top-0 left-0 w-96 h-96 bg-brand-orange/20 rounded-full blur-3xl animate-float-slow"></div>
+                    <div className="absolute top-1/4 right-0 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-float-delayed"></div>
+                    <div className="absolute bottom-0 left-1/3 w-72 h-72 bg-purple-500/15 rounded-full blur-3xl animate-float"></div>
+
+                    {/* Optional: Subtle animated gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 animate-gradient"></div>
                 </div>
 
                 <div className="container mx-auto px-6 relative z-10 text-center flex flex-col justify-center items-center py-24 md:py-32">
@@ -420,7 +429,9 @@ const HomePage: React.FC = () => {
             </div>
 
             <div className="w-full max-w-6xl mx-auto mt-16">
-                <TechnologyTicker />
+                <Suspense fallback={<div className="h-24 bg-white/5 rounded-lg animate-pulse" />}>
+                    <TechnologyTicker />
+                </Suspense>
             </div>
         </Section>
     );

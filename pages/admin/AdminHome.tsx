@@ -5,15 +5,15 @@ const AdminHome: React.FC = () => {
     const navigate = useNavigate();
 
     const stats = [
-        { label: 'Portfolio Items', value: '12', icon: '💼', color: 'bg-blue-500', path: '/admin/portfolio' },
-        { label: 'Blog Posts', value: '8', icon: '📝', color: 'bg-green-500', path: '/admin/blog' },
-        { label: 'Job Openings', value: '4', icon: '👥', color: 'bg-purple-500', path: '/admin/careers' },
+        { label: 'Portfolio Items', value: '12', icon: '💼', color: 'bg-blue-500', path: '/seba/portfolio' },
+        { label: 'Blog Posts', value: '8', icon: '📝', color: 'bg-green-500', path: '/seba/blog' },
+        { label: 'Job Openings', value: '4', icon: '👥', color: 'bg-purple-500', path: '/seba/careers' },
     ];
 
     const quickActions = [
-        { label: 'Add Portfolio Item', icon: '➕', path: '/admin/portfolio', color: 'bg-blue-600' },
-        { label: 'Write Blog Post', icon: '✍️', path: '/admin/blog', color: 'bg-green-600' },
-        { label: 'Post Job Opening', icon: '📢', path: '/admin/careers', color: 'bg-purple-600' },
+        { label: 'Add Portfolio Item', icon: '➕', path: '/seba/portfolio', color: 'bg-blue-600' },
+        { label: 'Write Blog Post', icon: '✍️', path: '/seba/blog', color: 'bg-green-600' },
+        { label: 'Post Job Opening', icon: '📢', path: '/seba/careers', color: 'bg-purple-600' },
     ];
 
     return (

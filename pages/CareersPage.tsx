@@ -38,9 +38,9 @@ const CareersPage: React.FC = () => {
                     const resumeUrl = await uploadToCloudinary(resumeFile);
                     formData.set('resume_link', resumeUrl);
                     formData.delete('attachment'); // Don't send file explicitly to formsubmit to save bandwidth/limits
-                } catch (uploadError) {
+                } catch (uploadError: any) {
                     console.error('Resume upload failed:', uploadError);
-                    showToast('Failed to upload resume. Please check your connection or file size.', 'error');
+                    showToast(`Failed to upload resume: ${uploadError.message}`, 'error');
                     if (submitButton) {
                         submitButton.disabled = false;
                         submitButton.innerText = originalButtonText;

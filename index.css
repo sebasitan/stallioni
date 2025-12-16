@@ -42,6 +42,68 @@
       transform: translateY(0) scale(1);
     }
   }
+
+  /* Lightweight hero background animations */
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+      transform: translate(30px, -30px) scale(1.1);
+    }
+
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+  }
+
+  @keyframes float-slow {
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+      transform: translate(-40px, 40px) scale(1.05);
+    }
+  }
+
+  @keyframes float-delayed {
+
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+      transform: translate(-25px, 25px) scale(0.95);
+    }
+
+    66% {
+      transform: translate(25px, -15px) scale(1.05);
+    }
+  }
+
+  @keyframes gradient {
+
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  --animate-float: float 20s ease-in-out infinite;
+  --animate-float-slow: float-slow 25s ease-in-out infinite;
+  --animate-float-delayed: float-delayed 18s ease-in-out infinite 2s;
+  --animate-gradient: gradient 10s ease-in-out infinite;
 }
 
 
@@ -82,4 +144,94 @@
 
 .article-content img {
   @apply block w-full max-w-2xl mx-auto rounded-lg shadow-md my-8;
+}
+
+/* Mobile Optimizations */
+* {
+  /* Improve tap target size on mobile */
+  -webkit-tap-highlight-color: rgba(242, 101, 34, 0.2);
+  -webkit-touch-callout: none;
+}
+
+/* Smooth scrolling for better mobile UX */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize text rendering on mobile */
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent text size adjustment on orientation change */
+@media screen and (max-width: 768px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Ensure minimum touch target size (44x44px) */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Optimize images for mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* GPU acceleration for smoother animations on mobile */
+.transform,
+.transition,
+[class*="animate"] {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Remove focus outline on touch devices, keep for keyboard navigation */
+@media (hover: none) and (pointer: coarse) {
+
+  button:focus,
+  a:focus {
+    outline: none;
+  }
+}
+
+/* Reduce animations on mobile for better performance */
+@media (max-width: 768px) {
+  [class*="animate-float"] {
+    animation-duration: 30s !important;
+    /* Slower = less CPU usage */
+  }
+
+  .animate-gradient {
+    animation: none;
+    /* Disable gradient animation on mobile */
+    opacity: 0.3 !important;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

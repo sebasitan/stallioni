@@ -1,5 +1,5 @@
 import { BLOG_POSTS, JOB_OPENINGS } from './constants';
-import { SERVICE_DETAILS } from './constants-full';
+import { getServiceDetails } from './constants/service-loader';
 import { BlogPost, ServiceDetail, JobOpening } from './types';
 
 export interface PageMetadata {
@@ -18,7 +18,7 @@ const BASE_URL = 'https://stallioni.com';
 const DEFAULT_OG_IMAGE = 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&h=630&auto=format&fit=crop';
 
 
-const defaultMetadata: Omit<PageMetadata, 'ogUrl' | 'structuredData'> = {
+export const defaultMetadata: Omit<PageMetadata, 'ogUrl' | 'structuredData'> = {
   title: 'Best IT Outsourcing Company | Stallioni Net Solutions',
   description: 'Scale faster with affordable IT outsourcing. Hire expert developers and remote teams for web, mobile, and SaaS projects. Trusted in USA, UK, India & more.',
   keywords: 'IT outsourcing company, hire remote developers, offshore development team, affordable IT outsourcing, software outsourcing services, dedicated developer team, outsourcing for startups, global IT service provider',
@@ -60,7 +60,7 @@ const getWebsiteSchema = () => ({
   },
 });
 
-const getBreadcrumbSchema = (path: string) => {
+const getBreadcrumbSchema = async (path: string) => {
   const parts = path.replace('/', '').split('/').filter(p => p);
   const itemListElement = [{
     '@type': 'ListItem',
@@ -79,12 +79,20 @@ const getBreadcrumbSchema = (path: string) => {
   }
 
   let currentPath = '/';
-  parts.forEach((part, index) => {
+
+  // Need service details for breadcrumbs if it's a service page
+  let serviceDetails: ServiceDetail[] = [];
+  if (path.includes('services')) {
+    serviceDetails = await getServiceDetails();
+  }
+
+  for (let index = 0; index < parts.length; index++) {
+    const part = parts[index];
     currentPath += `${part}`;
     let name = breadcrumbMap[part] || part.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 
     if (index === 0 && part === 'services' && parts[1]) {
-      const service = SERVICE_DETAILS.find(s => s.id === parts[1]);
+      const service = serviceDetails.find(s => s.id === parts[1]);
       if (service) itemListElement.push({ '@type': 'ListItem', position: 2, name: 'Services', item: `${BASE_URL}/services` });
     }
     if (index === 0 && part === 'blog' && parts[1]) {
@@ -93,7 +101,7 @@ const getBreadcrumbSchema = (path: string) => {
     }
 
     if (index === 1 && parts[0] === 'services') {
-      const service = SERVICE_DETAILS.find(s => s.id === part);
+      const service = serviceDetails.find(s => s.id === part);
       name = service ? service.title : name;
     }
     if (index === 1 && parts[0] === 'blog') {
@@ -106,7 +114,7 @@ const getBreadcrumbSchema = (path: string) => {
     }
 
     currentPath += '/';
-  });
+  }
 
   return {
     '@context': 'https://schema.org',
@@ -256,12 +264,12 @@ export const getBlogPostMetadata = (post: BlogPost): Partial<PageMetadata> => ({
   ogType: 'article',
 });
 
-export const getPageMetadata = (route: string): PageMetadata => {
+export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
   let partialMetadata: Partial<PageMetadata> = {};
   const cleanRoute = route.split('?')[0]; // Ignore query params
 
   const schema: any[] = [getOrganizationSchema()];
-  schema.push(getBreadcrumbSchema(cleanRoute));
+  schema.push(await getBreadcrumbSchema(cleanRoute));
 
   if (cleanRoute.startsWith('/blog/')) {
     const id = parseInt(cleanRoute.split('/')[2], 10);
@@ -272,7 +280,8 @@ export const getPageMetadata = (route: string): PageMetadata => {
     }
   } else if (cleanRoute.startsWith('/services/')) {
     const id = cleanRoute.split('/')[2];
-    const service = SERVICE_DETAILS.find(s => s.id === id);
+    const serviceDetails = await getServiceDetails();
+    const service = serviceDetails.find(s => s.id === id);
     if (service) {
       partialMetadata = getServiceMetadata(service);
       schema.push(getServiceSchema(service));
