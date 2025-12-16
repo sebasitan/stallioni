@@ -48,41 +48,39 @@ const HomePage: React.FC = () => {
                 </div>
 
                 <div className="container mx-auto px-6 relative z-10 text-center flex flex-col justify-center items-center py-24 md:py-32">
-                    <FadeIn>
-                        <div className="max-w-5xl mx-auto">
-                            <div className="inline-block px-4 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange font-semibold text-sm mb-8 tracking-wider uppercase backdrop-blur-sm">
-                                Top IT Outsourcing Company
-                            </div>
-
-                            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-8 tracking-tight">
-                                Build Your Dream Team with <br className="hidden md:block" />
-                                <span className="text-brand-orange">STALLIONI NET SOLUTIONS</span>
-                            </h1>
-
-                            <p className="text-xl md:text-2xl text-slate-200 leading-relaxed mb-8 max-w-4xl mx-auto font-light">
-                                Ready to grow faster, reduce costs, and launch lightning-fast projects? <br className="hidden lg:block" />
-                                We help startups, agencies, and businesses build world-class digital products without the high cost of in-house teams.
-                            </p>
-
-                            <p className="text-lg text-slate-400 mb-10 max-w-3xl mx-auto">
-                                With clients across the USA, UK, India, Middle East, and Australia, we deliver premium-quality code and rapid results at a budget-friendly price.
-                            </p>
-
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <a href="#" onClick={handleConsultationClick} className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-brand-orange text-white font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-2xl hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 text-lg">
-                                    <span>Book Your Free Consultation</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
-                                </a>
-                                <a href="/portfolio" onClick={(e) => handleNav(e, '/portfolio')} className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-white/5 border border-white/20 text-white font-semibold py-4 px-10 rounded-full hover:bg-white/10 transition-all duration-300 backdrop-blur-sm text-lg">
-                                    <span>View Our Work</span>
-                                </a>
-                            </div>
-
-                            <p className="text-lg font-medium text-brand-orange mt-12 italic opacity-90">
-                                "Your dream product, your remote team, your competitive edge — built by us."
-                            </p>
+                    <div className="max-w-5xl mx-auto animate-fade-in-up">
+                        <div className="inline-block px-4 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange font-semibold text-sm mb-8 tracking-wider uppercase backdrop-blur-sm">
+                            Top IT Outsourcing Company
                         </div>
-                    </FadeIn>
+
+                        <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-8 tracking-tight">
+                            Build Your Dream Team with <br className="hidden md:block" />
+                            <span className="text-brand-orange">STALLIONI NET SOLUTIONS</span>
+                        </h1>
+
+                        <p className="text-xl md:text-2xl text-slate-200 leading-relaxed mb-8 max-w-4xl mx-auto font-light">
+                            Ready to grow faster, reduce costs, and launch lightning-fast projects? <br className="hidden lg:block" />
+                            We help startups, agencies, and businesses build world-class digital products without the high cost of in-house teams.
+                        </p>
+
+                        <p className="text-lg text-slate-400 mb-10 max-w-3xl mx-auto">
+                            With clients across the USA, UK, India, Middle East, and Australia, we deliver premium-quality code and rapid results at a budget-friendly price.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <a href="#" onClick={handleConsultationClick} className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-brand-orange text-white font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-2xl hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 text-lg">
+                                <span>Book Your Free Consultation</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
+                            </a>
+                            <a href="/portfolio" onClick={(e) => handleNav(e, '/portfolio')} className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-white/5 border border-white/20 text-white font-semibold py-4 px-10 rounded-full hover:bg-white/10 transition-all duration-300 backdrop-blur-sm text-lg">
+                                <span>View Our Work</span>
+                            </a>
+                        </div>
+
+                        <p className="text-lg font-medium text-brand-orange mt-12 italic opacity-90">
+                            "Your dream product, your remote team, your competitive edge — built by us."
+                        </p>
+                    </div>
                 </div>
             </div>
         );
