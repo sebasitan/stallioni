@@ -6,7 +6,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://stallioni.com/</loc>
+    <loc>https://www.stallioni.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <lastmod>2025-12-12</lastmod>
@@ -14,7 +14,7 @@
 
   <!-- About Page -->
   <url>
-    <loc>https://stallioni.com/about</loc>
+    <loc>https://www.stallioni.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <lastmod>2025-12-12</lastmod>
@@ -22,7 +22,7 @@
 
   <!-- Services Hub -->
   <url>
-    <loc>https://stallioni.com/services</loc>
+    <loc>https://www.stallioni.com/services</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <lastmod>2025-12-12</lastmod>
@@ -30,345 +30,345 @@
 
   <!-- Service Detail Pages -->
   <url>
-    <loc>https://stallioni.com/services/website-design-development</loc>
+    <loc>https://www.stallioni.com/services/website-design-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/ui-ux-design</loc>
+    <loc>https://www.stallioni.com/services/ui-ux-design</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/website-development</loc>
+    <loc>https://www.stallioni.com/services/website-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/frontend-development</loc>
+    <loc>https://www.stallioni.com/services/frontend-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/responsive-mobile-first-development</loc>
+    <loc>https://www.stallioni.com/services/responsive-mobile-first-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/landing-page-design</loc>
+    <loc>https://www.stallioni.com/services/landing-page-design</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/design-systems</loc>
+    <loc>https://www.stallioni.com/services/design-systems</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/custom-web-application-development</loc>
+    <loc>https://www.stallioni.com/services/custom-web-application-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/business-web-applications</loc>
+    <loc>https://www.stallioni.com/services/business-web-applications</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/saas-development</loc>
+    <loc>https://www.stallioni.com/services/saas-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/api-development</loc>
+    <loc>https://www.stallioni.com/services/api-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/third-party-integrations</loc>
+    <loc>https://www.stallioni.com/services/third-party-integrations</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/microservices-architecture</loc>
+    <loc>https://www.stallioni.com/services/microservices-architecture</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/web-portals</loc>
+    <loc>https://www.stallioni.com/services/web-portals</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/ecommerce-development</loc>
+    <loc>https://www.stallioni.com/services/ecommerce-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/woocommerce-devel</loc>
+    <loc>https://www.stallioni.com/services/woocommerce-devel</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/shopify-development</loc>
+    <loc>https://www.stallioni.com/services/shopify-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/magento-development</loc>
+    <loc>https://www.stallioni.com/services/magento-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/bigcommerce-development</loc>
+    <loc>https://www.stallioni.com/services/bigcommerce-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/custom-ecommerce-solutions</loc>
+    <loc>https://www.stallioni.com/services/custom-ecommerce-solutions</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/marketplace-development</loc>
+    <loc>https://www.stallioni.com/services/marketplace-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/payment-gateway-integrations</loc>
+    <loc>https://www.stallioni.com/services/payment-gateway-integrations</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/cms-development</loc>
+    <loc>https://www.stallioni.com/services/cms-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/php-development</loc>
+    <loc>https://www.stallioni.com/services/php-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/mobile-app-development</loc>
+    <loc>https://www.stallioni.com/services/mobile-app-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/ios-app-development</loc>
+    <loc>https://www.stallioni.com/services/ios-app-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/android-app-development</loc>
+    <loc>https://www.stallioni.com/services/android-app-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/flutter-development</loc>
+    <loc>https://www.stallioni.com/services/flutter-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/react-native-development</loc>
+    <loc>https://www.stallioni.com/services/react-native-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/pwa-development</loc>
+    <loc>https://www.stallioni.com/services/pwa-development</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/maintenance-support</loc>
+    <loc>https://www.stallioni.com/services/maintenance-support</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/website-maintenance</loc>
+    <loc>https://www.stallioni.com/services/website-maintenance</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/application-maintenance</loc>
+    <loc>https://www.stallioni.com/services/application-maintenance</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/security-audits</loc>
+    <loc>https://www.stallioni.com/services/security-audits</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/performance-optimization</loc>
+    <loc>https://www.stallioni.com/services/performance-optimization</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/backup-recovery</loc>
+    <loc>https://www.stallioni.com/services/backup-recovery</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/hosting-support</loc>
+    <loc>https://www.stallioni.com/services/hosting-support</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/seo-digital-marketing</loc>
+    <loc>https://www.stallioni.com/services/seo-digital-marketing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/technical-seo</loc>
+    <loc>https://www.stallioni.com/services/technical-seo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/on-page-off-page-seo</loc>
+    <loc>https://www.stallioni.com/services/on-page-off-page-seo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/local-seo</loc>
+    <loc>https://www.stallioni.com/services/local-seo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/google-ads</loc>
+    <loc>https://www.stallioni.com/services/google-ads</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/social-media-ads</loc>
+    <loc>https://www.stallioni.com/services/social-media-ads</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/content-writing-strategy</loc>
+    <loc>https://www.stallioni.com/services/content-writing-strategy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/cloud-devops-services</loc>
+    <loc>https://www.stallioni.com/services/cloud-devops-services</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/cloud-setup</loc>
+    <loc>https://www.stallioni.com/services/cloud-setup</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/cloud-migration</loc>
+    <loc>https://www.stallioni.com/services/cloud-migration</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/cicd-automation</loc>
+    <loc>https://www.stallioni.com/services/cicd-automation</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/docker-kubernetes</loc>
+    <loc>https://www.stallioni.com/services/docker-kubernetes</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/infrastructure-as-code</loc>
+    <loc>https://www.stallioni.com/services/infrastructure-as-code</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/logging-monitoring</loc>
+    <loc>https://www.stallioni.com/services/logging-monitoring</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/quality-assurance-testing</loc>
+    <loc>https://www.stallioni.com/services/quality-assurance-testing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/manual-testing</loc>
+    <loc>https://www.stallioni.com/services/manual-testing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/automated-testing</loc>
+    <loc>https://www.stallioni.com/services/automated-testing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/api-testing</loc>
+    <loc>https://www.stallioni.com/services/api-testing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/performance-testing</loc>
+    <loc>https://www.stallioni.com/services/performance-testing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/cross-browser-testing</loc>
+    <loc>https://www.stallioni.com/services/cross-browser-testing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/ai-automation-modern-tech</loc>
+    <loc>https://www.stallioni.com/services/ai-automation-modern-tech</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/ai-chatbots</loc>
+    <loc>https://www.stallioni.com/services/ai-chatbots</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/recommendation-engines</loc>
+    <loc>https://www.stallioni.com/services/recommendation-engines</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/nlp-features</loc>
+    <loc>https://www.stallioni.com/services/nlp-features</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/business-process-automation</loc>
+    <loc>https://www.stallioni.com/services/business-process-automation</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stallioni.com/services/real-time-apps</loc>
+    <loc>https://www.stallioni.com/services/real-time-apps</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Portfolio Page -->
   <url>
-    <loc>https://stallioni.com/portfolio</loc>
+    <loc>https://www.stallioni.com/portfolio</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Blog Page -->
   <url>
-    <loc>https://stallioni.com/blog</loc>
+    <loc>https://www.stallioni.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Careers Page -->
   <url>
-    <loc>https://stallioni.com/careers</loc>
+    <loc>https://www.stallioni.com/careers</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Contact Page -->
   <url>
-    <loc>https://stallioni.com/contact</loc>
+    <loc>https://www.stallioni.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
