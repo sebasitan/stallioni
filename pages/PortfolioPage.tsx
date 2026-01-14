@@ -199,7 +199,7 @@ const PortfolioPage: React.FC = () => {
 
             return matchesSearch && categoryMatch && industryMatch && technologyMatch;
         });
-    }, [filters, searchQuery]);
+    }, [filters, searchQuery, allItems]);
 
     const handleCategoryChange = (category: 'All' | PortfolioCategory) => {
         setFilters(prev => ({ ...prev, category }));
