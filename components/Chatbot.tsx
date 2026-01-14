@@ -126,14 +126,14 @@ const Chatbot: React.FC = () => {
         }
 
         // B. Static Business Responses (No AI needed)
-        if (lowerText.match(/^(hi|hello|hey|greetings|good morning)/)) {
-            return { type: 'static', content: "Hello! I'm Aria, your Stallioni Assistant. How can I help you today? I can answer questions about our services." };
+        if (lowerText.match(/^(hi|hello|hey|greetings|good morning|hola|aria)/)) {
+            return { type: 'static', content: "Hello! I'm Aria, your Stallioni Assistant. How can I help you today? I can help with hiring developers, project estimates, or answering questions about our services." };
         }
         if (lowerText.includes('hire') || lowerText.includes('developer') || lowerText.includes('team')) {
             return { type: 'static', content: "Excellent! We have top-tier developers ready to join your team. You can check our [Careers Page] or tell me what technology you need expertise in." };
         }
-        if (lowerText.includes('cost') || lowerText.includes('price') || lowerText.includes('quote') || lowerText.includes('estimate')) {
-            return { type: 'static', content: "Our pricing is flexible and depends on the project scope. I can help you get a free quote. Would you like to [Get a project estimate]?" };
+        if (lowerText.includes('cost') || lowerText.includes('price') || lowerText.includes('quote') || lowerText.includes('estimate') || lowerText.includes('budget')) {
+            return { type: 'static', content: "Our pricing is flexible and tailored to your project scope. I can help you get a custom quote. Would you like to [Get a project estimate] or [Book a consultation]?" };
         }
         if (lowerText.includes('contact') || lowerText.includes('email') || lowerText.includes('phone') || lowerText.includes('location')) {
             return { type: 'static', content: `You can reach us via email at ${getContactEmail()}, or call us directly at +${getCallPhone()}. We are based in India, serving clients globally.` };
@@ -171,8 +171,9 @@ const Chatbot: React.FC = () => {
             return { type: 'generate', serviceContext: matchedService };
         }
 
-        // D. Default to AI (Gemini) instead of refusal
-        return { type: 'generate', serviceContext: { title: 'General Inquiries', description: 'Stallioni provides comprehensive digital solutions.', features: [] } };
+        // D. Default to Gemini AI for everything else!
+        // This ensures the user NEVER gets the "Sorry..." message for legitimate questions.
+        return { type: 'generate', serviceContext: { title: 'General Stallioni Inquiry', description: 'Stallioni provides elite web, mobile, and AI solutions.', features: [] } };
     };
 
     // 2. The Generator: Call our internal Vercel API
