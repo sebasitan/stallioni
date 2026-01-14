@@ -7,18 +7,24 @@ const STORAGE_KEY = 'stallioni_portfolio_v2';
 export function getPortfolioItems(): PortfolioItem[] {
     try {
         const data = localStorage.getItem(STORAGE_KEY);
-        if (!data) {
-            const initialItems = [...PORTFOLIO_ITEMS];
-            // Ensure IDs are handled as strings if we want consistency, but mixed is now allowed.
-            // Let's explicitly cast to match our new loose type
-            const formattedInitial = initialItems.map(p => ({ ...p, id: p.id.toString() }));
-            savePortfolioItems(formattedInitial);
-            return formattedInitial;
+        let items: PortfolioItem[] = [];
+
+        if (data) {
+            items = JSON.parse(data);
         }
-        return JSON.parse(data);
+
+        // If the list is empty, re-initialize with defaults
+        if (items.length === 0) {
+            const initialItems = PORTFOLIO_ITEMS.map(p => ({ ...p, id: p.id.toString() }));
+            savePortfolioItems(initialItems);
+            return initialItems;
+        }
+
+        return items;
     } catch (error) {
         console.error('Error loading portfolio:', error);
-        return [];
+        // Fallback to defaults on error
+        return PORTFOLIO_ITEMS.map(p => ({ ...p, id: p.id.toString() }));
     }
 }
 

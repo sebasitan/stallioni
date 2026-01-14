@@ -183,15 +183,15 @@ const PortfolioPage: React.FC = () => {
     }, []);
 
     const categoryFilters: ('All' | PortfolioCategory)[] = ['All', ...Object.values(PortfolioCategory)];
-    const availableIndustries = useMemo(() => [...new Set(allItems.map(item => item.industry))].sort(), [allItems]);
-    const availableTechnologies = useMemo(() => [...new Set(allItems.flatMap(item => item.technologies))].sort(), [allItems]);
+    const availableIndustries = useMemo(() => [...new Set(allItems.map(item => item.industry).filter(Boolean))].sort(), [allItems]);
+    const availableTechnologies = useMemo(() => [...new Set(allItems.flatMap(item => item.technologies || []).filter(Boolean))].sort(), [allItems]);
 
     const filteredItems = useMemo(() => {
         return allItems.filter(item => {
             const matchesSearch = searchQuery === '' ||
-                item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                item.technologies.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+                (item.title?.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                (item.description?.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                (item.technologies?.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())));
 
             const categoryMatch = filters.category === 'All' || item.category === filters.category;
             const industryMatch = filters.industries.length === 0 || filters.industries.includes(item.industry);

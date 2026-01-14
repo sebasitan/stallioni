@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { PortfolioItem, PortfolioCategory } from '../../types';
+import { PortfolioItem, PortfolioCategory, Industry } from '../../types';
 import {
     getPortfolioItems,
+    savePortfolioItems,
     addPortfolioItem,
     updatePortfolioItem,
     deletePortfolioItem
 } from '../../utils/portfolioStorage';
+import { PORTFOLIO_ITEMS } from '../../constants';
 import { uploadToCloudinary } from '../../utils/cloudinary';
 
 const PortfolioManager: React.FC = () => {
@@ -18,11 +20,13 @@ const PortfolioManager: React.FC = () => {
     // Form state
     const [formData, setFormData] = useState<Partial<PortfolioItem>>({
         title: '',
-        category: '',
+        category: '' as PortfolioCategory,
+        industry: '' as Industry,
         description: '',
         imageUrl: '',
         technologies: [],
-        link: ''
+        clientLocation: '',
+        testimonial: '',
     });
 
     useEffect(() => {
@@ -62,11 +66,13 @@ const PortfolioManager: React.FC = () => {
     const resetForm = () => {
         setFormData({
             title: '',
-            category: '',
+            category: '' as PortfolioCategory,
+            industry: '' as Industry,
             description: '',
             imageUrl: '',
             technologies: [],
-            link: ''
+            clientLocation: '',
+            testimonial: '',
         });
         setEditingItem(null);
         setShowForm(false);
@@ -101,13 +107,27 @@ const PortfolioManager: React.FC = () => {
                     <h2 className="text-3xl font-bold text-brand-dark mb-2">Portfolio Manager</h2>
                     <p className="text-slate-600">Manage your portfolio items</p>
                 </div>
-                <button
-                    onClick={() => setShowForm(true)}
-                    className="bg-brand-orange text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition flex items-center gap-2"
-                >
-                    <span className="text-xl">+</span>
-                    Add New Item
-                </button>
+                <div className="flex gap-3">
+                    <button
+                        onClick={() => {
+                            if (confirm('This will append the default Stallioni success stories to your list. Continue?')) {
+                                const defaults = PORTFOLIO_ITEMS.map(p => ({ ...p, id: p.id.toString() }));
+                                savePortfolioItems([...getPortfolioItems(), ...defaults]);
+                                loadItems();
+                            }
+                        }}
+                        className="px-4 py-2 text-sm font-semibold text-slate-600 bg-slate-200 hover:bg-slate-300 rounded-lg transition"
+                    >
+                        Restore Defaults
+                    </button>
+                    <button
+                        onClick={() => setShowForm(true)}
+                        className="bg-brand-orange text-white px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition flex items-center gap-2"
+                    >
+                        <span className="text-xl">+</span>
+                        Add New Item
+                    </button>
+                </div>
             </div>
 
             {/* Search */}
@@ -146,13 +166,30 @@ const PortfolioManager: React.FC = () => {
                                 <select
                                     required
                                     value={formData.category}
-                                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                    onChange={(e) => setFormData({ ...formData, category: e.target.value as PortfolioCategory })}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
                                 >
                                     <option value="">Select category</option>
                                     {Object.values(PortfolioCategory).map((category) => (
                                         <option key={category} value={category}>
                                             {category}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">Industry *</label>
+                                <select
+                                    required
+                                    value={formData.industry}
+                                    onChange={(e) => setFormData({ ...formData, industry: e.target.value as Industry })}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
+                                >
+                                    <option value="">Select industry</option>
+                                    {Object.values(Industry).map((ind) => (
+                                        <option key={ind} value={ind}>
+                                            {ind}
                                         </option>
                                     ))}
                                 </select>
@@ -214,12 +251,25 @@ const PortfolioManager: React.FC = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Project Link</label>
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">Client Location *</label>
                                 <input
-                                    type="url"
-                                    value={formData.link}
-                                    onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                                    placeholder="https://project-url.com"
+                                    type="text"
+                                    required
+                                    value={formData.clientLocation}
+                                    onChange={(e) => setFormData({ ...formData, clientLocation: e.target.value })}
+                                    placeholder="e.g. London, UK"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">Testimonial *</label>
+                                <textarea
+                                    required
+                                    rows={2}
+                                    value={formData.testimonial}
+                                    onChange={(e) => setFormData({ ...formData, testimonial: e.target.value })}
+                                    placeholder="Enter client testimonial..."
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange"
                                 />
                             </div>
