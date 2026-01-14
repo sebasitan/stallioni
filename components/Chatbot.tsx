@@ -9,7 +9,7 @@ interface Message {
     text: string;
 }
 
-const ARIA_AVATAR_URL = "https://stallioni.com/Aria.png";
+const ARIA_AVATAR_URL = "/logo.svg"; // Fallback to logo or a stylized icon if image is missing
 
 const EmailTranscriptModal: React.FC<{
     isOpen: boolean;
@@ -171,8 +171,8 @@ const Chatbot: React.FC = () => {
             return { type: 'generate', serviceContext: matchedService };
         }
 
-        // D. Fallthrough Refusal
-        return { type: 'refusal' };
+        // D. Default to AI (Gemini) instead of refusal
+        return { type: 'generate', serviceContext: { title: 'General Inquiries', description: 'Stallioni provides comprehensive digital solutions.', features: [] } };
     };
 
     // 2. The Generator: Call our internal Vercel API
@@ -402,7 +402,7 @@ const Chatbot: React.FC = () => {
 
     const TypingIndicator = () => (
         <div className="flex items-end gap-2.5 justify-start">
-            <img src={ARIA_AVATAR_URL} alt="Aria avatar" className="w-7 h-7 rounded-full flex-shrink-0" />
+            <div className="w-8 h-8 rounded-full bg-brand-orange flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-sm">A</div>
             <div className="bg-slate-200 text-brand-dark rounded-bl-md rounded-2xl p-3">
                 <div className="flex items-center space-x-1.5">
                     <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></span>
@@ -450,7 +450,7 @@ const Chatbot: React.FC = () => {
                 <EmailTranscriptModal isOpen={showEmailModal} onClose={finalClose} onSend={handleSendTranscript} />
                 <header className="flex items-center justify-between p-4 border-b border-slate-200 bg-slate-50/70 rounded-t-2xl flex-shrink-0">
                     <div className="flex items-center gap-3">
-                        <img src={ARIA_AVATAR_URL} alt="Aria avatar" className="w-10 h-10 rounded-full border-2 border-white shadow-md" />
+                        <div className="w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white font-bold shadow-md border-2 border-white">A</div>
                         <div>
                             <h3 className="text-lg font-bold text-brand-dark">Aria</h3>
                             <p className="text-xs text-slate-500">Stallioni Assistant</p>
@@ -474,7 +474,7 @@ const Chatbot: React.FC = () => {
                             <div key={index}>
                                 <div className={`flex items-end gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     {msg.role === 'model' && (
-                                        <img src={ARIA_AVATAR_URL} alt="Aria avatar" className="w-7 h-7 rounded-full flex-shrink-0" />
+                                        <div className="w-8 h-8 rounded-full bg-brand-orange flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-sm">A</div>
                                     )}
                                     {messageText && (
                                         <div className={`max-w-[80%] p-3 rounded-2xl ${msg.role === 'user' ? 'bg-brand-dark text-white rounded-br-md' : 'bg-slate-200 text-brand-dark rounded-bl-md'}`}>
