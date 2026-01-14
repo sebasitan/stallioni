@@ -9,6 +9,9 @@ export const getContactEmail = (): string => `${emailParts.user}@${emailParts.do
 export const getWhatsAppPhone = (): string => `${whatsAppPhoneParts.country}${whatsAppPhoneParts.number}`;
 export const getCallPhone = (): string => `${callPhoneParts.country}${callPhoneParts.number}`;
 
+// Change this to your production site key
+export const RECAPTCHA_SITE_KEY = '6Lf0E0osAAAAADeWr5AGvZ-DCJpXhYtUqxNPi5kW';
+
 export const NAV_LINKS: NavLink[] = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About Us' },

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FadeIn from '../components/FadeIn';
-import { getContactEmail } from '../constants';
+import { getContactEmail, RECAPTCHA_SITE_KEY } from '../constants';
 import { useToast } from '../App';
 import { uploadToCloudinary } from '../utils/cloudinary';
 import { getJobOpenings, JobOpening } from '../utils/careersStorage';
@@ -51,18 +51,43 @@ const CareersPage: React.FC = () => {
 
             submitButton && (submitButton.innerText = 'Sending Application...');
 
-            const response = await fetch(`https://formsubmit.co/ajax/${getContactEmail()}`, {
+            // 1. Generate reCAPTCHA Token
+            const recaptchaToken = await new Promise<string>((resolve, reject) => {
+                if (typeof window.grecaptcha === 'undefined') {
+                    reject(new Error('reCAPTCHA not loaded'));
+                    return;
+                }
+                window.grecaptcha.ready(() => {
+                    window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'career_form' })
+                        .then(resolve)
+                        .catch(reject);
+                });
+            });
+
+            // 2. Prepare data
+            const data = Object.fromEntries(formData.entries());
+            data.recaptchaToken = recaptchaToken;
+
+            const response = await fetch('/api/contact', {
                 method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
             });
 
             if (response.ok) {
+                // GA4 tracking
+                if (typeof window.gtag === 'function') {
+                    window.gtag("event", "generate_lead", {
+                        method: "career_form",
+                    });
+                }
+
                 showToast("Application submitted successfully! Good luck, we'll review your profile soon.", 'success');
                 form.reset();
                 setApplicationForm({ position: '', show: false });
             } else {
-                throw new Error('Submission failed');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Submission failed');
             }
         } catch (error) {
             showToast('Error submitting application. Please try again.', 'error');
@@ -349,7 +374,7 @@ const CareersPage: React.FC = () => {
                                         <form onSubmit={handleSubmit} className="space-y-8">
                                             <input type="hidden" name="_subject" value={`New Application: ${applicationForm.position}`} />
                                             <input type="hidden" name="_captcha" value="false" />
-                                            <input type="text" name="_honey" style={{ display: 'none' }} />
+                                            <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
                                             <input type="hidden" name="position" value={applicationForm.position} />
 
                                             <div className="grid md:grid-cols-2 gap-8">

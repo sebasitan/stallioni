@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NAV_LINKS, getContactEmail, getCallPhone, getWhatsAppPhone } from '../constants';
+import { NAV_LINKS, getContactEmail, getCallPhone, getWhatsAppPhone, RECAPTCHA_SITE_KEY } from '../constants';
 import { SocialIcons } from './IconComponents';
 import { useNavigation, useToast } from '../App';
 
@@ -58,22 +58,50 @@ const Footer: React.FC = () => {
     if (submitButton) submitButton.disabled = true;
 
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${getContactEmail()}`, {
+      // 1. Generate reCAPTCHA Token
+      if (typeof window.grecaptcha === 'undefined') {
+        throw new Error('reCAPTCHA not loaded');
+      }
+
+      const recaptchaToken = await new Promise<string>((resolve, reject) => {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'newsletter_subscription' })
+            .then(resolve)
+            .catch(reject);
+        });
+      });
+
+      // 2. Prepare data
+      const data = Object.fromEntries(formData.entries());
+      data.recaptchaToken = recaptchaToken;
+      // Add missing fields for the generic contact API
+      data.name = 'Newsletter Subscriber';
+      data.message = 'New Newsletter Subscription Request';
+
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        body: formData,
         headers: {
-          'Accept': 'application/json'
+          'Content-Type': 'application/json'
         },
+        body: JSON.stringify(data)
       });
 
       if (response.ok) {
+        // GA4 tracking
+        if (typeof window.gtag === 'function') {
+          window.gtag("event", "generate_lead", {
+            method: "newsletter_signup",
+          });
+        }
+
         showToast("You've successfully subscribed to our newsletter! Expect insights in your inbox soon.", 'success');
         form.reset();
       } else {
-        throw new Error('Subscription failed');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Subscription failed');
       }
-    } catch (error) {
-      showToast('There was an error subscribing. Please try again.', 'error');
+    } catch (error: any) {
+      showToast(error.message || 'There was an error subscribing. Please try again.', 'error');
     } finally {
       if (submitButton) submitButton.disabled = false;
     }
@@ -152,7 +180,7 @@ const Footer: React.FC = () => {
             <form onSubmit={handleNewsletterSubmit}>
               <input type="hidden" name="_subject" value="New Newsletter Subscription from Stallioni Website" />
               <input type="hidden" name="_captcha" value="false" />
-              <input type="text" name="_honey" style={{ display: 'none' }} />
+              <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
               <div className="flex">
                 <input

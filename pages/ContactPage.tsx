@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import FadeIn from '../components/FadeIn';
 import { useToast } from '../App';
-import { getContactEmail, getWhatsAppPhone } from '../constants';
+import { getContactEmail, getWhatsAppPhone, RECAPTCHA_SITE_KEY } from '../constants';
 
 const ProjectIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>;
 const PartnershipIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>;
@@ -54,17 +54,42 @@ const ContactPage: React.FC = () => {
         if (submitButton) submitButton.disabled = true;
 
         try {
-            const response = await fetch(`https://formsubmit.co/ajax/${getContactEmail()}`, {
+            // 1. Generate reCAPTCHA Token
+            if (typeof window.grecaptcha === 'undefined') {
+                throw new Error('reCAPTCHA not loaded');
+            }
+
+            const recaptchaToken = await new Promise<string>((resolve, reject) => {
+                window.grecaptcha.ready(() => {
+                    window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact_form' })
+                        .then(resolve)
+                        .catch(reject);
+                });
+            });
+
+            // 2. Prepare data
+            const data = Object.fromEntries(formData.entries());
+            data.recaptchaToken = recaptchaToken;
+
+            // 3. Submit to API
+            const response = await fetch('/api/contact', {
                 method: 'POST',
-                body: formData,
                 headers: {
-                    'Accept': 'application/json'
-                }
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             });
 
             if (response.ok) {
-                // Tailor message based on the hidden subject field to be more relevant
-                const subject = formData.get('_subject') as string;
+                // GA4 tracking
+                if (typeof window.gtag === 'function') {
+                    window.gtag("event", "generate_lead", {
+                        method: "contact_form",
+                    });
+                }
+
+                // Success message
+                const subject = formData.get('_subject') as string || '';
                 let successMessage = 'Your inquiry has been sent successfully!';
 
                 if (subject.includes('Project')) {
@@ -78,10 +103,12 @@ const ContactPage: React.FC = () => {
                 showToast(successMessage, 'success');
                 form.reset();
             } else {
-                throw new Error('Form submission failed');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Form submission failed');
             }
-        } catch (error) {
-            showToast('There was an error sending your message. Please try again.', 'error');
+        } catch (error: any) {
+            console.error('Submission error:', error);
+            showToast(error.message || 'There was an error sending your message. Please try again.', 'error');
         } finally {
             if (submitButton) submitButton.disabled = false;
         }
@@ -147,12 +174,12 @@ const ContactPage: React.FC = () => {
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input type="hidden" name="_subject" value="New Project Inquiry from Stallioni Website" />
                 <input type="hidden" name="_captcha" value="false" />
-                <input type="text" name="_honey" style={{ display: 'none' }} />
+                <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
                 <h3 className="md:col-span-2 text-2xl font-bold text-brand-dark border-b border-slate-200 pb-3">Project Details</h3>
                 <InputField id="name" name="name" label="Full Name" placeholder="Jane Doe" required />
                 <InputField id="email" name="email" label="Work Email" type="email" placeholder="jane@company.com" required />
-                <InputField id="company" name="company" label="Company Name (Optional)" placeholder="Innovate Inc." />
+                <InputField id="organization" name="organization" label="Company Name (Optional)" placeholder="Innovate Inc." />
                 <InputField id="phone" name="phone" label="Phone Number (Optional)" type="tel" />
                 <SelectField id="project-type" name="service_of_interest" label="Service of Interest">
                     <option>Web & E-Commerce</option>
@@ -190,7 +217,7 @@ const ContactPage: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
                 <input type="hidden" name="_subject" value={`New ${title} from Stallioni Website`} />
                 <input type="hidden" name="_captcha" value="false" />
-                <input type="text" name="_honey" style={{ display: 'none' }} />
+                <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
                 <h3 className="text-2xl font-bold text-brand-dark border-b border-slate-200 pb-3">{title}</h3>
                 <InputField id="gen-name" name="name" label="Full Name" placeholder="Jane Doe" required />

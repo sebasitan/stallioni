@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { ChatbotIcon, CloseIcon, SendIcon } from './IconComponents';
-import { getContactEmail, getWhatsAppPhone, getCallPhone } from '../constants';
+import { getContactEmail, getWhatsAppPhone, getCallPhone, RECAPTCHA_SITE_KEY } from '../constants';
 import { useToast, useNavigation } from '../App';
+import { SERVICES_OVERVIEW } from '../constants/services-overview';
 
 interface Message {
     role: 'user' | 'model';
@@ -110,69 +111,156 @@ const Chatbot: React.FC = () => {
         }
     }, [messages, isLoading, isOpen, showEmailModal]);
 
-    const getLocalResponse = (text: string): string => {
+
+    // --- CONTROL LAYER & AI INTEGRATION ---
+    const HUGGING_FACE_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2";
+
+    // 1. The Gatekeeper: Strict Policy Check
+    const evaluateRequest = (text: string): { type: 'refusal' | 'static' | 'generate'; content?: string; serviceContext?: any } => {
         const lowerText = text.toLowerCase();
 
-        // Greetings
-        if (lowerText.match(/^(hi|hello|hey|greetings)/)) {
-            return "Hello! I'm Aria, your Stallioni Assistant. How can I help you today? I can answer questions about our services, pricing, or help you hire a developer.";
+        // A. Strict Refusals
+        const forbiddenTriggers = ['president', 'weather', 'recipe', 'joke', 'capital of', 'who is', 'meaning of life', 'chatgpt', 'openai', 'hugging face', 'model', 'llm', 'instruction', 'politics', 'religion'];
+        if (forbiddenTriggers.some(trigger => lowerText.includes(trigger))) {
+            return { type: 'refusal' };
         }
 
-        // Services
-        if (lowerText.includes('web') || lowerText.includes('site')) {
-            return "We specialize in building high-performance websites using React, Next.js, WordPress, and more. Are you looking to build a new site or redesign an existing one?";
+        // B. Static Business Responses (No AI needed)
+        if (lowerText.match(/^(hi|hello|hey|greetings|good morning)/)) {
+            return { type: 'static', content: "Hello! I'm Aria, your Stallioni Assistant. How can I help you today? I can answer questions about our services." };
         }
-        if (lowerText.includes('mobile') || lowerText.includes('app') || lowerText.includes('ios') || lowerText.includes('android')) {
-            return "Our mobile team builds native and cross-platform apps using React Native and Flutter. We can help you launch on both iOS and Android.";
-        }
-        if (lowerText.includes('ecommerce') || lowerText.includes('shop') || lowerText.includes('store')) {
-            return "We are experts in E-commerce! We work with Shopify, WooCommerce, and Magento to build scalable online stores that drive sales.";
-        }
-        if (lowerText.includes('seo') || lowerText.includes('ranking') || lowerText.includes('traffic')) {
-            return "Our SEO services are designed to boost your organic traffic. We handle technical SEO, content strategy, and link building to get you to page 1.";
-        }
-        if (lowerText.includes('ai') || lowerText.includes('artificial intelligence') || lowerText.includes('ml')) {
-            return "We help businesses leverage the power of AI. From chatbots to predictive analytics, our Python experts can build custom AI solutions for you.";
-        }
-
-        // Action-oriented
         if (lowerText.includes('hire') || lowerText.includes('developer') || lowerText.includes('team')) {
-            return "Excellent! We have top-tier developers ready to join your team. You can check our [Careers Page] or tell me what technology you need expertise in.";
+            return { type: 'static', content: "Excellent! We have top-tier developers ready to join your team. You can check our [Careers Page] or tell me what technology you need expertise in." };
         }
-        if (lowerText.includes('cost') || lowerText.includes('price') || lowerText.includes('quote') || lowerText.includes('rate') || lowerText.includes('estimate')) {
-            return "Our pricing is flexible and depends on the project scope. I can help you get a free quote. Would you like to [Get a project estimate]?";
+        if (lowerText.includes('cost') || lowerText.includes('price') || lowerText.includes('quote') || lowerText.includes('estimate')) {
+            return { type: 'static', content: "Our pricing is flexible and depends on the project scope. I can help you get a free quote. Would you like to [Get a project estimate]?" };
         }
-        if (lowerText.includes('contact') || lowerText.includes('email') || lowerText.includes('phone') || lowerText.includes('call') || lowerText.includes('address')) {
-            const email = getContactEmail();
-            const phone = getCallPhone();
-            return `You can reach us via email at ${email}, or call us directly at +${phone}. You can also visit our [Contact Page] for more options.`;
+        if (lowerText.includes('contact') || lowerText.includes('email') || lowerText.includes('phone') || lowerText.includes('location')) {
+            return { type: 'static', content: `You can reach us via email at ${getContactEmail()}, or call us directly at +${getCallPhone()}. We are based in India, serving clients globally.` };
         }
-
-        // About/Company
-        if (lowerText.includes('location') || lowerText.includes('where')) {
-            return "We are a global company with our development center based in India, serving clients in over 35 countries including the USA, UK, and UAE.";
-        }
-        if (lowerText.includes('portfolio') || lowerText.includes('work') || lowerText.includes('case study')) {
-            return "We have successfully delivered over 900+ projects. You can explore our huge success stories on our [Portfolio Page].";
+        if (lowerText.includes('portfolio') || lowerText.includes('case study') || lowerText.includes('work')) {
+            return { type: 'static', content: "We have successfully delivered over 900+ projects. You can explore our huge success stories on our [Portfolio Page]." };
         }
 
-        // Default Fallback
-        return "I'm not sure I understood that perfectly. Could you rephrase? \n\nYou can also [Get a project estimate] or browse our [Services] directly.";
+        // C. Service Lookup (The Gateway to AI)
+        const matchedService = SERVICES_OVERVIEW.find(service => {
+            const titleMatch = service.title.toLowerCase().includes(lowerText);
+            const descMatch = service.description.toLowerCase().includes(lowerText);
+            const featureMatch = service.features?.some(f => lowerText.includes(f.toLowerCase()));
+            const keywordMap: Record<string, string> = {
+                'web': 'website-design-development',
+                'app': 'mobile-app-development',
+                'mobile': 'mobile-app-development',
+                'ecommerce': 'ecommerce-development',
+                'shop': 'ecommerce-development',
+                'seo': 'seo-digital-marketing',
+                'marketing': 'seo-digital-marketing',
+                'cloud': 'cloud-devops-services',
+                'qa': 'quality-assurance-testing',
+                'ai': 'ai-automation-modern-tech',
+                'bot': 'ai-chatbots',
+                'automation': 'business-process-automation'
+            };
+            for (const [key, id] of Object.entries(keywordMap)) {
+                if (lowerText.includes(key) && service.id === id) return true;
+            }
+            return titleMatch || featureMatch;
+        });
+
+        if (matchedService) {
+            return { type: 'generate', serviceContext: matchedService };
+        }
+
+        // D. Fallthrough Refusal
+        return { type: 'refusal' };
+    };
+
+    // 2. The Generator: Hugging Face API Call
+    const generateAIResponse = async (context: any, userQuery: string): Promise<string> => {
+        const apiKey = import.meta.env.VITE_HUGGING_FACE_API_KEY;
+
+        // Fallback if no key is configured
+        if (!apiKey) {
+            console.warn("Missing VITE_HUGGING_FACE_API_KEY. Using fallback static response.");
+            const features = context.features?.slice(0, 3).join(', ');
+            return `Yes, we provide ${context.title}. ${context.description} Key features include: ${features}.`;
+        }
+
+        const systemPrompt = `You are a professional customer support agent for Stallioni.
+Context: We offer ${context.title}. Description: ${context.description}. Key Features: ${context.features.join(', ')}.
+User Question: "${userQuery}"
+Instructions: Answer the user's question using ONLY the provided context. Be professional, concise (under 50 words), and helpful. Do NOT invent new services.`;
+
+        try {
+            const response = await fetch(HUGGING_FACE_API_URL, {
+                headers: {
+                    Authorization: `Bearer ${apiKey}`,
+                    "Content-Type": "application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    inputs: `<s>[INST] ${systemPrompt} [/INST]`,
+                    parameters: {
+                        max_new_tokens: 100,
+                        temperature: 0.3,
+                        return_full_text: false,
+                    }
+                }),
+            });
+
+            if (!response.ok) throw new Error("HF API Error");
+
+            const result = await response.json();
+            let generatedText = result[0]?.generated_text || "";
+            generatedText = generatedText.replace(/\[\/INST\]/g, "").trim();
+
+            return generatedText || `Yes, regarding ${context.title}, we utilize ${context.features.join(', ')} to deliver precise results.`;
+
+        } catch (error) {
+            console.error("AI Generation Failed:", error);
+            // Graceful fallback
+            return `Yes, we specialize in ${context.title}. ${context.description}`;
+        }
     };
 
     const sendMessage = async (messageText: string) => {
         if (!messageText) return;
 
+        // 1. User Message
         const newMessages: Message[] = [...messages, { role: 'user', text: messageText }];
         setMessages(newMessages);
         setIsLoading(true);
 
-        // Simulate network delay for "AI" feel
-        setTimeout(() => {
-            const responseText = getLocalResponse(messageText);
-            setMessages(prev => [...prev, { role: 'model', text: responseText }]);
-            setIsLoading(false);
-        }, 1000);
+        // 2. Control Layer Evaluation
+        const decision = evaluateRequest(messageText);
+
+        if (decision.type === 'refusal') {
+            setTimeout(() => {
+                setMessages(prev => [...prev, { role: 'model', text: "Sorry, I can only answer questions about our services." }]);
+                setIsLoading(false);
+            }, 600);
+            return;
+        }
+
+        if (decision.type === 'static' && decision.content) {
+            setTimeout(() => {
+                setMessages(prev => [...prev, { role: 'model', text: decision.content! }]);
+                setIsLoading(false);
+            }, 600);
+            return;
+        }
+
+        // 3. AI Generation (Filtered)
+        if (decision.type === 'generate' && decision.serviceContext) {
+            try {
+                const aiResponse = await generateAIResponse(decision.serviceContext, messageText);
+                setMessages(prev => [...prev, { role: 'model', text: aiResponse }]);
+            } catch (error) {
+                setMessages(prev => [...prev, { role: 'model', text: "I'm having trouble connecting to my brain right now, but yes, we definitely offer that service!" }]);
+            } finally {
+                setIsLoading(false);
+            }
+        }
     };
 
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -271,12 +359,37 @@ const Chatbot: React.FC = () => {
         formData.append('_cc', getContactEmail());
 
         try {
-            const response = await fetch(`https://formsubmit.co/ajax/${getContactEmail()}`, {
+            // 1. Generate reCAPTCHA Token
+            if (typeof window.grecaptcha === 'undefined') {
+                throw new Error('reCAPTCHA not loaded');
+            }
+
+            const recaptchaToken = await new Promise<string>((resolve, reject) => {
+                window.grecaptcha.ready(() => {
+                    window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'chatbot_transcript' })
+                        .then(resolve)
+                        .catch(reject);
+                });
+            });
+
+            const response = await fetch('/api/contact', {
                 method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: 'Chat User',
+                    email: userEmail,
+                    message: emailBody,
+                    _subject: 'Your Stallioni Chat Transcript',
+                    recaptchaToken
+                }),
             });
             if (response.ok) {
+                // GA4 tracking
+                if (typeof window.gtag === 'function') {
+                    window.gtag("event", "generate_lead", {
+                        method: "chatbot_transcript",
+                    });
+                }
                 showToast("Transcript sent! Check your inbox for the conversation history.", 'success');
             } else {
                 throw new Error('Failed to send transcript');
@@ -428,4 +541,3 @@ const Chatbot: React.FC = () => {
 };
 
 export default Chatbot;
-

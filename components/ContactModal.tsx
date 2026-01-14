@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { SERVICES_OVERVIEW } from '../constants';
+import { SERVICES_OVERVIEW, RECAPTCHA_SITE_KEY } from '../constants';
 import { getContactEmail } from '../constants';
 import { useToast } from '../App';
 
@@ -53,15 +53,39 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, modalType 
     if (submitButton) submitButton.disabled = true;
 
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${getContactEmail()}`, {
+      // 1. Generate reCAPTCHA Token
+      if (typeof window.grecaptcha === 'undefined') {
+        throw new Error('reCAPTCHA not loaded');
+      }
+
+      const recaptchaToken = await new Promise<string>((resolve, reject) => {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'modal_form' })
+            .then(resolve)
+            .catch(reject);
+        });
+      });
+
+      // 2. Prepare data
+      const data = Object.fromEntries(formData.entries());
+      data.recaptchaToken = recaptchaToken;
+
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        body: formData,
         headers: {
-          'Accept': 'application/json',
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify(data)
       });
 
       if (response.ok) {
+        // GA4 tracking
+        if (typeof window.gtag === 'function') {
+          window.gtag("event", "generate_lead", {
+            method: "contact_modal",
+          });
+        }
+
         const successMessage = modalType === 'Consultation'
           ? "Consultation request sent! We'll contact you shortly to schedule a time."
           : "Quote request received! We'll analyze your requirements and send a proposal soon.";
@@ -70,10 +94,11 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, modalType 
         form.reset();
         onClose();
       } else {
-        throw new Error('Form submission failed');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Form submission failed');
       }
-    } catch (error) {
-      showToast('There was an error sending your message. Please try again.', 'error');
+    } catch (error: any) {
+      showToast(error.message || 'There was an error sending your message. Please try again.', 'error');
     } finally {
       if (submitButton) submitButton.disabled = false;
     }
@@ -129,11 +154,11 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, modalType 
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <input type="hidden" name="_subject" value={`New Submission from Stallioni Website: ${modalType}`} />
               <input type="hidden" name="_captcha" value="false" />
-              <input type="text" name="_honey" style={{ display: 'none' }} />
+              <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
               <InputField id="modal-name" name="name" label="Full Name" placeholder="Jane Doe" required />
               <InputField id="modal-email" name="email" label="Work Email" type="email" placeholder="jane@company.com" required />
-              <InputField id="modal-company" name="company" label="Company Name (Optional)" placeholder="Innovate Inc." />
+              <InputField id="modal-organization" name="organization" label="Company Name (Optional)" placeholder="Innovate Inc." />
               <InputField id="modal-phone" name="phone" label="Phone Number (Optional)" type="tel" />
               <div className="md:col-span-2">
                 <SelectField id="modal-project-type" name="service_of_interest" label="Service of Interest">

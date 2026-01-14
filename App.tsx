@@ -35,6 +35,7 @@ const CareersManager = lazy(() => import('./pages/admin/CareersManager'));
 declare global {
   interface Window {
     gtag?: (command: string, ...args: any[]) => void;
+    grecaptcha?: any;
   }
 }
 
