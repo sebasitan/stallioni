@@ -113,7 +113,7 @@ const Chatbot: React.FC = () => {
 
 
     // --- CONTROL LAYER & AI INTEGRATION ---
-    const HUGGING_FACE_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2";
+    // Using internal Gemini API via /api/chat
 
     // 1. The Gatekeeper: Strict Policy Check
     const evaluateRequest = (text: string): { type: 'refusal' | 'static' | 'generate'; content?: string; serviceContext?: any } => {
@@ -175,46 +175,27 @@ const Chatbot: React.FC = () => {
         return { type: 'refusal' };
     };
 
-    // 2. The Generator: Hugging Face API Call
+    // 2. The Generator: Call our internal Vercel API
     const generateAIResponse = async (context: any, userQuery: string): Promise<string> => {
-        const apiKey = import.meta.env.VITE_HUGGING_FACE_API_KEY;
-
-        // Fallback if no key is configured
-        if (!apiKey) {
-            console.warn("Missing VITE_HUGGING_FACE_API_KEY. Using fallback static response.");
-            const features = context.features?.slice(0, 3).join(', ');
-            return `Yes, we provide ${context.title}. ${context.description} Key features include: ${features}.`;
-        }
-
-        const systemPrompt = `You are a professional customer support agent for Stallioni.
-Context: We offer ${context.title}. Description: ${context.description}. Key Features: ${context.features.join(', ')}.
-User Question: "${userQuery}"
-Instructions: Answer the user's question using ONLY the provided context. Be professional, concise (under 50 words), and helpful. Do NOT invent new services.`;
-
         try {
-            const response = await fetch(HUGGING_FACE_API_URL, {
+            // Include service context in the system-level instruction or as a prefix
+            const augmentedQuery = `[Relevant Service: ${context.title}] ${userQuery}\n\nService Details: ${context.description}\nKey Features: ${context.features.join(', ')}`;
+
+            const response = await fetch('/api/chat', {
+                method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${apiKey}`,
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
-                method: "POST",
                 body: JSON.stringify({
-                    inputs: `<s>[INST] ${systemPrompt} [/INST]`,
-                    parameters: {
-                        max_new_tokens: 100,
-                        temperature: 0.3,
-                        return_full_text: false,
-                    }
+                    message: augmentedQuery,
+                    history: messages.slice(-5), // Only send last 5 messages for brevity
                 }),
             });
 
-            if (!response.ok) throw new Error("HF API Error");
+            if (!response.ok) throw new Error("Chat API Error");
 
             const result = await response.json();
-            let generatedText = result[0]?.generated_text || "";
-            generatedText = generatedText.replace(/\[\/INST\]/g, "").trim();
-
-            return generatedText || `Yes, regarding ${context.title}, we utilize ${context.features.join(', ')} to deliver precise results.`;
+            return result.text || `Yes, we specialize in ${context.title}. ${context.description}`;
 
         } catch (error) {
             console.error("AI Generation Failed:", error);
