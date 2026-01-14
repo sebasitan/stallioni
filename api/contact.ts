@@ -1,4 +1,3 @@
-import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 // Simple in-memory rate limiting (Note: resets on cold starts in serverless)
@@ -7,8 +6,12 @@ const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
 const MAX_SUBMISSIONS = 3;
 
-export async function POST(req: NextRequest) {
-    const ip = req.headers.get('x-forwarded-for') || '127.0.0.1';
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress || '127.0.0.1';
 
     // Rate limiting logic
     const now = Date.now();
@@ -20,36 +23,30 @@ export async function POST(req: NextRequest) {
     }
 
     if (rateData.count >= MAX_SUBMISSIONS) {
-        return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
+        return res.status(429).json({ error: 'Too many requests. Please try again later.' });
     }
 
     rateData.count++;
     rateLimitMap.set(ip, rateData);
 
     try {
-        const body = await req.json();
-        const { name, email, message, company, recaptchaToken, _subject, organization, phone, position, linkedin, portfolio, resume_link } = body;
+        const { name, email, message, company, recaptchaToken, _subject, organization, phone, position, linkedin, portfolio, resume_link } = req.body;
 
         // 1. Honeypot check (company field should be empty)
         if (company) {
             console.log('Bot detected via honeypot field "company"');
             // Fail silently: return success but don't do anything
-            return NextResponse.json({ success: true, message: 'Message sent successfully' });
+            return res.status(200).json({ success: true, message: 'Message sent successfully' });
         }
 
         // 2. Validate fields
         if (!name || !email || !message) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+            return res.status(400).json({ error: 'Missing required fields' });
         }
 
         // 3. Verify reCAPTCHA v3
-        // We use the secret key from environment variables
         const secretKey = process.env.RECAPTCHA_SECRET_KEY;
-        if (!secretKey) {
-            console.error('RECAPTCHA_SECRET_KEY is missing');
-            // If config is missing, we might want to allow submission or fail based on policy.
-            // For security, we should probably fail.
-        } else {
+        if (secretKey) {
             const recaptchaRes = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -60,7 +57,7 @@ export async function POST(req: NextRequest) {
             if (!recaptchaData.success || recaptchaData.score < 0.5) {
                 console.log('reCAPTCHA failed or low score', recaptchaData);
                 // Fail silently for bots
-                return NextResponse.json({ success: true, message: 'Message sent successfully' });
+                return res.status(200).json({ success: true, message: 'Message sent successfully' });
             }
         }
 
@@ -103,9 +100,9 @@ export async function POST(req: NextRequest) {
 
         await transporter.sendMail(mailOptions);
 
-        return NextResponse.json({ success: true, message: 'Message sent successfully' });
+        return res.status(200).json({ success: true, message: 'Message sent successfully' });
     } catch (error) {
         console.error('Contact API Route Error:', error);
-        return NextResponse.json({ error: 'Internal server error. Please try again later.' }, { status: 500 });
+        return res.status(500).json({ error: 'Internal server error. Please try again later.' });
     }
 }
