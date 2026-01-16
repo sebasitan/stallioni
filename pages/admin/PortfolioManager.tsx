@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useToast } from '../../App';
 import { PortfolioItem, PortfolioCategory, Industry } from '../../types';
 import {
     getPortfolioItems,
@@ -11,6 +12,7 @@ import { PORTFOLIO_ITEMS } from '../../constants';
 import { uploadToCloudinary } from '../../utils/cloudinary';
 
 const PortfolioManager: React.FC = () => {
+    const { showToast } = useToast();
     const [items, setItems] = useState<PortfolioItem[]>([]);
     const [editingItem, setEditingItem] = useState<PortfolioItem | null>(null);
     const [showForm, setShowForm] = useState(false);
@@ -87,8 +89,10 @@ const PortfolioManager: React.FC = () => {
         try {
             const url = await uploadToCloudinary(file);
             setFormData(prev => ({ ...prev, imageUrl: url }));
+            showToast('Image uploaded successfully!', 'success');
         } catch (error: any) {
-            alert(`Failed to upload image: ${error.message}`);
+            console.error('Image upload failed:', error);
+            showToast(`Upload Failed: ${error.message}`, 'error');
         } finally {
             setIsUploading(false);
         }

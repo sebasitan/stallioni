@@ -40,13 +40,21 @@ const CareersPage: React.FC = () => {
                     formData.delete('attachment'); // Don't send file explicitly to formsubmit to save bandwidth/limits
                 } catch (uploadError: any) {
                     console.error('Resume upload failed:', uploadError);
-                    showToast(`Failed to upload resume: ${uploadError.message}`, 'error');
+                    showToast(`Resume Upload Failed: ${uploadError.message}`, 'error');
                     if (submitButton) {
                         submitButton.disabled = false;
                         submitButton.innerText = originalButtonText;
                     }
                     return; // Stop submission
                 }
+            } else if (applicationForm.position !== 'General Application') {
+                // If it's a specific job, resume is usually required in the UI, but let's double check here
+                showToast('Please select a resume file to upload.', 'error');
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.innerText = originalButtonText;
+                }
+                return;
             }
 
             submitButton && (submitButton.innerText = 'Sending Application...');

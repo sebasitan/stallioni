@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useToast } from '../../App';
 import { BlogPost } from '../../types';
 import {
     getBlogPosts,
@@ -9,6 +10,7 @@ import {
 import { uploadToCloudinary } from '../../utils/cloudinary';
 
 const BlogManager: React.FC = () => {
+    const { showToast } = useToast();
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
     const [showForm, setShowForm] = useState(false);
@@ -87,8 +89,10 @@ const BlogManager: React.FC = () => {
         try {
             const url = await uploadToCloudinary(file);
             setFormData(prev => ({ ...prev, imageUrl: url }));
+            showToast('Featured image uploaded successfully!', 'success');
         } catch (error: any) {
-            alert(`Failed to upload image: ${error.message}`);
+            console.error('Blog image upload failed:', error);
+            showToast(`Upload Failed: ${error.message}`, 'error');
         } finally {
             setIsUploading(false);
         }
