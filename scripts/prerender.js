@@ -1,11 +1,10 @@
-import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
-import fs from "fs";
-import path from "path";
-import http from "http";
-import handler from "serve-handler";
-import { parseStringPromise } from "xml2js";
+import puppeteer from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
 import { fileURLToPath } from 'url';
+import { parseStringPromise } from 'xml2js';
+import http from 'http';
+import handler from 'serve-handler';
 
 // ESM directory helpers
 const __filename = fileURLToPath(import.meta.url);
@@ -19,6 +18,10 @@ async function startServer() {
         const server = http.createServer((req, res) => {
             return handler(req, res, {
                 public: DIST_DIR,
+                files: [
+                    path.join(DIST_DIR, 'index.html'),
+                    path.join(DIST_DIR, 'sitemap.xml')
+                ],
                 rewrites: [
                     { source: '**', destination: '/index.html' }
                 ]
@@ -42,7 +45,10 @@ async function getRoutes() {
 }
 
 (async () => {
-    console.log("📦 Starting Pre-rendering Process...");
+    console.log("📦 Starting Pre-rendering Process (Standard Puppeteer)...");
+
+    // Since this runs in GitHub Actions (standard Ubuntu), no crazy hacks needed.
+    // Standard Puppeteer works great there.
 
     const server = await startServer();
     console.log(`🚀 Static server running at http://localhost:${PORT}`);
@@ -50,17 +56,14 @@ async function getRoutes() {
     const routes = await getRoutes();
     console.log(`🔍 Found ${routes.length} routes to pre-render.`);
 
-    // 🔥 THIS IS CRITICAL
     const browser = await puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(), // MUST be this
-        headless: chromium.headless,
+        headless: "new"
+        // No args needed for GitHub Actions Ubuntu runners usually, 
+        // but --no-sandbox is safe insurance.
     });
 
     const page = await browser.newPage();
 
-    // Optimization: Intercept requests
     await page.setRequestInterception(true);
     page.on('request', (req) => {
         const resourceType = req.resourceType();
@@ -77,12 +80,11 @@ async function getRoutes() {
 
         try {
             await page.goto(url, { waitUntil: "networkidle0" });
-            await page.waitForSelector("footer", { timeout: 10000 }).catch(() => console.log('Footer wait timed out, saving anyway...'));
+            await page.waitForSelector("footer", { timeout: 10000 }).catch(() => { });
 
             const html = await page.content();
-            // Correct path joining logic
+
             const relativePath = route === '/' ? 'index.html' : path.join(route.substring(1), 'index.html');
-            // Handle Windows paths if run locally, but ensure standard path format
             const outDir = path.join(DIST_DIR, path.dirname(relativePath));
             const finalPath = path.join(DIST_DIR, relativePath);
 
