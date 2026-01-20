@@ -8,6 +8,7 @@ import Toast from './components/Toast';
 import MetaManager from './components/MetaManager';
 import { getPageMetadata, PageMetadata, defaultMetadata } from './seo';
 import LoadingSpinner from './components/LoadingSpinner';
+import CanonicalManager from './components/CanonicalManager';
 
 // Lazy Load Pages
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -161,6 +162,7 @@ const AppContent: React.FC = () => {
     <NavigationContext.Provider value={navigationValue}>
       <ModalContext.Provider value={modalValue}>
         <ToastContext.Provider value={toastValue}>
+          <CanonicalManager />
           <MetaManager {...metadata} />
           <div className="flex flex-col min-h-screen">
             <Header currentRoute={location.pathname} />
