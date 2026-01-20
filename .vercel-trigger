@@ -1,0 +1,10 @@
+# Vercel Deployment Trigger
+
+This file exists to trigger a fresh Vercel deployment.
+
+Last updated: 2026-01-20 19:01 IST
+
+## Current Status
+- Build script: ✅ Fixed (no prerender in Vercel)
+- Vercel routing: ✅ Fixed (no catch-all rewrite)
+- GitHub Actions: ✅ Ready for pre-rendering
