@@ -2,13 +2,23 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "stallioni.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "stallioni.com"
+        }
+      ],
       "destination": "https://www.stallioni.com/$1",
       "permanent": true
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "stallioni.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "stallioni.vercel.app"
+        }
+      ],
       "destination": "https://www.stallioni.com/$1",
       "permanent": true
     }
@@ -19,7 +29,7 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
