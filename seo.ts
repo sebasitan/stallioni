@@ -153,15 +153,16 @@ const getArticleSchema = (post: BlogPost) => ({
 const getServiceSchema = (service: ServiceDetail) => ({
   '@context': 'https://schema.org',
   '@type': 'Service',
-  'serviceType': service.title,
+  'name': service.title,
   'provider': {
     '@type': 'Organization',
-    'name': 'Stallioni'
+    'name': 'Stallioni',
+    'url': `${BASE_URL}/`
   },
   'description': service.description,
   'areaServed': {
     '@type': 'Country',
-    'name': 'Worldwide'
+    'name': 'India'
   }
 });
 

@@ -40,6 +40,21 @@
     }
   </script>
 
+  <!-- Structured Data (JSON-LD) - WebSite (Sitelink Searchbox) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Stallioni",
+      "url": "https://www.stallioni.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.stallioni.com/services?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+
 
   <style>
     .no-scrollbar::-webkit-scrollbar {
