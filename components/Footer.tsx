@@ -125,7 +125,7 @@ const Footer: React.FC = () => {
           {/* Quick Links Section */}
           <div>
             <h3 className="text-lg font-bold mb-4">Quick Links</h3>
-            <ul className="grid grid-cols-2 gap-y-2 gap-x-4">
+            <ul className="space-y-2">
               {NAV_LINKS.map(link => (
                 <li key={link.href}>
                   <a href={link.href} onClick={(e) => handleNav(e, link.href)} className="text-blue-200 hover:text-brand-orange transition-colors">
@@ -133,7 +133,21 @@ const Footer: React.FC = () => {
                   </a>
                 </li>
               ))}
-              <li><a href="/contact" onClick={(e) => handleNav(e, '/contact')} className="text-blue-200 hover:text-brand-orange transition-colors">Contact</a></li>
+              <li><a href="/contact" onClick={(e) => handleNav(e, '/contact')} className="text-blue-200 hover:text-brand-orange transition-colors">Contact Us</a></li>
+              <li><a href="/portfolio" onClick={(e) => handleNav(e, '/portfolio')} className="text-blue-200 hover:text-brand-orange transition-colors">Client Results</a></li>
+            </ul>
+          </div>
+
+          {/* Services Column - CRITICAL FOR SEO INTERNAL LINKING */}
+          <div>
+            <h3 className="text-lg font-bold mb-4">Our Services</h3>
+            <ul className="space-y-2">
+              <li><a href="/services/website-design-development" onClick={(e) => handleNav(e, '/services/website-design-development')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">Web Development</a></li>
+              <li><a href="/services/custom-web-application-development" onClick={(e) => handleNav(e, '/services/custom-web-application-development')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">Web Applications</a></li>
+              <li><a href="/services/mobile-app-development" onClick={(e) => handleNav(e, '/services/mobile-app-development')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">Mobile App Development</a></li>
+              <li><a href="/services/ecommerce-development" onClick={(e) => handleNav(e, '/services/ecommerce-development')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">E-commerce Solutions</a></li>
+              <li><a href="/services/ai-automation-modern-tech" onClick={(e) => handleNav(e, '/services/ai-automation-modern-tech')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">AI & Automation</a></li>
+              <li><a href="/services/seo-digital-marketing" onClick={(e) => handleNav(e, '/services/seo-digital-marketing')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">SEO & Marketing</a></li>
             </ul>
           </div>
 

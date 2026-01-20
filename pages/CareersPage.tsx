@@ -347,12 +347,13 @@ const CareersPage: React.FC = () => {
                                             </div>
 
                                             <div className="lg:mt-2">
-                                                <button
-                                                    onClick={() => handleApply(job.title)}
-                                                    className="w-full lg:w-auto bg-brand-dark text-white font-bold py-4 px-8 rounded-xl hover:bg-brand-orange transition-colors duration-300 shadow-lg whitespace-nowrap"
+                                                <a
+                                                    href="#application-form"
+                                                    onClick={(e) => { e.preventDefault(); handleApply(job.title); }}
+                                                    className="inline-block w-full lg:w-auto bg-brand-dark text-white font-bold py-4 px-8 rounded-xl hover:bg-brand-orange transition-colors duration-300 shadow-lg text-center whitespace-nowrap"
                                                 >
                                                     Apply Now
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -501,15 +502,17 @@ const CareersPage: React.FC = () => {
                         <p className="text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl mx-auto">
                             We are constantly growing. Send us your general application and we'll keep you in mind for future opportunities.
                         </p>
-                        <button
-                            onClick={() => {
+                        <a
+                            href="#application-form"
+                            onClick={(e) => {
+                                e.preventDefault();
                                 setApplicationForm({ position: 'General Application', show: true });
                                 setTimeout(() => document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' }), 100);
                             }}
-                            className="bg-white text-brand-dark font-bold py-4 px-10 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 shadow-2xl hover:shadow-brand-orange/50 text-lg"
+                            className="inline-block bg-white text-brand-dark font-bold py-4 px-10 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 shadow-2xl hover:shadow-brand-orange/50 text-lg"
                         >
                             Submit General Application
-                        </button>
+                        </a>
                     </div>
                 </section>
             )}

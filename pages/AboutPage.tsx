@@ -290,15 +290,16 @@ const AboutPage: React.FC = () => {
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <button
-                                    onClick={() => openModal('Consultation')}
+                                <a
+                                    href="/contact"
+                                    onClick={(e) => { e.preventDefault(); openModal('Consultation'); }}
                                     className="inline-flex items-center justify-center gap-2 bg-brand-orange text-white font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-2xl hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 text-lg"
                                 >
                                     <span>Schedule a Free Outsourcing Consultation</span>
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
-                                </button>
+                                </a>
                                 <a
                                     href="/contact"
                                     onClick={(e) => handleNav(e, '/contact')}

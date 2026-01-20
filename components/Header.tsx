@@ -162,6 +162,7 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const { navigate } = useNavigation();
 
+  // Standard navigation - e.preventDefault() for SPA behavior, href for SEO
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
     e.preventDefault();
     navigate(path);

@@ -14,7 +14,7 @@ export interface PageMetadata {
   structuredData: string;
 }
 
-const BASE_URL = 'https://stallioni.com';
+const BASE_URL = 'https://www.stallioni.com';
 const DEFAULT_OG_IMAGE = 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&h=630&auto=format&fit=crop';
 
 

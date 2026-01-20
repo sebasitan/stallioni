@@ -1,7 +1,7 @@
 import { PortfolioItem } from '../types';
 import { PORTFOLIO_ITEMS } from '../constants';
 
-const STORAGE_KEY = 'stallioni_portfolio_v2';
+const STORAGE_KEY = 'stallioni_portfolio_v3';
 
 // Get all portfolio items
 export function getPortfolioItems(): PortfolioItem[] {

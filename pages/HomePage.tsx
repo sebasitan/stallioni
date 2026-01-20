@@ -5,6 +5,7 @@ import { SERVICES_OVERVIEW, PORTFOLIO_ITEMS, TESTIMONIALS } from '../constants';
 import FadeIn from '../components/FadeIn';
 import { useNavigation, useModal } from '../App';
 import { WebDevIcon, MobileDevIcon, FullStackIcon, EcommIcon, DesignIcon, CrmIcon } from '../components/IconComponents';
+import { getPortfolioItems } from '../utils/portfolioStorage';
 
 // Lazy load TechnologyTicker only
 const TechnologyTicker = lazy(() => import('../components/TechnologyTicker'));
@@ -68,7 +69,7 @@ const HomePage: React.FC = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <a href="#" onClick={handleConsultationClick} className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-brand-orange text-white font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-2xl hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 text-lg">
+                            <a href="/contact" onClick={(e) => handleConsultationClick(e)} className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-brand-orange text-white font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-2xl hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 text-lg">
                                 <span>Book Your Free Consultation</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
                             </a>
@@ -409,30 +410,65 @@ const HomePage: React.FC = () => {
         );
     };
 
-    const ClientSuccessSection: React.FC = () => (
-        <Section className="bg-brand-dark text-white">
-            <div className="max-w-4xl mx-auto text-center mb-16">
-                <SectionTitle className="text-white mb-6">Real Success Stories — Global Clients Trust Us</SectionTitle>
-                <p className="text-xl text-slate-300 mb-8">
-                    When smart brands want results, they hire <span className="text-white font-bold">STALLIONI NET SOLUTIONS.</span>
-                </p>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
-                    {["Launch products faster", "Reduce development costs significantly", "Automate operations", "Boost online revenue", "Scale teams without risk"].map((item, i) => (
-                        <div key={i} className="bg-white/10 px-4 py-3 rounded-lg border border-white/5 text-sm font-medium flex items-center justify-center min-h-[60px]">
-                            {item}
-                        </div>
-                    ))}
-                </div>
-                <p className="text-2xl font-bold text-brand-orange mt-12">Your success story could be next.</p>
-            </div>
+    const ClientSuccessSection: React.FC = () => {
+        const featuredItems = getPortfolioItems().slice(0, 3);
 
-            <div className="w-full max-w-6xl mx-auto mt-16">
-                <Suspense fallback={<div className="h-24 bg-white/5 rounded-lg animate-pulse" />}>
-                    <TechnologyTicker />
-                </Suspense>
-            </div>
-        </Section>
-    );
+        return (
+            <Section className="bg-brand-dark text-white">
+                <div className="max-w-4xl mx-auto text-center mb-16">
+                    <SectionTitle className="text-white mb-6">Real Success Stories — Global Clients Trust Us</SectionTitle>
+                    <p className="text-xl text-slate-300 mb-8">
+                        When smart brands want results, they hire <span className="text-white font-bold">STALLIONI NET SOLUTIONS.</span>
+                    </p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+                        {["Launch products faster", "Reduce development costs significantly", "Automate operations", "Boost online revenue", "Scale teams without risk"].map((item, i) => (
+                            <div key={i} className="bg-white/10 px-4 py-3 rounded-lg border border-white/5 text-sm font-medium flex items-center justify-center min-h-[60px]">
+                                {item}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Featured Projects Grid */}
+                <div className="max-w-7xl mx-auto mb-20">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {featuredItems.map((item, index) => (
+                            <FadeIn key={item.id} delay={index * 100}>
+                                <div className="group bg-white/5 rounded-2xl border border-white/10 overflow-hidden hover:bg-white/10 transition-all duration-300 h-full flex flex-col">
+                                    <div className="relative h-48 overflow-hidden">
+                                        <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
+                                        <div className="absolute top-4 right-4 bg-brand-orange text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded">
+                                            {item.category}
+                                        </div>
+                                    </div>
+                                    <div className="p-6 flex flex-col flex-grow">
+                                        <h4 className="text-xl font-bold mb-3 group-hover:text-brand-orange transition-colors">{item.title}</h4>
+                                        <p className="text-slate-400 text-sm mb-4 line-clamp-3">{item.description}</p>
+                                        <div className="mt-auto flex items-center justify-between">
+                                            <span className="text-xs font-bold text-brand-orange">{item.industry}</span>
+                                            <a href="/portfolio" onClick={(e) => handleNav(e, '/portfolio')} className="text-xs font-bold hover:underline">View Details →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </FadeIn>
+                        ))}
+                    </div>
+                    <div className="mt-12 text-center">
+                        <a href="/portfolio" onClick={(e) => handleNav(e, '/portfolio')} className="inline-flex items-center gap-2 bg-white text-brand-dark px-8 py-3 rounded-full font-bold hover:bg-brand-orange hover:text-white transition-all duration-300">
+                            Explore Full Portfolio
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div className="w-full max-w-6xl mx-auto mt-16">
+                    <Suspense fallback={<div className="h-24 bg-white/5 rounded-lg animate-pulse" />}>
+                        <TechnologyTicker />
+                    </Suspense>
+                </div>
+            </Section>
+        );
+    };
 
     const OutsourceReasonsSection: React.FC = () => {
         const reasons = [
@@ -587,7 +623,7 @@ const HomePage: React.FC = () => {
                 </div>
 
                 <a
-                    href="#"
+                    href="/contact"
                     onClick={(e) => { e.preventDefault(); openModal('Consultation'); }}
                     className="inline-flex items-center gap-3 bg-brand-orange text-white font-bold py-5 px-12 rounded-full shadow-[0_10px_40px_-10px_rgba(255,107,0,0.5)] hover:shadow-[0_20px_50px_-10px_rgba(255,107,0,0.6)] hover:bg-opacity-90 hover:scale-105 transition-all duration-300 text-xl group"
                 >

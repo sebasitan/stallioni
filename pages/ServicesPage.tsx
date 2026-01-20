@@ -179,22 +179,24 @@ const ServicesHub: React.FC = () => {
 
                         <FadeIn delay={300}>
                             <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
-                                <button
-                                    onClick={() => openModal('Quote')}
-                                    className="group relative px-8 py-4 bg-brand-orange hover:bg-brand-orange/90 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 hover:-translate-y-1"
+                                <a
+                                    href="/contact"
+                                    onClick={(e) => { e.preventDefault(); openModal('Quote'); }}
+                                    className="group relative px-8 py-4 bg-brand-orange hover:bg-brand-orange/90 rounded-xl font-bold text-lg text-white shadow-lg transition-all duration-300 hover:-translate-y-1 text-center"
                                 >
                                     <span className="flex items-center justify-center gap-2">
                                         Get Free Consultation
                                         <ArrowRightIcon />
                                     </span>
-                                </button>
+                                </a>
 
-                                <button
-                                    onClick={() => openModal('Consultation')}
-                                    className="px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-xl font-bold text-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300"
+                                <a
+                                    href="/portfolio"
+                                    onClick={(e) => handleNav(e, '/portfolio')}
+                                    className="px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-xl font-bold text-lg hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-center"
                                 >
                                     View Our Work
-                                </button>
+                                </a>
                             </div>
                         </FadeIn>
 
@@ -305,15 +307,16 @@ const ServicesHub: React.FC = () => {
                                     ))}
                                 </div>
 
-                                <button
-                                    onClick={() => openModal('Quote')}
-                                    className="mt-10 group px-8 py-4 bg-brand-orange hover:bg-brand-orange/90 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 hover:-translate-y-1"
+                                <a
+                                    href="/contact"
+                                    onClick={(e) => { e.preventDefault(); openModal('Quote'); }}
+                                    className="mt-10 group inline-flex items-center px-8 py-4 bg-brand-orange hover:bg-brand-orange/90 rounded-xl font-bold text-lg text-white shadow-lg transition-all duration-300 hover:-translate-y-1"
                                 >
                                     <span className="flex items-center gap-2">
                                         Start Your Project
                                         <ArrowRightIcon />
                                     </span>
-                                </button>
+                                </a>
                             </div>
                         </FadeIn>
 
@@ -355,15 +358,16 @@ const ServicesHub: React.FC = () => {
                                 Let's transform your vision into reality. Get a free consultation and project quote from our expert team.
                             </p>
                             <div className="flex flex-col sm:flex-row justify-center gap-4">
-                                <button
-                                    onClick={() => openModal('Quote')}
-                                    className="group px-10 py-5 bg-white text-gray-900 rounded-xl font-bold text-lg shadow-2xl hover:shadow-white/30 transition-all duration-300 hover:-translate-y-1"
+                                <a
+                                    href="/contact"
+                                    onClick={(e) => { e.preventDefault(); openModal('Quote'); }}
+                                    className="group px-10 py-5 bg-white text-gray-900 rounded-xl font-bold text-lg shadow-2xl hover:shadow-white/30 transition-all duration-300 hover:-translate-y-1 text-center"
                                 >
                                     <span className="flex items-center justify-center gap-2">
                                         Get Free Quote
                                         <ArrowRightIcon />
                                     </span>
-                                </button>
+                                </a>
                                 <a
                                     href="/contact"
                                     onClick={(e) => handleNav(e, '/contact')}
@@ -536,21 +540,23 @@ const ServiceDetailView: React.FC<{ serviceId: string }> = ({ serviceId }) => {
 
                         <FadeIn delay={400}>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <button
-                                    onClick={() => openModal('Quote')}
-                                    className="group px-8 py-4 bg-brand-orange hover:bg-brand-orange/90 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 hover:-translate-y-1"
+                                <a
+                                    href="/contact"
+                                    onClick={(e) => { e.preventDefault(); openModal('Quote'); }}
+                                    className="group px-8 py-4 bg-brand-orange hover:bg-brand-orange/90 rounded-xl font-bold text-lg text-white shadow-lg transition-all duration-300 hover:-translate-y-1 text-center"
                                 >
                                     <span className="flex items-center justify-center gap-2">
                                         Get Free Quote
                                         <ArrowRightIcon />
                                     </span>
-                                </button>
-                                <button
-                                    onClick={() => openModal('Consultation')}
-                                    className="px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 rounded-xl font-bold text-lg hover:bg-white/20 transition-all duration-300"
+                                </a>
+                                <a
+                                    href="/contact"
+                                    onClick={(e) => { e.preventDefault(); openModal('Consultation'); }}
+                                    className="px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all duration-300 text-center"
                                 >
                                     Schedule Consultation
-                                </button>
+                                </a>
                             </div>
                         </FadeIn>
                     </div>

@@ -60,7 +60,7 @@ export interface BlogPost {
   excerpt: string;
   author: string;
   date: string; // Should be in YYYY-MM-DD format for schema
-  readTime: string;
+  readTime?: string;
   content?: string;
   // SEO Fields
   metaTitle?: string;
@@ -72,6 +72,7 @@ export interface TeamMember {
   name: string;
   role: string;
   imageUrl: string;
+  bio?: string;
 }
 
 export interface JobOpening {

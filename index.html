@@ -21,7 +21,6 @@
     content="Stallioni is a top IT outsourcing company in India. Hire dedicated Indian developers to build elite remote teams for web, mobile & AI solutions, cost-effectively." />
 
   <!-- SEO Tags -->
-  <link rel="canonical" href="https://stallioni.com/" />
   <meta name="robots" content="index, follow" />
 
 
@@ -91,6 +90,15 @@
       margin-top: 2rem;
       margin-bottom: 2rem;
     }
+
+    /* SEO Crawler Navigation Styling */
+    nav[aria-label="Primary"] {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
   </style>
   <!-- Resource Hints for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -138,6 +146,27 @@
 
 <body class="bg-white font-sans">
   <div id="root"></div>
+
+  <!-- SEO Fallback Links (Hidden visually, visible to crawlers) -->
+  <nav aria-label="Primary">
+    <a href="/">Home</a>
+    <a href="/about">About Us</a>
+    <a href="/services">Our Services</a>
+    <a href="/services/website-design-development">Website Design & Development</a>
+    <a href="/services/ui-ux-design">UI/UX Design</a>
+    <a href="/services/website-development">Website Development</a>
+    <a href="/services/frontend-development">Frontend Development</a>
+    <a href="/services/custom-web-application-development">Custom Web Application Development</a>
+    <a href="/services/ecommerce-development">E-Commerce Development</a>
+    <a href="/services/mobile-app-development">Mobile App Development</a>
+    <a href="/services/seo-digital-marketing">SEO & Digital Marketing</a>
+    <a href="/services/php-development">PHP Development</a>
+    <a href="/portfolio">Portfolio</a>
+    <a href="/blog">Blog</a>
+    <a href="/careers">Careers</a>
+    <a href="/contact">Contact Us</a>
+  </nav>
+
   <noscript>
     <h1>Stallioni - Top IT Outsourcing Company in India</h1>
     <p>Stallioni is a top IT outsourcing company in India. Hire dedicated Indian developers to build elite remote teams

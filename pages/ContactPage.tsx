@@ -297,13 +297,13 @@ const ContactPage: React.FC = () => {
                                 <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
                                     <h3 className="text-xl font-bold text-brand-dark mb-4">Quick Connect</h3>
                                     <div className="space-y-3">
-                                        <a href="#" onClick={(e) => handleQuickConnectClick(e, 'email')} className="flex items-center p-3 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors group">
+                                        <a href={`mailto:${getContactEmail()}`} onClick={(e) => handleQuickConnectClick(e, 'email')} className="flex items-center p-3 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors group">
                                             <EmailIcon />
                                             <span className="ml-4 font-semibold text-slate-700 group-hover:text-brand-orange">
                                                 seba<span style={{ display: 'none' }}>.</span>@<span style={{ display: 'none' }}>.</span>stallioni.com
                                             </span>
                                         </a>
-                                        <a href="#" onClick={(e) => handleQuickConnectClick(e, 'whatsapp')} className="flex items-center p-3 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors group">
+                                        <a href={`https://wa.me/${getWhatsAppPhone()}`} onClick={(e) => handleQuickConnectClick(e, 'whatsapp')} className="flex items-center p-3 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors group">
                                             <WhatsAppIcon />
                                             <span className="ml-4 font-semibold text-slate-700 group-hover:text-brand-orange">Chat on WhatsApp</span>
                                         </a>
