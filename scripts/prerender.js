@@ -1,82 +1,66 @@
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import puppeteer from 'puppeteer';
-import { createServer } from 'http';
+import { parseStringPromise } from 'xml2js';
+import http from 'http';
 import handler from 'serve-handler';
 
 // ESM directory helpers
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Configuration
 const DIST_DIR = path.resolve(__dirname, '../dist');
-const BASE_URL = 'http://localhost:3000';
-const SITEMAP_PATH = path.join(DIST_DIR, 'sitemap.xml');
+const PORT = 3000;
 
-// Helper to start a local static server for the build
-const startServer = () => {
+async function startServer() {
     return new Promise((resolve) => {
-        const server = createServer((request, response) => {
-            return handler(request, response, {
+        const server = http.createServer((req, res) => {
+            return handler(req, res, {
                 public: DIST_DIR,
                 rewrites: [
                     { source: '**', destination: '/index.html' }
                 ]
             });
         });
-
-        server.listen(3000, () => {
-            console.log(`🚀 Static server running at ${BASE_URL}`);
+        server.listen(PORT, () => {
             resolve(server);
         });
     });
-};
+}
 
-// Helper to extract URLs from sitemap.xml
-const getRoutesFromSitemap = () => {
-    if (!fs.existsSync(SITEMAP_PATH)) {
-        console.error('❌ Sitemap not found in dist/. Build project first!');
+async function getRoutesFromSitemap() {
+    const sitemapPath = path.join(DIST_DIR, 'sitemap.xml');
+    if (!fs.existsSync(sitemapPath)) {
+        console.error('❌ Sitemap not found!');
         process.exit(1);
     }
+    const xml = fs.readFileSync(sitemapPath, 'utf8');
+    const parsed = await parseStringPromise(xml);
+    return parsed.urlset.url.map(u => new URL(u.loc[0]).pathname);
+}
 
-    const sitemapContent = fs.readFileSync(SITEMAP_PATH, 'utf-8');
-    // Simple regex to extract <loc> URLs
-    const urls = [];
-    const regex = /<loc>(https:\/\/www\.stallioni\.com)(.*?)<\/loc>/g;
-    let match;
-
-    while ((match = regex.exec(sitemapContent)) !== null) {
-        // match[2] corresponds to the path (e.g. /services/php-development)
-        const route = match[2] || '/';
-        urls.push(route);
-    }
-
-    // Remove duplicates and ensure homepage is there
-    return [...new Set(urls)];
-};
-
-const prerender = async () => {
+(async () => {
     console.log('📦 Starting Pre-rendering Process...');
 
     const server = await startServer();
-    const routes = getRoutesFromSitemap();
+    console.log(`🚀 Static server running at http://localhost:${PORT}`);
 
+    const routes = await getRoutesFromSitemap();
     console.log(`🔍 Found ${routes.length} routes to pre-render.`);
 
+    // Use serverless-friendly launch config
     const browser = await puppeteer.launch({
-        headless: "new",
-        args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-dev-shm-usage',
-            '--disable-gpu'
-        ]
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
     });
 
     const page = await browser.newPage();
 
-    // Optimization: Intercept requests to skip non-critical assets (images, fonts)
+    // Optimization: Intercept requests
     await page.setRequestInterception(true);
     page.on('request', (req) => {
         const resourceType = req.resourceType();
@@ -88,44 +72,36 @@ const prerender = async () => {
     });
 
     for (const route of routes) {
+        const url = `http://localhost:${PORT}${route}`;
+        console.log(`➡️ Rendering ${route}`);
+
         try {
-            const fullUrl = `${BASE_URL}${route}`;
-            console.log(`Rendering: ${route}...`);
+            await page.goto(url, { waitUntil: 'networkidle0' });
 
-            // Go to page and wait for logical load
-            await page.goto(fullUrl, { waitUntil: 'networkidle0' });
+            // Wait for footer to guarantee rendering
+            await page.waitForSelector('footer', { timeout: 10000 }).catch(() => console.log('Footer wait timed out, saving anyway...'));
 
-            // Wait for a critical element to ensure React has mounted (e.g., footer or specific h1)
-            await page.waitForSelector('footer', { timeout: 10000 }).catch(() => console.log('Footer wait timed out, proceeding anyway...'));
-
-            // Get the HTML
             const html = await page.content();
 
-            // Define output path
-            // e.g. /services/php-development/ -> dist/services/php-development/index.html
-            // e.g. / -> dist/index.html
+            // Handle root vs subpaths
             const relativePath = route === '/' ? 'index.html' : path.join(route.substring(1), 'index.html');
             const outputPath = path.join(DIST_DIR, relativePath);
-            const outputDir = path.dirname(outputPath);
+            const outDir = path.dirname(outputPath);
 
-            // Ensure directory exists
-            if (!fs.existsSync(outputDir)) {
-                fs.mkdirSync(outputDir, { recursive: true });
+            if (!fs.existsSync(outDir)) {
+                fs.mkdirSync(outDir, { recursive: true });
             }
 
-            // Write File
             fs.writeFileSync(outputPath, html);
             console.log(`✅ Saved: ${relativePath}`);
-
-        } catch (err) {
-            console.error(`❌ Failed to render ${route}:`, err.message);
+        } catch (e) {
+            console.error(`❌ Failed to render ${route}:`, e);
         }
     }
 
     await browser.close();
     server.close();
-    console.log('🎉 Pre-rendering complete!');
-    process.exit(0);
-};
 
-prerender();
+    console.log('✅ Pre-rendering completed successfully.');
+    process.exit(0);
+})();
