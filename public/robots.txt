@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://stallioni.com/sitemap.xml
+Sitemap: https://www.stallioni.com/sitemap.xml
 
 # Disallow access to certain directories (if they exist)
 # Disallow: /api/
