@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+
+  <!-- Mobile Optimization -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#F26522" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Preload Critical Assets for LCP -->
+  <link rel="preload" as="image" href="/logo.svg" fetchpriority="high">
+
+  <title>Stallioni - Top IT Outsourcing Company in India | Build Remote Teams</title>
+  <meta name="description"
+    content="Stallioni is a top IT outsourcing company in India. Hire dedicated Indian developers to build elite remote teams for web, mobile & AI solutions, cost-effectively." />
+
+  <!-- SEO Tags -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- Structured Data (JSON-LD) - Organization -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Stallioni",
+      "url": "https://www.stallioni.com/",
+      "logo": "https://www.stallioni.com/logo.svg",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-98432-96279",
+        "contactType": "customer service"
+      }
+    }
+  </script>
+
+  <!-- Structured Data (JSON-LD) - WebSite (Sitelink Searchbox) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Stallioni",
+      "url": "https://www.stallioni.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.stallioni.com/services?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .article-content h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #1A233D;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .article-content h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1A233D;
+      margin-top: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .article-content p {
+      font-size: 1.125rem;
+      color: #334155;
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+
+    .article-content ul {
+      list-style-type: disc;
+      list-style-position: inside;
+      margin-bottom: 1rem;
+      padding-left: 1rem;
+    }
+
+    .article-content ul li {
+      font-size: 1.125rem;
+      color: #334155;
+      margin-bottom: 0.5rem;
+    }
+
+    .article-content a {
+      color: #F26522;
+      text-decoration: underline;
+    }
+
+    .article-content a:hover {
+      opacity: 0.8;
+    }
+
+    .article-content img {
+      display: block;
+      width: 100%;
+      max-width: 48rem;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+
+  <!-- Font Loading with display=swap for better performance -->
+  <!-- Font Loading with non-blocking strategy -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+    media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
+  </noscript>
+
+
+  <!-- Google tag (gtag.js) -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-WZ2SZ03V71"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    // Defer config until idle or load
+    window.addEventListener('load', () => {
+      gtag('config', 'G-WZ2SZ03V71');
+    });
+  </script>
+  <!-- Google reCAPTCHA v3 -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf0E0osAAAAADeWr5AGvZ-DCJpXhYtUqxNPi5kW"></script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="bg-white font-sans">
+  <div id="root"></div>
+
+
+
+
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>

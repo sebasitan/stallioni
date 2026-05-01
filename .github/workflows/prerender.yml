@@ -1,0 +1,67 @@
+name: Anti-Gravity SEO Build & Prerender
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prerender-and-commit:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🟢 Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      - name: 🏗️ Build Vite App
+        run: npm run build:vite
+        # Note: We will modify package.json to separate 'build:vite' from 'build' to avoid circular logic
+        # if the user insists on keeping the unified command, we'll just run it carefully.
+        # But here we want strictly: build assets -> then pre-render.
+
+      - name: 🚀 Run Anti-Gravity SEO Prerender (Puppeteer)
+        # This works because GitHub Actions runners HAVE the system libraries for Chrome
+        run: node scripts/prerender.js
+      
+      - name: 📤 Commit Pre-rendered HTML
+        run: |
+            git config --global user.name 'SEO Bot'
+            git config --global user.email 'seo-bot@stallioni.com'
+            
+            # We must be careful not to commit the massive 'dist' folder if it is gitignored.
+            # Usually 'dist' IS ignored.
+            # Strategy: We will create a 'static_seo' folder and move the HTML there, 
+            # then Vercel can pull from it or we can change the approach.
+            
+            # BETTER STRATEGY FOR VERCEL:
+            # Vercel builds from source. If we commit 'dist', it fights the gitignore.
+            
+            # REVISED STRATEGY: 
+            # We are NOT committing 'dist'. We are simply validating that IT WORKS here.
+            # To actually deploy the pre-made HTML to Vercel without building there is tricky
+            # unless we use Vercel CLI in this workflow.
+            
+            # BUT WAIT: The Recommendation was "Pre-render OUTSIDE Vercel ... Commit generated HTML".
+            # If we commit generated HTML, it must be to a folder that IS synced.
+            # Let's say 'prerendered_pages/'.
+            
+            mkdir -p prerendered_pages
+            cp -r dist/* prerendered_pages/
+            
+            git add prerendered_pages
+            git diff --quiet && git diff --staged --quiet || git commit -m "chore(seo): update pre-rendered html [skip ci]"
+            git push
