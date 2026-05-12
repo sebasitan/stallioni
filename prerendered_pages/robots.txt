@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /seba/
+Disallow: /seba
+
+# Allow asset crawling
+Allow: /assets/
+
+Sitemap: https://www.stallioni.com/sitemap.xml

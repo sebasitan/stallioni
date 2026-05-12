@@ -1,0 +1,25 @@
+// Mobile PWA Manifest for better mobile app experience
+{
+    "name": "Stallioni - IT Outsourcing Company",
+    "short_name": "Stallioni",
+    "description": "Top IT outsourcing company in India. Hire dedicated developers for web, mobile & AI solutions.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#F26522",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/logo.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "business",
+        "productivity"
+    ],
+    "lang": "en-US",
+    "dir": "ltr"
+}
