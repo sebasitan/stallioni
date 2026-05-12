@@ -29,10 +29,10 @@ async function resolveBrowserLaunchOptions() {
     // 1. Linux/CI (Vercel build container) — use @sparticuz/chromium for a portable Chrome.
     if (process.platform === 'linux') {
         // Force @sparticuz/chromium to extract AL2023 libs by spoofing AWS_EXECUTION_ENV
-        // BEFORE importing the package (its module-top code reads this env var).
-        if (!process.env.AWS_EXECUTION_ENV) {
-            process.env.AWS_EXECUTION_ENV = 'AWS_Lambda_nodejs20.x';
-        }
+        // BEFORE importing the package (its module-top code reads this env var). We must
+        // OVERWRITE — Vercel already sets AWS_EXECUTION_ENV=vercel-hive, which doesn't
+        // contain "20.x" and therefore fails @sparticuz's lambda detection.
+        process.env.AWS_EXECUTION_ENV = 'AWS_Lambda_nodejs20.x';
         const chromium = (await import('@sparticuz/chromium')).default;
         const executablePath = await chromium.executablePath();
 
