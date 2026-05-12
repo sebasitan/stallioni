@@ -42,6 +42,19 @@
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://www.stallioni.com/privacy-policy</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://www.stallioni.com/blog/1</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <!-- Service Pages -->
   <url><loc>https://www.stallioni.com/services/website-design-development</loc><lastmod>2026-01-20</lastmod></url>
   <url><loc>https://www.stallioni.com/services/ui-ux-design</loc><lastmod>2026-01-20</lastmod></url>

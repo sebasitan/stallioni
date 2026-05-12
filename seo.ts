@@ -35,7 +35,7 @@ const getOrganizationSchema = () => ({
   '@type': 'Organization',
   'name': 'Stallioni',
   'url': BASE_URL,
-  'logo': `${BASE_URL}logo.svg`,
+  'logo': `${BASE_URL}/logo.svg`,
   'sameAs': [
     // Add social media links here if available
   ],
@@ -52,10 +52,10 @@ const getOrganizationSchema = () => ({
 const getWebsiteSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  'url': BASE_URL,
+  'url': `${BASE_URL}/`,
   'potentialAction': {
     '@type': 'SearchAction',
-    'target': `${BASE_URL}#/search?q={search_term_string}`,
+    'target': `${BASE_URL}/services?q={search_term_string}`,
     'query-input': 'required name=search_term_string',
   },
 });
@@ -144,7 +144,7 @@ const getArticleSchema = (post: BlogPost) => ({
     'name': 'Stallioni',
     'logo': {
       '@type': 'ImageObject',
-      'url': `${BASE_URL}logo.svg`
+      'url': `${BASE_URL}/logo.svg`
     }
   },
   'datePublished': post.date,

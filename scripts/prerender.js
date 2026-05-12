@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -6,102 +6,136 @@ import { parseStringPromise } from 'xml2js';
 import http from 'http';
 import handler from 'serve-handler';
 
-// ESM directory helpers
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DIST_DIR = path.resolve(__dirname, '../dist');
-const PORT = 3000;
+const PORT = 4173;
+const PAGE_TIMEOUT_MS = 30000;
+const RENDER_WAIT_MS = 1500;
+
+// Chrome paths to probe on Windows / macOS for local dev runs.
+const LOCAL_CHROME_PATHS = [
+    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    `${process.env.LOCALAPPDATA || ''}\\Google\\Chrome\\Application\\chrome.exe`,
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/usr/bin/google-chrome',
+    '/usr/bin/chromium-browser',
+    '/usr/bin/chromium',
+];
+
+async function resolveBrowserLaunchOptions() {
+    // 1. Linux/CI (Vercel build container) — use @sparticuz/chromium for a portable Chrome
+    if (process.platform === 'linux') {
+        const chromium = (await import('@sparticuz/chromium')).default;
+        const executablePath = await chromium.executablePath();
+        return {
+            args: [...chromium.args, '--no-sandbox', '--disable-dev-shm-usage'],
+            executablePath,
+            headless: chromium.headless,
+        };
+    }
+
+    // 2. Local dev (Windows/macOS) — find an installed Chrome
+    const localPath = LOCAL_CHROME_PATHS.find((p) => p && fs.existsSync(p));
+    if (!localPath) {
+        throw new Error(
+            'No local Chrome found. Install Google Chrome or set PUPPETEER_EXECUTABLE_PATH.'
+        );
+    }
+    return {
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || localPath,
+        headless: 'new',
+        args: ['--no-sandbox', '--disable-dev-shm-usage'],
+    };
+}
 
 async function startServer() {
     return new Promise((resolve) => {
-        const server = http.createServer((req, res) => {
-            return handler(req, res, {
+        const server = http.createServer((req, res) =>
+            handler(req, res, {
                 public: DIST_DIR,
-                files: [
-                    path.join(DIST_DIR, 'index.html'),
-                    path.join(DIST_DIR, 'sitemap.xml')
-                ],
-                rewrites: [
-                    { source: '**', destination: '/index.html' }
-                ]
-            });
-        });
-        server.listen(PORT, () => {
-            resolve(server);
-        });
+                rewrites: [{ source: '**', destination: '/index.html' }],
+            })
+        );
+        server.listen(PORT, () => resolve(server));
     });
 }
 
 async function getRoutes() {
     const sitemapPath = path.join(DIST_DIR, 'sitemap.xml');
     if (!fs.existsSync(sitemapPath)) {
-        console.error('❌ Sitemap not found!');
+        console.error('Sitemap not found at', sitemapPath);
         process.exit(1);
     }
-    const xml = fs.readFileSync(sitemapPath, "utf8");
+    const xml = fs.readFileSync(sitemapPath, 'utf8');
     const parsed = await parseStringPromise(xml);
-    return parsed.urlset.url.map(u => new URL(u.loc[0]).pathname);
+    const routes = parsed.urlset.url.map((u) => new URL(u.loc[0]).pathname);
+    return [...new Set(routes)];
+}
+
+function injectPrerenderedFlag(html) {
+    // Mark this document as server-rendered so the client app can skip
+    // initial network calls / re-fetches if it chooses to.
+    return html.replace('<head>', '<head>\n    <meta name="prerendered" content="true">');
 }
 
 (async () => {
-    console.log("📦 Starting Pre-rendering Process (Standard Puppeteer)...");
-
-    // Since this runs in GitHub Actions (standard Ubuntu), no crazy hacks needed.
-    // Standard Puppeteer works great there.
+    console.log('Pre-rendering: starting…');
 
     const server = await startServer();
-    console.log(`🚀 Static server running at http://localhost:${PORT}`);
+    console.log(`Static server: http://localhost:${PORT}`);
 
     const routes = await getRoutes();
-    console.log(`🔍 Found ${routes.length} routes to pre-render.`);
+    console.log(`Routes to render: ${routes.length}`);
 
-    const browser = await puppeteer.launch({
-        headless: "new"
-        // No args needed for GitHub Actions Ubuntu runners usually, 
-        // but --no-sandbox is safe insurance.
-    });
-
+    const launchOptions = await resolveBrowserLaunchOptions();
+    const browser = await puppeteer.launch(launchOptions);
     const page = await browser.newPage();
 
+    // Block heavy resources to speed up rendering. The output HTML still
+    // references them, so the live page loads them normally.
     await page.setRequestInterception(true);
     page.on('request', (req) => {
-        const resourceType = req.resourceType();
-        if (['image', 'stylesheet', 'font'].includes(resourceType)) {
-            req.abort();
-        } else {
-            req.continue();
-        }
+        const t = req.resourceType();
+        if (['image', 'media', 'font'].includes(t)) return req.abort();
+        return req.continue();
     });
+
+    let ok = 0;
+    let failed = 0;
 
     for (const route of routes) {
         const url = `http://localhost:${PORT}${route}`;
-        console.log(`➡️ Rendering ${route}`);
-
         try {
-            await page.goto(url, { waitUntil: "networkidle0" });
-            await page.waitForSelector("footer", { timeout: 10000 }).catch(() => { });
+            await page.goto(url, { waitUntil: 'networkidle0', timeout: PAGE_TIMEOUT_MS });
+            // Wait for the React app to finish hydrating + meta tags to settle.
+            await page
+                .waitForSelector('footer', { timeout: 10000 })
+                .catch(() => {});
+            await new Promise((r) => setTimeout(r, RENDER_WAIT_MS));
 
-            const html = await page.content();
+            const html = injectPrerenderedFlag(await page.content());
 
-            const relativePath = route === '/' ? 'index.html' : path.join(route.substring(1), 'index.html');
-            const outDir = path.join(DIST_DIR, path.dirname(relativePath));
-            const finalPath = path.join(DIST_DIR, relativePath);
-
-            if (!fs.existsSync(outDir)) {
-                fs.mkdirSync(outDir, { recursive: true });
-            }
-
-            fs.writeFileSync(finalPath, html);
-            console.log(`✅ Saved: ${relativePath}`);
+            const relativePath =
+                route === '/' ? 'index.html' : path.join(route.substring(1), 'index.html');
+            const outPath = path.join(DIST_DIR, relativePath);
+            fs.mkdirSync(path.dirname(outPath), { recursive: true });
+            fs.writeFileSync(outPath, html);
+            console.log(`  ok  ${route}`);
+            ok++;
         } catch (e) {
-            console.error(`❌ Failed to render ${route}:`, e);
+            console.error(`  FAIL ${route}:`, e.message);
+            failed++;
         }
     }
 
     await browser.close();
     server.close();
 
-    console.log("✅ Pre-rendering completed successfully.");
+    console.log(`Pre-rendering done. ok=${ok} failed=${failed}`);
+    // Don't fail the build on per-route render errors; the SPA fallback
+    // will still serve those routes (just without prerendered HTML).
     process.exit(0);
 })();

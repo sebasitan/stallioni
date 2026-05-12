@@ -1,24 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /seba/
+Disallow: /seba
 
-# Sitemap
-Sitemap: https://www.stallioni.com/sitemap.xml
-
-# Disallow access to certain directories (if they exist)
-# Disallow: /api/
-# Disallow: /admin/
-# Disallow: /node_modules/
-
-# Allow crawling of all assets
+# Allow asset crawling
 Allow: /assets/
-Allow: /*.css$
-Allow: /*.js$
-Allow: /*.png$
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.gif$
-Allow: /*.svg$
-Allow: /*.webp$
 
-# Crawl-delay (optional, not supported by all bots)
-# Crawl-delay: 1
+Sitemap: https://www.stallioni.com/sitemap.xml
