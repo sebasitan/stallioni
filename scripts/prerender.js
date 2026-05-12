@@ -27,16 +27,36 @@ const LOCAL_CHROME_PATHS = [
 
 async function resolveBrowserLaunchOptions() {
     // 1. Linux/CI (Vercel build container) — use @sparticuz/chromium for a portable Chrome.
-    // @sparticuz/chromium only extracts its bundled system libs (libnss3, libatk, …) when
-    // it thinks it's running inside an AWS Lambda. Vercel's build container is Amazon
-    // Linux 2023 but doesn't set AWS_EXECUTION_ENV — so we set it manually here, which
-    // triggers extraction of al2023.tar.br to /tmp/al2023/lib and configures LD_LIBRARY_PATH.
     if (process.platform === 'linux') {
+        // Force @sparticuz/chromium to extract AL2023 libs by spoofing AWS_EXECUTION_ENV
+        // BEFORE importing the package (its module-top code reads this env var).
         if (!process.env.AWS_EXECUTION_ENV) {
             process.env.AWS_EXECUTION_ENV = 'AWS_Lambda_nodejs20.x';
         }
         const chromium = (await import('@sparticuz/chromium')).default;
         const executablePath = await chromium.executablePath();
+
+        // Belt and braces: ensure LD_LIBRARY_PATH includes whichever lib dirs actually
+        // got extracted. The package sets this only inside its own conditional logic.
+        const candidateLibDirs = ['/tmp/al2023/lib', '/tmp/al2/lib', '/tmp/aws/lib'];
+        const presentLibDirs = candidateLibDirs.filter((d) => fs.existsSync(d));
+        const currentLd = (process.env.LD_LIBRARY_PATH || '').split(':').filter(Boolean);
+        process.env.LD_LIBRARY_PATH = [...new Set([...presentLibDirs, ...currentLd])].join(':');
+
+        console.log('[prerender] AWS_EXECUTION_ENV:', process.env.AWS_EXECUTION_ENV);
+        console.log('[prerender] LD_LIBRARY_PATH:', process.env.LD_LIBRARY_PATH);
+        console.log('[prerender] Chromium binary:', executablePath,
+            fs.existsSync(executablePath) ? '(exists)' : '(MISSING)');
+        for (const d of candidateLibDirs) {
+            if (fs.existsSync(d)) {
+                const files = fs.readdirSync(d);
+                const hasNss = files.includes('libnss3.so');
+                console.log(`[prerender] ${d}: ${files.length} files, libnss3.so=${hasNss}`);
+            } else {
+                console.log(`[prerender] ${d}: missing`);
+            }
+        }
+
         return {
             args: [...chromium.args, '--no-sandbox', '--disable-dev-shm-usage'],
             executablePath,
