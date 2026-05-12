@@ -26,14 +26,22 @@ const LOCAL_CHROME_PATHS = [
 ];
 
 async function resolveBrowserLaunchOptions() {
-    // 1. Linux/CI (Vercel build container) — use @sparticuz/chromium for a portable Chrome
+    // 1. Linux/CI (Vercel build container) — use @sparticuz/chromium for a portable Chrome.
+    // @sparticuz/chromium only extracts its bundled system libs (libnss3, libatk, …) when
+    // it thinks it's running inside an AWS Lambda. Vercel's build container is Amazon
+    // Linux 2023 but doesn't set AWS_EXECUTION_ENV — so we set it manually here, which
+    // triggers extraction of al2023.tar.br to /tmp/al2023/lib and configures LD_LIBRARY_PATH.
     if (process.platform === 'linux') {
+        if (!process.env.AWS_EXECUTION_ENV) {
+            process.env.AWS_EXECUTION_ENV = 'AWS_Lambda_nodejs20.x';
+        }
         const chromium = (await import('@sparticuz/chromium')).default;
         const executablePath = await chromium.executablePath();
         return {
             args: [...chromium.args, '--no-sandbox', '--disable-dev-shm-usage'],
             executablePath,
             headless: chromium.headless,
+            env: { ...process.env },
         };
     }
 
