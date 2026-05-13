@@ -55,12 +55,12 @@ const HomePage: React.FC = () => {
                         </div>
 
                         <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-8 tracking-tight">
-                            Build Your Dream Team with <br className="hidden md:block" />
-                            <span className="text-brand-orange">STALLIONI NET SOLUTIONS</span>
+                            IT Outsourcing Company in India <br className="hidden md:block" />
+                            <span className="text-brand-orange">Hire Dedicated Remote Developers</span>
                         </h1>
 
                         <p className="text-xl md:text-2xl text-slate-200 leading-relaxed mb-8 max-w-4xl mx-auto font-light">
-                            Ready to grow faster, reduce costs, and launch lightning-fast projects? <br className="hidden lg:block" />
+                            Build your dream team with <span className="font-semibold text-white">STALLIONI NET SOLUTIONS</span> — grow faster, reduce costs, and launch lightning-fast projects. <br className="hidden lg:block" />
                             We help startups, agencies, and businesses build world-class digital products without the high cost of in-house teams.
                         </p>
 

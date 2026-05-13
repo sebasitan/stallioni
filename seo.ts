@@ -166,6 +166,46 @@ const getServiceSchema = (service: ServiceDetail) => ({
   }
 });
 
+const getFaqSchema = (service: ServiceDetail) => {
+  if (!service.faqs || service.faqs.length === 0) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': service.faqs.map(faq => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.answer
+      }
+    }))
+  };
+};
+
+const getHowToSchema = (service: ServiceDetail) => {
+  if (!service.process || service.process.length === 0) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    'name': `How We Deliver ${service.title}`,
+    'description': service.shortDescription,
+    'step': service.process.map(p => ({
+      '@type': 'HowToStep',
+      'position': p.step,
+      'name': p.title,
+      'text': p.description
+    }))
+  };
+};
+
+// Trim description to ~155 chars at a word boundary, no trailing partial word.
+const trimDescription = (text: string, maxLen = 155): string => {
+  if (text.length <= maxLen) return text;
+  const truncated = text.slice(0, maxLen);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return (lastSpace > 100 ? truncated.slice(0, lastSpace) : truncated).replace(/[.,;:\s]+$/, '') + '…';
+};
+
 const getJobPostingSchema = () => JOB_OPENINGS.map(job => ({
   '@context': 'https://schema.org',
   '@type': 'JobPosting',
@@ -244,9 +284,14 @@ const getServiceMetadata = (service: ServiceDetail): Partial<PageMetadata> => {
 
   const keywords = [...new Set([...baseKeywords, ...specificKeywords])].join(', ');
 
+  // Build a fallback meta description that reads like a sentence. The previous
+  // version produced grammar like "Outsource Design development to Stallioni"
+  // because service.category is a noun, not a verb. Use service.title instead.
+  const fallbackDescription = `${service.title} by Stallioni — ${service.shortDescription}. Hire dedicated remote developers from India.`;
+
   return {
     title: service.metaTitle || `${service.title} | Offshore Outsourcing Services by Stallioni`,
-    description: service.metaDescription || `Outsource ${service.category} development to Stallioni. ${service.shortDescription}. Explore our expert services: ${service.offerings.join(', ')}.`,
+    description: trimDescription(service.metaDescription || fallbackDescription),
     keywords: service.keywords || keywords,
     ogImage: `https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&h=630&auto=format&fit=crop`,
   };
@@ -286,6 +331,10 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
     if (service) {
       partialMetadata = getServiceMetadata(service);
       schema.push(getServiceSchema(service));
+      const faqSchema = getFaqSchema(service);
+      if (faqSchema) schema.push(faqSchema);
+      const howToSchema = getHowToSchema(service);
+      if (howToSchema) schema.push(howToSchema);
     }
   } else if (staticMetadata[cleanRoute]) {
     partialMetadata = staticMetadata[cleanRoute];
@@ -300,6 +349,10 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
   const structuredData = JSON.stringify(schema);
 
   const finalMetadata = { ...defaultMetadata, ...partialMetadata, ogUrl, structuredData };
+  // Enforce Google's ~155 char limit so descriptions don't get truncated mid-sentence in SERPs.
+  if (finalMetadata.description) {
+    finalMetadata.description = trimDescription(finalMetadata.description);
+  }
   if (!partialMetadata.ogTitle && finalMetadata.title) {
     finalMetadata.ogTitle = finalMetadata.title;
   }

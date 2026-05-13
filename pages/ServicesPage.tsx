@@ -162,9 +162,9 @@ const ServicesHub: React.FC = () => {
 
                         <FadeIn delay={100}>
                             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-8">
-                                <span className="block">Transform Your Business</span>
+                                <span className="block">IT Outsourcing Services</span>
                                 <span className="block text-brand-orange">
-                                    With Digital Excellence
+                                    Web, Mobile, AI &amp; Cloud Solutions
                                 </span>
                             </h1>
                         </FadeIn>

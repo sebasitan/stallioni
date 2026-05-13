@@ -48,7 +48,8 @@ const MetaManager: React.FC<PageMetadata> = (props) => {
     useEffect(() => {
         document.title = props.title;
         setMetaTag('name', 'description', props.description);
-        setMetaTag('name', 'keywords', props.keywords);
+        // Note: <meta name="keywords"> is deliberately not emitted — Google has ignored
+        // it since 2009 and stuffing 30+ keywords reads as low-quality to other crawlers.
 
         // Canonical
         setLinkTag('canonical', props.ogUrl);
