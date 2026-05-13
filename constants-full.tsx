@@ -614,7 +614,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.DESIGN,
         shortDescription: 'User-centric design for digital products.',
         description: "At STALLIONI NET SOLUTIONS, we create clean, user-friendly, and conversion-focused UI/UX designs that help businesses grow. Our goal is simple—design websites and applications that are easy to use, visually appealing, and built to convert visitors into customers.",
-        longDescription: "At STALLIONI NET SOLUTIONS, we create clean, user-friendly, and conversion-focused UI/UX designs that help businesses grow. Our goal is simple—design websites and applications that are easy to use, visually appealing, and built to convert visitors into customers.",
+        longDescription: "Great design is invisible — users feel it before they notice it. Our senior UX team starts every project with user research, journey mapping, and competitive analysis, then translates findings into wireframes, prototypes, and high-fidelity Figma designs. We build with accessibility (WCAG 2.1 AA) and conversion psychology baked in, so every flow earns its place. Handoff includes a complete design system, interactive prototype, and developer-ready specs.",
         offerings: ['User Research', 'Wireframing & Prototyping', 'Visual Design', 'Usability Testing', 'Design Systems'],
         featuresWithDesc: [
             { title: 'User Research & Competitor Analysis', description: 'We study your audience, market, and competitors to design experiences that match real user behavior.' },
@@ -657,7 +657,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Fast, secure, and scalable websites.',
         description: "We build fast, secure, and scalable websites that help your business stand out online. Our website development services ensure high performance, clean code, and responsive layouts suitable for all industries.",
-        longDescription: "We build fast, secure, and scalable websites that help your business stand out online. Our website development services ensure high performance, clean code, and responsive layouts suitable for all industries.",
+        longDescription: "Whether you need a marketing site, a content-driven WordPress build, or a custom Next.js application, our team has shipped 900+ websites across fintech, healthcare, e-commerce, SaaS, and professional services. Every site we deliver passes Core Web Vitals, is fully responsive, and ships with on-page SEO, analytics, and security hardening configured from day one. Most projects launch in 2–4 weeks with a 60-day support window included.",
         offerings: ['Custom Business Websites', 'CMS Development', 'E-commerce Development', 'Website Redesign & Migration'],
         featuresWithDesc: [
             { title: 'Custom Business Websites', description: 'We create tailor-made websites that reflect your brand and business goals.' },
@@ -690,7 +690,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Modern frontend development with React, Vue, & Svelte.',
         description: "We build modern, fast, and scalable frontend applications using the latest frameworks—React, Vue, and Svelte. Our team focuses on clean code, strong UI architecture, and smooth performance across all devices.",
-        longDescription: "We build modern, fast, and scalable frontend applications using the latest frameworks—React, Vue, and Svelte. Our team focuses on clean code, strong UI architecture, and smooth performance across all devices.",
+        longDescription: "Our frontend engineers have shipped production interfaces for SaaS dashboards, e-commerce storefronts, and enterprise admin panels at scale. We're opinionated about TypeScript, component-driven design, and bundle budgets — so the apps we hand over are not just pretty but also maintainable. Expect Lighthouse scores above 90, accessible markup, and a test suite that catches regressions before they ship.",
         offerings: ['React.js Development', 'Vue.js Development', 'Svelte Development', 'SPA Development'],
         featuresWithDesc: [
             { title: 'React.js Development', description: 'High-performance UI, reusable components, and scalable architecture.' },
@@ -722,7 +722,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Websites that look perfect on all devices.',
         description: "We create websites that look perfect on all screen sizes—mobile, tablet, and desktop. Our mobile-first approach ensures faster loading and better user experience.",
-        longDescription: "We create websites that look perfect on all screen sizes—mobile, tablet, and desktop. Our mobile-first approach ensures faster loading and better user experience.",
+        longDescription: "Over 65% of web traffic now comes from mobile devices, and Google ranks sites on mobile-first indexing. We design from the smallest viewport up, then progressively enhance for larger screens — the opposite of how most agencies still work. Every project includes touch-target testing, responsive image pipelines, fluid typography, and a Core Web Vitals audit so your site loads fast on a 4G connection in a coffee shop, not just a fiber line in an office.",
         offerings: ['Fluid Grids', 'Flexible Layouts', 'Speed Optimization', 'Cross-Device Testing'],
         featuresWithDesc: [
             { title: 'Fluid Grids & Flexible Layouts', description: 'Your website adjusts smoothly to any screen.' },
@@ -760,7 +760,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.DESIGN,
         shortDescription: 'High-converting landing pages that drive results.',
         description: "A great landing page increases leads, sales, and conversions. We design conversion-optimized landing pages for businesses, startups, agencies, and e-commerce brands.",
-        longDescription: "A great landing page increases leads, sales, and conversions. We design conversion-optimized landing pages for businesses, startups, agencies, and e-commerce brands.",
+        longDescription: "Most landing pages bury the value proposition, leak attention with distractions, and load too slowly to keep visitors around. We design pages that respect the visitor's intent: one clear offer, one decisive CTA, and zero friction. Every page is built on a tested layout, ships in under 7 days, and is set up for A/B testing from day one — so you can measure CTR and conversion rate, not guess.",
         offerings: ['Clear Messaging', 'Strong Visuals', 'CTA Optimization', 'Mobile-Friendly Layout', 'A/B Testing Ready'],
         featuresWithDesc: [
             { title: 'Clear Messaging & Strong Visuals', description: 'Your value proposition is highlighted clearly.' },
@@ -791,7 +791,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.DESIGN,
         shortDescription: 'Scalable design systems for consistent branding.',
         description: "Our design system services help brands maintain visual consistency and scale faster. We build reusable components, guidelines, and UI libraries that keep your brand uniform across all products.",
-        longDescription: "Our design system services help brands maintain visual consistency and scale faster. We build reusable components, guidelines, and UI libraries that keep your brand uniform across all products.",
+        longDescription: "Without a design system, every new feature reinvents the wheel — and your product drifts visually across teams. We build production-grade design systems in Figma with paired React/Vue component libraries, design tokens (colors, spacing, typography), Storybook documentation, and contribution guidelines. The result: your designers and engineers stop debating button styles and start shipping features 3× faster.",
         offerings: ['Component Libraries', 'Color Palette & Style Guide', 'Interaction & UX Patterns', 'Developer Handoff'],
         featuresWithDesc: [
             { title: 'Component Libraries', description: 'Buttons, forms, grids, icons, typography & reusable UI modules.' },
@@ -826,7 +826,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Scalable business web apps & SaaS platforms.',
         description: "At STALLIONI NET SOLUTIONS, we build powerful, scalable, and secure custom web applications that help businesses automate operations, improve efficiency, and accelerate digital growth.",
-        longDescription: "At STALLIONI NET SOLUTIONS, we build powerful, scalable, and secure custom web applications that help businesses automate operations, improve efficiency, and accelerate digital growth. Whether you need a CRM, ERP, SaaS platform, workflow tool, or a fully tailored business application — our expert team delivers high-performance solutions at affordable pricing with fast delivery. We serve businesses of all sizes across the USA, UK, India, Middle East, and Australia, helping them adopt modern, cloud-ready applications built for long-term success.",
+        longDescription: "Off-the-shelf software is built for the average customer — but your business isn't average. We build custom web applications that match your exact workflow: internal tools that replace 20 spreadsheets, customer-facing apps with bespoke logic your competitors can't copy, B2B platforms that scale from 10 users to 100,000. Stack: React or Next.js + Node.js / Django / Laravel + PostgreSQL on AWS or GCP. Most projects deliver a working MVP in 6–10 weeks, then iterate based on real user feedback.",
         offerings: ['Business Web Applications', 'SaaS Development', 'API Development', 'Third-Party Integrations', 'Microservices Architecture', 'Web Portals'],
         featuresWithDesc: [
             { title: 'Business Web Applications (CRM, ERP, HR, Workflow)', description: 'Custom enterprise systems built to streamline business processes and improve productivity.' },
@@ -884,7 +884,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Powerful business apps aimed at growth.',
         description: "At STALLIONI NET SOLUTIONS, we build powerful business web applications that simplify operations and help companies grow faster. From CRM, ERP, HR systems to workflow automation tools, our solutions are designed for small businesses, startups, agencies, and e-commerce brands looking to improve efficiency and productivity.",
-        longDescription: "At STALLIONI NET SOLUTIONS, we build powerful business web applications that simplify operations and help companies grow faster. From CRM, ERP, HR systems to workflow automation tools, our solutions are designed for small businesses, startups, agencies, and e-commerce brands looking to improve efficiency and productivity.",
+        longDescription: "Off-the-shelf SaaS gets you 80% of the way — but the last 20% is where productivity is lost to manual exports, duplicate data entry, and tools that don't talk to each other. We build custom CRM, ERP, HR, and workflow apps that fit how your team actually works, integrate with your existing stack (Salesforce, QuickBooks, Slack, etc.), and give leadership real-time dashboards instead of monthly spreadsheets. Most projects scope in 1 week and ship a working MVP in 4–8 weeks.",
         offerings: ['CRM Development', 'ERP Development', 'HR Management Systems', 'Workflow Automation Tools', 'Custom Internal Applications'],
         featuresWithDesc: [
             { title: 'CRM Development', description: 'Custom CRM systems built to manage leads, customers, sales pipelines, and communication workflows.' },
@@ -928,7 +928,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Building scalable Software-as-a-Service platforms.',
         description: "We help businesses build scalable SaaS applications that users love. Whether you're a startup launching a new software product or an enterprise looking to migrate to the cloud, our SaaS experts ensure fast development, secure architecture, and long-term reliability.",
-        longDescription: "We help businesses build scalable SaaS applications that users love. Whether you're a startup launching a new software product or an enterprise looking to migrate to the cloud, our SaaS experts ensure fast development, secure architecture, and long-term reliability.",
+        longDescription: "Building a SaaS isn't just shipping a web app — it's multi-tenancy, Stripe billing, auth and SSO, role-based access, audit logs, usage metering, and an admin dashboard that doesn't fall over at 10,000 users. We've shipped these foundations dozens of times and can stand up a production-ready MVP in 8–12 weeks. Stack: TypeScript + React on the frontend, Node.js / Python / Go on the backend, PostgreSQL, Redis, and AWS or GCP. Pricing is fixed-scope so you know what you're paying before we write a line of code.",
         offerings: ['Multi-Tenant Architecture', 'Subscription & Billing Modules', 'User Dashboards & Analytics', 'Cloud Hosting & DevOps', 'Mobile-Friendly SaaS Platforms'],
         featuresWithDesc: [
             { title: 'Multi-Tenant Architecture', description: 'Secure and scalable systems designed for multiple user groups.' },
@@ -970,7 +970,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Robust APIs for seamless integrations.',
         description: "We build secure, scalable, and high-performance APIs using REST and GraphQL. Our API development services help businesses integrate systems, automate workflows, and improve application performance.",
-        longDescription: "We build secure, scalable, and high-performance APIs using REST and GraphQL. Our API development services help businesses integrate systems, automate workflows, and improve application performance.",
+        longDescription: "A well-designed API is the difference between a product that scales and one that crumbles when a partner integration goes live. We build OpenAPI-documented REST APIs and Apollo-powered GraphQL endpoints with rate limiting, JWT or OAuth2 auth, structured error handling, and proper versioning. Every API ships with Postman collections, Swagger docs, and integration tests — so your internal team and external developers can plug in without a single Slack message to ours.",
         offerings: ['REST API Development', 'GraphQL API Development', 'API Integration & Automation', 'API Documentation', 'API Security'],
         featuresWithDesc: [
             { title: 'REST API Development', description: 'Fast and secure APIs for web, mobile, and SaaS applications.' },
@@ -1004,7 +1004,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Connect tools for better automation.',
         description: "We help businesses connect their systems with the tools they rely on every day. From payment gateways to CRMs to marketing platforms, our third-party integration services ensure smooth data exchange and improved business automation.",
-        longDescription: "We help businesses connect their systems with the tools they rely on every day. From payment gateways to CRMs to marketing platforms, our third-party integration services ensure smooth data exchange and improved business automation.",
+        longDescription: "Most businesses run on a stack of 10–30 SaaS tools that don't talk to each other natively. We've built integrations for 500+ third-party platforms — Stripe, PayPal, Razorpay, Salesforce, HubSpot, Zoho, Mailchimp, Twilio, Slack, QuickBooks, Shopify, and many more. Our integrations use proper webhook handling, idempotency keys, retry logic, and sandbox testing — so they don't break when an API changes or a webhook fires twice. If your platform doesn't have an off-the-shelf connector, we'll build one in days, not weeks.",
         offerings: ['Payment Gateways', 'CRM Integrations', 'E-commerce Platforms', 'Marketing Tools', 'Social & Communication APIs'],
         featuresWithDesc: [
             { title: 'Payment Gateways', description: 'Stripe, PayPal, Razorpay, 2Checkout, Payoneer.' },
@@ -1037,7 +1037,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Scalable microservices for enterprise applications.',
         description: "We help businesses build scalable and high-performance systems using microservices architecture. Perfect for startups and growing companies needing flexibility, speed, and efficient resource usage.",
-        longDescription: "We help businesses build scalable and high-performance systems using microservices architecture. Perfect for startups and growing companies needing flexibility, speed, and efficient resource usage.",
+        longDescription: "Monoliths are great until they aren't — when one team's deploy blocks another's, when a memory leak in billing takes down checkout, when a 10× traffic spike forces an emergency rewrite. We design microservices the right way: bounded contexts mapped to domain boundaries, gRPC or REST between services, Kubernetes for orchestration, service mesh for observability, and an API gateway for clients. Equally important — we know when NOT to use microservices, and we'll tell you if your team is better off with a modular monolith.",
         offerings: ['Microservice-Based Apps', 'API Gateway Setup', 'Containerization', 'Cloud Integration', 'Event-Driven Systems'],
         featuresWithDesc: [
             { title: 'Microservice-Based Application Development', description: 'Breaking large applications into independent services.' },
@@ -1070,7 +1070,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         category: PortfolioCategory.WEB,
         shortDescription: 'Self-service portals for stakeholders.',
         description: "We build secure, user-friendly web portals that improve communication and streamline operations for businesses. From customer self-service portals to vendor and partner dashboards, our solutions help companies operate smoothly at scale.",
-        longDescription: "We build secure, user-friendly web portals that improve communication and streamline operations for businesses. From customer self-service portals to vendor and partner dashboards, our solutions help companies operate smoothly at scale.",
+        longDescription: "Portals reduce support tickets, eliminate manual data entry, and give external stakeholders the information they need without a back-and-forth email chain. We've built customer self-service hubs, vendor portals with PO workflows, partner co-marketing dashboards, and franchise/dealer management systems. Every portal we ship includes role-based access control, single sign-on (SAML, OAuth, Google Workspace), full audit logs, and a permissions admin UI — so your operations team can manage access without filing IT tickets.",
         offerings: ['Customer Portals', 'Vendor Portals', 'Partner Portals', 'Internal Employee Portals', 'Custom Business Portals'],
         featuresWithDesc: [
             { title: 'Customer Portals', description: 'Account management, billing, support tickets, service requests.' },
