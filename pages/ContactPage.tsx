@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import FadeIn from '../components/FadeIn';
+import FreelancerBadge from '../components/FreelancerBadge';
 import { useToast } from '../App';
 import { getContactEmail, getWhatsAppPhone, RECAPTCHA_SITE_KEY } from '../constants';
 
@@ -308,6 +309,15 @@ const ContactPage: React.FC = () => {
                                             <span className="ml-4 font-semibold text-slate-700 group-hover:text-brand-orange">Chat on WhatsApp</span>
                                         </a>
                                     </div>
+                                </div>
+
+                                {/* Verify our track record */}
+                                <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                                    <h3 className="text-xl font-bold text-brand-dark mb-2">Verify Our Track Record</h3>
+                                    <p className="text-slate-600 text-sm mb-4">
+                                        Read 978 client reviews and see our portfolio on our public Freelancer.com profile, where we have been an active provider since 2007.
+                                    </p>
+                                    <FreelancerBadge variant="light" size="md" />
                                 </div>
                             </FadeIn>
                         </div>

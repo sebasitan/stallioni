@@ -3,6 +3,7 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { SERVICES_OVERVIEW, PORTFOLIO_ITEMS, TESTIMONIALS } from '../constants';
 import FadeIn from '../components/FadeIn';
+import FreelancerBadge from '../components/FreelancerBadge';
 import { useNavigation, useModal } from '../App';
 import { WebDevIcon, MobileDevIcon, FullStackIcon, EcommIcon, DesignIcon, CrmIcon } from '../components/IconComponents';
 import { getPortfolioItems } from '../utils/portfolioStorage';
@@ -64,9 +65,13 @@ const HomePage: React.FC = () => {
                             We help startups, agencies, and businesses build world-class digital products without the high cost of in-house teams.
                         </p>
 
-                        <p className="text-lg text-slate-400 mb-10 max-w-3xl mx-auto">
+                        <p className="text-lg text-slate-400 mb-8 max-w-3xl mx-auto">
                             With clients across the USA, UK, India, Middle East, and Australia, we deliver premium-quality code and rapid results at a budget-friendly price.
                         </p>
+
+                        <div className="flex justify-center mb-10">
+                            <FreelancerBadge variant="dark" size="md" />
+                        </div>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                             <a href="/contact" onClick={(e) => handleConsultationClick(e)} className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-brand-orange text-white font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-2xl hover:bg-opacity-90 transition-all duration-300 transform hover:-translate-y-1 text-lg">
