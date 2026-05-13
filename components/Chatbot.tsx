@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { ChatbotIcon, CloseIcon, SendIcon } from './IconComponents';
-import { getContactEmail, getWhatsAppPhone, getCallPhone, RECAPTCHA_SITE_KEY } from '../constants';
+import { getContactEmail, getWhatsAppPhone, getCallPhone } from '../constants';
 import { useToast, useNavigation } from '../App';
 import { SERVICES_OVERVIEW } from '../constants/services-overview';
+import { getRecaptchaToken } from '../utils/recaptcha';
 
 interface Message {
     role: 'user' | 'model';
@@ -341,18 +342,8 @@ const Chatbot: React.FC = () => {
         formData.append('_cc', getContactEmail());
 
         try {
-            // 1. Generate reCAPTCHA Token
-            if (typeof window.grecaptcha === 'undefined') {
-                throw new Error('reCAPTCHA not loaded');
-            }
-
-            const recaptchaToken = await new Promise<string>((resolve, reject) => {
-                window.grecaptcha.ready(() => {
-                    window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'chatbot_transcript' })
-                        .then(resolve)
-                        .catch(reject);
-                });
-            });
+            // 1. Generate reCAPTCHA Token (waits for the deferred script to be ready)
+            const recaptchaToken = await getRecaptchaToken('chatbot_transcript');
 
             const response = await fetch('/api/contact', {
                 method: 'POST',

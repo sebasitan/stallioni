@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import FadeIn from '../components/FadeIn';
 import FreelancerBadge from '../components/FreelancerBadge';
 import { useToast } from '../App';
-import { getContactEmail, getWhatsAppPhone, RECAPTCHA_SITE_KEY } from '../constants';
+import { getContactEmail, getWhatsAppPhone } from '../constants';
+import { getRecaptchaToken } from '../utils/recaptcha';
 
 const ProjectIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>;
 const PartnershipIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>;
@@ -55,18 +56,8 @@ const ContactPage: React.FC = () => {
         if (submitButton) submitButton.disabled = true;
 
         try {
-            // 1. Generate reCAPTCHA Token
-            if (typeof window.grecaptcha === 'undefined') {
-                throw new Error('reCAPTCHA not loaded');
-            }
-
-            const recaptchaToken = await new Promise<string>((resolve, reject) => {
-                window.grecaptcha.ready(() => {
-                    window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact_form' })
-                        .then(resolve)
-                        .catch(reject);
-                });
-            });
+            // 1. Generate reCAPTCHA Token (waits for the deferred script to be ready)
+            const recaptchaToken = await getRecaptchaToken('contact_form');
 
             // 2. Prepare data
             const data = Object.fromEntries(formData.entries());
