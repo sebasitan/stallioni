@@ -12,6 +12,7 @@ export interface PageMetadata {
   ogUrl: string;
   ogType: 'website' | 'article';
   structuredData: string;
+  noindex?: boolean;
 }
 
 const BASE_URL = 'https://www.stallioni.com';
@@ -19,8 +20,8 @@ const DEFAULT_OG_IMAGE = 'https://images.unsplash.com/photo-1552664730-d307ca884
 
 
 export const defaultMetadata: Omit<PageMetadata, 'ogUrl' | 'structuredData'> = {
-  title: 'Best IT Outsourcing Company | Stallioni Net Solutions',
-  description: 'Scale faster with affordable IT outsourcing. Hire expert developers and remote teams for web, mobile, and SaaS projects. Trusted in USA, UK, India & more.',
+  title: 'IT Outsourcing Company in India | Hire Dedicated Developers',
+  description: 'Scale faster with affordable IT outsourcing from India. Hire dedicated remote developers for web, mobile, AI, and SaaS projects. 900+ projects delivered.',
   keywords: 'IT outsourcing company, hire remote developers, offshore development team, affordable IT outsourcing, software outsourcing services, dedicated developer team, outsourcing for startups, global IT service provider',
   ogTitle: 'Best IT Outsourcing Company | Stallioni Net Solutions',
   ogDescription: 'Scale faster with affordable IT outsourcing. Hire expert developers and remote teams for web, mobile, and SaaS projects. Trusted in USA, UK, India & more.',
@@ -243,8 +244,8 @@ const staticMetadata: Record<string, Partial<PageMetadata>> = {
     ogImage: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1200&h=630&auto=format&fit=crop',
   },
   '/portfolio': {
-    title: 'Our Portfolio | Global Success Stories in IT Outsourcing - Stallioni',
-    description: 'Browse our portfolio of 900+ successful projects. See how our offshore development teams in India have delivered world-class solutions for clients in 35+ countries.',
+    title: 'Portfolio | 900+ IT Outsourcing Projects Delivered Worldwide',
+    description: 'Browse 900+ successful IT outsourcing projects. Web, mobile, AI, and e-commerce builds delivered to clients in 35+ countries since 2008.',
     keywords: 'IT outsourcing portfolio, offshore development case studies, software development projects, stallioni clients, remote team success stories, hire Indian developers portfolio, success stories outsourcing India',
     ogImage: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200&h=630&auto=format&fit=crop',
   },
@@ -255,16 +256,22 @@ const staticMetadata: Record<string, Partial<PageMetadata>> = {
     ogImage: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=1200&h=630&auto=format&fit=crop',
   },
   '/careers': {
-    title: 'Careers – Freelance Developer Jobs | Stallioni Net Solutions',
-    description: 'Join Stallioni as a freelance WordPress, React, PHP, or AI developer. Contract-based remote jobs with global clients. Apply today and grow your career.',
+    title: 'Careers — Freelance Developer Jobs at Stallioni',
+    description: 'Join Stallioni as a freelance WordPress, React, PHP, or AI developer. Contract-based remote jobs with global clients. Apply today.',
     keywords: 'freelance developer jobs, contract developer jobs India, remote WordPress developer, freelance React developer, PHP developer jobs, AI developer freelance, contract-based jobs, remote development jobs, freelance tech jobs India, work from home developer',
     ogImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c7da?q=80&w=1200&h=630&auto=format&fit=crop',
   },
   '/contact': {
     title: 'Contact Stallioni | Get a Free Outsourcing Quote',
-    description: 'Contact Stallioni to start your project or discuss a partnership. Get a free, no-obligation quote from our leading offshore software development team in India.',
+    description: 'Contact Stallioni to start your project or discuss a partnership. Get a free, no-obligation quote from our offshore software development team in India.',
     keywords: 'contact stallioni, get a quote, IT outsourcing consultation, software development quote, hire indian developers contact, free consultation, project quote India',
     ogImage: 'https://images.unsplash.com/photo-1596524430615-b46475ddff6e?q=80&w=1200&h=630&auto=format&fit=crop',
+  },
+  '/privacy-policy': {
+    title: 'Privacy Policy | Stallioni',
+    description: 'Learn how Stallioni collects, uses, and protects your personal data. Our privacy practices comply with GDPR and Indian IT regulations.',
+    keywords: '',
+    noindex: true,
   },
 };
 

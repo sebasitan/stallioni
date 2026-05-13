@@ -551,6 +551,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     // ============================================
     {
         id: 'website-design-development',
+        metaTitle: "Website Design & Development Services | Hire Web Designers",
+        metaDescription: "End-to-end website design and development. UI/UX, responsive frontend, CMS integration, SEO-ready. Launch in 2–4 weeks. Free consultation.",
         title: 'Website Design & Development Services',
         icon: <WebDevIcon />,
         category: PortfolioCategory.WEB,
@@ -605,6 +607,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'ui-ux-design',
+        metaTitle: "UI/UX Design Services in India | Hire Senior UX Designers",
+        metaDescription: "User-centric UI/UX design that drives conversions. Wireframes, prototypes, user research, design systems. Figma experts. Free design audit.",
         title: 'UI/UX Design Services',
         icon: <DesignIcon />,
         category: PortfolioCategory.DESIGN,
@@ -646,6 +650,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'website-development',
+        metaTitle: "Professional Website Development Services in India",
+        metaDescription: "Fast, secure, scalable websites built with React, Next.js, or WordPress. SEO-optimized, mobile-first, Core Web Vitals certified. Get a quote.",
         title: 'Professional Website Development Services',
         icon: <WebDevIcon />,
         category: PortfolioCategory.WEB,
@@ -677,6 +683,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'frontend-development',
+        metaTitle: "React, Vue & Svelte Frontend Development | Hire Frontend Devs",
+        metaDescription: "Fast, modern frontend development with React, Vue, and Svelte. Pixel-perfect UIs, optimized performance, accessibility-first. Hire from India.",
         title: 'Frontend Development Services (React, Vue, Svelte)',
         icon: <WebDevIcon />,
         category: PortfolioCategory.WEB,
@@ -707,6 +715,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'responsive-mobile-first-development',
+        metaTitle: "Mobile-First Responsive Website Development | Stallioni",
+        metaDescription: "Websites that look perfect on every device. Mobile-first design, Core Web Vitals optimized, accessibility-compliant. Fast turnaround.",
         title: 'Responsive & Mobile-First Website Development',
         icon: <WebDevIcon />,
         category: PortfolioCategory.WEB,
@@ -743,6 +753,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'landing-page-design',
+        metaTitle: "High-Converting Landing Page Design Services | Stallioni",
+        metaDescription: "Conversion-focused landing pages that turn visitors into customers. A/B-tested designs, fast load times, SEO-optimized. Delivered in 7 days.",
         title: 'High-Converting Landing Page Design Services',
         icon: <DesignIcon />,
         category: PortfolioCategory.DESIGN,
@@ -772,6 +784,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'design-systems',
+        metaTitle: "Design System Development Services | Figma & React Experts",
+        metaDescription: "Scalable design systems for consistent branding across products. Component libraries, design tokens, Storybook setups. Built by senior designers.",
         title: 'Design System Creation Services',
         icon: <DesignIcon />,
         category: PortfolioCategory.DESIGN,
@@ -805,6 +819,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     // ============================================
     {
         id: 'custom-web-application-development',
+        metaTitle: "Custom Web Application Development | SaaS & Enterprise Apps",
+        metaDescription: "Custom web apps built for scale — SaaS platforms, enterprise portals, internal tools. React, Node.js, Python experts. Get a free quote today.",
         title: 'Custom Web Application Development Services',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
@@ -861,6 +877,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'business-web-applications',
+        metaTitle: "CRM, ERP & Workflow App Development | Custom Business Software",
+        metaDescription: "Custom CRM, ERP, HR, and workflow apps built for your business. Streamline operations, automate processes, scale faster. Free consultation.",
         title: 'Business Web Application Development (CRM, ERP, HR, Workflow)',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
@@ -903,6 +921,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'saas-development',
+        metaTitle: "SaaS Development Company in India | Build Your SaaS Product",
+        metaDescription: "End-to-end SaaS development — MVP to scale. Multi-tenancy, Stripe billing, auth, dashboards. Launch your SaaS in 90 days. Free strategy call.",
         title: 'SaaS Application Development Services',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
@@ -943,6 +963,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'api-development',
+        metaTitle: "REST & GraphQL API Development Services in India | Stallioni",
+        metaDescription: "Build secure, scalable REST and GraphQL APIs. Expert backend developers, fast integrations, 24/7 support. Affordable rates for startups and enterprises.",
         title: 'API Development Services (REST & GraphQL)',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
@@ -975,6 +997,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'third-party-integrations',
+        metaTitle: "Third-Party API Integration Services | Stallioni",
+        metaDescription: "Connect your software with 500+ third-party tools — Stripe, Salesforce, HubSpot, Slack. Custom integrations, webhooks, OAuth. Fast delivery.",
         title: 'Third-Party Integration Services',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
@@ -1006,6 +1030,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'microservices-architecture',
+        metaTitle: "Microservices Architecture Development for Enterprise Apps",
+        metaDescription: "Scalable microservices for enterprise applications. Docker, Kubernetes, service mesh, API gateway expertise. Migrate monoliths with zero downtime.",
         title: 'Microservices Architecture Development',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
@@ -1037,6 +1063,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'web-portals',
+        metaTitle: "Customer, Vendor & Partner Portal Development Services",
+        metaDescription: "Build self-service portals for customers, vendors, and partners. Role-based access, dashboards, real-time data. Secure and scalable.",
         title: 'Web Portal Development (Customer, Vendor, Partner)',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
@@ -1166,8 +1194,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Custom WooCommerce stores for growing businesses.',
         description: "We build powerful, affordable, and scalable WooCommerce development services designed for startups, agencies, and SMBs across the USA, UK, India, Middle East, and Australia.",
         longDescription: "WooCommerce remains one of the most trusted e-commerce platforms for small businesses and expanding online stores. At STALLIONI NET SOLUTIONS, we deliver powerful, affordable, and scalable WooCommerce development services designed for startups, agencies, and SMBs. Our solutions are built with speed, security, and performance in mind—ensuring that your store delivers a seamless shopping experience.",
-        metaTitle: "WooCommerce Development Services | Affordable WooCommerce Experts",
-        metaDescription: "Get affordable, high-quality WooCommerce development services from STALLIONI NET SOLUTIONS. Fast delivery, expert developers, custom store solutions.",
+        metaTitle: "WooCommerce Development Services | WP Store Builders",
+        metaDescription: "Custom WooCommerce store development. Themes, plugins, migrations, speed optimization. WordPress experts since 2008. Free consultation.",
         keywords: "WooCommerce Development Services, WooCommerce developers, WooCommerce customization, WooCommerce plugin development, How much does WooCommerce development cost?, Is WooCommerce good for small businesses?",
         offerings: ['Custom WooCommerce Store Development', 'WooCommerce Plugin Development', 'WooCommerce Migration Services', 'WooCommerce Speed Optimization', 'Affordable WooCommerce Development Packages'],
         benefits: {
@@ -1285,8 +1313,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Scalable online stores with BigCommerce.',
         description: "BigCommerce is one of the fastest-growing SaaS e-commerce platforms. We deliver BigCommerce Development Services tailored for scalable online stores without heavy technical maintenance.",
         longDescription: "Our expert developers help you build high-performing BigCommerce stores with custom themes, API integrations, headless commerce, and conversion-driven features — all at affordable pricing and backed by fast delivery. BigCommerce is designed for scalability and stability.",
-        metaTitle: "BigCommerce Development Services | Expert E-Commerce Developers",
-        metaDescription: "Affordable BigCommerce development by STALLIONI NET SOLUTIONS. Custom themes, migrations, integrations & optimization. Fast delivery. Free consultation.",
+        metaTitle: "BigCommerce Development Services | E-Commerce Experts",
+        metaDescription: "Custom BigCommerce stores built for scale. Stencil theme development, Stripe checkout, migrations from Shopify or Magento. Free consultation.",
         keywords: "BigCommerce Development Services, BigCommerce developers, BigCommerce customization, BigCommerce store development, Cost of BigCommerce development, Best BigCommerce agency for startups",
         offerings: ['Custom BigCommerce Store Development', 'BigCommerce Theme Customization', 'API Integrations & App Development', 'BigCommerce Migration Services', 'BigCommerce SEO & Performance', 'Headless Commerce'],
         benefits: {
@@ -1362,8 +1390,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Build your own marketplace like Amazon or Etsy.',
         description: "We specialize in Multi-Vendor Marketplace Development. Whether you're building a niche marketplace, a B2B trading platform, or a global e-commerce system, we deliver scalable solutions.",
         longDescription: "A multi-vendor marketplace allows multiple sellers to list products, manage inventory, and handle orders under one platform. We build complete marketplace ecosystems with custom features, scalable architecture, and advanced vendor management tools for startups and enterprises.",
-        metaTitle: "Multi-Vendor Marketplace Development | Expert Marketplace Builders",
-        metaDescription: "Build your own marketplace like Amazon or Etsy. STALLIONI NET SOLUTIONS offers affordable, scalable multi-vendor marketplace development. Fast delivery.",
+        metaTitle: "Multi-Vendor Marketplace Development | Stallioni",
+        metaDescription: "Build a marketplace like Amazon or Etsy. Vendor onboarding, commission engines, multi-payment splits, ratings. Scalable architecture from day one.",
         keywords: "Multi-Vendor Marketplace Development, online marketplace development, vendor marketplace solutions, multi vendor e-commerce development, cost of marketplace development, how to create a multi vendor platform",
         offerings: ['Custom Multi-Vendor Platform', 'Niche Marketplace Development', 'Vendor Dashboard', 'Marketplace Admin Panel', 'Payment Gateway Integration', 'Mobile App for Marketplace'],
         benefits: {
@@ -1400,8 +1428,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Secure payment processing for your store.',
         description: "A seamless and secure payment experience is crucial. We provide professional Payment Gateway Integration Services for secure, fast, and reliable transactions across all platforms.",
         longDescription: "Whether you're running a small online shop, a subscription business, or a marketplace, we integrate global and local payment providers ensuring PCI-DSS compliance and fast implementation. Improve your checkout performance and conversions with our expert integration.",
-        metaTitle: "Payment Gateway Integration Services | Secure Online Payments",
-        metaDescription: "Get secure payment gateway integration from STALLIONI NET SOLUTIONS. Fast, affordable, and reliable setup for all e-commerce platforms. Free consultation.",
+        metaTitle: "Payment Gateway Integration | Stripe, PayPal, Razorpay Setup",
+        metaDescription: "Secure payment gateway integration for Stripe, PayPal, Razorpay, 2Checkout, and more. PCI-compliant setup for any e-commerce platform. Fast delivery.",
         keywords: "Payment Gateway Integration Services, online payment integration, payment API integration, secure payment setup, How to integrate payment gateway for e-commerce?, payment gateway cost for small businesses",
         offerings: ['International Payment Gateways', 'Region-Specific Gateways', 'Marketplace Payment Solutions', 'Subscription & Recurring Billing', 'Mobile App Payments', 'Custom API Integration'],
         benefits: {
@@ -3372,6 +3400,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     // ============================================
     {
         id: 'maintenance-support',
+        metaTitle: "Website & App Maintenance Services | 24/7 Support | Stallioni",
+        metaDescription: "Keep your website and apps secure, fast, and online. Bug fixes, updates, monitoring, backups. Monthly plans starting at $99. Free audit.",
         title: 'Maintenance & Support Services',
         icon: <MobileDevIcon />,
         category: PortfolioCategory.SUPPORT,
@@ -4496,8 +4526,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </p>
             </>
         ),
-        metaTitle: "Social Media Ads Services | Facebook & Instagram Advertising",
-        metaDescription: "Grow your business with expert Social Media Ads. Facebook, Instagram, LinkedIn & YouTube ads for leads & sales. Affordable pricing for small businesses.",
+        metaTitle: "Social Media Ads | Facebook, Instagram & LinkedIn Experts",
+        metaDescription: "Scale revenue with expert social media advertising. Facebook, Instagram, LinkedIn, and TikTok ad campaigns. Creative + targeting + analytics included.",
         keywords: "Social Media Ads Services, Facebook Ads management, Instagram Ads agency, Social media advertising company, Paid social ads for small businesses, LinkedIn Ads services, How do social media ads increase sales?",
         offerings: ['Strategy & Planning', 'Audience Targeting', 'Creative Ad Design', 'Campaign Setup', 'Retargeting Campaigns', 'Funnel Setup', 'Analytics & Reporting'],
         benefits: {
@@ -4581,8 +4611,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </p>
             </>
         ),
-        metaTitle: "Content Writing & Strategy Services | SEO-Friendly Content",
-        metaDescription: "Professional content writing & strategy services for websites, blogs, and e-commerce. SEO-friendly, engaging content with fast delivery and affordable pricing.",
+        metaTitle: "SEO Content Writing Services | Blogs, Web Copy, Strategy",
+        metaDescription: "SEO-optimized blogs, website copy, and content strategy by native English writers. Ranked-content frameworks, keyword research, editorial calendars.",
         keywords: "Content Writing and Strategy Services, SEO content writing, Professional content writers, Content strategy agency, Blog writing services, Website content writing, How to create a content strategy?",
         offerings: ['Website Content', 'SEO Blogs & Articles', 'Product Descriptions', 'Social Media Content', 'Email Copywriting', 'Whitepapers & eBooks', 'Content Strategy'],
         benefits: {
@@ -5196,8 +5226,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </p>
             </>
         ),
-        metaTitle: "Logging & Monitoring Services | Cloud & DevOps Experts",
-        metaDescription: "STALLIONI NET SOLUTIONS offers powerful logging & monitoring services using ELK, Prometheus, Grafana & cloud tools. Improve performance & security with real-time insights.",
+        metaTitle: "Logging & Monitoring Services | ELK, Grafana, Prometheus",
+        metaDescription: "Real-time logging and monitoring with ELK, Prometheus, Grafana, and Datadog. Alerting, dashboards, SLO tracking. Built for modern cloud-native apps.",
         keywords: "Logging and Monitoring Services, Application performance monitoring, Cloud logging solutions, Prometheus and Grafana setup, ELK Stack monitoring services",
         offerings: ['Application Monitoring', 'Infrastructure Monitoring', 'Cloud Monitoring', 'Centralized Logging', 'Prometheus & Grafana', 'Alerting Setup', 'Security Logging'],
         benefits: {
@@ -5305,8 +5335,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </ul>
             </>
         ),
-        metaTitle: "Quality Assurance & Testing Services | Stallioni Net Solutions",
-        metaDescription: "Get reliable, affordable QA & Testing Services from Stallioni Net Solutions. Manual, automated, API, and performance testing for flawless digital products.",
+        metaTitle: "QA & Software Testing Services in India | Stallioni",
+        metaDescription: "Manual, automated, API, and performance testing for flawless digital products. Selenium, Cypress, JMeter experts. ISO-certified QA process.",
         keywords: "Quality Assurance & Testing Services, Software testing company, QA services for small businesses, Manual and automated testing, Performance and load testing services, Cross-browser testing services",
         offerings: ['Manual Testing', 'Automated Testing', 'API Testing', 'Performance & Load Testing', 'Cross-Browser Testing', 'Security Testing', 'Usability Testing'],
         benefits: {
@@ -5668,8 +5698,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </p>
             </>
         ),
-        metaTitle: "Performance & Load Testing Services | Stallioni Net Solutions",
-        metaDescription: "Ensure fast, reliable, and scalable apps with our Performance & Load Testing Services. Stallioni Net Solutions delivers speed, stability, and crash-proof performance.",
+        metaTitle: "Performance & Load Testing Services | JMeter, K6 Experts",
+        metaDescription: "Find bottlenecks before your users do. Load testing, stress testing, and performance profiling with JMeter, K6, and Gatling. Scalable apps guaranteed.",
         keywords: "Performance & Load Testing Services, Website speed testing, Load testing company, Performance QA services, Scalability testing solutions",
         offerings: ['Load Testing', 'Stress Testing', 'Spike Testing', 'Endurance Testing', 'Scalability Testing', 'Web Performance Optimization'],
         benefits: {

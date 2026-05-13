@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { PageMetadata } from '../seo';
 
+const ROBOTS_INDEX_FOLLOW = 'index, follow';
+const ROBOTS_NOINDEX = 'noindex, follow';
+
 // Helper function to set/create meta tags by name or property
 const setMetaTag = (attr: 'name' | 'property', value: string, content: string) => {
     const selector = `meta[${attr}="${value}"]`;
@@ -50,6 +53,9 @@ const MetaManager: React.FC<PageMetadata> = (props) => {
         setMetaTag('name', 'description', props.description);
         // Note: <meta name="keywords"> is deliberately not emitted — Google has ignored
         // it since 2009 and stuffing 30+ keywords reads as low-quality to other crawlers.
+
+        // Robots directive — pages flagged noindex (privacy policy, admin) are not indexed.
+        setMetaTag('name', 'robots', props.noindex ? ROBOTS_NOINDEX : ROBOTS_INDEX_FOLLOW);
 
         // Canonical
         setLinkTag('canonical', props.ogUrl);

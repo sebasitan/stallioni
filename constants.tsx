@@ -397,6 +397,8 @@ export const BLOG_POSTS: BlogPost[] = [
     {
         id: 1,
         title: '10 Reasons Why Your Business Needs a Professional Website in 2025',
+        metaTitle: '10 Reasons Your Business Needs a Professional Website in 2026',
+        metaDescription: 'A professional website builds trust, improves visibility, and drives growth. Discover 10 reasons every business needs one in 2026.',
         excerpt: 'A professional website builds trust, improves visibility, and drives growth. Learn why every business needs one.',
         author: 'Seba Sebastian',
         date: '2025-01-15',
