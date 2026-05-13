@@ -68,14 +68,14 @@ export default async function handler(req, res) {
             port: 587,
             secure: false, // TLS
             auth: {
-                user: process.env.SMTP_USER || 'sebas@stallioni.com',
+                user: process.env.SMTP_USER || 'contact@stallioni.com',
                 pass: process.env.SMTP_PASS, // This must be an App Password
             },
         });
 
         const mailOptions = {
-            from: `"Stallioni Web Form" <${process.env.SMTP_USER || 'sebas@stallioni.com'}>`,
-            to: 'sebas@stallioni.com',
+            from: `"Stallioni Web Form" <${process.env.SMTP_USER || 'contact@stallioni.com'}>`,
+            to: 'contact@stallioni.com',
             replyTo: email,
             subject: _subject || `New Lead: ${name} from Stallioni Website`,
             text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,

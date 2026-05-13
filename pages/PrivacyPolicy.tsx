@@ -62,7 +62,7 @@ const PrivacyPolicy: React.FC = () => {
 
                         <h2 className="text-2xl font-bold text-brand-dark mt-10 mb-4">6. Your Rights</h2>
                         <p className="text-slate-700 mb-6">
-                            You have the right to access, correct, or request the deletion of your personal information. To exercise these rights, please contact us at <strong>sebas@stallioni.com</strong>.
+                            You have the right to access, correct, or request the deletion of your personal information. To exercise these rights, please contact us at <strong>contact@stallioni.com</strong>.
                         </p>
 
                         <h2 className="text-2xl font-bold text-brand-dark mt-10 mb-4">7. Changes to This Policy</h2>

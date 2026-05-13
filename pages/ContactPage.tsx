@@ -301,7 +301,7 @@ const ContactPage: React.FC = () => {
                                         <a href={`mailto:${getContactEmail()}`} onClick={(e) => handleQuickConnectClick(e, 'email')} className="flex items-center p-3 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors group">
                                             <EmailIcon />
                                             <span className="ml-4 font-semibold text-slate-700 group-hover:text-brand-orange">
-                                                seba<span style={{ display: 'none' }}>.</span>@<span style={{ display: 'none' }}>.</span>stallioni.com
+                                                contact<span style={{ display: 'none' }}>.</span>@<span style={{ display: 'none' }}>.</span>stallioni.com
                                             </span>
                                         </a>
                                         <a href={`https://wa.me/${getWhatsAppPhone()}`} onClick={(e) => handleQuickConnectClick(e, 'whatsapp')} className="flex items-center p-3 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors group">

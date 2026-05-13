@@ -171,7 +171,7 @@ const Footer: React.FC = () => {
                 <a href="#" onClick={(e) => handleContactClick(e, 'email')} className="inline-flex items-start hover:text-brand-orange transition-colors">
                   <EmailIcon />
                   {/* Obfuscated for scrapers */}
-                  <span>seba<span style={{ display: 'none' }}>.</span>@<span style={{ display: 'none' }}>.</span>stallioni.com</span>
+                  <span>contact<span style={{ display: 'none' }}>.</span>@<span style={{ display: 'none' }}>.</span>stallioni.com</span>
                 </a>
               </li>
               <li className="flex items-start">

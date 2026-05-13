@@ -12,7 +12,7 @@ import {
 } from './components/TechnologyIcons';
 
 // --- Obfuscated Contact Info ---
-const emailParts = { user: 'seba', domain: 'stallioni', tld: 'com' };
+const emailParts = { user: 'contact', domain: 'stallioni', tld: 'com' };
 const whatsAppPhoneParts = { country: '91', number: '6383680419' };
 const callPhoneParts = { country: '91', number: '9843296279' };
 
