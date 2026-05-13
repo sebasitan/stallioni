@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { ChatbotIcon, CloseIcon, SendIcon } from './IconComponents';
-import { getContactEmail, getWhatsAppPhone, getCallPhone } from '../constants';
+import { getContactEmail, getWhatsAppPhone, getTeamsId } from '../constants';
 import { useToast, useNavigation } from '../App';
 import { SERVICES_OVERVIEW } from '../constants/services-overview';
 import { getRecaptchaToken } from '../utils/recaptcha';
@@ -137,7 +137,7 @@ const Chatbot: React.FC = () => {
             return { type: 'static', content: "Our pricing is flexible and tailored to your project scope. I can help you get a custom quote. Would you like to [Get a project estimate] or [Book a consultation]?" };
         }
         if (lowerText.includes('contact') || lowerText.includes('email') || lowerText.includes('phone') || lowerText.includes('location')) {
-            return { type: 'static', content: `You can reach us via email at ${getContactEmail()}, or call us directly at +${getCallPhone()}. We are based in India, serving clients globally.` };
+            return { type: 'static', content: `You can reach us via email at ${getContactEmail()}, on WhatsApp, or on Microsoft Teams. We're based in India, serving clients globally.` };
         }
         if (lowerText.includes('portfolio') || lowerText.includes('case study') || lowerText.includes('work')) {
             return { type: 'static', content: "We have successfully delivered over 900+ projects. You can explore our huge success stories on our [Portfolio Page]." };
@@ -276,23 +276,15 @@ const Chatbot: React.FC = () => {
         if (lowerReply.includes('whatsapp')) {
             const url = `https://wa.me/${getWhatsAppPhone()}`;
             window.open(url, '_blank', 'noopener,noreferrer');
-            setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: `I've opened WhatsApp for you to chat with our team. Our number is +${getWhatsAppPhone()}.` }]);
+            setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: `I've opened WhatsApp for you to chat with our team.` }]);
             setIsOpen(false);
             return;
         }
 
-        if (lowerReply.includes('ms teams')) {
-            const url = `msteams:/l/chat/0/0?users=${getContactEmail()}`;
-            window.location.href = url;
-            setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: `I've opened Microsoft Teams for you. Our Teams ID is ${getContactEmail()}.` }]);
-            setIsOpen(false);
-            return;
-        }
-
-        if (lowerReply.includes('get phone number') || lowerReply.includes('call')) {
-            const url = `tel:+${getCallPhone()}`;
-            window.location.href = url;
-            setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: `I'm initiating a call for you to +${getCallPhone()}.` }]);
+        if (lowerReply.includes('ms teams') || lowerReply.includes('teams')) {
+            const url = `https://teams.microsoft.com/l/chat/0/0?users=${getTeamsId()}`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+            setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: `I've opened Microsoft Teams for you.` }]);
             setIsOpen(false);
             return;
         }

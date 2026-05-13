@@ -383,7 +383,7 @@ const CareersPage: React.FC = () => {
                                         <form onSubmit={handleSubmit} className="space-y-8">
                                             <input type="hidden" name="_subject" value={`New Application: ${applicationForm.position}`} />
                                             <input type="hidden" name="_captcha" value="false" />
-                                            <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+                                            <input type="text" name="_gotcha" aria-hidden="true" tabIndex={-1} autoComplete="off" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', opacity: 0 }} />
                                             <input type="hidden" name="position" value={applicationForm.position} />
 
                                             <div className="grid md:grid-cols-2 gap-8">
@@ -458,6 +458,7 @@ const CareersPage: React.FC = () => {
                                                 <textarea
                                                     name="message"
                                                     rows={5}
+                                                    required
                                                     className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
                                                     placeholder="Tell us what makes you unique..."
                                                 ></textarea>

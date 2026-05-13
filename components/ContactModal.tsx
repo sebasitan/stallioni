@@ -154,7 +154,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, modalType 
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <input type="hidden" name="_subject" value={`New Submission from Stallioni Website: ${modalType}`} />
               <input type="hidden" name="_captcha" value="false" />
-              <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+              <input type="text" name="_gotcha" aria-hidden="true" tabIndex={-1} autoComplete="off" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', opacity: 0 }} />
 
               <InputField id="modal-name" name="name" label="Full Name" placeholder="Jane Doe" required />
               <InputField id="modal-email" name="email" label="Work Email" type="email" placeholder="jane@company.com" required />
@@ -170,7 +170,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, modalType 
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="modal-message" className="block text-sm font-medium text-slate-700 mb-1">Tell us about your project</label>
-                <textarea id="modal-message" name="message" rows={5} placeholder="Describe your goals, challenges, and any specific requirements..." className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-orange transition"></textarea>
+                <textarea id="modal-message" name="message" rows={5} required placeholder="Describe your goals, challenges, and any specific requirements..." className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-orange transition"></textarea>
               </div>
               <div className="md:col-span-2 text-right">
                 <button

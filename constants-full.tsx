@@ -13,12 +13,22 @@ import {
 
 // --- Obfuscated Contact Info ---
 const emailParts = { user: 'contact', domain: 'stallioni', tld: 'com' };
-const whatsAppPhoneParts = { country: '91', number: '6383680419' };
-const callPhoneParts = { country: '91', number: '9843296279' };
+
+export interface WhatsAppContact {
+    name: string;
+    number: string;
+}
+
+export const WHATSAPP_CONTACTS: WhatsAppContact[] = [
+    { name: 'Sathies', number: '919843296279' },
+    { name: 'Gopal', number: '919843274279' },
+];
+
+const teamsIdParts = { user: 'head_stallioni', domain: 'stallioni', tld: 'com' };
 
 export const getContactEmail = (): string => `${emailParts.user}@${emailParts.domain}.${emailParts.tld}`;
-export const getWhatsAppPhone = (): string => `${whatsAppPhoneParts.country}${whatsAppPhoneParts.number}`;
-export const getCallPhone = (): string => `${callPhoneParts.country}${callPhoneParts.number}`;
+export const getTeamsId = (): string => `${teamsIdParts.user}@${teamsIdParts.domain}.${teamsIdParts.tld}`;
+export const getWhatsAppPhone = (): string => WHATSAPP_CONTACTS[0].number;
 
 export const NAV_LINKS: NavLink[] = [
     { href: '/', label: 'Home' },

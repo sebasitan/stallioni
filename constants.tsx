@@ -3,7 +3,15 @@
 // Heavy SERVICE_DETAILS are lazy-loaded via constants/service-loader.ts
 
 // Re-export navigation and contact info
-export { NAV_LINKS, getContactEmail, getWhatsAppPhone, getCallPhone, RECAPTCHA_SITE_KEY } from './constants/nav';
+export {
+    NAV_LINKS,
+    getContactEmail,
+    getWhatsAppPhone,
+    getTeamsId,
+    WHATSAPP_CONTACTS,
+    RECAPTCHA_SITE_KEY,
+} from './constants/nav';
+export type { WhatsAppContact } from './constants/nav';
 
 // Re-export optimized services overview for homepage/cards
 export { SERVICES_OVERVIEW } from './constants/services-overview';

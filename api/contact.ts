@@ -31,12 +31,13 @@ export default async function handler(req, res) {
     rateLimitMap.set(ip, rateData);
 
     try {
-        const { name, email, message, company, recaptchaToken, _subject, organization, phone, position, linkedin, portfolio, resume_link } = req.body;
+        const { name, email, message, _gotcha, recaptchaToken, _subject, organization, phone, position, linkedin, portfolio, resume_link } = req.body;
 
-        // 1. Honeypot check (company field should be empty)
-        if (company) {
-            console.log('Bot detected via honeypot field "company"');
-            // Fail silently: return success but don't do anything
+        // Honeypot — invisible field, only bots fill it. The old `company` honeypot
+        // collided with browser autofill (Chrome/Safari fill `name="company"` even
+        // when display:none), silently dropping real submissions.
+        if (_gotcha) {
+            console.log('Bot detected via honeypot');
             return res.status(200).json({ success: true, message: 'Message sent successfully' });
         }
 
