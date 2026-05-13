@@ -8,13 +8,25 @@ const ROBOTS_NOINDEX = 'noindex, follow';
 const setMetaTag = (attr: 'name' | 'property', value: string, content: string) => {
     const selector = `meta[${attr}="${value}"]`;
     let element = document.querySelector(selector);
-    
+
     if (!element) {
         element = document.createElement('meta');
         element.setAttribute(attr, value);
         document.head.appendChild(element);
     }
     element.setAttribute('content', content);
+};
+
+// Ensure a set of og:locale:alternate tags exist exactly once.
+const setOgLocaleAlternates = (locales: string[]) => {
+    const existing = document.querySelectorAll('meta[property="og:locale:alternate"]');
+    existing.forEach(el => el.parentNode?.removeChild(el));
+    locales.forEach(locale => {
+        const el = document.createElement('meta');
+        el.setAttribute('property', 'og:locale:alternate');
+        el.setAttribute('content', locale);
+        document.head.appendChild(el);
+    });
 };
 
 // Helper function to set/create link tags
@@ -68,6 +80,9 @@ const MetaManager: React.FC<PageMetadata> = (props) => {
         setMetaTag('property', 'og:type', props.ogType);
         setMetaTag('property', 'og:site_name', 'Stallioni');
         setMetaTag('property', 'og:locale', 'en_US');
+        // Signal to social platforms that this English content also serves
+        // other English-speaking markets we actively target.
+        setOgLocaleAlternates(['en_GB', 'en_AU', 'en_IN', 'en_CA']);
 
 
         // Twitter Card

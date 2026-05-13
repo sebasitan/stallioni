@@ -1,5 +1,6 @@
 import { BLOG_POSTS, JOB_OPENINGS } from './constants';
 import { getServiceDetails } from './constants/service-loader';
+import { REGIONAL_PAGES } from './constants/regional-pages';
 import { BlogPost, ServiceDetail, JobOpening } from './types';
 
 export interface PageMetadata {
@@ -31,6 +32,18 @@ export const defaultMetadata: Omit<PageMetadata, 'ogUrl' | 'structuredData'> = {
 
 // --- SCHEMA.ORG STRUCTURED DATA GENERATORS ---
 
+// Markets Stallioni actively services — used in Organization.areaServed and
+// per-Service areaServed so Google understands this is a multi-region
+// outsourcing provider, not an India-only company.
+const SERVED_COUNTRIES = [
+  { '@type': 'Country', name: 'India' },
+  { '@type': 'Country', name: 'United States' },
+  { '@type': 'Country', name: 'United Kingdom' },
+  { '@type': 'Country', name: 'Australia' },
+  { '@type': 'Country', name: 'United Arab Emirates' },
+  { '@type': 'Country', name: 'Canada' },
+];
+
 const getOrganizationSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -47,7 +60,8 @@ const getOrganizationSchema = () => ({
     'postalCode': '641653',
     'addressRegion': 'Tamilnadu',
     'addressCountry': 'IN'
-  }
+  },
+  'areaServed': SERVED_COUNTRIES
 });
 
 const getWebsiteSchema = () => ({
@@ -161,10 +175,7 @@ const getServiceSchema = (service: ServiceDetail) => ({
     'url': `${BASE_URL}/`
   },
   'description': service.description,
-  'areaServed': {
-    '@type': 'Country',
-    'name': 'India'
-  }
+  'areaServed': SERVED_COUNTRIES
 });
 
 const getFaqSchema = (service: ServiceDetail) => {
@@ -342,6 +353,27 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
       if (faqSchema) schema.push(faqSchema);
       const howToSchema = getHowToSchema(service);
       if (howToSchema) schema.push(howToSchema);
+    }
+  } else if (cleanRoute.startsWith('/it-outsourcing/')) {
+    const regionSlug = cleanRoute.split('/')[2];
+    const regional = REGIONAL_PAGES[regionSlug];
+    if (regional) {
+      partialMetadata = {
+        title: regional.metaTitle,
+        description: regional.metaDescription,
+        keywords: '',
+        ogImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&h=630&auto=format&fit=crop',
+      };
+      // Emit FAQPage schema for the regional FAQs too — qualifies for rich results.
+      schema.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        'mainEntity': regional.faqs.map(f => ({
+          '@type': 'Question',
+          'name': f.question,
+          'acceptedAnswer': { '@type': 'Answer', 'text': f.answer }
+        }))
+      });
     }
   } else if (staticMetadata[cleanRoute]) {
     partialMetadata = staticMetadata[cleanRoute];

@@ -20,6 +20,7 @@ const CareersPage = lazy(() => import('./pages/CareersPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const RegionalLandingPage = lazy(() => import('./pages/RegionalLandingPage'));
 
 // Admin imports (Lazy)
 import { AuthProvider as StaticAuthProvider } from './contexts/AuthContext';
@@ -181,6 +182,7 @@ const AppContent: React.FC = () => {
                   <Route path="/careers" element={<CareersPage />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/it-outsourcing/:region" element={<RegionalLandingPage />} />
 
                   {/* Admin routes */}
                   <Route path="/seba/login" element={<AdminLogin />} />
