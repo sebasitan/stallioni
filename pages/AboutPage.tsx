@@ -117,10 +117,17 @@ const AboutPage: React.FC = () => {
                             <img
                                 src="https://images.unsplash.com/photo-1522071820081-009f0129c7da?q=80&w=800&h=900&auto=format&fit=crop"
                                 alt="Expert offshore development team from India collaborating on projects"
-                                loading="lazy"
+                                loading="eager"
+                                fetchPriority="high"
                                 width="800"
                                 height="900"
-                                className="rounded-2xl shadow-2xl w-full object-cover"
+                                referrerPolicy="no-referrer"
+                                onError={(e) => {
+                                    // Fallback if Unsplash hotlink fails — show a colored placeholder
+                                    const img = e.currentTarget;
+                                    img.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 900'><rect width='800' height='900' fill='%23F26522'/><text x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='32' text-anchor='middle' dominant-baseline='middle'>Stallioni Team</text></svg>";
+                                }}
+                                className="rounded-2xl shadow-2xl w-full object-cover bg-slate-200"
                             />
 
                             {/* STATS CARDS */}

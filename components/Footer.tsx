@@ -102,103 +102,111 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-brand-dark text-white">
       <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* About Section */}
-          <div>
-            <img src="/logo.svg" alt="Stallioni Logo" className="h-10 mb-4 filter brightness-0 invert w-auto" width="210" height="42" />
-            <p className="text-blue-200">
+        {/* Main grid — 4 columns on desktop, 2 on tablet, 1 on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+
+          {/* Column 1: About + Trust Badge */}
+          <div className="space-y-5">
+            <img src="/logo.svg" alt="Stallioni Logo" className="h-10 filter brightness-0 invert w-auto" width="210" height="42" />
+            <p className="text-blue-200 text-sm leading-relaxed">
               Web, E-commerce, Mobile & AI-Powered Solutions for a global clientele.
             </p>
-            <div className="mt-4 flex space-x-4">
+            <div className="flex space-x-4">
               <SocialIcons />
             </div>
-            {/* Verifiable trust signal */}
-            <div className="mt-6">
-              <FreelancerBadge variant="dark" size="sm" />
+            <FreelancerBadge variant="dark" size="sm" />
+          </div>
+
+          {/* Column 2: Quick Links + Regional Pages */}
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-base font-bold mb-3 uppercase tracking-wide text-white/90">Quick Links</h3>
+              <ul className="space-y-2 text-sm">
+                {NAV_LINKS.map(link => (
+                  <li key={link.href}>
+                    <a href={link.href} onClick={(e) => handleNav(e, link.href)} className="text-blue-200 hover:text-brand-orange transition-colors">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+                <li><a href="/contact" onClick={(e) => handleNav(e, '/contact')} className="text-blue-200 hover:text-brand-orange transition-colors">Contact Us</a></li>
+                <li><a href="/portfolio" onClick={(e) => handleNav(e, '/portfolio')} className="text-blue-200 hover:text-brand-orange transition-colors">Client Results</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-base font-bold mb-3 uppercase tracking-wide text-white/90">For Your Region</h3>
+              <ul className="space-y-2 text-sm">
+                <li><a href="/it-outsourcing/usa" onClick={(e) => handleNav(e, '/it-outsourcing/usa')} className="text-blue-200 hover:text-brand-orange transition-colors">For US Companies</a></li>
+                <li><a href="/it-outsourcing/australia" onClick={(e) => handleNav(e, '/it-outsourcing/australia')} className="text-blue-200 hover:text-brand-orange transition-colors">For Australian Businesses</a></li>
+                <li><a href="/it-outsourcing/india" onClick={(e) => handleNav(e, '/it-outsourcing/india')} className="text-blue-200 hover:text-brand-orange transition-colors">For Indian Businesses</a></li>
+              </ul>
             </div>
           </div>
 
-          {/* Quick Links Section */}
+          {/* Column 3: Services (SEO internal linking) */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              {NAV_LINKS.map(link => (
-                <li key={link.href}>
-                  <a href={link.href} onClick={(e) => handleNav(e, link.href)} className="text-blue-200 hover:text-brand-orange transition-colors">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-              <li><a href="/contact" onClick={(e) => handleNav(e, '/contact')} className="text-blue-200 hover:text-brand-orange transition-colors">Contact Us</a></li>
-              <li><a href="/portfolio" onClick={(e) => handleNav(e, '/portfolio')} className="text-blue-200 hover:text-brand-orange transition-colors">Client Results</a></li>
-            </ul>
-
-            <h3 className="text-lg font-bold mt-8 mb-4">For Your Region</h3>
-            <ul className="space-y-2">
-              <li><a href="/it-outsourcing/usa" onClick={(e) => handleNav(e, '/it-outsourcing/usa')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">For US Companies</a></li>
-              <li><a href="/it-outsourcing/australia" onClick={(e) => handleNav(e, '/it-outsourcing/australia')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">For Australian Businesses</a></li>
-              <li><a href="/it-outsourcing/india" onClick={(e) => handleNav(e, '/it-outsourcing/india')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">For Indian Businesses</a></li>
+            <h3 className="text-base font-bold mb-3 uppercase tracking-wide text-white/90">Our Services</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="/services/website-design-development" onClick={(e) => handleNav(e, '/services/website-design-development')} className="text-blue-200 hover:text-brand-orange transition-colors">Web Development</a></li>
+              <li><a href="/services/custom-web-application-development" onClick={(e) => handleNav(e, '/services/custom-web-application-development')} className="text-blue-200 hover:text-brand-orange transition-colors">Web Applications</a></li>
+              <li><a href="/services/mobile-app-development" onClick={(e) => handleNav(e, '/services/mobile-app-development')} className="text-blue-200 hover:text-brand-orange transition-colors">Mobile App Development</a></li>
+              <li><a href="/services/ecommerce-development" onClick={(e) => handleNav(e, '/services/ecommerce-development')} className="text-blue-200 hover:text-brand-orange transition-colors">E-commerce Solutions</a></li>
+              <li><a href="/services/saas-development" onClick={(e) => handleNav(e, '/services/saas-development')} className="text-blue-200 hover:text-brand-orange transition-colors">SaaS Development</a></li>
+              <li><a href="/services/ai-automation-modern-tech" onClick={(e) => handleNav(e, '/services/ai-automation-modern-tech')} className="text-blue-200 hover:text-brand-orange transition-colors">AI & Automation</a></li>
+              <li><a href="/services/seo-digital-marketing" onClick={(e) => handleNav(e, '/services/seo-digital-marketing')} className="text-blue-200 hover:text-brand-orange transition-colors">SEO & Marketing</a></li>
             </ul>
           </div>
 
-          {/* Services Column - CRITICAL FOR SEO INTERNAL LINKING */}
+          {/* Column 4: Contact */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Our Services</h3>
-            <ul className="space-y-2">
-              <li><a href="/services/website-design-development" onClick={(e) => handleNav(e, '/services/website-design-development')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">Web Development</a></li>
-              <li><a href="/services/custom-web-application-development" onClick={(e) => handleNav(e, '/services/custom-web-application-development')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">Web Applications</a></li>
-              <li><a href="/services/mobile-app-development" onClick={(e) => handleNav(e, '/services/mobile-app-development')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">Mobile App Development</a></li>
-              <li><a href="/services/ecommerce-development" onClick={(e) => handleNav(e, '/services/ecommerce-development')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">E-commerce Solutions</a></li>
-              <li><a href="/services/ai-automation-modern-tech" onClick={(e) => handleNav(e, '/services/ai-automation-modern-tech')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">AI & Automation</a></li>
-              <li><a href="/services/seo-digital-marketing" onClick={(e) => handleNav(e, '/services/seo-digital-marketing')} className="text-blue-200 hover:text-brand-orange transition-colors text-sm">SEO & Marketing</a></li>
-            </ul>
-          </div>
-
-          {/* Contact Info Section */}
-          <div>
-            <h3 className="text-lg font-bold mb-4">Contact Us</h3>
-            <ul className="space-y-3 text-blue-200">
-              <li className="flex items-start">
+            <h3 className="text-base font-bold mb-3 uppercase tracking-wide text-white/90">Contact Us</h3>
+            <ul className="space-y-3 text-blue-200 text-sm">
+              <li>
                 <a href="#" onClick={(e) => handleContactClick(e, 'email')} className="inline-flex items-start hover:text-brand-orange transition-colors">
                   <EmailIcon />
-                  {/* Obfuscated for scrapers */}
                   <span>contact<span style={{ display: 'none' }}>.</span>@<span style={{ display: 'none' }}>.</span>stallioni.com</span>
                 </a>
               </li>
-              <li className="flex items-start">
+              <li>
                 <a href="#" onClick={(e) => handleContactClick(e, 'tel')} className="inline-flex items-start hover:text-brand-orange transition-colors">
                   <PhoneIcon />
-                  {/* Obfuscated for scrapers */}
                   <span>+91 98432<span style={{ display: 'none' }}>-</span>96279</span>
                 </a>
               </li>
-              <li className="flex items-start">
+              <li>
                 <a href="#" onClick={(e) => handleContactClick(e, 'whatsapp')} className="inline-flex items-start hover:text-brand-orange transition-colors">
                   <WhatsAppIcon />
-                  <span>Chat on WhatsApp</span>
+                  <span>WhatsApp +91 63836 80419</span>
                 </a>
               </li>
-              <li className="flex items-start">
+              <li>
                 <a href="#" onClick={(e) => handleContactClick(e, 'teams')} className="inline-flex items-start hover:text-brand-orange transition-colors">
                   <TeamsIcon />
                   <span>Connect on Teams</span>
                 </a>
               </li>
-              <li className="flex items-start"><LocationIcon /><span>23. Jayanth complex, TP Road, Annur, Coimbatore-641653, Tamilnadu, India</span></li>
+              <li className="flex items-start">
+                <LocationIcon />
+                <span>23 Jayanth Complex, TP Road, Annur, Coimbatore-641653, Tamil Nadu, India</span>
+              </li>
             </ul>
           </div>
+        </div>
 
-          {/* Newsletter Section */}
-          <div>
-            <h3 className="text-lg font-bold mb-4">Stay Updated</h3>
-            <p className="text-blue-200 mb-4">
-              Subscribe to our newsletter for the latest insights on tech, outsourcing, and digital strategy.
-            </p>
-            <form onSubmit={handleNewsletterSubmit}>
+        {/* Newsletter — full-width strip below the main columns */}
+        <div className="mt-12 pt-8 border-t border-white/10">
+          <div className="grid md:grid-cols-2 gap-6 items-center max-w-5xl mx-auto">
+            <div>
+              <h3 className="text-lg font-bold text-white mb-1">Stay Updated</h3>
+              <p className="text-blue-200 text-sm">
+                Insights on tech, outsourcing, and digital strategy — straight to your inbox.
+              </p>
+            </div>
+            <form onSubmit={handleNewsletterSubmit} className="w-full">
               <input type="hidden" name="_subject" value="New Newsletter Subscription from Stallioni Website" />
               <input type="hidden" name="_captcha" value="false" />
               <input type="text" name="company" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
-
               <div className="flex">
                 <input
                   type="email"
@@ -206,11 +214,11 @@ const Footer: React.FC = () => {
                   placeholder="Enter your email"
                   required
                   aria-label="Email for newsletter"
-                  className="w-full px-4 py-2 text-brand-dark rounded-l-md focus:outline-none focus:ring-2 focus:ring-brand-orange transition-shadow"
+                  className="w-full px-4 py-3 text-brand-dark rounded-l-md focus:outline-none focus:ring-2 focus:ring-brand-orange"
                 />
                 <button
                   type="submit"
-                  className="bg-brand-orange text-white font-bold px-4 md:px-6 py-2 rounded-r-md hover:bg-opacity-90 transition-colors flex-shrink-0 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="bg-brand-orange text-white font-bold px-5 md:px-7 py-3 rounded-r-md hover:bg-opacity-90 transition-colors flex-shrink-0 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   Subscribe
                 </button>
@@ -218,7 +226,9 @@ const Footer: React.FC = () => {
             </form>
           </div>
         </div>
-        <div className="mt-12 border-t border-slate-700 pt-6 text-center text-blue-300 text-sm">
+
+        {/* Copyright bar */}
+        <div className="mt-10 pt-6 border-t border-white/10 text-center text-blue-300 text-sm">
           <p>&copy; {new Date().getFullYear()} Stallioni. All Rights Reserved. | <a href="/privacy-policy" onClick={(e) => handleNav(e, '/privacy-policy')} className="hover:text-white transition-colors">Privacy Policy</a></p>
         </div>
       </div>
