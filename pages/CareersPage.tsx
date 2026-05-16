@@ -1,17 +1,156 @@
 import React, { useState, useEffect } from 'react';
 import FadeIn from '../components/FadeIn';
-import { getContactEmail, RECAPTCHA_SITE_KEY } from '../constants';
+import { RECAPTCHA_SITE_KEY } from '../constants';
 import { useToast } from '../App';
 import { uploadToCloudinary } from '../utils/cloudinary';
 import { getJobOpenings, JobOpening } from '../utils/careersStorage';
 
+// ============================================
+// Icons
+// ============================================
+const Icon = {
+    Arrow: () => (
+        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+    ),
+};
+
+const Eyebrow: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+    <div className="flex items-center gap-3 mb-5">
+        <span className="w-10 h-px bg-brand-orange" />
+        <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-dark">{children}</span>
+    </div>
+);
+
+// ============================================
+// EDITORIAL HEADER
+// ============================================
+const PageHeader: React.FC = () => (
+    <header className="bg-white border-b border-gray-100">
+        <div className="container mx-auto px-6 max-w-6xl py-14 md:py-16">
+            <FadeIn>
+                <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">Careers at Stallioni</p>
+                <h1 className="text-3xl md:text-4xl lg:text-[2.5rem] font-bold text-brand-dark tracking-[-0.02em] leading-[1.15] max-w-3xl">
+                    Build software that ships, with a team that respects your time.
+                </h1>
+                <p className="mt-4 text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl">
+                    We hire senior engineers, designers and product thinkers for both in-house and contract roles. Browse our open positions below.
+                </p>
+            </FadeIn>
+        </div>
+    </header>
+);
+
+// ============================================
+// WHY WORK WITH US — iconed cards
+// ============================================
+const benefits = [
+    { title: 'Meaningful work', desc: 'Production software for real clients — no busy work, no throwaway prototypes.' },
+    { title: 'Senior team', desc: 'Collaborate with engineers and designers who care about craft, code quality, and shipping.' },
+    { title: 'Competitive pay', desc: 'Transparent rates, timely payments, and no surprises on the invoice.' },
+    { title: 'Modern tooling', desc: 'React, Node, Flutter, AWS, AI — we invest in tools that make great work feel easy.' },
+    { title: 'Flexible arrangements', desc: 'In-house or contract, full-time or freelance — we work with senior people on terms that fit.' },
+    { title: 'Long-term growth', desc: 'High performers get larger scope, lead opportunities, and a seat at architecture decisions.' },
+];
+
+const Benefits: React.FC = () => (
+    <section className="bg-brand-light py-14 md:py-16 border-y border-gray-100">
+        <div className="container mx-auto px-6 max-w-6xl">
+            <FadeIn>
+                <div className="mb-10 max-w-2xl">
+                    <Eyebrow>Why join us</Eyebrow>
+                    <h2 className="text-2xl md:text-3xl font-bold text-brand-dark tracking-[-0.02em] leading-[1.2]">
+                        Built for senior people who value craft.
+                    </h2>
+                </div>
+            </FadeIn>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-7">
+                {benefits.map((b, i) => (
+                    <FadeIn key={b.title} delay={i * 40}>
+                        <div className="flex gap-3.5">
+                            <span className="flex-shrink-0 mt-1 w-1.5 h-1.5 rounded-full bg-brand-orange" />
+                            <div>
+                                <h3 className="text-[15.5px] font-semibold text-brand-dark tracking-tight mb-1.5">{b.title}</h3>
+                                <p className="text-[14px] text-gray-600 leading-relaxed">{b.desc}</p>
+                            </div>
+                        </div>
+                    </FadeIn>
+                ))}
+            </div>
+        </div>
+    </section>
+);
+
+// ============================================
+// JOB CARD
+// ============================================
+const JobCard: React.FC<{ job: JobOpening; onApply: (title: string) => void }> = ({ job, onApply }) => (
+    <article className="bg-white border border-gray-200 hover:border-brand-dark rounded-2xl p-6 md:p-8 transition-colors">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+            <div className="flex-1 min-w-0">
+                <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <h3 className="text-xl md:text-2xl font-bold text-brand-dark tracking-tight leading-tight">
+                        {job.title}
+                    </h3>
+                    <span className="inline-flex items-center gap-1.5 bg-brand-light border border-gray-200 text-brand-dark text-[10px] font-semibold uppercase tracking-widest px-2.5 py-0.5 rounded-full">
+                        <span className="w-1 h-1 rounded-full bg-brand-orange" />
+                        {job.type}
+                    </span>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6 md:gap-8 mt-6">
+                    <div>
+                        <h4 className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.18em] mb-3">What you'll do</h4>
+                        <ul className="space-y-2">
+                            {job.responsibilities.map((resp, i) => (
+                                <li key={i} className="flex items-start gap-2.5 text-gray-600 text-[14.5px] leading-relaxed">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange mt-2 flex-shrink-0" />
+                                    <span>{resp}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.18em] mb-3">What we're looking for</h4>
+                        <ul className="space-y-2">
+                            {job.requirements.map((req, i) => (
+                                <li key={i} className="flex items-start gap-2.5 text-gray-600 text-[14.5px] leading-relaxed">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-gray-400 mt-2 flex-shrink-0" />
+                                    <span>{req}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div className="lg:mt-1 flex-shrink-0">
+                <button
+                    onClick={() => onApply(job.title)}
+                    className="group inline-flex items-center justify-center gap-2 bg-brand-orange text-white font-medium py-3 pl-6 pr-2.5 rounded-full hover:bg-brand-orange-hover transition-colors w-full lg:w-auto"
+                >
+                    Apply now
+                    <span className="w-7 h-7 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform text-brand-orange">
+                        <Icon.Arrow />
+                    </span>
+                </button>
+            </div>
+        </div>
+    </article>
+);
+
+// ============================================
+// MAIN
+// ============================================
 const CareersPage: React.FC = () => {
     const { showToast } = useToast();
-    const [applicationForm, setApplicationForm] = useState<{ position: string, show: boolean }>({ position: '', show: false });
+    const [applicationForm, setApplicationForm] = useState<{ position: string; show: boolean }>({ position: '', show: false });
+    const [jobs, setJobs] = useState<JobOpening[]>([]);
 
     const handleApply = (position: string) => {
         setApplicationForm({ position, show: true });
-        // Scroll to form
         setTimeout(() => {
             document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' });
         }, 100);
@@ -22,33 +161,31 @@ const CareersPage: React.FC = () => {
         const form = event.currentTarget;
         const formData = new FormData(form);
         const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
-        const originalButtonText = submitButton ? submitButton.innerText : 'Submit Application';
+        const originalButtonText = submitButton ? submitButton.innerText : 'Submit application';
 
         if (submitButton) {
             submitButton.disabled = true;
-            submitButton.innerText = 'Processing...';
+            submitButton.innerText = 'Processing…';
         }
 
         try {
-            // Handle Resume Upload
             const resumeFile = formData.get('attachment') as File;
             if (resumeFile && resumeFile.size > 0) {
                 try {
-                    submitButton && (submitButton.innerText = 'Uploading Resume...');
+                    submitButton && (submitButton.innerText = 'Uploading resume…');
                     const resumeUrl = await uploadToCloudinary(resumeFile);
                     formData.set('resume_link', resumeUrl);
-                    formData.delete('attachment'); // Don't send file explicitly to formsubmit to save bandwidth/limits
+                    formData.delete('attachment');
                 } catch (uploadError: any) {
                     console.error('Resume upload failed:', uploadError);
-                    showToast(`Resume Upload Failed: ${uploadError.message}`, 'error');
+                    showToast(`Resume upload failed: ${uploadError.message}`, 'error');
                     if (submitButton) {
                         submitButton.disabled = false;
                         submitButton.innerText = originalButtonText;
                     }
-                    return; // Stop submission
+                    return;
                 }
             } else if (applicationForm.position !== 'General Application') {
-                // If it's a specific job, resume is usually required in the UI, but let's double check here
                 showToast('Please select a resume file to upload.', 'error');
                 if (submitButton) {
                     submitButton.disabled = false;
@@ -57,9 +194,8 @@ const CareersPage: React.FC = () => {
                 return;
             }
 
-            submitButton && (submitButton.innerText = 'Sending Application...');
+            submitButton && (submitButton.innerText = 'Sending application…');
 
-            // 1. Generate reCAPTCHA Token
             const recaptchaToken = await new Promise<string>((resolve, reject) => {
                 if (typeof window.grecaptcha === 'undefined') {
                     reject(new Error('reCAPTCHA not loaded'));
@@ -72,25 +208,20 @@ const CareersPage: React.FC = () => {
                 });
             });
 
-            // 2. Prepare data
             const data = Object.fromEntries(formData.entries());
             data.recaptchaToken = recaptchaToken;
 
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
             });
 
             if (response.ok) {
-                // GA4 tracking
                 if (typeof window.gtag === 'function') {
-                    window.gtag("event", "generate_lead", {
-                        method: "career_form",
-                    });
+                    window.gtag('event', 'generate_lead', { method: 'career_form' });
                 }
-
-                showToast("Application submitted successfully! Good luck, we'll review your profile soon.", 'success');
+                showToast("Application submitted! We'll review your profile soon.", 'success');
                 form.reset();
                 setApplicationForm({ position: '', show: false });
             } else {
@@ -108,30 +239,11 @@ const CareersPage: React.FC = () => {
         }
     };
 
-    const [jobs, setJobs] = useState<JobOpening[]>([]);
-
     useEffect(() => {
-        // Load only OPEN jobs from storage
-        // If storage is empty, we could fall back to defaults, but for now we assume Admin populates it
-        // Or we could initialize storage with defaults once. 
-        // For simplicity, let's just read what's there and if empty, maybe use a default list to seed it? 
-        // Actually, let's just fetch all and filter for open.
-
         const allJobs = getJobOpenings();
-
-        // If no jobs in storage, use the hardcoded ones as the "default" state for the page for now
-        // But better is to respect what the admin manages. 
-        // For this task, let's merge/prioritize dynamic.
-
-        // To keep it simple and effective: if Admin has added jobs, show them. 
-        // If not, revert to the hardcoded list so the page isn't empty initially.
-        // But wait, the user asked "if i create new blog will update frontend?".
-        // So we strictly need dynamic data.
-
-        let displayJobs = allJobs.filter(j => j.status === 'open');
+        let displayJobs = allJobs.filter((j) => j.status === 'open');
 
         if (allJobs.length === 0) {
-            // Fallback to hardcoded if nothing in storage yet
             displayJobs = [
                 {
                     id: 'wordpress-developer',
@@ -142,16 +254,16 @@ const CareersPage: React.FC = () => {
                         'Optimize website speed, SEO structure, and security',
                         'Work with ACF, Elementor, Divi, WPBakery, or custom builders',
                         'Handle migrations, bug fixes, and WordPress updates',
-                        'Collaborate with designers and backend developers'
+                        'Collaborate with designers and backend developers',
                     ],
                     requirements: [
                         '2+ years of WordPress development experience',
                         'Strong PHP & MySQL fundamentals',
                         'Experience with APIs, WooCommerce, and custom post types',
                         'Clear communication & ability to meet deadlines',
-                        'Portfolio of previous WordPress projects'
+                        'Portfolio of previous WordPress projects',
                     ],
-                    status: 'open'
+                    status: 'open',
                 },
                 {
                     id: 'react-developer',
@@ -162,16 +274,16 @@ const CareersPage: React.FC = () => {
                         'Integrate APIs and work with backend teams',
                         'Optimize components for speed & performance',
                         'Convert UI/UX designs into functional code',
-                        'Write reusable components and modular architecture'
+                        'Write reusable components and modular architecture',
                     ],
                     requirements: [
                         '2+ years of experience with React.js',
                         'Strong JavaScript, HTML, CSS',
                         'Experience with Redux, hooks, REST APIs',
                         'Familiarity with Git, Figma, and agile workflows',
-                        'Strong problem-solving skills'
+                        'Strong problem-solving skills',
                     ],
-                    status: 'open'
+                    status: 'open',
                 },
                 {
                     id: 'php-developer',
@@ -182,16 +294,16 @@ const CareersPage: React.FC = () => {
                         'Maintain and optimize existing platforms',
                         'Work with MySQL databases and REST APIs',
                         'Debug, fix issues, and improve application performance',
-                        'Collaborate with frontend and backend teams'
+                        'Collaborate with frontend and backend teams',
                     ],
                     requirements: [
                         '2+ years of experience with Core PHP or PHP frameworks',
                         'Strong knowledge of MySQL',
                         'Familiar with MVC architecture',
                         'Experience with Laravel or CodeIgniter is a plus',
-                        'Ability to write clean, secure, optimized code'
+                        'Ability to write clean, secure, optimized code',
                     ],
-                    status: 'open'
+                    status: 'open',
                 },
                 {
                     id: 'ai-developer',
@@ -202,17 +314,17 @@ const CareersPage: React.FC = () => {
                         'Work with LLMs, AI APIs (OpenAI, Claude, Gemini, etc.)',
                         'Train and fine-tune machine learning models',
                         'Integrate AI features into web or mobile apps',
-                        'Provide solutions for automation, prediction, analytics'
+                        'Provide solutions for automation, prediction, analytics',
                     ],
                     requirements: [
                         'Strong understanding of Python & machine learning',
                         'Experience with AI APIs and frameworks (TensorFlow, PyTorch)',
                         'Ability to build prototypes quickly',
                         'Knowledge of prompt engineering & automation',
-                        'Portfolio or sample AI projects preferred'
+                        'Portfolio or sample AI projects preferred',
                     ],
-                    status: 'open'
-                }
+                    status: 'open',
+                },
             ];
         }
 
@@ -220,263 +332,143 @@ const CareersPage: React.FC = () => {
     }, []);
 
     return (
-        <div className="bg-slate-50 min-h-screen">
-            {/* HERRO SECTION */}
-            <div className="relative bg-brand-dark text-white pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
-                {/* Abstract Background Shapes */}
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-                    <div className="absolute -top-[20%] -right-[10%] w-[700px] h-[700px] bg-brand-orange/10 rounded-full blur-3xl"></div>
-                    <div className="absolute bottom-[10%] -left-[10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl"></div>
-                </div>
+        <div className="bg-white min-h-screen">
+            <PageHeader />
+            <Benefits />
 
-                <div className="relative container mx-auto px-6 max-w-7xl z-10 text-center">
+            {/* OPEN POSITIONS */}
+            <section className="py-14 md:py-16 bg-white">
+                <div className="container mx-auto px-6 max-w-6xl">
                     <FadeIn>
-                        <span className="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-brand-orange text-sm font-bold tracking-wider mb-6">
-                            WE ARE HIRING
-                        </span>
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 tracking-tight leading-tight">
-                            Join Our Global <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-400">Talent Network</span>
-                        </h1>
-                        <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-                            At Stallioni, we don't just build software; we craft digital experiences. We're looking for passionate freelancers and contract developers ready to make an impact on a global scale.
-                        </p>
-                    </FadeIn>
-                </div>
-            </div>
-
-            {/* WHY WORK WITH US */}
-            <section className="py-20 md:py-32 relative">
-                <div className="container mx-auto px-6 max-w-7xl">
-                    <FadeIn>
-                        <div className="text-center mb-20">
-                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-dark mb-6">
-                                Why Choose Stallioni?
-                            </h2>
-                            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                                We believe in empowering our team with the freedom to work from anywhere while tackling challenging, high-impact projects.
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {[
-                                { icon: '🌍', title: '100% Remote', desc: 'Work from the comfort of your home or anywhere in the world.' },
-                                { icon: '📝', title: 'Flexible Contracts', desc: 'Project-based engagements that fit your schedule and lifestyle.' },
-                                { icon: '🚀', title: 'Global Impact', desc: 'Collaborate with clients from the USA, UK, Middle East, and Australia.' },
-                                { icon: '💰', title: 'Competitive Pay', desc: 'Transparent, timely payments for your hard work and expertise.' },
-                                { icon: '⚡', title: 'Cutting Edge', desc: 'Work with the latest tech stacks and modern development practices.' },
-                                { icon: '🌱', title: 'Career Growth', desc: 'Long-term opportunities for consistent, high-performing partners.' }
-                            ].map((benefit, idx) => (
-                                <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 group">
-                                    <div className="text-4xl mb-6 bg-slate-50 w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                        {benefit.icon}
-                                    </div>
-                                    <h3 className="text-xl font-bold text-brand-dark mb-3 group-hover:text-brand-orange transition-colors">
-                                        {benefit.title}
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        {benefit.desc}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </FadeIn>
-                </div>
-            </section>
-
-            {/* CURRENT OPEN POSITIONS */}
-            <section className="py-20 md:py-32 bg-white relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-slate-50 to-white"></div>
-                <div className="container mx-auto px-6 max-w-7xl relative">
-                    <FadeIn>
-                        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10">
                             <div className="max-w-2xl">
-                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-dark mb-4">
-                                    Open Positions
+                                <Eyebrow>Open roles</Eyebrow>
+                                <h2 className="text-2xl md:text-3xl font-bold text-brand-dark tracking-[-0.02em] leading-[1.2]">
+                                    {jobs.length > 0 ? "We're hiring." : "No open roles right now."}
                                 </h2>
-                                <p className="text-lg text-slate-600">
-                                    Ready to start your next chapter? Explore our current freelance and contract opportunities.
+                                <p className="mt-4 text-base text-gray-500 leading-relaxed">
+                                    {jobs.length > 0
+                                        ? 'Every application is reviewed within 5 business days.'
+                                        : 'Send us a general application and we will reach out as new roles open.'}
                                 </p>
                             </div>
-                            <div className="hidden md:block">
-                                <span className="text-sm font-semibold text-brand-orange bg-brand-orange/10 px-4 py-2 rounded-full">
-                                    {jobs.length} roles available
+                            {jobs.length > 0 && (
+                                <span className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-3.5 py-1.5 text-sm font-medium text-brand-dark whitespace-nowrap flex-shrink-0">
+                                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                                    {jobs.length} {jobs.length === 1 ? 'role' : 'roles'} available
                                 </span>
-                            </div>
-                        </div>
-
-                        <div className="grid gap-8">
-                            {jobs.map((job, idx) => (
-                                <div key={job.id} className="group relative">
-                                    <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-orange to-purple-600 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 blur-sm"></div>
-                                    <div className="relative bg-white rounded-2xl border border-slate-200 p-8 md:p-10 shadow-sm hover:shadow-lg transition-all duration-300">
-                                        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
-                                            <div className="flex-1">
-                                                <div className="flex flex-wrap items-center gap-3 mb-4">
-                                                    <h3 className="text-2xl md:text-3xl font-bold text-brand-dark">
-                                                        {job.title}
-                                                    </h3>
-                                                    <span className="bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                                                        {job.type}
-                                                    </span>
-                                                </div>
-
-                                                <div className="grid md:grid-cols-2 gap-8 mt-8">
-                                                    <div>
-                                                        <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">You Will Do</h4>
-                                                        <ul className="space-y-3">
-                                                            {job.responsibilities.map((resp, i) => (
-                                                                <li key={i} className="flex items-baseline gap-3 text-slate-600">
-                                                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange mt-2 flex-shrink-0"></span>
-                                                                    <span>{resp}</span>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">You Should Have</h4>
-                                                        <ul className="space-y-3">
-                                                            {job.requirements.map((req, i) => (
-                                                                <li key={i} className="flex items-baseline gap-3 text-slate-600">
-                                                                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2 flex-shrink-0"></span>
-                                                                    <span>{req}</span>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="lg:mt-2">
-                                                <a
-                                                    href="#application-form"
-                                                    onClick={(e) => { e.preventDefault(); handleApply(job.title); }}
-                                                    className="inline-block w-full lg:w-auto bg-brand-dark text-white font-bold py-4 px-8 rounded-xl hover:bg-brand-orange transition-colors duration-300 shadow-lg text-center whitespace-nowrap"
-                                                >
-                                                    Apply Now
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                            )}
                         </div>
                     </FadeIn>
+
+                    <div className="space-y-4">
+                        {jobs.map((job, i) => (
+                            <FadeIn key={job.id} delay={Math.min(i * 50, 300)}>
+                                <JobCard job={job} onApply={handleApply} />
+                            </FadeIn>
+                        ))}
+                    </div>
+
+                    {jobs.length === 0 && (
+                        <FadeIn>
+                            <div className="bg-white border border-dashed border-gray-300 rounded-2xl p-10 text-center">
+                                <p className="text-gray-500 mb-6">No openings right now — but we're always reviewing applications.</p>
+                                <button
+                                    onClick={() => handleApply('General Application')}
+                                    className="inline-flex items-center justify-center gap-2 bg-brand-dark text-white text-sm font-medium py-2.5 px-5 rounded-full hover:bg-brand-dark-hover transition-colors"
+                                >
+                                    Send general application
+                                </button>
+                            </div>
+                        </FadeIn>
+                    )}
                 </div>
             </section>
 
-            {/* Application Form Section/Modal Area */}
-            <div id="application-form" className={`transition-all duration-500 ease-in-out ${applicationForm.show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none absolute bottom-0 left-0 w-full'}`}>
+            {/* APPLICATION FORM */}
+            <div
+                id="application-form"
+                className={`transition-all duration-500 ${applicationForm.show ? 'opacity-100' : 'opacity-0 pointer-events-none h-0 overflow-hidden'}`}
+            >
                 {applicationForm.show && (
-                    <section className="py-24 bg-slate-50 border-t border-slate-200">
-                        <div className="container mx-auto px-6 max-w-4xl">
+                    <section className="py-16 md:py-20 bg-white">
+                        <div className="container mx-auto px-6 max-w-3xl">
                             <FadeIn>
-                                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
-                                    <div className="bg-brand-dark p-10 text-center relative overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
-                                        <h3 className="text-3xl font-bold text-white mb-2 relative z-10">
+                                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                                    <div className="border-b border-gray-100 p-7 md:p-8 bg-brand-light/30">
+                                        <Eyebrow>Application</Eyebrow>
+                                        <h3 className="text-2xl md:text-3xl font-bold text-brand-dark tracking-tight">
                                             Apply for <span className="text-brand-orange">{applicationForm.position}</span>
                                         </h3>
-                                        <p className="text-slate-300 relative z-10">Please fill out the form below to get started.</p>
+                                        <p className="text-gray-500 mt-1.5 text-sm">Fill out the form below. We respond within 5 business days.</p>
                                     </div>
 
-                                    <div className="p-10 md:p-14">
-                                        <form onSubmit={handleSubmit} className="space-y-8">
+                                    <div className="p-7 md:p-10">
+                                        <form onSubmit={handleSubmit} className="space-y-5">
                                             <input type="hidden" name="_subject" value={`New Application: ${applicationForm.position}`} />
                                             <input type="hidden" name="_captcha" value="false" />
                                             <input type="text" name="_gotcha" aria-hidden="true" tabIndex={-1} autoComplete="off" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', opacity: 0 }} />
                                             <input type="hidden" name="position" value={applicationForm.position} />
 
-                                            <div className="grid md:grid-cols-2 gap-8">
-                                                <div className="space-y-2">
-                                                    <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Full Name</label>
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        required
-                                                        className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
-                                                        placeholder="Jane Doe"
-                                                    />
+                                            <div className="grid md:grid-cols-2 gap-5">
+                                                <div>
+                                                    <label className="block text-sm font-medium text-brand-dark mb-1.5">Full name<span className="text-brand-orange ml-0.5">*</span></label>
+                                                    <input type="text" name="name" required className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="Jane Doe" />
                                                 </div>
-                                                <div className="space-y-2">
-                                                    <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Email Address</label>
-                                                    <input
-                                                        type="email"
-                                                        name="email"
-                                                        required
-                                                        className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
-                                                        placeholder="jane@example.com"
-                                                    />
+                                                <div>
+                                                    <label className="block text-sm font-medium text-brand-dark mb-1.5">Email<span className="text-brand-orange ml-0.5">*</span></label>
+                                                    <input type="email" name="email" required className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="jane@example.com" />
                                                 </div>
                                             </div>
 
-                                            <div className="grid md:grid-cols-2 gap-8">
-                                                <div className="space-y-2">
-                                                    <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Phone (Optional)</label>
-                                                    <input
-                                                        type="tel"
-                                                        name="phone"
-                                                        className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
-                                                        placeholder="+1 (555) 000-0000"
-                                                    />
+                                            <div className="grid md:grid-cols-2 gap-5">
+                                                <div>
+                                                    <label className="block text-sm font-medium text-brand-dark mb-1.5">Phone</label>
+                                                    <input type="tel" name="phone" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="+1 (555) 000-0000" />
                                                 </div>
-                                                <div className="space-y-2">
-                                                    <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">LinkedIn Profile</label>
-                                                    <input
-                                                        type="url"
-                                                        name="linkedin"
-                                                        className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
-                                                        placeholder="https://linkedin.com/in/..."
-                                                    />
+                                                <div>
+                                                    <label className="block text-sm font-medium text-brand-dark mb-1.5">LinkedIn</label>
+                                                    <input type="url" name="linkedin" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="https://linkedin.com/in/…" />
                                                 </div>
                                             </div>
 
-                                            <div className="space-y-2">
-                                                <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Portfolio / GitHub</label>
+                                            <div>
+                                                <label className="block text-sm font-medium text-brand-dark mb-1.5">Portfolio / GitHub</label>
+                                                <input type="url" name="portfolio" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="https://github.com/…" />
+                                            </div>
+
+                                            <div>
+                                                <label className="block text-sm font-medium text-brand-dark mb-1.5">Resume (PDF, DOC)</label>
                                                 <input
-                                                    type="url"
-                                                    name="portfolio"
-                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
-                                                    placeholder="https://github.com/..."
+                                                    type="file"
+                                                    name="attachment"
+                                                    accept=".pdf,.doc,.docx"
+                                                    required
+                                                    className="w-full cursor-pointer text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-brand-light file:text-brand-dark hover:file:bg-gray-100 p-2 border border-gray-300 rounded-lg bg-white"
                                                 />
                                             </div>
 
-                                            <div className="space-y-2">
-                                                <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Resume (PDF, DOC)</label>
-                                                <div className="relative">
-                                                    <input
-                                                        type="file"
-                                                        name="attachment"
-                                                        accept=".pdf,.doc,.docx"
-                                                        required
-                                                        className="w-full cursor-pointer file:mr-5 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 text-slate-500 font-medium p-2 border border-slate-200 rounded-xl bg-slate-50 decoration-none"
-                                                    />
-                                                </div>
+                                            <div>
+                                                <label className="block text-sm font-medium text-brand-dark mb-1.5">Cover letter<span className="text-brand-orange ml-0.5">*</span></label>
+                                                <textarea name="message" rows={5} required className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="Tell us what makes you unique…" />
                                             </div>
 
-                                            <div className="space-y-2">
-                                                <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">Cover Letter</label>
-                                                <textarea
-                                                    name="message"
-                                                    rows={5}
-                                                    required
-                                                    className="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all font-medium"
-                                                    placeholder="Tell us what makes you unique..."
-                                                ></textarea>
-                                            </div>
-
-                                            <div className="flex items-center justify-end gap-6 pt-6">
+                                            <div className="flex items-center justify-end gap-3 pt-2">
                                                 <button
                                                     type="button"
                                                     onClick={() => setApplicationForm({ position: '', show: false })}
-                                                    className="px-6 py-3 font-bold text-slate-500 hover:text-slate-800 transition-colors"
+                                                    className="px-5 py-2.5 font-semibold text-gray-600 hover:text-brand-dark transition-colors text-sm"
                                                 >
                                                     Cancel
                                                 </button>
                                                 <button
                                                     type="submit"
-                                                    className="px-10 py-4 bg-brand-orange text-white font-bold rounded-xl shadow-lg hover:shadow-brand-orange/40 hover:-translate-y-1 transition-all duration-300"
+                                                    className="group inline-flex items-center justify-center gap-2 bg-brand-orange text-white text-sm font-medium py-2.5 pl-6 pr-2.5 rounded-full hover:bg-brand-orange-hover transition-colors"
                                                 >
-                                                    Submit Application
+                                                    Submit application
+                                                    <span className="w-7 h-7 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform text-brand-orange">
+                                                        <Icon.Arrow />
+                                                    </span>
                                                 </button>
                                             </div>
                                         </form>
@@ -487,36 +479,6 @@ const CareersPage: React.FC = () => {
                     </section>
                 )}
             </div>
-
-            {/* GENERAL CTA SECTION */}
-            {!applicationForm.show && (
-                <section className="bg-brand-dark text-white py-24 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5 mix-blend-overlay"></div>
-                    <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-brand-orange text-sm font-bold mb-8">
-                            <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
-                            Always Scouting Talent
-                        </div>
-                        <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
-                            Don't see the right fit?
-                        </h2>
-                        <p className="text-xl text-slate-400 mb-10 leading-relaxed max-w-2xl mx-auto">
-                            We are constantly growing. Send us your general application and we'll keep you in mind for future opportunities.
-                        </p>
-                        <a
-                            href="#application-form"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setApplicationForm({ position: 'General Application', show: true });
-                                setTimeout(() => document.getElementById('application-form')?.scrollIntoView({ behavior: 'smooth' }), 100);
-                            }}
-                            className="inline-block bg-white text-brand-dark font-bold py-4 px-10 rounded-full hover:bg-brand-orange hover:text-white transition-all duration-300 shadow-2xl hover:shadow-brand-orange/50 text-lg"
-                        >
-                            Submit General Application
-                        </a>
-                    </div>
-                </section>
-            )}
         </div>
     );
 };

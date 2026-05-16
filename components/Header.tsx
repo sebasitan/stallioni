@@ -177,22 +177,23 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
   const isContactActive = currentRoute === '/contact';
 
   return (
-    <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center relative">
-        <a href="/" onClick={(e) => handleNav(e, '/')} className="flex items-center space-x-2">
-          <img src="/logo.svg" alt="Stallioni Logo" className="h-8 md:h-10 w-auto" width="210" height="42" fetchPriority="high" />
+    <header className="bg-white/85 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
+      <div className="container mx-auto px-6 py-3.5 flex justify-between items-center relative gap-6">
+        <a href="/" onClick={(e) => handleNav(e, '/')} className="flex items-center flex-shrink-0" aria-label="Stallioni home">
+          <img src="/logo.svg" alt="Stallioni Logo" className="h-7 md:h-8 w-auto" width="210" height="42" fetchPriority="high" />
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-2">
+        {/* Desktop Navigation — pill segment */}
+        <nav className="hidden lg:flex items-center gap-1 bg-brand-light/60 border border-gray-200/80 rounded-full p-1">
           {NAV_LINKS.map((link) => {
             const isActive = link.href === '/' ? currentRoute === '/' : currentRoute.startsWith(link.href);
 
             if (link.label === 'Services') {
+              const showAccent = isActive || isServicesOpen;
               return (
                 <div
                   key={link.href}
-                  className="relative group"
+                  className="relative"
                   onMouseEnter={() => setIsServicesOpen(true)}
                   onMouseLeave={() => setIsServicesOpen(false)}
                 >
@@ -202,39 +203,95 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
                       handleNav(e, link.href);
                       setIsServicesOpen(false);
                     }}
-                    className={`text-base font-medium px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-1 ${isActive
-                      ? 'bg-blue-900 text-white'
-                      : 'text-brand-dark hover:bg-blue-100 hover:text-blue-600 group-hover:text-blue-600'
-                      }`}
+                    className={`relative text-[14.5px] font-medium tracking-tight px-4 py-2 rounded-full transition-all duration-200 flex items-center gap-1.5 ${
+                      showAccent
+                        ? 'bg-brand-dark text-white shadow-sm'
+                        : 'text-gray-700 hover:text-brand-dark hover:bg-white'
+                    }`}
                   >
                     {link.label}
-                    {/* Chevron Down */}
-                    <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`h-3 w-3 transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                     </svg>
                   </a>
 
                   {/* Mega Menu Dropdown */}
-                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 pt-4 w-[98vw] max-w-[1400px] transition-all duration-300 ${isServicesOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
-                    <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-2xl shadow-xl border border-gray-100 max-h-[80vh] overflow-y-auto">
-                      <div className="p-8 grid grid-cols-4 gap-y-8 gap-x-6">
+                  <div className={`absolute top-full left-1/2 transform -translate-x-1/2 pt-3 w-[96vw] max-w-[1280px] transition-opacity duration-200 ${isServicesOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+                    <div
+                      className="relative bg-white rounded-2xl border border-gray-200 max-h-[82vh] overflow-y-auto"
+                      style={{ boxShadow: '0 30px 60px -20px rgba(31, 55, 105, 0.18)' }}
+                    >
+                      {/* Subtle dot pattern */}
+                      <div
+                        className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-2xl"
+                        aria-hidden="true"
+                        style={{
+                          backgroundImage: 'radial-gradient(circle at 1px 1px, #1F3769 1px, transparent 0)',
+                          backgroundSize: '24px 24px',
+                        }}
+                      />
+
+                      {/* TOP EYEBROW BAR */}
+                      <div className="relative flex items-center justify-between gap-4 px-8 py-4 border-b border-gray-100 bg-brand-light/40">
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <span className="w-8 h-px bg-brand-orange" />
+                          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-dark">Our Services</span>
+                          <span className="inline-flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-brand-dark">
+                            <span className="w-1 h-1 rounded-full bg-brand-orange" />
+                            {MEGA_MENU_ITEMS.reduce((n, c) => n + c.items.length, 0)}+ offerings
+                          </span>
+                        </div>
+                        <a
+                          href="/services"
+                          onClick={(e) => {
+                            handleNav(e, '/services');
+                            setIsServicesOpen(false);
+                          }}
+                          className="group inline-flex items-center gap-1.5 text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors flex-shrink-0"
+                        >
+                          Browse all
+                          <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
+                        </a>
+                      </div>
+
+                      {/* CATEGORY CARDS GRID */}
+                      <div className="relative p-6 grid grid-cols-4 gap-3">
                         {MEGA_MENU_ITEMS.map((col) => (
-                          <div key={col.title} className="flex flex-col space-y-3">
+                          <div
+                            key={col.title}
+                            className="group/cat flex flex-col bg-white border border-gray-200 hover:border-brand-orange rounded-xl p-4 transition-colors"
+                          >
                             <a
                               href={col.href}
                               onClick={(e) => {
                                 handleNav(e, col.href);
                                 setIsServicesOpen(false);
                               }}
-                              className="text-brand-dark font-bold text-lg hover:text-white border-b border-gray-100 pb-2 flex items-center gap-2 group/category p-2 -ml-2 rounded-lg hover:bg-brand-orange transition-all duration-200"
+                              className="flex items-start gap-3 mb-3"
                             >
-                              <span className="text-brand-orange group-hover/category:text-white transition-colors">
+                              <span className="w-10 h-10 rounded-xl bg-brand-light text-brand-dark flex items-center justify-center flex-shrink-0 group-hover/cat:bg-brand-orange group-hover/cat:text-white transition-colors [&_svg]:w-5 [&_svg]:h-5">
                                 {col.icon}
                               </span>
-                              <span>{col.title}</span>
+                              <div className="flex-1 min-w-0 pt-0.5">
+                                <h4 className="font-bold text-brand-dark text-[13.5px] leading-tight tracking-tight group-hover/cat:text-brand-orange transition-colors">
+                                  {col.title}
+                                </h4>
+                                <p className="text-[10px] font-mono uppercase tracking-widest text-gray-400 mt-1">
+                                  {col.items.length} services
+                                </p>
+                              </div>
                             </a>
-                            <div className="flex flex-col space-y-2">
-                              {col.items.map(item => (
+
+                            <div className="flex flex-col">
+                              {col.items.map((item) => (
                                 <a
                                   key={item.label}
                                   href={item.href}
@@ -242,31 +299,45 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
                                     handleNav(e, item.href);
                                     setIsServicesOpen(false);
                                   }}
-                                  className="text-gray-600 hover:text-white hover:translate-x-1 transition-all duration-200 text-base font-medium leading-tight block p-2 -ml-2 rounded hover:bg-brand-orange"
+                                  className="group/item flex items-center gap-2 text-[12.5px] text-gray-600 hover:text-brand-orange transition-colors leading-snug py-1"
                                 >
-                                  {item.label}
+                                  <span className="w-1 h-1 rounded-full bg-gray-300 group-hover/item:bg-brand-orange transition-colors flex-shrink-0" />
+                                  <span className="line-clamp-1">{item.label}</span>
                                 </a>
                               ))}
                             </div>
                           </div>
                         ))}
-                        {/* CTA Box in Menu */}
-                        <div className="col-span-4 mt-2 pt-4 border-t border-gray-100 flex justify-between items-center bg-gray-50 p-4 rounded-xl">
+                      </div>
+
+                      {/* BOTTOM CTA STRIP */}
+                      <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-8 py-5 border-t border-gray-100 bg-brand-light/40">
+                        <div className="flex items-center gap-3">
+                          <span className="w-10 h-10 rounded-xl bg-brand-orange/10 text-brand-orange flex items-center justify-center flex-shrink-0">
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L23 12l-6.857 2.286L14 21l-2.143-6.714L5 12l6.857-2.286L14 3z" />
+                            </svg>
+                          </span>
                           <div>
-                            <h4 className="font-bold text-gray-900">Need a Custom Solution?</h4>
-                            <p className="text-sm text-gray-500">Our experts are ready to build exactly what you need.</p>
+                            <h4 className="font-semibold text-brand-dark text-sm">Need a custom solution?</h4>
+                            <p className="text-xs text-gray-500 mt-0.5">Tell us your goals — we'll scope it in 24 hours.</p>
                           </div>
-                          <a
-                            href="/contact"
-                            onClick={(e) => {
-                              handleNav(e, '/contact');
-                              setIsServicesOpen(false);
-                            }}
-                            className="bg-brand-orange text-white px-6 py-2 rounded-lg font-bold hover:bg-opacity-90 transition-all text-sm"
-                          >
-                            Get a Quote
-                          </a>
                         </div>
+                        <a
+                          href="/contact"
+                          onClick={(e) => {
+                            handleNav(e, '/contact');
+                            setIsServicesOpen(false);
+                          }}
+                          className="group inline-flex items-center justify-center gap-2 bg-brand-orange text-white text-sm font-medium py-2.5 pl-5 pr-2 rounded-full hover:bg-brand-orange-hover transition-colors flex-shrink-0"
+                        >
+                          Get a quote
+                          <span className="w-7 h-7 rounded-full bg-white flex items-center justify-center text-brand-orange group-hover:translate-x-1 transition-transform">
+                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                          </span>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -279,10 +350,11 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNav(e, link.href)}
-                className={`text-base font-medium px-4 py-2 rounded-lg transition-all duration-300 ${isActive
-                  ? 'bg-blue-900 text-white'
-                  : 'text-brand-dark hover:bg-blue-100 hover:text-blue-600'
-                  }`}
+                className={`text-[14.5px] font-medium tracking-tight px-4 py-2 rounded-full transition-all duration-200 ${
+                  isActive
+                    ? 'bg-brand-dark text-white shadow-sm'
+                    : 'text-gray-700 hover:text-brand-dark hover:bg-white'
+                }`}
               >
                 {link.label}
               </a>
@@ -291,24 +363,25 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
         </nav>
 
         {/* Mobile Toggle & Contact */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-3">
           <a
             href="/contact"
             onClick={(e) => handleNav(e, '/contact')}
-            className={`text-xl hidden lg:inline-block font-bold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 ${isContactActive
-              ? 'bg-blue-900 text-white ring-4 ring-blue-700'
-              : 'bg-brand-orange text-white hover:bg-opacity-90'
-              }`}
+            className={`hidden lg:inline-flex items-center font-semibold text-[14.5px] tracking-tight py-2.5 px-5 rounded-full transition-colors ${
+              isContactActive
+                ? 'bg-brand-dark text-white hover:bg-brand-dark-hover'
+                : 'bg-brand-orange text-white hover:bg-brand-orange-hover'
+            }`}
           >
             Contact Us
           </a>
           <button
-            className="lg:hidden text-brand-dark"
+            className="lg:hidden text-brand-dark p-2 -mr-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
             </svg>
           </button>
         </div>
@@ -316,41 +389,40 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white py-4 px-6 overflow-y-auto max-h-[80vh]">
-          <nav className="flex flex-col space-y-2">
+        <div className="lg:hidden bg-white border-t border-gray-100 py-2 px-4 overflow-y-auto max-h-[85vh]">
+          <nav className="flex flex-col">
             {NAV_LINKS.map((link) => {
               const isActive = link.href === '/' ? currentRoute === '/' : currentRoute.startsWith(link.href);
 
               if (link.label === 'Services') {
                 return (
-                  <div key={link.href} className="flex flex-col space-y-1">
+                  <div key={link.href} className="flex flex-col">
                     <a
                       href={link.href}
                       onClick={(e) => handleMobileNav(e, link.href)}
-                      className={`text-xl font-medium text-center block py-3 rounded-lg transition-all duration-300 ${isActive
-                        ? 'bg-blue-900 text-white'
-                        : 'text-brand-dark hover:bg-blue-100 hover:text-blue-600'
+                      className={`text-base font-semibold block py-3 px-2 transition-colors ${isActive
+                        ? 'text-brand-orange'
+                        : 'text-brand-dark'
                         }`}
                     >
                       {link.label}
                     </a>
-                    {/* Simple list for mobile - limited items to avoid clutter or full accordion */}
-                    <div className="pl-4 border-l-2 border-gray-100 ml-4 space-y-2 py-2">
-                      <p className="text-xs text-gray-400 uppercase tracking-widest font-bold">Key Services</p>
+                    <div className="pl-3 border-l border-gray-100 ml-2 space-y-1 pb-3">
+                      <p className="text-[11px] text-gray-400 uppercase tracking-widest font-semibold mt-1 mb-2">Key Services</p>
                       {MEGA_MENU_ITEMS.map((col) => (
                         <a
                           key={col.title}
                           href={col.href}
                           onClick={(e) => handleMobileNav(e, col.href)}
-                          className="flex items-center gap-2 text-gray-600 text-base py-1 hover:text-blue-600"
+                          className="flex items-center gap-2 text-gray-700 text-sm py-1.5 hover:text-brand-orange"
                         >
-                          <span className="text-brand-orange w-5 h-5 flex items-center justify-center">
+                          <span className="text-brand-orange w-4 h-4 flex items-center justify-center [&_svg]:w-4 [&_svg]:h-4">
                             {col.icon}
                           </span>
                           {col.title}
                         </a>
                       ))}
-                      <a href="/services" onClick={(e) => handleMobileNav(e, '/services')} className="text-blue-600 text-sm font-bold block pt-1">View All Services →</a>
+                      <a href="/services" onClick={(e) => handleMobileNav(e, '/services')} className="text-brand-orange text-sm font-semibold block pt-2">View All Services →</a>
                     </div>
                   </div>
                 );
@@ -361,9 +433,9 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleMobileNav(e, link.href)}
-                  className={`text-xl font-medium text-center block py-3 rounded-lg transition-all duration-300 ${isActive
-                    ? 'bg-blue-900 text-white'
-                    : 'text-brand-dark hover:bg-blue-100 hover:text-blue-600'
+                  className={`text-base font-semibold block py-3 px-2 transition-colors ${isActive
+                    ? 'text-brand-orange'
+                    : 'text-brand-dark'
                     }`}
                 >
                   {link.label}
@@ -373,10 +445,7 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
             <a
               href="/contact"
               onClick={(e) => handleMobileNav(e, '/contact')}
-              className={`text-xl font-bold py-3 px-6 rounded-lg transition-all duration-300 text-center block ${isContactActive
-                ? 'bg-blue-900 text-white ring-4 ring-blue-700'
-                : 'bg-brand-orange text-white hover:bg-opacity-90'
-                }`}
+              className="mt-3 mb-2 inline-flex items-center justify-center font-semibold text-sm py-3 px-6 rounded-md bg-brand-orange text-white hover:bg-brand-orange-hover transition-colors text-center"
             >
               Contact Us
             </a>

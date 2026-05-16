@@ -39,8 +39,8 @@ const QuickConnect: React.FC = () => {
         let url = '';
         switch (link.type) {
             case 'whatsapp':
-                url = `https://wa.me/${link.target}`;
-                window.open(url, '_blank', 'noopener,noreferrer');
+                url = link.target || '';
+                if (url) window.open(url, '_blank', 'noopener,noreferrer');
                 break;
             case 'teams':
                 url = `https://teams.microsoft.com/l/chat/0/0?users=${getTeamsId()}`;
@@ -57,12 +57,11 @@ const QuickConnect: React.FC = () => {
         }
     };
 
-    // Two WhatsApp contacts + Teams + email. Numbers are never shown — only names.
+    // WhatsApp group + Teams + email. Numbers are never shown.
     const links: QuickConnectLink[] = [
-        { type: 'whatsapp', label: `WhatsApp — ${WHATSAPP_CONTACTS[0].name}`, icon: <WhatsAppIcon />, transform: 'translate(0, -75px)', target: WHATSAPP_CONTACTS[0].number },
-        { type: 'whatsapp', label: `WhatsApp — ${WHATSAPP_CONTACTS[1].name}`, icon: <WhatsAppIcon />, transform: 'translate(-55px, -55px)', target: WHATSAPP_CONTACTS[1].number },
-        { type: 'teams', label: 'Consult on Teams', icon: <TeamsIcon />, transform: 'translate(-75px, 0)' },
-        { type: 'email', label: 'Copy Email', icon: <EmailIcon />, transform: 'translate(-55px, 55px)' },
+        { type: 'whatsapp', label: 'Chat on WhatsApp', icon: <WhatsAppIcon />, transform: 'translate(0, -75px)', target: WHATSAPP_CONTACTS[0].url },
+        { type: 'teams', label: 'Consult on Teams', icon: <TeamsIcon />, transform: 'translate(-55px, -55px)' },
+        { type: 'email', label: 'Copy Email', icon: <EmailIcon />, transform: 'translate(-75px, 0)' },
     ];
 
     return (

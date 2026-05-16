@@ -135,9 +135,9 @@ export const WebAnimation: React.FC = () => (
             <circle cx="15" cy="12" r="2" fill="#ef4444" />
             <circle cx="22" cy="12" r="2" fill="#f97316" />
             <circle cx="29" cy="12" r="2" fill="#22c55e" />
-            <polyline className="bracket-l" points="35,25 30,30 35,35" stroke="#F26522" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-            <line className="slash" x1="40" y1="40" x2="60" y2="20" stroke="#1A233D" strokeWidth="2.5" strokeLinecap="round" />
-            <polyline className="bracket-r" points="65,25 70,30 65,35" stroke="#F26522" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+            <polyline className="bracket-l" points="35,25 30,30 35,35" stroke="#FF6633" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+            <line className="slash" x1="40" y1="40" x2="60" y2="20" stroke="#1F3769" strokeWidth="2.5" strokeLinecap="round" />
+            <polyline className="bracket-r" points="65,25 70,30 65,35" stroke="#FF6633" strokeWidth="2.5" fill="none" strokeLinecap="round" />
         </svg>
     </AnimationWrapper>
 );
@@ -159,8 +159,8 @@ export const EcommAnimation: React.FC = () => (
             .item { animation: drop-item 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards; opacity: 0; transform-origin: bottom; }
         `}</style>
         <svg viewBox="0 0 100 80">
-            <path className="item" d="M45,10 h15 v15 h-15 z" fill="#F26522" />
-            <g className="cart" transform="translate(15, 45)"><path d="M0 0 H10 L15 20 H50 L55 5 H12" stroke="#1A233D" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" /><circle cx="20" cy="28" r="4" fill="#1A233D" /><circle cx="45" cy="28" r="4" fill="#1A233D" /></g>
+            <path className="item" d="M45,10 h15 v15 h-15 z" fill="#FF6633" />
+            <g className="cart" transform="translate(15, 45)"><path d="M0 0 H10 L15 20 H50 L55 5 H12" stroke="#1F3769" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" /><circle cx="20" cy="28" r="4" fill="#1F3769" /><circle cx="45" cy="28" r="4" fill="#1F3769" /></g>
         </svg>
     </AnimationWrapper>
 );
@@ -178,11 +178,11 @@ export const FullStackAnimation: React.FC = () => (
         <svg viewBox="0 0 100 80">
             <g transform="translate(10, 10)">
                 <g className="stack-1">
-                    <rect x="0" y="0" width="80" height="18" rx="3" fill="#F26522" />
+                    <rect x="0" y="0" width="80" height="18" rx="3" fill="#FF6633" />
                     <text x="40" y="12" fill="white" textAnchor="middle" fontSize="8" fontWeight="bold">Frontend</text>
                 </g>
                 <g className="stack-2">
-                    <rect x="0" y="22" width="80" height="18" rx="3" fill="#1A233D" />
+                    <rect x="0" y="22" width="80" height="18" rx="3" fill="#1F3769" />
                     <text x="40" y="34" fill="white" textAnchor="middle" fontSize="8" fontWeight="bold">Backend</text>
                 </g>
                 <g className="stack-3">
@@ -205,8 +205,8 @@ export const NoCodeAnimation: React.FC = () => (
             .piece-3 { animation: fit-piece-3 1s ease-in-out 0.6s forwards; }
         `}</style>
         <svg viewBox="0 0 100 100">
-            <path className="piece-1" d="M20,20 h20 v-5 c5,0 5,5 10,5 v15 h-15 c0,5 -5,5 -5,10 h-10 Z" fill="#F26522" opacity="0.8" />
-            <path className="piece-2" d="M80,80 h-20 v5 c-5,0 -5,-5 -10,-5 v-15 h15 c0,-5 5,-5 5,-10 h10 Z" fill="#1A233D" opacity="0.8" />
+            <path className="piece-1" d="M20,20 h20 v-5 c5,0 5,5 10,5 v15 h-15 c0,5 -5,5 -5,10 h-10 Z" fill="#FF6633" opacity="0.8" />
+            <path className="piece-2" d="M80,80 h-20 v5 c-5,0 -5,-5 -10,-5 v-15 h15 c0,-5 5,-5 5,-10 h10 Z" fill="#1F3769" opacity="0.8" />
             <path className="piece-3" d="M80,20 h-20 v15 c0,5 -5,5 -5,10 h-15 c-5,0 -5,-5 -10,-5 v-20 Z" fill="#94a3b8" opacity="0.8" />
         </svg>
     </AnimationWrapper>
@@ -222,19 +222,19 @@ export const CrmAnimation: React.FC = () => (
         `}</style>
         <svg viewBox="0 0 100 80">
             <g className="crm-user" style={{ animationDelay: '0.2s' }}>
-                <circle cx="25" cy="25" r="8" fill="#F26522" />
-                <path d="M17,40 a8,12 0 0,1 16,0 Z" fill="#F26522" />
+                <circle cx="25" cy="25" r="8" fill="#FF6633" />
+                <path d="M17,40 a8,12 0 0,1 16,0 Z" fill="#FF6633" />
             </g>
             <g className="crm-user" style={{ animationDelay: '0.4s' }}>
-                <circle cx="75" cy="25" r="8" fill="#1A233D" />
-                <path d="M67,40 a8,12 0 0,1 16,0 Z" fill="#1A233D" />
+                <circle cx="75" cy="25" r="8" fill="#1F3769" />
+                <path d="M67,40 a8,12 0 0,1 16,0 Z" fill="#1F3769" />
             </g>
             <g className="crm-user" style={{ animationDelay: '0.6s' }}>
                 <circle cx="50" cy="60" r="8" fill="#94a3b8" />
                 <path d="M42,75 a8,12 0 0,1 16,0 Z" fill="#94a3b8" />
             </g>
-            <path className="crm-line" d="M30 35 L 45 50" stroke="#1A233D" strokeWidth="2" fill="none" strokeLinecap="round" />
-            <path className="crm-line" d="M70 35 L 55 50" stroke="#1A233D" strokeWidth="2" fill="none" strokeLinecap="round" style={{ animationDelay: '0.7s' }} />
+            <path className="crm-line" d="M30 35 L 45 50" stroke="#1F3769" strokeWidth="2" fill="none" strokeLinecap="round" />
+            <path className="crm-line" d="M70 35 L 55 50" stroke="#1F3769" strokeWidth="2" fill="none" strokeLinecap="round" style={{ animationDelay: '0.7s' }} />
         </svg>
     </AnimationWrapper>
 );
@@ -248,10 +248,10 @@ export const MobileAnimation: React.FC = () => (
             .icon-3 { animation: pop-in 0.4s ease-out 0.9s forwards; opacity: 0; transform-origin: center; }
         `}</style>
         <svg viewBox="0 0 60 100">
-            <rect x="5" y="5" width="50" height="90" rx="10" stroke="#1A233D" strokeWidth="3" fill="#f1f5f9" />
+            <rect x="5" y="5" width="50" height="90" rx="10" stroke="#1F3769" strokeWidth="3" fill="#f1f5f9" />
             <line x1="25" y1="15" x2="35" y2="15" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" />
-            <rect className="icon-1" x="15" y="25" width="12" height="12" rx="3" fill="#F26522" />
-            <path className="icon-2" d="M33,25 h12 v12 h-12 z" fill="#1A233D" />
+            <rect className="icon-1" x="15" y="25" width="12" height="12" rx="3" fill="#FF6633" />
+            <path className="icon-2" d="M33,25 h12 v12 h-12 z" fill="#1F3769" />
             <circle className="icon-3" cx="21" cy="49" r="6" fill="#94a3b8" />
         </svg>
     </AnimationWrapper>
@@ -266,16 +266,16 @@ export const AIAnimation: React.FC = () => (
             .ai-line { stroke-dasharray: 40; animation: trace 1.5s ease-in-out forwards; }
         `}</style>
         <svg viewBox="0 0 100 100">
-            <g fill="#1A233D" stroke="#94a3b8" strokeWidth="0.5">
+            <g fill="#1F3769" stroke="#94a3b8" strokeWidth="0.5">
                 <line className="ai-line" style={{ animationDelay: '0.1s' }} x1="20" y1="50" x2="50" y2="25" />
                 <line className="ai-line" style={{ animationDelay: '0.2s' }} x1="20" y1="50" x2="50" y2="75" />
                 <line className="ai-line" style={{ animationDelay: '0.3s' }} x1="50" y1="25" x2="80" y2="50" />
                 <line className="ai-line" style={{ animationDelay: '0.4s' }} x1="50" y1="75" x2="80" y2="50" />
                 <line className="ai-line" style={{ animationDelay: '0.5s' }} x1="50" y1="25" x2="50" y2="75" />
-                <circle className="ai-node" style={{ animationDelay: '0s' }} cx="20" cy="50" r="3" fill="#F26522" />
+                <circle className="ai-node" style={{ animationDelay: '0s' }} cx="20" cy="50" r="3" fill="#FF6633" />
                 <circle className="ai-node" style={{ animationDelay: '0.2s' }} cx="50" cy="25" r="3" />
                 <circle className="ai-node" style={{ animationDelay: '0.4s' }} cx="50" cy="75" r="3" />
-                <circle className="ai-node" style={{ animationDelay: '0.6s' }} cx="80" cy="50" r="3" fill="#F26522" />
+                <circle className="ai-node" style={{ animationDelay: '0.6s' }} cx="80" cy="50" r="3" fill="#FF6633" />
             </g>
         </svg>
     </AnimationWrapper>
@@ -290,11 +290,11 @@ export const DesignAnimation: React.FC = () => (
             .swatch { opacity: 0; animation: fill-color 0.5s ease-out forwards; }
         `}</style>
         <svg viewBox="0 0 100 100">
-            <path className="pen-path" d="M10,80 Q 50,10 90,60" stroke="#1A233D" strokeWidth="2" fill="none" />
-            <circle cx="10" cy="80" r="3" fill="#F26522" />
-            <circle cx="90" cy="60" r="3" fill="#F26522" />
-            <rect className="swatch" style={{ animationDelay: '1s' }} x="20" y="20" width="15" height="15" fill="#F26522" opacity="0.8" rx="2" />
-            <rect className="swatch" style={{ animationDelay: '1.2s' }} x="40" y="45" width="15" height="15" fill="#1A233D" opacity="0.8" rx="2" />
+            <path className="pen-path" d="M10,80 Q 50,10 90,60" stroke="#1F3769" strokeWidth="2" fill="none" />
+            <circle cx="10" cy="80" r="3" fill="#FF6633" />
+            <circle cx="90" cy="60" r="3" fill="#FF6633" />
+            <rect className="swatch" style={{ animationDelay: '1s' }} x="20" y="20" width="15" height="15" fill="#FF6633" opacity="0.8" rx="2" />
+            <rect className="swatch" style={{ animationDelay: '1.2s' }} x="40" y="45" width="15" height="15" fill="#1F3769" opacity="0.8" rx="2" />
             <rect className="swatch" style={{ animationDelay: '1.4s' }} x="65" y="70" width="15" height="15" fill="#94a3b8" opacity="0.8" rx="2" />
         </svg>
     </AnimationWrapper>
@@ -310,13 +310,13 @@ export const SeoAnimation: React.FC = () => (
         `}</style>
         <svg viewBox="0 0 100 100">
             <g className="glass">
-                <circle cx="40" cy="40" r="15" stroke="#1A233D" strokeWidth="2" fill="rgba(242,101,34,0.1)" />
-                <line x1="52" y1="52" x2="65" y2="65" stroke="#1A233D" strokeWidth="2.5" strokeLinecap="round" />
+                <circle cx="40" cy="40" r="15" stroke="#1F3769" strokeWidth="2" fill="rgba(242,101,34,0.1)" />
+                <line x1="52" y1="52" x2="65" y2="65" stroke="#1F3769" strokeWidth="2.5" strokeLinecap="round" />
             </g>
             {/* FIX: Cast style prop to React.CSSProperties to allow for CSS custom properties used in the animation. */}
             <rect className="bar" style={{ '--h': 20, '--y': 60 } as React.CSSProperties} x="20" y="80" width="15" fill="#94a3b8" />
-            <rect className="bar" style={{ '--h': 35, '--y': 45, animationDelay: '0.7s' } as React.CSSProperties} x="40" y="80" width="15" fill="#1A233D" />
-            <rect className="bar" style={{ '--h': 50, '--y': 30, animationDelay: '0.9s' } as React.CSSProperties} x="60" y="80" width="15" fill="#F26522" />
+            <rect className="bar" style={{ '--h': 35, '--y': 45, animationDelay: '0.7s' } as React.CSSProperties} x="40" y="80" width="15" fill="#1F3769" />
+            <rect className="bar" style={{ '--h': 50, '--y': 30, animationDelay: '0.9s' } as React.CSSProperties} x="60" y="80" width="15" fill="#FF6633" />
         </svg>
     </AnimationWrapper>
 );
@@ -330,10 +330,10 @@ export const MarketingAnimation: React.FC = () => (
             .m-icon { opacity: 0; animation: pop-icon 0.5s ease-out forwards; transform-origin: center; }
         `}</style>
         <svg viewBox="0 0 100 100">
-            <path d="M20,40 h10 l10,-10 v20 l-10,-10 Z" fill="#F26522" />
-            <path className="wave" style={{ animationDelay: '0s' }} d="M45,50 a 1 1 0 0 0 0 -20" stroke="#F26522" fill="none" strokeLinecap="round" />
-            <path className="wave" style={{ animationDelay: '0.5s' }} d="M45,50 a 1 1 0 0 0 0 -20" stroke="#F26522" fill="none" strokeLinecap="round" />
-            <path className="m-icon" style={{ animationDelay: '0.8s' }} d="M70,30 a5,5 0 0,1 10,0 a5,5 0 0,1 10,0 q0,5 -10,10 q-10,-5 -10,-10 Z" fill="#1A233D" />
+            <path d="M20,40 h10 l10,-10 v20 l-10,-10 Z" fill="#FF6633" />
+            <path className="wave" style={{ animationDelay: '0s' }} d="M45,50 a 1 1 0 0 0 0 -20" stroke="#FF6633" fill="none" strokeLinecap="round" />
+            <path className="wave" style={{ animationDelay: '0.5s' }} d="M45,50 a 1 1 0 0 0 0 -20" stroke="#FF6633" fill="none" strokeLinecap="round" />
+            <path className="m-icon" style={{ animationDelay: '0.8s' }} d="M70,30 a5,5 0 0,1 10,0 a5,5 0 0,1 10,0 q0,5 -10,10 q-10,-5 -10,-10 Z" fill="#1F3769" />
             <path className="m-icon" style={{ animationDelay: '1s' }} d="M75 60 l5 10 l5 -10 h-10 Z" fill="#94a3b8" />
         </svg>
     </AnimationWrapper>

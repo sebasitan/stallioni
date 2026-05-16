@@ -284,6 +284,37 @@ const staticMetadata: Record<string, Partial<PageMetadata>> = {
     keywords: '',
     noindex: true,
   },
+  // Admin surface — must not be indexed
+  '/seba': {
+    title: 'Admin · Stallioni',
+    description: 'Internal admin dashboard.',
+    keywords: '',
+    noindex: true,
+  },
+  '/seba/login': {
+    title: 'Admin Login · Stallioni',
+    description: 'Internal admin login.',
+    keywords: '',
+    noindex: true,
+  },
+  '/seba/portfolio': {
+    title: 'Admin · Portfolio · Stallioni',
+    description: 'Internal admin dashboard.',
+    keywords: '',
+    noindex: true,
+  },
+  '/seba/blog': {
+    title: 'Admin · Blog · Stallioni',
+    description: 'Internal admin dashboard.',
+    keywords: '',
+    noindex: true,
+  },
+  '/seba/careers': {
+    title: 'Admin · Careers · Stallioni',
+    description: 'Internal admin dashboard.',
+    keywords: '',
+    noindex: true,
+  },
 };
 
 const getServiceMetadata = (service: ServiceDetail): Partial<PageMetadata> => {
@@ -336,8 +367,16 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
   schema.push(await getBreadcrumbSchema(cleanRoute));
 
   if (cleanRoute.startsWith('/blog/')) {
-    const id = parseInt(cleanRoute.split('/')[2], 10);
-    const post = BLOG_POSTS.find(p => p.id === id);
+    // Post IDs can be numeric (seeded posts) or strings like "blog-1234" (admin
+    // posts). The route gives us a raw string — try every reasonable form.
+    const rawId = cleanRoute.split('/')[2];
+    const numericId = parseInt(rawId, 10);
+    const post = BLOG_POSTS.find(
+      (p) =>
+        p.id === rawId ||
+        p.id.toString() === rawId ||
+        (!Number.isNaN(numericId) && p.id === numericId)
+    );
     if (post) {
       partialMetadata = getBlogPostMetadata(post);
       schema.push(getArticleSchema(post));
@@ -358,11 +397,27 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
     const regionSlug = cleanRoute.split('/')[2];
     const regional = REGIONAL_PAGES[regionSlug];
     if (regional) {
+      const region = regional.regionDisplayName;
+      const regionalKeywords = [
+        `IT outsourcing ${region}`,
+        `hire developers from India for ${region}`,
+        `offshore software development ${region}`,
+        `remote developers ${region}`,
+        `${region} web development outsourcing`,
+        `${region} mobile app developers India`,
+        `${region} e-commerce outsourcing`,
+        `Stallioni ${region}`,
+      ];
+      const regionOgImages: Record<string, string> = {
+        usa: 'https://images.unsplash.com/photo-1496450681664-3df85efbd29f?q=80&w=1200&h=630&auto=format&fit=crop',
+        australia: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1200&h=630&auto=format&fit=crop',
+        india: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=1200&h=630&auto=format&fit=crop',
+      };
       partialMetadata = {
         title: regional.metaTitle,
         description: regional.metaDescription,
-        keywords: '',
-        ogImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&h=630&auto=format&fit=crop',
+        keywords: regionalKeywords.join(', '),
+        ogImage: regionOgImages[regionSlug] || 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&h=630&auto=format&fit=crop',
       };
       // Emit FAQPage schema for the regional FAQs too — qualifies for rich results.
       schema.push({
@@ -382,6 +437,14 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
   } else if (cleanRoute === '/') {
     partialMetadata = staticMetadata['/'];
     schema.push(getWebsiteSchema());
+  } else if (cleanRoute.startsWith('/seba')) {
+    // Catch-all for any admin sub-route not explicitly listed above.
+    partialMetadata = {
+      title: 'Admin · Stallioni',
+      description: 'Internal admin dashboard.',
+      keywords: '',
+      noindex: true,
+    };
   }
 
   const ogUrl = `${BASE_URL}${cleanRoute}`;

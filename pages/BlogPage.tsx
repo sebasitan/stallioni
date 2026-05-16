@@ -1,170 +1,344 @@
-
 import React, { useState, useMemo, useEffect } from 'react';
 import { BlogPost } from '../types';
 import FadeIn from '../components/FadeIn';
 import { useNavigation } from '../App';
 import { getBlogPosts } from '../utils/blogStorage';
 
-const PageHeader: React.FC = () => (
-    <div className="bg-white py-16 text-center border-b border-slate-200">
-        <div className="container mx-auto px-6">
+// ============================================
+// Icons
+// ============================================
+const Icon = {
+    Search: () => (
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+    ),
+    Arrow: () => (
+        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+    ),
+};
+
+// ============================================
+// Helpers
+// ============================================
+function formatDate(date: string): string {
+    if (!date) return '';
+    const d = new Date(date);
+    if (Number.isNaN(d.getTime())) return date;
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function getInitials(name: string = ''): string {
+    return name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || 'ST';
+}
+
+const authorColors = ['bg-brand-orange', 'bg-brand-dark', 'bg-emerald-600', 'bg-violet-600', 'bg-amber-600', 'bg-sky-600', 'bg-rose-500'];
+function authorColor(name: string = ''): string {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) | 0;
+    return authorColors[Math.abs(hash) % authorColors.length];
+}
+
+// ============================================
+// EDITORIAL HEADER — pure typography, no marketing visuals
+// ============================================
+const EditorialHeader: React.FC<{ total: number }> = ({ total }) => (
+    <header className="bg-white border-b border-gray-100">
+        <div className="container mx-auto px-6 max-w-6xl py-12 md:py-14">
             <FadeIn>
-                <h1 className="text-4xl md:text-5xl font-extrabold text-brand-dark tracking-tight">From the Blog</h1>
-                <p className="text-lg text-slate-600 mt-4 max-w-3xl mx-auto">Expert insights on technology, design, and digital strategy to help you stay ahead of the curve.</p>
+                <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">The Stallioni Blog</p>
+                <h1 className="text-2xl md:text-3xl lg:text-[2rem] font-bold text-brand-dark tracking-[-0.02em] leading-[1.2] max-w-3xl">
+                    Stories on building software, scaling teams, and shipping fast.
+                </h1>
+                <p className="mt-4 text-base md:text-lg text-gray-500 leading-relaxed max-w-2xl">
+                    Long-form essays and short field notes from senior engineers, designers, and product leaders at Stallioni.
+                </p>
+                <p className="mt-6 text-[11px] font-mono uppercase tracking-[0.18em] text-gray-400">
+                    {total} {total === 1 ? 'article' : 'articles'} · Updated weekly
+                </p>
             </FadeIn>
+        </div>
+    </header>
+);
+
+// ============================================
+// STICKY FILTER BAR — text tabs with underline indicator
+// ============================================
+const FilterBar: React.FC<{
+    categories: string[];
+    active: string;
+    onSelect: (c: string) => void;
+    search: string;
+    onSearchChange: (v: string) => void;
+}> = ({ categories, active, onSelect, search, onSearchChange }) => (
+    <div className="sticky top-[67px] z-40 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div className="container mx-auto px-6 max-w-6xl">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-2 md:py-0">
+                <div className="flex items-center gap-1 overflow-x-auto no-scrollbar -mx-2 px-2">
+                    {categories.map((cat) => {
+                        const isActive = active === cat;
+                        return (
+                            <button
+                                key={cat}
+                                onClick={() => onSelect(cat)}
+                                className={`relative px-3.5 py-4 text-[13.5px] font-medium tracking-tight transition-colors whitespace-nowrap ${
+                                    isActive ? 'text-brand-dark' : 'text-gray-500 hover:text-brand-dark'
+                                }`}
+                            >
+                                {cat}
+                                <span
+                                    aria-hidden="true"
+                                    className={`pointer-events-none absolute left-3.5 right-3.5 -bottom-px h-[2px] rounded-full bg-brand-orange transition-transform duration-300 origin-left ${
+                                        isActive ? 'scale-x-100' : 'scale-x-0'
+                                    }`}
+                                />
+                            </button>
+                        );
+                    })}
+                </div>
+
+                <div className="relative w-full md:w-72 pb-3 md:pb-0">
+                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                        <Icon.Search />
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="Search articles…"
+                        value={search}
+                        onChange={(e) => onSearchChange(e.target.value)}
+                        className="block w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full bg-white placeholder-gray-400 focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm"
+                        aria-label="Search articles"
+                    />
+                </div>
+            </div>
         </div>
     </div>
 );
 
-const BlogCard: React.FC<{ post: BlogPost }> = ({ post }) => {
+// ============================================
+// FEATURED POST — full-bleed image with overlay text
+// ============================================
+const FeaturedPost: React.FC<{ post: BlogPost }> = ({ post }) => {
     const { navigate } = useNavigation();
     const handleNav = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         navigate(`/blog/${post.id}`);
     };
-
     return (
-        <a href={`/blog/${post.id}`} onClick={handleNav} className="block group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2 border border-slate-100 h-full flex flex-col">
-            <div className="overflow-hidden h-48">
-                <img src={post.imageUrl} alt={post.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            </div>
-            <div className="p-6 flex flex-col flex-grow">
-                <span className="text-xs font-bold uppercase tracking-wider bg-brand-orange/10 text-brand-orange px-3 py-1 rounded-full">{post.category}</span>
-                <h3 className="text-xl font-bold text-brand-dark mt-4 mb-3 group-hover:text-brand-orange transition-colors line-clamp-3 flex-grow">{post.title}</h3>
-                <div className="mt-auto pt-4 border-t border-slate-100 text-sm text-slate-500">
-                    <p className="font-semibold text-slate-700">{post.author}</p>
-                    <p>{post.date} &middot; {post.readTime}</p>
-                </div>
-            </div>
-        </a>
-    );
-};
+        <article>
+            <a
+                href={`/blog/${post.id}`}
+                onClick={handleNav}
+                className="group relative block aspect-[21/10] md:aspect-[21/9] rounded-2xl overflow-hidden bg-gray-200"
+            >
+                <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent" />
 
-const FeaturedPostCard: React.FC<{ post: BlogPost }> = ({ post }) => {
-    const { navigate } = useNavigation();
-    const handleNav = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
-        navigate(`/blog/${post.id}`);
-    };
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-10 lg:p-12 text-white">
+                    <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-brand-orange text-white text-[10px] font-semibold uppercase tracking-[0.18em] px-3 py-1 rounded-full">
+                            Featured
+                        </span>
+                        <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-white/85">
+                            {post.category}
+                        </span>
+                    </div>
 
-    return (
-        <FadeIn>
-            <a href={`/blog/${post.id}`} onClick={handleNav} className="block group relative rounded-2xl overflow-hidden shadow-2xl text-white w-full min-h-[500px] my-12 flex flex-col justify-end">
-                <img src={post.imageUrl} alt={post.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-black/60"></div>
-                <div className="relative p-8 md:p-12 max-w-4xl">
-                    <span className="text-sm font-semibold bg-brand-orange px-3 py-1.5 rounded-full">Featured Article</span>
-                    <h2 className="text-3xl md:text-5xl font-extrabold mt-4 mb-4 leading-tight tracking-tight">{post.title}</h2>
-                    <p className="hidden md:block text-slate-200 line-clamp-2 text-lg mb-6">{post.excerpt}</p>
-                    <div className="text-md font-semibold">
-                        <span>By {post.author}</span>
-                        <span className="mx-2">•</span>
-                        <span>{post.date}</span>
-                        <span className="mx-2">•</span>
-                        <span>{post.readTime}</span>
+                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-[-0.02em] leading-[1.1] max-w-3xl mb-4 group-hover:text-brand-orange transition-colors">
+                        {post.title}
+                    </h2>
+
+                    <p className="hidden md:block text-white/80 text-base lg:text-lg leading-relaxed max-w-2xl mb-5 line-clamp-2">
+                        {post.excerpt}
+                    </p>
+
+                    <div className="flex items-center flex-wrap gap-x-3 gap-y-2 text-[13px]">
+                        <div className="flex items-center gap-2">
+                            <div className={`w-7 h-7 rounded-full ${authorColor(post.author)} text-white flex items-center justify-center font-semibold text-[10px]`}>
+                                {getInitials(post.author)}
+                            </div>
+                            <span className="font-medium text-white">{post.author}</span>
+                        </div>
+                        <span className="w-1 h-1 rounded-full bg-white/40" />
+                        <time className="text-white/75" dateTime={post.date}>{formatDate(post.date)}</time>
+                        {post.readTime && (
+                            <>
+                                <span className="w-1 h-1 rounded-full bg-white/40" />
+                                <span className="text-white/75">{post.readTime}</span>
+                            </>
+                        )}
                     </div>
                 </div>
             </a>
-        </FadeIn>
+        </article>
     );
 };
 
+// ============================================
+// ARTICLE CARD — clean, borderless, editorial
+// ============================================
+const ArticleCard: React.FC<{ post: BlogPost }> = ({ post }) => {
+    const { navigate } = useNavigation();
+    const handleNav = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        navigate(`/blog/${post.id}`);
+    };
+    return (
+        <article>
+            <a href={`/blog/${post.id}`} onClick={handleNav} className="group block">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-gray-100 mb-5">
+                    <img
+                        src={post.imageUrl}
+                        alt={post.title}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    />
+                </div>
+
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-orange mb-2.5">
+                    {post.category}
+                </p>
+
+                <h3 className="text-[1.35rem] md:text-[1.4rem] font-bold text-brand-dark tracking-[-0.015em] leading-[1.2] mb-3 group-hover:text-brand-orange transition-colors line-clamp-2">
+                    {post.title}
+                </h3>
+
+                <p className="text-[14.5px] text-gray-600 leading-relaxed line-clamp-2 mb-5">
+                    {post.excerpt}
+                </p>
+
+                <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-[12.5px] text-gray-500">
+                    <div className="flex items-center gap-2">
+                        <div className={`w-6 h-6 rounded-full ${authorColor(post.author)} text-white flex items-center justify-center text-[9.5px] font-semibold`}>
+                            {getInitials(post.author)}
+                        </div>
+                        <span className="font-medium text-brand-dark">{post.author}</span>
+                    </div>
+                    <span className="w-1 h-1 rounded-full bg-gray-300" />
+                    <time dateTime={post.date}>{formatDate(post.date)}</time>
+                    {post.readTime && (
+                        <>
+                            <span className="w-1 h-1 rounded-full bg-gray-300" />
+                            <span>{post.readTime}</span>
+                        </>
+                    )}
+                </div>
+            </a>
+        </article>
+    );
+};
+
+// ============================================
+// MAIN
+// ============================================
 const BlogPage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterCategory, setFilterCategory] = useState('All');
     const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
 
     useEffect(() => {
-        // Fetch posts from local storage (which seeds itself with defaults if empty)
-        const storedPosts = getBlogPosts();
-        setAllPosts(storedPosts);
+        setAllPosts(getBlogPosts());
     }, []);
 
-    const categories = useMemo(() => ['All', ...Array.from(new Set(allPosts.map(p => p.category)))], [allPosts]);
+    const categories = useMemo(() => ['All', ...Array.from(new Set(allPosts.map((p) => p.category)))], [allPosts]);
+
+    const sortedPosts = useMemo(() => {
+        return [...allPosts].sort((a, b) => {
+            // Sort by date, newest first; fall back to id ordering.
+            const da = new Date(a.date).getTime();
+            const db = new Date(b.date).getTime();
+            if (!Number.isNaN(da) && !Number.isNaN(db) && da !== db) return db - da;
+            return (Number(b.id) || 0) - (Number(a.id) || 0);
+        });
+    }, [allPosts]);
 
     const filteredPosts = useMemo(() => {
-        // Sort posts by ID descending (assuming numeric/timestamp IDs) to get latest first
-        const sortedPosts = [...allPosts].sort((a, b) => {
-            // Handle numeric IDs vs String IDs
-            const idA = Number(a.id) || 0;
-            const idB = Number(b.id) || 0;
-
-            // If string IDs like 'blog-123'
-            if (typeof a.id === 'string' && a.id.startsWith('blog-')) {
-                const timeA = parseInt(a.id.split('-')[1]);
-                const timeB = typeof b.id === 'string' && b.id.startsWith('blog-') ? parseInt(b.id.split('-')[1]) : 0;
-                return timeB - timeA;
-            }
-
-            return idB - idA;
-        });
-
+        const q = searchTerm.toLowerCase();
         return sortedPosts
-            .filter(post => filterCategory === 'All' || post.category === filterCategory)
-            .filter(post =>
-                post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+            .filter((p) => filterCategory === 'All' || p.category === filterCategory)
+            .filter((p) =>
+                p.title.toLowerCase().includes(q) ||
+                p.excerpt.toLowerCase().includes(q)
             );
-    }, [searchTerm, filterCategory]);
+    }, [searchTerm, filterCategory, sortedPosts]);
 
-    const featuredPost = useMemo(() => (filteredPosts.length > 0 ? filteredPosts[0] : null), [filteredPosts]);
-    const otherPosts = useMemo(() => (filteredPosts.length > 1 ? filteredPosts.slice(1) : []), [filteredPosts]);
+    const hasActiveFilters = filterCategory !== 'All' || searchTerm !== '';
+    const featuredPost = filteredPosts[0] || null;
+    const otherPosts = filteredPosts.length > 1 ? filteredPosts.slice(1) : [];
 
     return (
-        <>
-            <PageHeader />
+        <div className="bg-white min-h-screen">
+            <EditorialHeader total={allPosts.length} />
 
-            <section className="py-16 md:py-20 bg-slate-50/70">
-                <div className="container mx-auto px-6 max-w-7xl">
-                    <FadeIn>
-                        <div className="bg-white p-4 rounded-xl shadow-md border border-slate-200/80 mb-12 flex flex-col md:flex-row items-center gap-4">
-                            <div className="flex-grow flex items-center gap-2 overflow-x-auto no-scrollbar">
-                                {categories.map(cat => (
-                                    <button
-                                        key={cat}
-                                        onClick={() => setFilterCategory(cat)}
-                                        className={`px-4 py-2 text-sm rounded-lg font-semibold transition-all duration-200 whitespace-nowrap ${filterCategory === cat ? 'bg-brand-dark text-white shadow-sm' : 'bg-transparent text-slate-600 hover:bg-slate-100'}`}
-                                    >
-                                        {cat}
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="relative w-full md:w-auto">
-                                <input
-                                    type="text"
-                                    placeholder="Search articles..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="border border-slate-300 rounded-lg py-2 pl-10 pr-4 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-brand-orange transition-all"
-                                />
-                                <svg className="w-5 h-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                            </div>
-                        </div>
-                    </FadeIn>
+            <FilterBar
+                categories={categories}
+                active={filterCategory}
+                onSelect={setFilterCategory}
+                search={searchTerm}
+                onSearchChange={setSearchTerm}
+            />
 
-                    {featuredPost && <FeaturedPostCard post={featuredPost} />}
-
-                    {otherPosts.length > 0 && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {otherPosts.map((post, index) => (
-                                <FadeIn key={post.id} delay={index * 100}>
-                                    <BlogCard post={post} />
+            <section className="py-12 md:py-16">
+                <div className="container mx-auto px-6 max-w-6xl">
+                    {filteredPosts.length > 0 ? (
+                        <>
+                            {featuredPost && (
+                                <FadeIn>
+                                    <div className="mb-12 md:mb-16">
+                                        <FeaturedPost post={featuredPost} />
+                                    </div>
                                 </FadeIn>
-                            ))}
-                        </div>
-                    )}
+                            )}
 
-                    {filteredPosts.length === 0 && (
+                            {otherPosts.length > 0 && (
+                                <>
+                                    <div className="flex items-center gap-3 mb-8">
+                                        <h2 className="text-[11px] font-semibold tracking-[0.25em] uppercase text-gray-500">More articles</h2>
+                                        <span className="flex-1 h-px bg-gray-200" />
+                                        <span className="text-[11px] font-mono text-gray-400">
+                                            {otherPosts.length} {otherPosts.length === 1 ? 'post' : 'posts'}
+                                        </span>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+                                        {otherPosts.map((post, index) => (
+                                            <FadeIn key={post.id} delay={Math.min(index * 40, 320)}>
+                                                <ArticleCard post={post} />
+                                            </FadeIn>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                        </>
+                    ) : (
                         <FadeIn>
-                            <div className="text-center py-24 bg-white rounded-lg shadow-md border border-slate-200/80">
-                                <h3 className="text-2xl font-bold text-brand-dark">No Articles Found</h3>
-                                <p className="text-slate-500 mt-2">Try adjusting your search or filter to find what you're looking for.</p>
+                            <div className="flex flex-col items-center justify-center py-24 text-center px-4">
+                                <div className="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center mb-5 text-gray-400">
+                                    <Icon.Search />
+                                </div>
+                                <h3 className="text-xl font-bold text-brand-dark mb-2 tracking-tight">No articles found</h3>
+                                <p className="text-gray-500 max-w-md mx-auto mb-6">Try a different search term or category.</p>
+                                {hasActiveFilters && (
+                                    <button
+                                        onClick={() => { setSearchTerm(''); setFilterCategory('All'); }}
+                                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange hover:text-brand-orange-hover transition-colors"
+                                    >
+                                        Reset filters
+                                        <Icon.Arrow />
+                                    </button>
+                                )}
                             </div>
                         </FadeIn>
                     )}
                 </div>
             </section>
-        </>
+        </div>
     );
 };
 

@@ -25,9 +25,9 @@ const ExternalLinkIcon = ({ className = '' }: { className?: string }) => (
 const FreelancerBadge: React.FC<FreelancerBadgeProps> = ({ variant = 'dark', size = 'md' }) => {
     const baseClasses = variant === 'dark'
         ? 'bg-white/5 border-white/15 text-white hover:bg-white/10 hover:border-white/30'
-        : 'bg-white border-slate-200 text-slate-800 hover:border-brand-orange/50 hover:shadow-md';
+        : 'bg-white border-gray-200 text-brand-dark hover:border-brand-orange';
 
-    const subtextClasses = variant === 'dark' ? 'text-blue-200' : 'text-slate-500';
+    const subtextClasses = variant === 'dark' ? 'text-blue-200' : 'text-gray-500';
 
     const padding = size === 'sm' ? 'px-3 py-2' : 'px-4 py-3';
     const titleSize = size === 'sm' ? 'text-sm' : 'text-base';
@@ -39,7 +39,7 @@ const FreelancerBadge: React.FC<FreelancerBadgeProps> = ({ variant = 'dark', siz
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Verify our 978 reviews and 4.8 star rating on Freelancer.com"
-            className={`inline-flex items-center gap-3 rounded-xl border transition-all ${padding} ${baseClasses}`}
+            className={`inline-flex items-center gap-3 rounded-md border transition-colors ${padding} ${baseClasses}`}
         >
             <div className="flex items-center gap-1 text-yellow-400 flex-shrink-0">
                 {[0, 1, 2, 3, 4].map(i => (

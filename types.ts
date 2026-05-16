@@ -50,6 +50,7 @@ export interface PortfolioItem {
   imageUrl: string;
   clientLocation: string;
   testimonial: string;
+  projectUrl?: string;
 }
 
 export interface BlogPost {

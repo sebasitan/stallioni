@@ -107,20 +107,20 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, modalType 
 
   const InputField: React.FC<{ id: string, name: string, label: string, type?: string, placeholder?: string, required?: boolean }> = ({ id, name, label, type = 'text', placeholder, required = false }) => (
     <div>
-      <label htmlFor={id} className="block text-sm font-medium text-slate-700 mb-1">{label}</label>
-      <input type={type} id={id} name={name} placeholder={placeholder} required={required} className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-orange transition" />
+      <label htmlFor={id} className="block text-sm font-medium text-brand-dark mb-1.5">{label}{required && <span className="text-brand-orange ml-0.5">*</span>}</label>
+      <input type={type} id={id} name={name} placeholder={placeholder} required={required} className="w-full px-3.5 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors text-sm placeholder:text-gray-400" />
     </div>
   );
 
   const SelectField: React.FC<{ id: string, name: string, label: string, children: React.ReactNode }> = ({ id, name, label, children }) => (
     <div>
-      <label htmlFor={id} className="block text-sm font-medium text-slate-700 mb-1">{label}</label>
+      <label htmlFor={id} className="block text-sm font-medium text-brand-dark mb-1.5">{label}</label>
       <div className="relative">
-        <select id={id} name={name} className="w-full px-4 py-2 pr-8 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-orange bg-white text-brand-dark appearance-none">
+        <select id={id} name={name} className="w-full px-3.5 py-2.5 pr-9 border border-gray-300 rounded-md focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange bg-white text-brand-dark appearance-none text-sm">
           {children}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-700">
-          <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+          <svg className="fill-current h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, modalType 
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
+      className="fixed inset-0 bg-brand-dark/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in"
       onClick={handleOverlayClick}
       role="dialog"
       aria-modal="true"
@@ -136,52 +136,51 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, modalType 
     >
       <div
         ref={modalRef}
-        className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all animate-modal-pop-in no-scrollbar"
+        className="bg-white rounded-lg border border-gray-200 w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-modal-pop-in no-scrollbar"
+        style={{ boxShadow: '0 25px 50px -12px rgba(31, 55, 105, 0.25)' }}
       >
-        <div className="p-6 md:p-8">
-          <>
-            <div className="flex justify-between items-start">
-              <h2 id="modal-title" className="text-2xl md:text-3xl font-extrabold text-brand-dark">{title}</h2>
+        <div className="p-7 md:p-9">
+          <div className="flex justify-between items-start mb-1">
+            <h2 id="modal-title" className="text-2xl md:text-3xl font-bold text-brand-dark tracking-tight">{title}</h2>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-brand-dark transition-colors -mr-1 -mt-1 p-1"
+              aria-label="Close modal"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+          </div>
+          <p className="text-gray-600 mb-7">Fill out the form below and our team will get back to you within 24 hours.</p>
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <input type="hidden" name="_subject" value={`New Submission from Stallioni Website: ${modalType}`} />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_gotcha" aria-hidden="true" tabIndex={-1} autoComplete="off" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', opacity: 0 }} />
+
+            <InputField id="modal-name" name="name" label="Full name" placeholder="Jane Doe" required />
+            <InputField id="modal-email" name="email" label="Work email" type="email" placeholder="jane@company.com" required />
+            <InputField id="modal-organization" name="organization" label="Company name" placeholder="Innovate Inc." />
+            <InputField id="modal-phone" name="phone" label="Phone number" type="tel" />
+            <div className="md:col-span-2">
+              <SelectField id="modal-project-type" name="service_of_interest" label="Service of interest">
+                {SERVICES_OVERVIEW.map(service => (
+                  <option key={service.id}>{service.title}</option>
+                ))}
+                <option>Other</option>
+              </SelectField>
+            </div>
+            <div className="md:col-span-2">
+              <label htmlFor="modal-message" className="block text-sm font-medium text-brand-dark mb-1.5">Tell us about your project<span className="text-brand-orange ml-0.5">*</span></label>
+              <textarea id="modal-message" name="message" rows={4} required placeholder="Describe your goals, challenges, and any specific requirements…" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors text-sm placeholder:text-gray-400"></textarea>
+            </div>
+            <div className="md:col-span-2 flex justify-end pt-2">
               <button
-                onClick={onClose}
-                className="text-slate-400 hover:text-brand-dark transition-colors"
-                aria-label="Close modal"
+                type="submit"
+                className="bg-brand-orange text-white font-semibold py-3 px-8 rounded-md hover:bg-brand-orange-hover transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                {submitText}
               </button>
             </div>
-            <p className="text-slate-600 mt-2 mb-6">Fill out the form below, and our team will get back to you within 24 hours.</p>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <input type="hidden" name="_subject" value={`New Submission from Stallioni Website: ${modalType}`} />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="text" name="_gotcha" aria-hidden="true" tabIndex={-1} autoComplete="off" style={{ position: 'absolute', left: '-10000px', width: '1px', height: '1px', opacity: 0 }} />
-
-              <InputField id="modal-name" name="name" label="Full Name" placeholder="Jane Doe" required />
-              <InputField id="modal-email" name="email" label="Work Email" type="email" placeholder="jane@company.com" required />
-              <InputField id="modal-organization" name="organization" label="Company Name (Optional)" placeholder="Innovate Inc." />
-              <InputField id="modal-phone" name="phone" label="Phone Number (Optional)" type="tel" />
-              <div className="md:col-span-2">
-                <SelectField id="modal-project-type" name="service_of_interest" label="Service of Interest">
-                  {SERVICES_OVERVIEW.map(service => (
-                    <option key={service.id}>{service.title}</option>
-                  ))}
-                  <option>Other</option>
-                </SelectField>
-              </div>
-              <div className="md:col-span-2">
-                <label htmlFor="modal-message" className="block text-sm font-medium text-slate-700 mb-1">Tell us about your project</label>
-                <textarea id="modal-message" name="message" rows={5} required placeholder="Describe your goals, challenges, and any specific requirements..." className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-orange transition"></textarea>
-              </div>
-              <div className="md:col-span-2 text-right">
-                <button
-                  type="submit"
-                  className="bg-brand-orange text-white font-bold py-3 px-12 rounded-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-orange-400/50 disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {submitText}
-                </button>
-              </div>
-            </form>
-          </>
+          </form>
         </div>
       </div>
     </div>

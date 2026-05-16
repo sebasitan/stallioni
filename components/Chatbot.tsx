@@ -30,24 +30,24 @@ const EmailTranscriptModal: React.FC<{
     };
 
     return (
-        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-20 flex items-center justify-center p-4 rounded-2xl animate-fade-in">
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-200 w-full">
-                <h4 className="text-lg font-bold text-brand-dark text-center">Get Chat Transcript</h4>
-                <p className="text-sm text-slate-500 text-center mt-1 mb-4">Enter your email to receive a copy of this conversation.</p>
+        <div className="absolute inset-0 bg-white/95 z-20 flex items-center justify-center p-4 rounded-lg animate-fade-in">
+            <div className="bg-white p-5 rounded-md border border-gray-200 w-full">
+                <h4 className="text-base font-semibold text-brand-dark text-center tracking-tight">Get chat transcript</h4>
+                <p className="text-sm text-gray-500 text-center mt-1 mb-4">Enter your email to receive a copy of this conversation.</p>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="email"
                         name="email"
                         placeholder="you@example.com"
                         required
-                        className="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-orange transition"
+                        className="w-full px-3.5 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange text-sm transition-colors placeholder:text-gray-400"
                     />
-                    <div className="flex items-center gap-3 mt-4">
-                        <button type="button" onClick={onClose} className="w-full text-center px-4 py-2 text-sm font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors">
-                            No, Thanks
+                    <div className="flex items-center gap-2 mt-4">
+                        <button type="button" onClick={onClose} className="flex-1 px-4 py-2 text-sm font-semibold text-gray-700 border border-gray-300 hover:border-brand-dark rounded-md transition-colors">
+                            No, thanks
                         </button>
-                        <button type="submit" disabled={isSending} className="w-full text-center px-4 py-2 text-sm font-semibold text-white bg-brand-orange hover:bg-opacity-90 rounded-md transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed">
-                            {isSending ? 'Sending...' : 'Send'}
+                        <button type="submit" disabled={isSending} className="flex-1 px-4 py-2 text-sm font-semibold text-white bg-brand-orange hover:bg-brand-orange-hover rounded-md transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+                            {isSending ? 'Sending…' : 'Send'}
                         </button>
                     </div>
                 </form>
@@ -274,9 +274,8 @@ const Chatbot: React.FC = () => {
 
         // Direct contact actions
         if (lowerReply.includes('whatsapp')) {
-            const url = `https://wa.me/${getWhatsAppPhone()}`;
-            window.open(url, '_blank', 'noopener,noreferrer');
-            setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: `I've opened WhatsApp for you to chat with our team.` }]);
+            window.open(getWhatsAppPhone(), '_blank', 'noopener,noreferrer');
+            setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: `Opened WhatsApp — our team will reply shortly.` }]);
             setIsOpen(false);
             return;
         }
@@ -386,12 +385,12 @@ const Chatbot: React.FC = () => {
 
     const TypingIndicator = () => (
         <div className="flex items-end gap-2.5 justify-start">
-            <div className="w-8 h-8 rounded-full bg-brand-orange flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-sm">A</div>
-            <div className="bg-slate-200 text-brand-dark rounded-bl-md rounded-2xl p-3">
+            <div className="w-7 h-7 rounded-full bg-brand-orange flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">A</div>
+            <div className="bg-brand-light text-brand-dark rounded-md p-2.5">
                 <div className="flex items-center space-x-1.5">
-                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></span>
-                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
-                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></span>
+                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></span>
+                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></span>
                 </div>
             </div>
         </div>
@@ -408,21 +407,22 @@ const Chatbot: React.FC = () => {
         return (
             <div className="fixed bottom-6 right-6 z-50">
                 {isBubbleVisible && (
-                    <div className="absolute bottom-20 right-0 w-64 bg-white p-4 rounded-xl shadow-lg animate-fade-in border border-slate-200/80" role="alert">
-                        <button onClick={handleDismissBubble} className="absolute top-2 right-2 text-slate-400 hover:text-brand-dark" aria-label="Dismiss message">
+                    <div className="absolute bottom-20 right-0 w-64 bg-white p-4 rounded-md animate-fade-in border border-gray-200" style={{ boxShadow: '0 10px 30px -8px rgba(31, 55, 105, 0.15)' }} role="alert">
+                        <button onClick={handleDismissBubble} className="absolute top-2 right-2 text-gray-400 hover:text-brand-dark" aria-label="Dismiss message">
                             <CloseIcon className="w-4 h-4" />
                         </button>
-                        <p className="text-sm text-brand-dark pr-4">Need to hire a developer or get a project estimate? I can help with that instantly.</p>
-                        <div className="absolute right-6 -bottom-2 w-4 h-4 bg-white transform rotate-45 border-r border-b border-slate-200/80"></div>
+                        <p className="text-sm text-brand-dark pr-4 leading-relaxed">Need to hire a developer or get a project estimate? I can help.</p>
+                        <div className="absolute right-6 -bottom-2 w-3 h-3 bg-white transform rotate-45 border-r border-b border-gray-200"></div>
                     </div>
                 )}
                 <button
                     onClick={openChat}
                     aria-label="Open chat assistant"
                     aria-expanded={false}
-                    className="relative mt-4 ml-auto block w-16 h-16 bg-brand-orange text-white rounded-full flex items-center justify-center shadow-xl hover:bg-opacity-90 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-orange-300"
+                    className="relative mt-4 ml-auto block w-14 h-14 bg-brand-orange text-white rounded-full flex items-center justify-center hover:bg-brand-orange-hover transition-colors focus:outline-none focus:ring-4 focus:ring-brand-orange/30"
+                    style={{ boxShadow: '0 8px 25px -5px rgba(255, 102, 51, 0.4)' }}
                 >
-                    <ChatbotIcon className="w-8 h-8" />
+                    <ChatbotIcon className="w-7 h-7" />
                 </button>
             </div>
         )
@@ -430,26 +430,26 @@ const Chatbot: React.FC = () => {
 
     return (
         <div className={`${containerClasses} animate-fade-in`}>
-            <div className={`relative ${chatWindowClasses} bg-white rounded-2xl shadow-2xl flex flex-col border border-slate-200/80 overflow-hidden transition-all duration-300 ease-in-out`}>
+            <div className={`relative ${chatWindowClasses} bg-white rounded-lg flex flex-col border border-gray-200 overflow-hidden transition-all duration-300`} style={{ boxShadow: '0 25px 50px -12px rgba(31, 55, 105, 0.25)' }}>
                 <EmailTranscriptModal isOpen={showEmailModal} onClose={finalClose} onSend={handleSendTranscript} />
-                <header className="flex items-center justify-between p-4 border-b border-slate-200 bg-slate-50/70 rounded-t-2xl flex-shrink-0">
+                <header className="flex items-center justify-between p-4 border-b border-gray-100 flex-shrink-0">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white font-bold shadow-md border-2 border-white">A</div>
+                        <div className="w-9 h-9 rounded-full bg-brand-orange flex items-center justify-center text-white font-semibold">A</div>
                         <div>
-                            <h3 className="text-lg font-bold text-brand-dark">Aria</h3>
-                            <p className="text-xs text-slate-500">Stallioni Assistant</p>
+                            <h3 className="text-base font-semibold text-brand-dark tracking-tight">Aria</h3>
+                            <p className="text-xs text-gray-500">Stallioni Assistant</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <button onClick={() => setIsMaximized(!isMaximized)} className="text-slate-400 hover:text-brand-dark transition-colors" aria-label={isMaximized ? 'Restore chat' : 'Maximize chat'}>
+                    <div className="flex items-center gap-1">
+                        <button onClick={() => setIsMaximized(!isMaximized)} className="text-gray-400 hover:text-brand-dark transition-colors p-1.5" aria-label={isMaximized ? 'Restore chat' : 'Maximize chat'}>
                             {isMaximized ? <RestoreIcon /> : <MaximizeIcon />}
                         </button>
-                        <button onClick={handleRequestClose} className="text-slate-400 hover:text-brand-dark transition-colors" aria-label="Close chat">
+                        <button onClick={handleRequestClose} className="text-gray-400 hover:text-brand-dark transition-colors p-1.5" aria-label="Close chat">
                             <CloseIcon className="w-5 h-5" />
                         </button>
                     </div>
                 </header>
-                <div className="flex-1 p-4 overflow-y-auto no-scrollbar space-y-2">
+                <div className="flex-1 p-4 overflow-y-auto no-scrollbar space-y-3">
                     {messages.map((msg, index) => {
                         const { text: messageText, replies } = parseMessage(msg.text);
                         const isLastMessage = index === messages.length - 1;
@@ -458,21 +458,21 @@ const Chatbot: React.FC = () => {
                             <div key={index}>
                                 <div className={`flex items-end gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     {msg.role === 'model' && (
-                                        <div className="w-8 h-8 rounded-full bg-brand-orange flex items-center justify-center text-white text-xs font-bold flex-shrink-0 shadow-sm">A</div>
+                                        <div className="w-7 h-7 rounded-full bg-brand-orange flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">A</div>
                                     )}
                                     {messageText && (
-                                        <div className={`max-w-[80%] p-3 rounded-2xl ${msg.role === 'user' ? 'bg-brand-dark text-white rounded-br-md' : 'bg-slate-200 text-brand-dark rounded-bl-md'}`}>
-                                            <p className="text-sm whitespace-pre-wrap">{messageText}</p>
+                                        <div className={`max-w-[80%] p-3 rounded-md ${msg.role === 'user' ? 'bg-brand-dark text-white' : 'bg-brand-light text-brand-dark border border-gray-100'}`}>
+                                            <p className="text-sm whitespace-pre-wrap leading-relaxed">{messageText}</p>
                                         </div>
                                     )}
                                 </div>
                                 {isLastMessage && !isLoading && replies.length > 0 && (
-                                    <div className="flex flex-wrap gap-2 mt-3 justify-start pl-10">
+                                    <div className="flex flex-wrap gap-2 mt-3 justify-start pl-9">
                                         {replies.map((reply, i) => (
                                             <button
                                                 key={i}
                                                 onClick={() => handleQuickReplyClick(reply)}
-                                                className="px-3 py-1.5 text-sm font-semibold text-brand-orange bg-brand-orange/10 border border-brand-orange/20 rounded-full hover:bg-brand-orange/20 transition-colors"
+                                                className="px-3 py-1.5 text-xs font-medium text-brand-orange bg-brand-orange/10 border border-brand-orange/20 rounded-md hover:bg-brand-orange/15 transition-colors"
                                             >
                                                 {reply}
                                             </button>
@@ -486,17 +486,17 @@ const Chatbot: React.FC = () => {
                     {isLoading && <TypingIndicator />}
                     <div ref={messagesEndRef} />
                 </div>
-                <form onSubmit={handleFormSubmit} className="p-4 border-t border-slate-200 flex items-center gap-2 flex-shrink-0">
+                <form onSubmit={handleFormSubmit} className="p-3 border-t border-gray-100 flex items-center gap-2 flex-shrink-0">
                     <input
                         ref={inputRef}
                         type="text"
                         name="message"
-                        placeholder="Ask about our services..."
-                        className="w-full px-4 py-2 border border-slate-300 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-orange transition-shadow"
+                        placeholder="Ask about our services…"
+                        className="w-full px-3.5 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors text-sm placeholder:text-gray-400"
                         autoComplete="off"
                         disabled={isLoading}
                     />
-                    <button type="submit" className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-brand-orange text-white rounded-full hover:bg-opacity-90 transition-all duration-300 transform hover:scale-110 disabled:bg-slate-400 disabled:scale-100" aria-label="Send message" disabled={isLoading}>
+                    <button type="submit" className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-brand-orange text-white rounded-md hover:bg-brand-orange-hover transition-colors disabled:opacity-60" aria-label="Send message" disabled={isLoading}>
                         <SendIcon />
                     </button>
                 </form>

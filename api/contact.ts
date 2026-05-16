@@ -82,7 +82,7 @@ export default async function handler(req, res) {
             text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
             html: `
         <div style="font-family: sans-serif; padding: 20px; color: #333;">
-          <h2 style="color: #F26522;">${_subject || 'New Contact Lead Received'}</h2>
+          <h2 style="color: #FF6633;">${_subject || 'New Contact Lead Received'}</h2>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
           ${organization ? `<p><strong>Company:</strong> ${organization}</p>` : ''}

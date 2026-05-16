@@ -2,170 +2,552 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useModal, useNavigation } from '../App';
 import { REGIONAL_PAGES, RegionalPageData } from '../constants/regional-pages';
+import FadeIn from '../components/FadeIn';
+import Breadcrumbs from '../components/Breadcrumbs';
 
-const CheckIcon = () => (
-    <svg className="w-6 h-6 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-    </svg>
+// ============================================
+// Icons
+// ============================================
+const Icon = {
+    Arrow: () => (
+        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+    ),
+    Check: ({ className }: { className?: string }) => (
+        <svg className={className || 'w-3 h-3'} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+    ),
+    Star: () => (
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+    ),
+    Question: () => (
+        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+    ),
+    Chat: () => (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+    ),
+    Shield: () => (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+    ),
+    Globe: () => (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8M11.5 3a17 17 0 000 18M12.5 3a17 17 0 010 18" />
+        </svg>
+    ),
+};
+
+const Eyebrow: React.FC<{ children: React.ReactNode; tone?: 'dark' | 'light' }> = ({ children, tone = 'dark' }) => (
+    <div className="flex items-center gap-3 mb-5">
+        <span className="w-10 h-px bg-brand-orange" />
+        <span className={`text-[11px] font-semibold tracking-[0.2em] uppercase ${tone === 'light' ? 'text-white/80' : 'text-brand-dark'}`}>{children}</span>
+    </div>
 );
 
-const ArrowRightIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-        <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-    </svg>
-);
+// ============================================
+// Helpers
+// ============================================
+function inferFaqCategory(q: string): string {
+    const s = q.toLowerCase();
+    if (s.includes('time zone') || s.includes('timezone') || s.includes('hours')) return 'Timezone';
+    if (s.includes('pay') || s.includes('invoic') || s.includes('cost') || s.includes('price')) return 'Pricing';
+    if (s.includes('ip') || s.includes('nda') || s.includes('intellectual')) return 'IP & NDA';
+    if (s.includes('verify') || s.includes('track record') || s.includes('review')) return 'Trust';
+    if (s.includes('office') || s.includes('phone') || s.includes('local')) return 'Location';
+    if (s.includes('active') || s.includes('still')) return 'Activity';
+    if (s.includes('communic') || s.includes('language')) return 'Communication';
+    return 'General';
+}
 
-const RegionalLandingPage: React.FC = () => {
-    const { region } = useParams<{ region: string }>();
+const regionFlagMap: Record<string, { code: string; cur: string; tagline: string }> = {
+    usa: { code: 'us', cur: 'USD', tagline: '4.8★ · Active since May 2007 · USD invoicing' },
+    australia: { code: 'au', cur: 'AUD', tagline: '4.8★ · Active since May 2007 · AUD friendly' },
+    india: { code: 'in', cur: 'INR', tagline: '4.8★ · Coimbatore, Tamil Nadu · Local team' },
+};
+
+// ============================================
+// HERO
+// ============================================
+const Hero: React.FC<{ data: RegionalPageData; slug: string }> = ({ data, slug }) => {
     const { openModal } = useModal();
     const { navigate } = useNavigation();
+    const meta = regionFlagMap[slug] || { code: 'un', cur: 'USD', tagline: '4.8★ · Active since 2007' };
 
+    const breadcrumbPath = [
+        { label: 'Home', href: '/' },
+        { label: `IT Outsourcing · ${data.regionDisplayName}` },
+    ];
+
+    return (
+        <section className="relative bg-white overflow-hidden border-b border-gray-100">
+            <div
+                className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                aria-hidden="true"
+                style={{
+                    backgroundImage: 'radial-gradient(circle at 1px 1px, #1F3769 1px, transparent 0)',
+                    backgroundSize: '32px 32px',
+                }}
+            />
+
+            <div className="container mx-auto px-6 max-w-[1400px] relative">
+                <div className="pt-6 md:pt-8">
+                    <Breadcrumbs path={breadcrumbPath} theme="light" />
+                </div>
+
+                <div className="grid lg:grid-cols-12 gap-x-10 gap-y-10 items-start pt-8 md:pt-10 pb-14 md:pb-20">
+                    {/* LEFT — content */}
+                    <div className="lg:col-span-7">
+                        <div className="inline-flex items-center gap-2 bg-brand-light border border-gray-200 rounded-full pl-1 pr-3.5 py-1 mb-5">
+                            <span className="w-6 h-6 rounded-full overflow-hidden border border-white bg-gray-100 flex-shrink-0" style={{ boxShadow: '0 0 0 1px rgba(31, 55, 105, 0.08)' }}>
+                                <img
+                                    src={`https://flagcdn.com/w80/${meta.code}.png`}
+                                    width="24"
+                                    height="24"
+                                    alt=""
+                                    loading="lazy"
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                />
+                            </span>
+                            <span className="text-[12px] text-brand-dark font-medium">{data.badge}</span>
+                        </div>
+
+                        <h1 className="text-brand-dark font-bold tracking-[-0.025em] leading-[1.1] text-[clamp(1.85rem,3.6vw,3.25rem)]">
+                            {data.h1Top}{' '}
+                            <span className="text-brand-orange">{data.h1Highlight}</span>
+                        </h1>
+
+                        <p className="mt-5 text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl">
+                            {data.subhead}
+                        </p>
+
+                        <div className="mt-7 flex flex-col sm:flex-row gap-3">
+                            <a
+                                href="/contact"
+                                onClick={(e) => { e.preventDefault(); openModal('Consultation'); }}
+                                className="group inline-flex items-center justify-center gap-3 bg-brand-orange text-white font-medium py-3.5 pl-7 pr-3 rounded-full hover:bg-brand-orange-hover transition-colors"
+                            >
+                                {data.primaryCta}
+                                <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform text-brand-orange">
+                                    <Icon.Arrow />
+                                </span>
+                            </a>
+                            <a
+                                href="/services"
+                                onClick={(e) => { e.preventDefault(); navigate('/services'); }}
+                                className="inline-flex items-center justify-center gap-2 border border-gray-300 text-brand-dark font-medium py-3.5 px-7 rounded-full hover:border-brand-dark hover:bg-brand-light transition-colors"
+                            >
+                                See our services
+                            </a>
+                        </div>
+
+                        {/* Inline trust stats */}
+                        <div className="mt-8 flex flex-wrap items-end gap-x-7 gap-y-4">
+                            <div>
+                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">4.8<span className="text-brand-orange">/5</span></p>
+                                <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Rating</p>
+                            </div>
+                            <div className="border-l border-gray-200 pl-7">
+                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">978<span className="text-brand-orange">+</span></p>
+                                <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Reviews</p>
+                            </div>
+                            <div className="border-l border-gray-200 pl-7">
+                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">2007<span className="text-brand-orange"></span></p>
+                                <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Since</p>
+                            </div>
+                            <div className="border-l border-gray-200 pl-7">
+                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">35<span className="text-brand-orange">+</span></p>
+                                <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Countries</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* RIGHT — regional spotlight card */}
+                    <div className="lg:col-span-5 relative">
+                        <div className="relative max-w-[420px] mx-auto lg:mx-0 lg:ml-auto">
+                            <div className="absolute -top-3 -right-3 w-full h-full border-2 border-brand-orange rounded-2xl hidden md:block" aria-hidden="true" />
+
+                            <div className="relative bg-white border border-gray-200 rounded-2xl overflow-hidden" style={{ boxShadow: '0 25px 50px -15px rgba(31, 55, 105, 0.15)' }}>
+                                {/* Chrome */}
+                                <div className="flex items-center justify-between px-4 py-2.5 border-b border-gray-100 bg-brand-light/60">
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+                                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
+                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="relative flex h-1.5 w-1.5">
+                                            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+                                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                                        </span>
+                                        <p className="text-[11px] font-mono text-gray-600 tracking-[0.15em] uppercase">Live · {data.regionDisplayName}</p>
+                                    </div>
+                                    <div className="w-12" />
+                                </div>
+
+                                {/* Body */}
+                                <div className="p-5">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <span className="w-12 h-12 rounded-xl overflow-hidden border border-gray-100 flex-shrink-0 bg-gray-100">
+                                            <img
+                                                src={`https://flagcdn.com/w160/${meta.code}.png`}
+                                                width="48"
+                                                height="48"
+                                                alt={`${data.regionDisplayName} flag`}
+                                                loading="lazy"
+                                                className="w-full h-full object-cover"
+                                                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                            />
+                                        </span>
+                                        <div className="min-w-0">
+                                            <p className="text-[9px] font-semibold tracking-widest uppercase text-brand-orange leading-none mb-1">Serving</p>
+                                            <p className="text-sm font-bold text-brand-dark leading-tight truncate">{data.regionDisplayName} clients</p>
+                                            <p className="text-[10px] text-gray-500 font-mono mt-1 truncate">{meta.tagline}</p>
+                                        </div>
+                                    </div>
+
+                                    <p className="text-[10px] font-semibold tracking-widest uppercase text-gray-400 mb-2">Top services</p>
+                                    <ul className="space-y-1.5 mb-4">
+                                        {data.featuredServices.slice(0, 4).map((svc) => (
+                                            <li key={svc.slug} className="flex items-center gap-2.5 p-1.5 rounded-lg bg-brand-light/60 border border-transparent">
+                                                <span className="w-5 h-5 rounded-md bg-brand-orange text-white flex items-center justify-center flex-shrink-0">
+                                                    <Icon.Check className="w-2.5 h-2.5" />
+                                                </span>
+                                                <span className="text-[12px] font-medium text-brand-dark truncate">{svc.name}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <button
+                                        onClick={(e) => { e.preventDefault(); openModal('Quote'); }}
+                                        className="w-full bg-brand-dark text-white text-xs font-medium py-2.5 rounded-lg hover:bg-brand-dark-hover transition-colors flex items-center justify-center gap-2"
+                                    >
+                                        Request a quote in {meta.cur}
+                                        <Icon.Arrow />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Floating: rating */}
+                            <div className="absolute -left-3 -top-4 md:-left-8 md:top-8 bg-white border border-gray-200 rounded-xl p-3 hidden sm:block" style={{ boxShadow: '0 15px 30px -10px rgba(31, 55, 105, 0.15)' }}>
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-500 flex items-center justify-center">
+                                        <Icon.Star />
+                                    </div>
+                                    <div>
+                                        <p className="text-[9px] font-semibold tracking-widest uppercase text-gray-500 leading-none mb-0.5">Freelancer.com</p>
+                                        <p className="text-base font-bold text-brand-dark tracking-tight leading-none">4.8 <span className="text-[10px] text-gray-500 font-normal">/ 978 reviews</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Floating: vetted */}
+                            <div className="absolute -right-3 -bottom-5 md:-right-6 md:bottom-8 bg-brand-dark text-white rounded-xl p-3 hidden sm:block" style={{ boxShadow: '0 15px 30px -10px rgba(31, 55, 105, 0.3)' }}>
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-8 h-8 rounded-lg bg-brand-orange flex items-center justify-center text-white">
+                                        <Icon.Shield />
+                                    </div>
+                                    <div>
+                                        <p className="text-[9px] font-semibold tracking-widest uppercase text-white/60 leading-none mb-0.5">Preferred</p>
+                                        <p className="text-base font-bold tracking-tight leading-none">Vetted <span className="text-[10px] text-white/60 font-normal">freelancer</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
+// WHY US — stat-anchored cards
+// ============================================
+const WhyUs: React.FC<{ data: RegionalPageData }> = ({ data }) => (
+    <section className="bg-brand-light py-16 md:py-20 border-y border-gray-100">
+        <div className="container mx-auto px-6 max-w-[1400px]">
+            <FadeIn>
+                <div className="mb-10 max-w-2xl">
+                    <Eyebrow>Why us</Eyebrow>
+                    <h2 className="text-3xl md:text-4xl font-bold text-brand-dark tracking-[-0.025em] leading-[1.1]">
+                        {data.whySectionTitle}
+                    </h2>
+                </div>
+            </FadeIn>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {data.whyPoints.map((point, i) => (
+                    <FadeIn key={i} delay={i * 40}>
+                        <div className="group h-full bg-white border border-gray-200 hover:border-brand-orange rounded-2xl p-6 transition-colors relative overflow-hidden">
+                            <div className="absolute top-0 left-0 right-0 h-0.5 bg-brand-orange origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" aria-hidden="true" />
+                            <span className="inline-flex w-10 h-10 rounded-xl bg-brand-light text-brand-dark group-hover:bg-brand-orange group-hover:text-white transition-colors items-center justify-center mb-4">
+                                <Icon.Check className="w-4 h-4" />
+                            </span>
+                            <h3 className="text-base md:text-lg font-bold text-brand-dark tracking-tight mb-2">{point.title}</h3>
+                            <p className="text-[14px] text-gray-600 leading-relaxed">{point.description}</p>
+                        </div>
+                    </FadeIn>
+                ))}
+            </div>
+        </div>
+    </section>
+);
+
+// ============================================
+// BODY — long-form article
+// ============================================
+const BodyArticle: React.FC<{ data: RegionalPageData }> = ({ data }) => (
+    <section className="bg-white py-16 md:py-20">
+        <div className="container mx-auto px-6 max-w-3xl">
+            <FadeIn>
+                <div className="mb-10">
+                    <Eyebrow>Deep dive</Eyebrow>
+                    <h2 className="text-2xl md:text-3xl font-bold text-brand-dark tracking-[-0.02em] leading-[1.2]">
+                        How we work with {data.regionDisplayName} clients.
+                    </h2>
+                </div>
+            </FadeIn>
+
+            <FadeIn delay={80}>
+                <div className="article-content">
+                    {data.bodyParagraphs.map((para, idx) => (
+                        <React.Fragment key={idx}>
+                            {para.heading && <h2>{para.heading}</h2>}
+                            <p>{para.text}</p>
+                        </React.Fragment>
+                    ))}
+                </div>
+            </FadeIn>
+        </div>
+    </section>
+);
+
+// ============================================
+// FEATURED SERVICES — magazine cards
+// ============================================
+const FeaturedServices: React.FC<{ data: RegionalPageData }> = ({ data }) => {
+    const { navigate } = useNavigation();
+    return (
+        <section className="bg-brand-light py-16 md:py-20 border-y border-gray-100">
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <FadeIn>
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10">
+                        <div className="max-w-2xl">
+                            <Eyebrow>Services</Eyebrow>
+                            <h2 className="text-3xl md:text-4xl font-bold text-brand-dark tracking-[-0.025em] leading-[1.1]">
+                                Services for {data.regionDisplayName} clients.
+                            </h2>
+                            <p className="mt-4 text-base md:text-lg text-gray-500 leading-relaxed">
+                                {data.servicesIntro}
+                            </p>
+                        </div>
+                        <a
+                            href="/services"
+                            onClick={(e) => { e.preventDefault(); navigate('/services'); }}
+                            className="group inline-flex items-center gap-2 text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors flex-shrink-0"
+                        >
+                            View all services
+                            <Icon.Arrow />
+                        </a>
+                    </div>
+                </FadeIn>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {data.featuredServices.map((svc, i) => (
+                        <FadeIn key={svc.slug} delay={i * 50}>
+                            <a
+                                href={`/services/${svc.slug}`}
+                                onClick={(e) => { e.preventDefault(); navigate(`/services/${svc.slug}`); }}
+                                className="group relative h-full bg-white border border-gray-200 rounded-2xl p-6 hover:border-brand-dark transition-colors flex flex-col"
+                            >
+                                <div className="flex items-start gap-3 mb-3">
+                                    <span className="w-10 h-10 rounded-xl bg-brand-light text-brand-dark flex items-center justify-center flex-shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                                        <Icon.Check className="w-4 h-4" />
+                                    </span>
+                                    <h3 className="text-base md:text-lg font-bold text-brand-dark tracking-tight leading-snug pt-1 group-hover:text-brand-orange transition-colors">
+                                        {svc.name}
+                                    </h3>
+                                </div>
+                                <p className="text-[13.5px] text-gray-600 leading-relaxed mb-4 flex-grow">
+                                    {svc.description}
+                                </p>
+                                <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-brand-orange group-hover:translate-x-0.5 transition-transform">
+                                    Learn more <Icon.Arrow />
+                                </span>
+                            </a>
+                        </FadeIn>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
+// FAQ — home-page style grid
+// ============================================
+const FAQ: React.FC<{ data: RegionalPageData }> = ({ data }) => (
+    <section className="bg-white py-14 md:py-16">
+        <div className="container mx-auto px-6 max-w-[1400px]">
+            <FadeIn>
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-7">
+                    <div className="max-w-2xl">
+                        <div className="flex items-center gap-3 mb-3">
+                            <span className="w-8 h-px bg-brand-orange" />
+                            <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-dark">FAQ</span>
+                        </div>
+                        <h2 className="text-2xl md:text-3xl font-bold text-brand-dark tracking-[-0.025em] leading-[1.15]">
+                            {data.regionDisplayName} client questions, <span className="text-brand-orange">answered.</span>
+                        </h2>
+                    </div>
+                    <div className="flex items-center gap-2.5 flex-shrink-0">
+                        <div className="w-9 h-9 rounded-full bg-brand-orange/10 text-brand-orange flex items-center justify-center">
+                            <Icon.Chat />
+                        </div>
+                        <div className="leading-tight">
+                            <p className="text-xs font-semibold text-brand-dark">&lt; 24 hours</p>
+                            <p className="text-[11px] text-gray-500">avg response</p>
+                        </div>
+                    </div>
+                </div>
+            </FadeIn>
+
+            <div className="grid md:grid-cols-2 gap-3">
+                {data.faqs.map((faq, idx) => (
+                    <FadeIn key={idx} delay={idx * 40}>
+                        <div className="group h-full bg-white border border-gray-200 hover:border-brand-orange rounded-xl p-5 transition-colors flex flex-col">
+                            <div className="flex items-center justify-between mb-3">
+                                <span className="inline-flex items-center gap-1.5 bg-brand-light text-brand-dark text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full border border-gray-200">
+                                    <span className="w-1 h-1 rounded-full bg-brand-orange" />
+                                    {inferFaqCategory(faq.question)}
+                                </span>
+                                <span className="w-7 h-7 rounded-full bg-brand-light text-brand-orange flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                                    <Icon.Question />
+                                </span>
+                            </div>
+                            <h3 className="text-base md:text-lg font-bold text-brand-dark leading-snug tracking-tight mb-2 group-hover:text-brand-orange transition-colors">
+                                {faq.question}
+                            </h3>
+                            <p className="text-[13.5px] text-gray-600 leading-relaxed">
+                                {faq.answer}
+                            </p>
+                        </div>
+                    </FadeIn>
+                ))}
+            </div>
+        </div>
+    </section>
+);
+
+// ============================================
+// FINAL CTA — compact dark band
+// ============================================
+const FinalCTA: React.FC<{ data: RegionalPageData; slug: string }> = ({ data, slug }) => {
+    const { navigate } = useNavigation();
+    const { openModal } = useModal();
+    const meta = regionFlagMap[slug] || { code: 'un', cur: 'USD', tagline: '' };
+
+    return (
+        <section className="bg-brand-light py-10 md:py-12">
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <div className="relative bg-brand-dark text-white rounded-2xl overflow-hidden px-6 md:px-10 py-6 md:py-7">
+                    <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-brand-orange/20" aria-hidden="true" />
+                    <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-brand-orange/40" aria-hidden="true" />
+
+                    <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+                        <div className="flex items-start gap-4 max-w-2xl">
+                            <span className="hidden sm:flex w-10 h-10 rounded-xl overflow-hidden bg-white items-center justify-center flex-shrink-0 border border-white/20">
+                                <img
+                                    src={`https://flagcdn.com/w80/${meta.code}.png`}
+                                    width="40"
+                                    height="40"
+                                    alt=""
+                                    loading="lazy"
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                />
+                            </span>
+                            <div>
+                                <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-brand-orange mb-1">{data.regionDisplayName} clients</p>
+                                <h2 className="text-xl md:text-2xl font-bold tracking-tight leading-snug">
+                                    {data.ctaHeading}
+                                </h2>
+                                <p className="text-white/60 text-sm mt-1.5">{data.ctaSubhead}</p>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row gap-2.5 flex-shrink-0">
+                            <a
+                                href="/contact"
+                                onClick={(e) => { e.preventDefault(); openModal('Quote'); }}
+                                className="group inline-flex items-center justify-center gap-2 bg-brand-orange text-white text-sm font-medium py-2.5 pl-5 pr-2 rounded-full hover:bg-brand-orange-hover transition-colors"
+                            >
+                                Get free quote
+                                <span className="w-7 h-7 rounded-full bg-white flex items-center justify-center group-hover:translate-x-1 transition-transform text-brand-orange">
+                                    <Icon.Arrow />
+                                </span>
+                            </a>
+                            <a
+                                href="/contact"
+                                onClick={(e) => { e.preventDefault(); navigate('/contact'); }}
+                                className="inline-flex items-center justify-center gap-2 border border-white/30 text-white text-sm font-medium py-2.5 px-5 rounded-full hover:bg-white/10 transition-colors"
+                            >
+                                Contact us
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
+// MAIN
+// ============================================
+const RegionalLandingPage: React.FC = () => {
+    const { region } = useParams<{ region: string }>();
+    const { navigate } = useNavigation();
     const data: RegionalPageData | undefined = region ? REGIONAL_PAGES[region] : undefined;
 
     if (!data) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-white">
-                <div className="text-center">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-4">Region not found</h1>
-                    <button onClick={() => navigate('/')} className="text-brand-orange underline">
+            <div className="min-h-[60vh] flex items-center justify-center bg-white px-6">
+                <div className="text-center max-w-md">
+                    <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-gray-400 mb-3">404</p>
+                    <h1 className="text-2xl md:text-3xl font-bold text-brand-dark tracking-tight mb-3">Region not found</h1>
+                    <p className="text-gray-500 mb-6">The regional page you're looking for doesn't exist.</p>
+                    <a
+                        href="/"
+                        onClick={(e) => { e.preventDefault(); navigate('/'); }}
+                        className="inline-flex items-center gap-2 text-brand-orange font-semibold hover:text-brand-orange-hover transition-colors"
+                    >
                         Back to home
-                    </button>
+                    </a>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="bg-white">
-            {/* Hero */}
-            <section className="bg-gradient-to-br from-brand-dark via-slate-900 to-brand-dark text-white py-24 px-6">
-                <div className="container mx-auto max-w-5xl text-center">
-                    <div className="inline-block px-4 py-1.5 rounded-full bg-brand-orange/20 border border-brand-orange/40 text-brand-orange font-semibold text-sm mb-6 tracking-wider uppercase">
-                        {data.badge}
-                    </div>
-                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-                        {data.h1Top} <br />
-                        <span className="text-brand-orange">{data.h1Highlight}</span>
-                    </h1>
-                    <p className="text-xl md:text-2xl text-slate-200 leading-relaxed mb-10 max-w-3xl mx-auto">
-                        {data.subhead}
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a
-                            href="/contact"
-                            onClick={(e) => { e.preventDefault(); openModal('Consultation'); }}
-                            className="inline-flex items-center justify-center bg-brand-orange text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-opacity-90 transition-all text-lg"
-                        >
-                            {data.primaryCta} <ArrowRightIcon />
-                        </a>
-                        <a
-                            href="/services"
-                            onClick={(e) => { e.preventDefault(); navigate('/services'); }}
-                            className="inline-flex items-center justify-center bg-white/5 border border-white/20 text-white font-semibold py-4 px-10 rounded-full hover:bg-white/10 transition-all text-lg"
-                        >
-                            See Our Services
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            {/* Why this region section */}
-            <section className="py-20 px-6 bg-slate-50">
-                <div className="container mx-auto max-w-5xl">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-brand-dark text-center mb-12">
-                        {data.whySectionTitle}
-                    </h2>
-                    <div className="grid md:grid-cols-2 gap-8">
-                        {data.whyPoints.map((point, idx) => (
-                            <div key={idx} className="flex gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                                <CheckIcon />
-                                <div>
-                                    <h3 className="font-bold text-brand-dark text-lg mb-2">{point.title}</h3>
-                                    <p className="text-slate-600 leading-relaxed">{point.description}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Body content */}
-            <section className="py-20 px-6">
-                <div className="container mx-auto max-w-4xl">
-                    <div className="prose prose-lg prose-slate max-w-none">
-                        {data.bodyParagraphs.map((para, idx) => (
-                            <React.Fragment key={idx}>
-                                {para.heading && (
-                                    <h2 className="text-2xl md:text-3xl font-bold text-brand-dark mt-12 mb-4">
-                                        {para.heading}
-                                    </h2>
-                                )}
-                                <p className="text-slate-700 leading-relaxed mb-6">{para.text}</p>
-                            </React.Fragment>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Services we deliver */}
-            <section className="py-20 px-6 bg-slate-50">
-                <div className="container mx-auto max-w-5xl">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-brand-dark text-center mb-4">
-                        Services for {data.regionDisplayName} Clients
-                    </h2>
-                    <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
-                        {data.servicesIntro}
-                    </p>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {data.featuredServices.map((svc, idx) => (
-                            <a
-                                key={idx}
-                                href={`/services/${svc.slug}`}
-                                onClick={(e) => { e.preventDefault(); navigate(`/services/${svc.slug}`); }}
-                                className="block bg-white p-6 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all"
-                            >
-                                <h3 className="font-bold text-brand-dark text-lg mb-2">{svc.name}</h3>
-                                <p className="text-slate-600 text-sm">{svc.description}</p>
-                                <div className="mt-4 text-brand-orange font-semibold inline-flex items-center text-sm">
-                                    Learn more <ArrowRightIcon />
-                                </div>
-                            </a>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* FAQ */}
-            <section className="py-20 px-6">
-                <div className="container mx-auto max-w-4xl">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-brand-dark text-center mb-12">
-                        {data.regionDisplayName} Client FAQs
-                    </h2>
-                    <div className="space-y-6">
-                        {data.faqs.map((faq, idx) => (
-                            <div key={idx} className="bg-white border border-slate-200 rounded-2xl p-6">
-                                <h3 className="font-bold text-brand-dark text-lg mb-3">{faq.question}</h3>
-                                <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA */}
-            <section className="bg-brand-orange py-16 px-6">
-                <div className="container mx-auto max-w-3xl text-center text-white">
-                    <h2 className="text-3xl md:text-4xl font-extrabold mb-4">{data.ctaHeading}</h2>
-                    <p className="text-lg md:text-xl text-white/90 mb-8">{data.ctaSubhead}</p>
-                    <a
-                        href="/contact"
-                        onClick={(e) => { e.preventDefault(); openModal('Quote'); }}
-                        className="inline-flex items-center justify-center bg-white text-brand-orange font-bold py-4 px-10 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all text-lg"
-                    >
-                        Get Your Free Quote
-                    </a>
-                </div>
-            </section>
+        <div className="bg-white overflow-x-hidden">
+            <Hero data={data} slug={region!} />
+            <WhyUs data={data} />
+            <BodyArticle data={data} />
+            <FeaturedServices data={data} />
+            <FAQ data={data} />
+            <FinalCTA data={data} slug={region!} />
         </div>
     );
 };

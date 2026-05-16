@@ -1,11 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-orange: #F26522;
-  --color-brand-dark: #1A233D;
-  --color-brand-light: #F5F7FA;
+  --color-brand-orange: #FF6633;
+  --color-brand-orange-hover: #E5572A;
+  --color-brand-dark: #1F3769;
+  --color-brand-dark-hover: #172B54;
+  --color-brand-light: #F7F8FA;
+  --color-brand-border: #E5E7EB;
+  --color-brand-muted: #6B7280;
 
-  --font-sans: 'Roboto', sans-serif;
+  --font-sans: 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
 
   --animate-marquee: marquee 35s linear infinite;
   --animate-fade-in: fadeIn 0.3s ease-out forwards;
@@ -56,68 +60,22 @@
   }
 
   --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+}
 
-  /* Lightweight hero background animations */
-  @keyframes float {
+/* Global typography refinement */
+html {
+  font-family: 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+}
 
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
+body {
+  background-color: #ffffff;
+  color: #1F3769;
+  font-feature-settings: "cv11", "ss01", "ss03";
+  letter-spacing: -0.011em;
+}
 
-    33% {
-      transform: translate(30px, -30px) scale(1.1);
-    }
-
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-  }
-
-  @keyframes float-slow {
-
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-
-    50% {
-      transform: translate(-40px, 40px) scale(1.05);
-    }
-  }
-
-  @keyframes float-delayed {
-
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-
-    33% {
-      transform: translate(-25px, 25px) scale(0.95);
-    }
-
-    66% {
-      transform: translate(25px, -15px) scale(1.05);
-    }
-  }
-
-  @keyframes gradient {
-
-    0%,
-    100% {
-      opacity: 0.3;
-    }
-
-    50% {
-      opacity: 0.5;
-    }
-  }
-
-  --animate-float: float 20s ease-in-out infinite;
-  --animate-float-slow: float-slow 25s ease-in-out infinite;
-  --animate-float-delayed: float-delayed 18s ease-in-out infinite 2s;
-  --animate-gradient: gradient 10s ease-in-out infinite;
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.02em;
 }
 
 
@@ -132,38 +90,128 @@
 }
 
 /* Article content styles */
+.article-content {
+  @apply text-[17px] text-slate-700 leading-[1.75];
+}
+
+.article-content .lead,
+.article-content > p:first-child {
+  @apply text-xl text-slate-800 leading-[1.7] mb-7 font-normal;
+}
+
 .article-content h2 {
-  @apply text-3xl font-bold text-brand-dark mt-6 mb-4;
+  @apply text-2xl md:text-[1.75rem] font-bold text-brand-dark mt-12 mb-5 tracking-[-0.015em] leading-tight scroll-mt-24;
 }
 
 .article-content h3 {
-  @apply text-2xl font-bold text-brand-dark mt-5 mb-3;
+  @apply text-xl md:text-[1.35rem] font-bold text-brand-dark mt-10 mb-3 tracking-tight leading-snug scroll-mt-24;
 }
 
 .article-content p {
-  @apply text-lg text-slate-700 mb-4 leading-relaxed;
+  @apply mb-6 leading-[1.75];
+}
+
+.article-content ul,
+.article-content ol {
+  @apply mb-6 pl-6 space-y-2;
 }
 
 .article-content ul {
-  @apply list-disc list-inside mb-4 pl-4;
+  @apply list-disc list-outside;
 }
 
-.article-content ul li {
-  @apply text-lg text-slate-700 mb-2;
+.article-content ol {
+  @apply list-decimal list-outside;
+}
+
+.article-content ul li,
+.article-content ol li {
+  @apply leading-[1.7] pl-1.5;
+}
+
+.article-content ul li::marker {
+  color: #FF6633;
 }
 
 .article-content a {
-  @apply text-brand-orange underline hover:opacity-80;
+  @apply text-brand-orange underline underline-offset-4 decoration-brand-orange/40 hover:decoration-brand-orange transition-colors;
+}
+
+.article-content strong,
+.article-content b {
+  @apply font-semibold text-brand-dark;
+}
+
+.article-content em {
+  @apply italic;
+}
+
+.article-content blockquote {
+  @apply border-l-2 border-brand-orange pl-6 py-1 my-8 text-xl text-brand-dark italic leading-snug;
+}
+
+.article-content blockquote p {
+  @apply mb-0 text-xl text-brand-dark;
+}
+
+.article-content code {
+  @apply bg-brand-light text-brand-dark font-mono text-[0.875em] px-1.5 py-0.5 rounded border border-gray-200;
+}
+
+.article-content pre {
+  @apply bg-brand-dark text-white font-mono text-sm rounded-xl p-5 overflow-x-auto my-8;
+}
+
+.article-content pre code {
+  @apply bg-transparent text-white border-0 px-0 py-0;
+}
+
+.article-content hr {
+  @apply border-0 my-12 flex items-center justify-center;
+}
+
+.article-content hr::before {
+  content: "···";
+  @apply text-gray-300 tracking-[0.5em] text-lg;
 }
 
 .article-content img {
-  @apply block w-full max-w-2xl mx-auto rounded-lg shadow-md my-8;
+  @apply block w-full rounded-xl my-8 border border-gray-200;
+}
+
+.article-content figure {
+  @apply my-8;
+}
+
+.article-content figcaption {
+  @apply text-sm text-gray-500 text-center mt-3 italic;
+}
+
+.article-content > *:first-child {
+  @apply mt-0;
+}
+
+.article-content > *:last-child {
+  @apply mb-0;
+}
+
+/* Utility: brand button reset */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-brand-orange text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-orange-hover transition-colors;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 bg-brand-dark text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-dark-hover transition-colors;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 border border-brand-dark text-brand-dark font-semibold px-6 py-3 rounded-md hover:bg-brand-dark hover:text-white transition-colors;
 }
 
 /* Mobile Optimizations */
 * {
   /* Improve tap target size on mobile */
-  -webkit-tap-highlight-color: rgba(242, 101, 34, 0.2);
+  -webkit-tap-highlight-color: rgba(255, 102, 51, 0.15);
   -webkit-touch-callout: none;
 }
 
@@ -224,19 +272,6 @@ body {
   }
 }
 
-/* Reduce animations on mobile for better performance */
-@media (max-width: 768px) {
-  [class*="animate-float"] {
-    animation-duration: 30s !important;
-    /* Slower = less CPU usage */
-  }
-
-  .animate-gradient {
-    animation: none;
-    /* Disable gradient animation on mobile */
-    opacity: 0.3 !important;
-  }
-}
 
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {

@@ -16,19 +16,21 @@ const emailParts = { user: 'contact', domain: 'stallioni', tld: 'com' };
 
 export interface WhatsAppContact {
     name: string;
-    number: string;
+    url: string;
 }
 
+export const WHATSAPP_GROUP_URL = 'https://chat.whatsapp.com/Gm0SQQtnheB41ttEKKFXEj';
+
 export const WHATSAPP_CONTACTS: WhatsAppContact[] = [
-    { name: 'Sathies', number: '919843296279' },
-    { name: 'Gopal', number: '919843274279' },
+    { name: 'Stallioni Support Group', url: WHATSAPP_GROUP_URL },
 ];
 
 const teamsIdParts = { user: 'head_stallioni', domain: 'stallioni', tld: 'com' };
 
 export const getContactEmail = (): string => `${emailParts.user}@${emailParts.domain}.${emailParts.tld}`;
 export const getTeamsId = (): string => `${teamsIdParts.user}@${teamsIdParts.domain}.${teamsIdParts.tld}`;
-export const getWhatsAppPhone = (): string => WHATSAPP_CONTACTS[0].number;
+export const getWhatsAppPhone = (): string => WHATSAPP_GROUP_URL;
+export const getWhatsAppUrl = (): string => WHATSAPP_GROUP_URL;
 
 export const NAV_LINKS: NavLink[] = [
     { href: '/', label: 'Home' },
@@ -6520,7 +6522,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
 ];
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
-    { id: 1, title: 'Global Fintech Super-App', category: PortfolioCategory.MOBILE, industry: Industry.FINTECH, technologies: ['React Native', 'Node.js', 'AWS', 'PostgreSQL'], description: 'A comprehensive mobile banking and investment application for a UK challenger bank, serving over a million users.', imageUrl: 'https://images.unsplash.com/photo-1579621970795-87f54f597587?q=80&w=600&h=400&auto=format&fit=crop', clientLocation: 'London, UK', testimonial: 'Stallioni delivered a world-class application that is robust, secure, and beautiful. A true partner in our success.' },
+    { id: 1, title: 'Pergigian Setapak (Sri Rampai) — Dental Clinic Appointment Portal', category: PortfolioCategory.WEB, industry: Industry.HEALTHCARE, technologies: ['React', 'Node.js', 'MySQL', 'Tailwind CSS'], description: 'A modern appointment booking portal for Klinik Pergigian Setapak (Sri Rampai), a Malaysian dental clinic established in 1987. Patients can browse doctors, check schedules, and book consultations online — streamlining the front-desk workflow.', imageUrl: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=1200&h=900&auto=format&fit=crop', clientLocation: 'Kuala Lumpur, Malaysia', testimonial: 'A clean, fast appointment system that transformed how our patients connect with us. Modern, professional, and reliable.', projectUrl: 'https://www.kpsrirampai.com/' },
     { id: 2, title: 'AI-Powered Diagnostics Platform', category: PortfolioCategory.AI, industry: Industry.HEALTHCARE, technologies: ['Python', 'TensorFlow', 'React', 'Google Cloud'], description: 'An AI platform that assists radiologists by detecting anomalies in medical images with over 95% accuracy.', imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=600&h=400&auto=format&fit=crop', clientLocation: 'San Francisco, USA', testimonial: 'Their AI expertise is top-notch. The platform has transformed our diagnostic workflow and improved patient outcomes.' },
     { id: 3, title: 'Shopify Plus Headless Commerce', category: PortfolioCategory.ECOMMERCE, industry: Industry.ECOMMERCE_RETAIL, technologies: ['Shopify Plus', 'Next.js', 'GraphQL', 'Vercel'], description: 'A high-performance headless e-commerce build for a luxury fashion brand, resulting in a 200% conversion uplift.', imageUrl: 'https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=600&h=400&auto=format&fit=crop', clientLocation: 'Paris, France', testimonial: 'The new site is incredibly fast and flexible. Our content team can now launch campaigns in minutes, not days.' },
     { id: 4, title: 'Corporate Intranet & CMS', category: PortfolioCategory.WEB, industry: Industry.SAAS, technologies: ['WordPress', 'PHP', 'React', 'Docker'], description: 'A custom-built corporate intranet for a German engineering firm, enhancing internal communication for 5,000+ employees.', imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c7da?q=80&w=600&h=400&auto=format&fit=crop', clientLocation: 'Berlin, Germany', testimonial: 'The new intranet has boosted our employee engagement and streamlined our internal processes.' },

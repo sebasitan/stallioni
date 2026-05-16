@@ -11,9 +11,13 @@ export default {
         extend: {
             colors: {
                 brand: {
-                    orange: '#F26522',
-                    dark: '#1A233D',
-                    light: '#F5F7FA',
+                    orange: '#FF6633',
+                    'orange-hover': '#E5572A',
+                    dark: '#1F3769',
+                    'dark-hover': '#172B54',
+                    light: '#F7F8FA',
+                    border: '#E5E7EB',
+                    muted: '#6B7280',
                 },
             },
             fontFamily: {
