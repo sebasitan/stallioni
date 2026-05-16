@@ -89,6 +89,15 @@ h1, h2, h3, h4, h5, h6 {
   scrollbar-width: none;
 }
 
+/* Hide Google reCAPTCHA v3 badge — Google's Terms allow this as long as the
+   reCAPTCHA notice ("This site is protected by reCAPTCHA…") is visible elsewhere
+   on the page. We render that notice in the footer. */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 /* Article content styles */
 .article-content {
   @apply text-[17px] text-slate-700 leading-[1.75];

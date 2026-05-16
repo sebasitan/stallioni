@@ -308,19 +308,29 @@ const Footer: React.FC = () => {
         </div>
 
         {/* BOTTOM: Copyright bar */}
-        <div className="py-5 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3 text-white/40 text-xs">
-          <p>&copy; {new Date().getFullYear()} Stallioni Net Solutions. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+        <div className="py-5 border-t border-white/10 flex flex-col gap-3 text-white/40 text-xs">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p>&copy; {new Date().getFullYear()} Stallioni Net Solutions. All rights reserved.</p>
+            <div className="flex items-center gap-4">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                </span>
+                All systems operational
               </span>
-              All systems operational
-            </span>
-            <span className="text-white/20">·</span>
-            <a href="/privacy-policy" onClick={(e) => handleNav(e, '/privacy-policy')} className="hover:text-brand-orange transition-colors">Privacy Policy</a>
+              <span className="text-white/20">·</span>
+              <a href="/privacy-policy" onClick={(e) => handleNav(e, '/privacy-policy')} className="hover:text-brand-orange transition-colors">Privacy Policy</a>
+            </div>
           </div>
+          {/* reCAPTCHA legal notice — required when the badge is hidden */}
+          <p className="text-white/30 text-[11px] leading-relaxed text-center sm:text-left">
+            This site is protected by reCAPTCHA and the Google{' '}
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-white/60 transition-colors">Privacy Policy</a>{' '}
+            and{' '}
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-white/60 transition-colors">Terms of Service</a>{' '}
+            apply.
+          </p>
         </div>
       </div>
     </footer>

@@ -26,8 +26,19 @@ export const getTeamsId = (): string => `${teamsIdParts.user}@${teamsIdParts.dom
 export const getWhatsAppPhone = (): string => WHATSAPP_GROUP_URL;
 export const getWhatsAppUrl = (): string => WHATSAPP_GROUP_URL;
 
-// Change this to your production site key
-export const RECAPTCHA_SITE_KEY = '6Lf0E0osAAAAADeWr5AGvZ-DCJpXhYtUqxNPi5kW';
+// Production site key — restricted to stallioni.com. On localhost we fall back
+// to Google's universal test key so dev environments don't fail captcha
+// verification with "ERROR for site owner: invalid site key".
+const PROD_RECAPTCHA_SITE_KEY = '6Ld3zuwsAAAAAMQ0mOVBl6M9g_apTkBK4Av3glQp';
+const TEST_RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+
+const isLocalHost = (): boolean => {
+    if (typeof window === 'undefined') return false;
+    const host = window.location.hostname;
+    return host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local');
+};
+
+export const RECAPTCHA_SITE_KEY = isLocalHost() ? TEST_RECAPTCHA_SITE_KEY : PROD_RECAPTCHA_SITE_KEY;
 
 export const NAV_LINKS: NavLink[] = [
     { href: '/', label: 'Home' },

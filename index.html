@@ -165,8 +165,22 @@
       gtag('config', 'G-WZ2SZ03V71');
     });
   </script>
-  <!-- Google reCAPTCHA v3 (deferred — runs after HTML parse, before user interaction) -->
-  <script defer src="https://www.google.com/recaptcha/api.js?render=6Lf0E0osAAAAADeWr5AGvZ-DCJpXhYtUqxNPi5kW"></script>
+  <!-- Google reCAPTCHA v3 — load production key on the real domain, fall back
+       to Google's universal test key on localhost so dev doesn't show
+       "ERROR for site owner: invalid site key" badges. -->
+  <script>
+    (function () {
+      var host = window.location.hostname;
+      var isLocal = host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local');
+      var key = isLocal
+        ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'   // Google's universal test key — always passes
+        : '6Ld3zuwsAAAAAMQ0mOVBl6M9g_apTkBK4Av3glQp';  // Production key (registered for stallioni.com)
+      var s = document.createElement('script');
+      s.defer = true;
+      s.src = 'https://www.google.com/recaptcha/api.js?render=' + key;
+      document.head.appendChild(s);
+    })();
+  </script>
 
   <!-- Microsoft Clarity (heatmaps, session recordings, scroll/click analytics) -->
   <script type="text/javascript">
