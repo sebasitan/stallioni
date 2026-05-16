@@ -1,0 +1,12 @@
+# ads.txt — Authorized Digital Sellers
+# https://iabtechlab.com/ads-txt/
+#
+# This site does not currently sell programmatic display advertising.
+# An empty (apart from this comment block) ads.txt is the IAB-recommended
+# way to declare that no third party is authorized to sell our inventory,
+# while still resolving the file with the correct text/plain Content-Type.
+#
+# Format if/when authorized sellers are added later:
+#   <domain>, <publisher-id>, <relationship>, <cert-id>
+# Example:
+#   google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
