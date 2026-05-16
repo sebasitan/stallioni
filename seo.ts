@@ -445,6 +445,15 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
       keywords: '',
       noindex: true,
     };
+  } else {
+    // Any other unmatched route — the React Router catch-all renders the
+    // NotFoundPage. Set metadata accordingly so search engines don't index it.
+    partialMetadata = {
+      title: '404 — Page not found | Stallioni',
+      description: 'The page you are looking for doesn\'t exist or has been moved.',
+      keywords: '',
+      noindex: true,
+    };
   }
 
   const ogUrl = `${BASE_URL}${cleanRoute}`;

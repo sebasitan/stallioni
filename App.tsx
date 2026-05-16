@@ -21,6 +21,7 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const RegionalLandingPage = lazy(() => import('./pages/RegionalLandingPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 // Admin imports (Lazy)
 import { AuthProvider as StaticAuthProvider } from './contexts/AuthContext';
@@ -200,6 +201,9 @@ const AppContent: React.FC = () => {
                     <Route path="blog" element={<BlogManager />} />
                     <Route path="careers" element={<CareersManager />} />
                   </Route>
+
+                  {/* Custom 404 — catch-all. The route matches any unmatched path. */}
+                  <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </Suspense>
             </main>
