@@ -73,7 +73,7 @@ const FilterBar: React.FC<{
     search: string;
     onSearchChange: (v: string) => void;
 }> = ({ categories, active, onSelect, search, onSearchChange }) => (
-    <div className="sticky top-[67px] z-40 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <div className="sticky top-[64px] md:top-[68px] z-40 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div className="container mx-auto px-6 max-w-6xl">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-2 md:py-0">
                 <div className="flex items-center gap-1 overflow-x-auto no-scrollbar -mx-2 px-2">

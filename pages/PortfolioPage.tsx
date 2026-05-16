@@ -536,7 +536,7 @@ const PortfolioPage: React.FC = () => {
             <Hero total={allItems.length} items={allItems} />
 
             {/* STICKY FILTER BAR */}
-            <div className="sticky top-[67px] z-40 bg-white/90 backdrop-blur-md border-b border-gray-100">
+            <div className="sticky top-[64px] md:top-[68px] z-40 bg-white/90 backdrop-blur-md border-b border-gray-100">
                 <div className="container mx-auto px-6 max-w-[1400px] py-4">
                     <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
                         {/* Category pill segment */}

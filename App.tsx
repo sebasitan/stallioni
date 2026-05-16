@@ -168,7 +168,11 @@ const AppContent: React.FC = () => {
           <MetaManager {...metadata} />
           <div className="flex flex-col min-h-screen">
             <Header currentRoute={location.pathname} />
-            <main className="flex-grow">
+            {/* overflow-x-hidden prevents decorative absolutely-positioned blobs
+                in some sections (orange gradient circles, mac-chrome offsets)
+                from leaking horizontal scroll on narrow laptops or browsers
+                with visible scrollbars. */}
+            <main className="flex-grow overflow-x-hidden">
               <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
                   {/* Public routes */}
