@@ -152,21 +152,21 @@ const Hero: React.FC<{ data: RegionalPageData; slug: string }> = ({ data, slug }
                         </div>
 
                         {/* Inline trust stats */}
-                        <div className="mt-8 flex flex-wrap items-end gap-x-7 gap-y-4">
+                        <div className="mt-8 flex flex-wrap items-end gap-x-4 sm:gap-x-7 gap-y-4">
                             <div>
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">4.8<span className="text-brand-orange">/5</span></p>
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">4.8<span className="text-brand-orange">/5</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Rating</p>
                             </div>
-                            <div className="border-l border-gray-200 pl-7">
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">978<span className="text-brand-orange">+</span></p>
+                            <div className="border-l border-gray-200 pl-4 sm:pl-7">
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">978<span className="text-brand-orange">+</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Reviews</p>
                             </div>
-                            <div className="border-l border-gray-200 pl-7">
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">2007<span className="text-brand-orange"></span></p>
+                            <div className="border-l border-gray-200 pl-4 sm:pl-7">
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">2007<span className="text-brand-orange"></span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Since</p>
                             </div>
-                            <div className="border-l border-gray-200 pl-7">
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">35<span className="text-brand-orange">+</span></p>
+                            <div className="border-l border-gray-200 pl-4 sm:pl-7">
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">35<span className="text-brand-orange">+</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Countries</p>
                             </div>
                         </div>

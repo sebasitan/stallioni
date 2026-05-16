@@ -182,7 +182,7 @@ const ContactPage: React.FC = () => {
                         <div className="lg:col-span-3" ref={formContainerRef}>
                             {/* Reason tabs */}
                             <FadeIn>
-                                <div className="inline-flex items-center gap-1 bg-white border border-gray-200 rounded-full p-1 mb-6 w-full sm:w-auto">
+                                <div className="flex items-center gap-1 bg-white border border-gray-200 rounded-full p-1 mb-6 w-full sm:w-auto overflow-x-auto no-scrollbar">
                                     {([
                                         { id: 'project', label: 'New project' },
                                         { id: 'partnership', label: 'Partnership' },
@@ -193,7 +193,7 @@ const ContactPage: React.FC = () => {
                                             <button
                                                 key={tab.id}
                                                 onClick={() => setSelectedReason(tab.id)}
-                                                className={`flex-1 sm:flex-none px-4 py-2 rounded-full text-[13.5px] font-medium tracking-tight transition-all duration-200 whitespace-nowrap ${
+                                                className={`flex-1 sm:flex-none min-w-fit px-3.5 sm:px-4 py-2 rounded-full text-[13px] sm:text-[13.5px] font-medium tracking-tight transition-all duration-200 whitespace-nowrap ${
                                                     active
                                                         ? 'bg-brand-dark text-white shadow-sm'
                                                         : 'text-gray-600 hover:text-brand-dark hover:bg-brand-light'
@@ -209,7 +209,7 @@ const ContactPage: React.FC = () => {
                             {/* Form */}
                             <FadeIn delay={80}>
                                 <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                                    <div className="px-7 md:px-9 py-5 border-b border-gray-100 bg-brand-light/30">
+                                    <div className="px-5 md:px-9 py-5 border-b border-gray-100 bg-brand-light/30">
                                         <h2 className="text-xl md:text-2xl font-bold text-brand-dark tracking-tight">
                                             {selectedReason === 'project' && 'Tell us about your project'}
                                             {selectedReason === 'partnership' && 'Explore a partnership'}
@@ -222,7 +222,7 @@ const ContactPage: React.FC = () => {
                                         </p>
                                     </div>
 
-                                    <div className="p-7 md:p-9">
+                                    <div className="p-5 md:p-9">
                                         {selectedReason === 'project' && <ProjectForm key="project" onSubmit={handleSubmit} />}
                                         {selectedReason === 'partnership' && <GeneralForm key="partnership" subject="New Partnership Inquiry from Stallioni Website" submitText="Send inquiry" onSubmit={handleSubmit} />}
                                         {selectedReason === 'general' && <GeneralForm key="general" subject="New General Inquiry from Stallioni Website" submitText="Send message" onSubmit={handleSubmit} />}
@@ -359,7 +359,9 @@ const ContactPage: React.FC = () => {
 // ============================================
 // FORM FIELDS
 // ============================================
-const inputClass = 'w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors placeholder:text-gray-400 text-sm bg-white';
+// text-base (16px) on mobile prevents iOS Safari's input-focus zoom bounce.
+// On sm+ we drop to text-sm (14px) to match the desktop design.
+const inputClass = 'w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors placeholder:text-gray-400 text-base sm:text-sm bg-white';
 
 const InputField: React.FC<{ id: string; name: string; label: string; type?: string; placeholder?: string; required?: boolean }> = ({ id, name, label, type = 'text', placeholder, required = false }) => (
     <div>

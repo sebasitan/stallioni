@@ -87,7 +87,7 @@ const Benefits: React.FC = () => (
 // JOB CARD
 // ============================================
 const JobCard: React.FC<{ job: JobOpening; onApply: (title: string) => void }> = ({ job, onApply }) => (
-    <article className="bg-white border border-gray-200 hover:border-brand-dark rounded-2xl p-6 md:p-8 transition-colors">
+    <article className="bg-white border border-gray-200 hover:border-brand-dark rounded-2xl p-5 md:p-8 transition-colors">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
             <div className="flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-3 mb-3">
@@ -395,7 +395,7 @@ const CareersPage: React.FC = () => {
                         <div className="container mx-auto px-6 max-w-3xl">
                             <FadeIn>
                                 <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                                    <div className="border-b border-gray-100 p-7 md:p-8 bg-brand-light/30">
+                                    <div className="border-b border-gray-100 p-5 md:p-8 bg-brand-light/30">
                                         <Eyebrow>Application</Eyebrow>
                                         <h3 className="text-2xl md:text-3xl font-bold text-brand-dark tracking-tight">
                                             Apply for <span className="text-brand-orange">{applicationForm.position}</span>
@@ -403,7 +403,7 @@ const CareersPage: React.FC = () => {
                                         <p className="text-gray-500 mt-1.5 text-sm">Fill out the form below. We respond within 5 business days.</p>
                                     </div>
 
-                                    <div className="p-7 md:p-10">
+                                    <div className="p-5 md:p-10">
                                         <form onSubmit={handleSubmit} className="space-y-5">
                                             <input type="hidden" name="_subject" value={`New Application: ${applicationForm.position}`} />
                                             <input type="hidden" name="_captcha" value="false" />
@@ -413,28 +413,28 @@ const CareersPage: React.FC = () => {
                                             <div className="grid md:grid-cols-2 gap-5">
                                                 <div>
                                                     <label className="block text-sm font-medium text-brand-dark mb-1.5">Full name<span className="text-brand-orange ml-0.5">*</span></label>
-                                                    <input type="text" name="name" required className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="Jane Doe" />
+                                                    <input type="text" name="name" required className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-base sm:text-sm placeholder:text-gray-400" placeholder="Jane Doe" />
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-medium text-brand-dark mb-1.5">Email<span className="text-brand-orange ml-0.5">*</span></label>
-                                                    <input type="email" name="email" required className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="jane@example.com" />
+                                                    <input type="email" name="email" required className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-base sm:text-sm placeholder:text-gray-400" placeholder="jane@example.com" />
                                                 </div>
                                             </div>
 
                                             <div className="grid md:grid-cols-2 gap-5">
                                                 <div>
                                                     <label className="block text-sm font-medium text-brand-dark mb-1.5">Phone</label>
-                                                    <input type="tel" name="phone" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="+1 (555) 000-0000" />
+                                                    <input type="tel" name="phone" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-base sm:text-sm placeholder:text-gray-400" placeholder="+1 (555) 000-0000" />
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-medium text-brand-dark mb-1.5">LinkedIn</label>
-                                                    <input type="url" name="linkedin" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="https://linkedin.com/in/…" />
+                                                    <input type="url" name="linkedin" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-base sm:text-sm placeholder:text-gray-400" placeholder="https://linkedin.com/in/…" />
                                                 </div>
                                             </div>
 
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-dark mb-1.5">Portfolio / GitHub</label>
-                                                <input type="url" name="portfolio" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="https://github.com/…" />
+                                                <input type="url" name="portfolio" className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-base sm:text-sm placeholder:text-gray-400" placeholder="https://github.com/…" />
                                             </div>
 
                                             <div>
@@ -450,7 +450,7 @@ const CareersPage: React.FC = () => {
 
                                             <div>
                                                 <label className="block text-sm font-medium text-brand-dark mb-1.5">Cover letter<span className="text-brand-orange ml-0.5">*</span></label>
-                                                <textarea name="message" rows={5} required className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm placeholder:text-gray-400" placeholder="Tell us what makes you unique…" />
+                                                <textarea name="message" rows={5} required className="w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-base sm:text-sm placeholder:text-gray-400" placeholder="Tell us what makes you unique…" />
                                             </div>
 
                                             <div className="flex items-center justify-end gap-3 pt-2">

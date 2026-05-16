@@ -160,6 +160,7 @@ const MEGA_MENU_ITEMS = [
 const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const { navigate } = useNavigation();
 
   // Standard navigation - e.preventDefault() for SPA behavior, href for SEO
@@ -172,7 +173,14 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
     e.preventDefault();
     navigate(path);
     setIsMenuOpen(false);
+    setIsMobileServicesOpen(false);
   }
+
+  // Close mobile menu (and reset accordion) whenever the route changes.
+  React.useEffect(() => {
+    setIsMenuOpen(false);
+    setIsMobileServicesOpen(false);
+  }, [currentRoute]);
 
   const isContactActive = currentRoute === '/contact';
 
@@ -180,7 +188,7 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
     <header className="bg-white/85 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
       <div className="container mx-auto px-6 py-3.5 flex justify-between items-center relative gap-6">
         <a href="/" onClick={(e) => handleNav(e, '/')} className="flex items-center flex-shrink-0" aria-label="Stallioni home">
-          <img src="/logo.svg" alt="Stallioni Logo" className="h-7 md:h-8 w-auto" width="210" height="42" fetchPriority="high" />
+          <img src="/logo.svg" alt="Stallioni Logo" className="h-10 md:h-9 w-auto" width="210" height="42" fetchPriority="high" />
         </a>
 
         {/* Desktop Navigation — pill segment */}
@@ -389,7 +397,7 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 py-2 px-4 overflow-y-auto max-h-[85vh]">
+        <div className="lg:hidden bg-white border-t border-gray-100 py-3 px-4 overflow-y-auto max-h-[85vh]">
           <nav className="flex flex-col">
             {NAV_LINKS.map((link) => {
               const isActive = link.href === '/' ? currentRoute === '/' : currentRoute.startsWith(link.href);
@@ -397,33 +405,75 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
               if (link.label === 'Services') {
                 return (
                   <div key={link.href} className="flex flex-col">
-                    <a
-                      href={link.href}
-                      onClick={(e) => handleMobileNav(e, link.href)}
-                      className={`text-base font-semibold block py-3 px-2 transition-colors ${isActive
+                    {/* Tap to toggle — does NOT navigate. The accordion stays open until
+                        the user taps the row again or picks a sub-item / "View all". */}
+                    <button
+                      type="button"
+                      onClick={() => setIsMobileServicesOpen((v) => !v)}
+                      aria-expanded={isMobileServicesOpen}
+                      className={`w-full flex items-center justify-between py-3.5 px-2 text-left text-base font-semibold transition-colors ${isActive || isMobileServicesOpen
                         ? 'text-brand-orange'
                         : 'text-brand-dark'
                         }`}
                     >
-                      {link.label}
-                    </a>
-                    <div className="pl-3 border-l border-gray-100 ml-2 space-y-1 pb-3">
-                      <p className="text-[11px] text-gray-400 uppercase tracking-widest font-semibold mt-1 mb-2">Key Services</p>
-                      {MEGA_MENU_ITEMS.map((col) => (
+                      <span>{link.label}</span>
+                      <svg
+                        className={`w-4 h-4 transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : ''}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2.5}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+
+                    {isMobileServicesOpen && (
+                      <div className="mt-1 mb-2 rounded-xl bg-brand-light/50 border border-gray-200 p-3 max-h-[55vh] overflow-y-auto">
+                        <div className="flex items-center justify-between mb-2 px-1">
+                          <p className="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">Service categories</p>
+                          <button
+                            type="button"
+                            onClick={() => setIsMobileServicesOpen(false)}
+                            className="text-[11px] text-gray-500 hover:text-brand-orange font-medium inline-flex items-center gap-1"
+                            aria-label="Close services menu"
+                          >
+                            Close
+                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                        <div className="flex flex-col gap-1">
+                          {MEGA_MENU_ITEMS.map((col) => (
+                            <a
+                              key={col.title}
+                              href={col.href}
+                              onClick={(e) => handleMobileNav(e, col.href)}
+                              className="flex items-center gap-3 text-gray-700 text-[14px] py-2.5 px-2 rounded-lg hover:bg-white hover:text-brand-orange transition-colors"
+                            >
+                              <span className="w-8 h-8 rounded-lg bg-white text-brand-orange flex items-center justify-center flex-shrink-0 [&_svg]:w-4 [&_svg]:h-4 border border-gray-200">
+                                {col.icon}
+                              </span>
+                              <span className="flex-1 leading-tight">{col.title}</span>
+                              <svg className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                              </svg>
+                            </a>
+                          ))}
+                        </div>
                         <a
-                          key={col.title}
-                          href={col.href}
-                          onClick={(e) => handleMobileNav(e, col.href)}
-                          className="flex items-center gap-2 text-gray-700 text-sm py-1.5 hover:text-brand-orange"
+                          href="/services"
+                          onClick={(e) => handleMobileNav(e, '/services')}
+                          className="mt-2 inline-flex items-center justify-center gap-2 w-full bg-brand-dark text-white text-sm font-medium py-3 rounded-full hover:bg-brand-dark-hover transition-colors"
                         >
-                          <span className="text-brand-orange w-4 h-4 flex items-center justify-center [&_svg]:w-4 [&_svg]:h-4">
-                            {col.icon}
-                          </span>
-                          {col.title}
+                          View all services
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
                         </a>
-                      ))}
-                      <a href="/services" onClick={(e) => handleMobileNav(e, '/services')} className="text-brand-orange text-sm font-semibold block pt-2">View All Services →</a>
-                    </div>
+                      </div>
+                    )}
                   </div>
                 );
               }
@@ -433,7 +483,7 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleMobileNav(e, link.href)}
-                  className={`text-base font-semibold block py-3 px-2 transition-colors ${isActive
+                  className={`text-base font-semibold block py-3.5 px-2 transition-colors ${isActive
                     ? 'text-brand-orange'
                     : 'text-brand-dark'
                     }`}
@@ -445,7 +495,7 @@ const Header: React.FC<HeaderProps> = ({ currentRoute }) => {
             <a
               href="/contact"
               onClick={(e) => handleMobileNav(e, '/contact')}
-              className="mt-3 mb-2 inline-flex items-center justify-center font-semibold text-sm py-3 px-6 rounded-md bg-brand-orange text-white hover:bg-brand-orange-hover transition-colors text-center"
+              className="mt-4 mb-2 inline-flex items-center justify-center font-semibold text-sm py-3 px-6 rounded-full bg-brand-orange text-white hover:bg-brand-orange-hover transition-colors text-center"
             >
               Contact Us
             </a>

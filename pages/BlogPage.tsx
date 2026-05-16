@@ -108,7 +108,7 @@ const FilterBar: React.FC<{
                         placeholder="Search articles…"
                         value={search}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        className="block w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full bg-white placeholder-gray-400 focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm"
+                        className="block w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full bg-white placeholder-gray-400 focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-base sm:text-sm"
                         aria-label="Search articles"
                     />
                 </div>

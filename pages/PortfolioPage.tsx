@@ -97,21 +97,21 @@ const Hero: React.FC<{ total: number; items: PortfolioItem[] }> = ({ total, item
                         </p>
 
                         {/* Inline stats */}
-                        <div className="mt-7 flex flex-wrap items-end gap-x-7 gap-y-4">
+                        <div className="mt-7 flex flex-wrap items-end gap-x-4 sm:gap-x-7 gap-y-4">
                             <div>
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">{total}<span className="text-brand-orange">+</span></p>
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">{total}<span className="text-brand-orange">+</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Projects</p>
                             </div>
-                            <div className="border-l border-gray-200 pl-7">
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">35<span className="text-brand-orange">+</span></p>
+                            <div className="border-l border-gray-200 pl-4 sm:pl-7">
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">35<span className="text-brand-orange">+</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Countries</p>
                             </div>
-                            <div className="border-l border-gray-200 pl-7">
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">4.9<span className="text-brand-orange">/5</span></p>
+                            <div className="border-l border-gray-200 pl-4 sm:pl-7">
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">4.9<span className="text-brand-orange">/5</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Rating</p>
                             </div>
-                            <div className="border-l border-gray-200 pl-7">
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">15<span className="text-brand-orange">+</span></p>
+                            <div className="border-l border-gray-200 pl-4 sm:pl-7">
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">15<span className="text-brand-orange">+</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Years</p>
                             </div>
                         </div>
@@ -255,7 +255,7 @@ const FilterDropdown: React.FC<{
             </button>
 
             {isOpen && (
-                <div className="absolute top-full right-0 mt-2 w-72 bg-white rounded-2xl border border-gray-200 z-50 p-2" style={{ boxShadow: '0 20px 50px -12px rgba(31, 55, 105, 0.18)' }}>
+                <div className="absolute top-full left-0 sm:left-auto sm:right-0 mt-2 w-[min(18rem,calc(100vw-2rem))] bg-white rounded-2xl border border-gray-200 z-50 p-2" style={{ boxShadow: '0 20px 50px -12px rgba(31, 55, 105, 0.18)' }}>
                     <div className="max-h-[300px] overflow-y-auto no-scrollbar">
                         {options.map((option) => {
                             const checked = selected.includes(option);
@@ -564,7 +564,7 @@ const PortfolioPage: React.FC = () => {
                                 </div>
                                 <input
                                     type="text"
-                                    className="block w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full bg-white placeholder-gray-400 focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-sm"
+                                    className="block w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-full bg-white placeholder-gray-400 focus:outline-none focus:border-brand-dark focus:ring-1 focus:ring-brand-dark transition-colors text-base sm:text-sm"
                                     placeholder="Search projects…"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}

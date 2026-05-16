@@ -136,17 +136,17 @@ const Hero: React.FC<{ service: ServiceDetail }> = ({ service }) => {
                         </div>
 
                         {/* Inline stats */}
-                        <div className="mt-8 flex flex-wrap items-end gap-x-7 gap-y-4">
+                        <div className="mt-8 flex flex-wrap items-end gap-x-5 sm:gap-x-7 gap-y-4">
                             <div>
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">15<span className="text-brand-orange">+</span></p>
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">15<span className="text-brand-orange">+</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Years</p>
                             </div>
-                            <div className="border-l border-gray-200 pl-7">
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">900<span className="text-brand-orange">+</span></p>
+                            <div className="border-l border-gray-200 pl-5 sm:pl-7">
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">900<span className="text-brand-orange">+</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Projects</p>
                             </div>
-                            <div className="border-l border-gray-200 pl-7">
-                                <p className="text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">35<span className="text-brand-orange">+</span></p>
+                            <div className="border-l border-gray-200 pl-5 sm:pl-7">
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark tracking-tight leading-none">35<span className="text-brand-orange">+</span></p>
                                 <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2 font-medium">Countries</p>
                             </div>
                         </div>
