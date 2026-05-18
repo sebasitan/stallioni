@@ -4,6 +4,18 @@ Disallow: /api/
 Disallow: /seba/
 Disallow: /seba
 
+# Legacy WordPress paths — old site URLs that no longer exist.
+# These are 301-redirected in vercel.json; blocking here too prevents Google
+# from spending crawl budget on dead WordPress endpoints.
+Disallow: /B429_live/
+Disallow: /wp-content/
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-login.php
+Disallow: /xmlrpc.php
+Disallow: /?p=
+Disallow: /?page_id=
+
 # Allow asset crawling
 Allow: /assets/
 

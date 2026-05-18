@@ -21,6 +21,36 @@
       ],
       "destination": "https://www.stallioni.com/$1",
       "permanent": true
+    },
+    {
+      "source": "/B429_live/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/wp-admin/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/wp-includes/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/wp-login.php",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/xmlrpc.php",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "rewrites": [
