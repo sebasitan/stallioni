@@ -66,9 +66,42 @@ export const CrmIcon: React.FC<{ className?: string }> = ({ className }) => (
 
 export const SocialIcons: React.FC = () => (
     <>
-        <a href="#" aria-label="LinkedIn" className="text-gray-400 hover:text-brand-orange"><svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg></a>
-        <a href="#" aria-label="Twitter" className="text-gray-400 hover:text-brand-orange"><svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.212 3.793 4.649-.65.176-1.336.213-2.033.188.606 1.922 2.36 3.227 4.444 3.264-1.717 1.33-3.837 2.053-6.075 1.729 1.816 1.167 3.973 1.84 6.262 1.84 7.234 0 11.189-5.792 10.9-10.963.757-.549 1.408-1.238 1.92-2.001z"></path></svg></a>
-        <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-brand-orange"><svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"></path></svg></a>
+        <a
+            href="https://www.linkedin.com/in/sebastian-yesuraj/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stallioni on LinkedIn"
+            className="text-gray-400 hover:text-brand-orange transition-colors"
+        >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+        </a>
+        <a
+            href="https://www.freelancer.com/u/graphicaa"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stallioni on Freelancer.com — verified 4.8★ rating, 978+ reviews since 2007"
+            className="text-gray-400 hover:text-brand-orange transition-colors"
+            title="978+ reviews · 4.8★ since 2007"
+        >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11.69 4.078L7.85 6.05l1.34 1.69h2.5zm.7 6.97L7.9 6.05l.51 13.81 1.66-.81zM6.6 6.79l-2.18 1.13.93 1.16zm6.69-1.16l1.19 8.07 4.49-7.94zM10.97 21.92l8.43-15.04-4.5 7.95z"/>
+            </svg>
+        </a>
+        {/*
+        // Uncomment once these accounts are created:
+        <a href="https://x.com/stallioni" target="_blank" rel="noopener noreferrer" aria-label="Stallioni on X" className="text-gray-400 hover:text-brand-orange transition-colors">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+        </a>
+        <a href="https://www.facebook.com/stallioni" target="_blank" rel="noopener noreferrer" aria-label="Stallioni on Facebook" className="text-gray-400 hover:text-brand-orange transition-colors">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+            </svg>
+        </a>
+        */}
     </>
 );
 

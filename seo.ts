@@ -51,7 +51,8 @@ const getOrganizationSchema = () => ({
   'url': BASE_URL,
   'logo': `${BASE_URL}/logo.svg`,
   'sameAs': [
-    // Add social media links here if available
+    'https://www.linkedin.com/in/sebastian-yesuraj/',
+    'https://www.freelancer.com/u/graphicaa',
   ],
   'address': {
     '@type': 'PostalAddress',
