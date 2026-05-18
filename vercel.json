@@ -58,17 +58,32 @@
       "permanent": true
     },
     {
-      "source": "/meet-paige/?",
+      "source": "/meet-paige",
       "destination": "/about",
       "permanent": true
     },
     {
-      "source": "/feed/?",
+      "source": "/meet-paige/:path*",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
       "destination": "/blog",
       "permanent": true
     },
     {
-      "source": "/comments/feed/?",
+      "source": "/feed/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/comments/feed",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/comments/feed/:path*",
       "destination": "/blog",
       "permanent": true
     },
@@ -88,7 +103,7 @@
       "permanent": true
     },
     {
-      "source": "/(\\d{4})/:rest*",
+      "source": "/:year(\\d{4})/:rest*",
       "destination": "/blog",
       "permanent": true
     }
