@@ -51,6 +51,46 @@
       "source": "/xmlrpc.php",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/homepage",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/meet-paige/?",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/feed/?",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/comments/feed/?",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/category/:slug*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/tag/:slug*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/author/:slug*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/(\\d{4})/:rest*",
+      "destination": "/blog",
+      "permanent": true
     }
   ],
   "rewrites": [

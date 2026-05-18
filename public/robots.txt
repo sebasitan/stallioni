@@ -15,6 +15,15 @@ Disallow: /wp-login.php
 Disallow: /xmlrpc.php
 Disallow: /?p=
 Disallow: /?page_id=
+Disallow: /?lang=
+Disallow: /?utm_source=
+Disallow: /homepage
+Disallow: /meet-paige/
+Disallow: /feed/
+Disallow: /comments/feed/
+Disallow: /category/
+Disallow: /tag/
+Disallow: /author/
 
 # Allow asset crawling
 Allow: /assets/
