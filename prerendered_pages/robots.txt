@@ -28,4 +28,57 @@ Disallow: /author/
 # Allow asset crawling
 Allow: /assets/
 
+# ============================================================
+# AI / LLM crawlers — explicitly allowed.
+#
+# These all fall under `User-agent: *` already, but stating
+# them by name (a) signals intent to AI/GEO auditors, and
+# (b) makes future opt-outs trivial: change Allow → Disallow
+# on the relevant block, no other config touched.
+# ============================================================
+
+# OpenAI — ChatGPT browsing, search, and training crawler.
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic — Claude.ai web search, citations, and training.
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity — answer engine browsing + indexing.
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+
+# Google — separate from Googlebot. Controls inclusion in
+# Bard/Gemini grounding + AI Overviews.
+User-agent: Google-Extended
+Allow: /
+
+# Apple — used by Apple Intelligence (Siri, summaries).
+User-agent: Applebot-Extended
+Allow: /
+
+# Common Crawl — feeds most open-source LLM training datasets.
+User-agent: CCBot
+Allow: /
+
+# Meta — Llama AI training and Meta AI search.
+User-agent: meta-externalagent
+Allow: /
+
+# ByteDance — Doubao + TikTok AI.
+User-agent: Bytespider
+Allow: /
+
+# Pointer for AI crawlers: see /llms.txt for a curated index.
 Sitemap: https://www.stallioni.com/sitemap.xml
