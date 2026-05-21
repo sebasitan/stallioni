@@ -109,6 +109,20 @@ function injectPrerenderedFlag(html) {
     return html.replace('<head>', '<head>\n    <meta name="prerendered" content="true">');
 }
 
+// Strip duplicate <script src="..."> tags. The recaptcha and clarity loaders
+// each chain-load additional scripts, and Puppeteer captures every one of
+// them — leaving 5+ copies of recaptcha__en.js and 3+ copies of clarity in
+// the HTML. None of this matters at runtime (browsers dedupe by URL) but it
+// inflates HTML size and looks ugly to crawlers.
+function dedupeScriptTags(html) {
+    const seen = new Set();
+    return html.replace(/<script\b[^>]*\bsrc="([^"]+)"[^>]*><\/script>/g, (match, src) => {
+        if (seen.has(src)) return '';
+        seen.add(src);
+        return match;
+    });
+}
+
 (async () => {
     console.log('Pre-rendering: starting…');
 
@@ -116,6 +130,11 @@ function injectPrerenderedFlag(html) {
     console.log(`Static server: http://localhost:${PORT}`);
 
     const routes = await getRoutes();
+    // /404 isn't in the sitemap (we don't want Google to discover it as a
+    // first-class URL), but Vercel serves dist/404.html as the real 404
+    // response, so we have to render it too. It writes to dist/404.html
+    // (a file, not /404/index.html — Vercel only picks up the file form).
+    routes.push('/404');
     console.log(`Routes to render: ${routes.length}`);
 
     const launchOptions = await resolveBrowserLaunchOptions();
@@ -144,10 +163,12 @@ function injectPrerenderedFlag(html) {
                 .catch(() => {});
             await new Promise((r) => setTimeout(r, RENDER_WAIT_MS));
 
-            const html = injectPrerenderedFlag(await page.content());
+            const html = dedupeScriptTags(injectPrerenderedFlag(await page.content()));
 
             const relativePath =
-                route === '/' ? 'index.html' : path.join(route.substring(1), 'index.html');
+                route === '/' ? 'index.html'
+                    : route === '/404' ? '404.html'
+                    : path.join(route.substring(1), 'index.html');
             const outPath = path.join(DIST_DIR, relativePath);
             fs.mkdirSync(path.dirname(outPath), { recursive: true });
             fs.writeFileSync(outPath, html);

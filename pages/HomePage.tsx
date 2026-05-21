@@ -655,7 +655,7 @@ const HomePage: React.FC = () => {
                 icon: <EcommIcon className="w-6 h-6" />,
                 items: [
                     { label: "Shopify development", href: "/services/shopify-development" },
-                    { label: "WooCommerce", href: "/services/woocommerce-devel" },
+                    { label: "WooCommerce", href: "/services/woocommerce-development" },
                     { label: "Magento", href: "/services/magento-development" },
                     { label: "BigCommerce", href: "/services/bigcommerce-development" },
                     { label: "Custom online store development", href: "/services/custom-ecommerce-solutions" },

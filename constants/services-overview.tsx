@@ -133,7 +133,7 @@ export const SERVICES_OVERVIEW: Service[] = [
     },
     // Sub-Services under E-Commerce Development
     {
-        id: 'woocommerce-devel',
+        id: 'woocommerce-development',
         icon: <WooCommerceIcon />,
         animation: <EcommAnimation />,
         title: 'WooCommerce Development',

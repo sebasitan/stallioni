@@ -29,6 +29,21 @@ const setOgLocaleAlternates = (locales: string[]) => {
     });
 };
 
+// Ensure hreflang alternate <link> tags exist exactly once.
+// Used by regional pages to tell Google which version serves which audience.
+const setHreflangAlternates = (alternates: { hreflang: string; href: string }[] | undefined) => {
+    const existing = document.querySelectorAll('link[rel="alternate"][hreflang]');
+    existing.forEach(el => el.parentNode?.removeChild(el));
+    if (!alternates) return;
+    alternates.forEach(({ hreflang, href }) => {
+        const el = document.createElement('link');
+        el.setAttribute('rel', 'alternate');
+        el.setAttribute('hreflang', hreflang);
+        el.setAttribute('href', href);
+        document.head.appendChild(el);
+    });
+};
+
 // Helper function to set/create link tags
 const setLinkTag = (rel: string, href: string) => {
     const selector = `link[rel="${rel}"]`;
@@ -83,6 +98,9 @@ const MetaManager: React.FC<PageMetadata> = (props) => {
         // Signal to social platforms that this English content also serves
         // other English-speaking markets we actively target.
         setOgLocaleAlternates(['en_GB', 'en_AU', 'en_IN', 'en_CA']);
+        // hreflang alternates — currently only regional /it-outsourcing/* pages
+        // set this. Other pages reset it to empty so stale tags don't leak across navigations.
+        setHreflangAlternates(props.hreflangAlternates);
 
 
         // Twitter Card

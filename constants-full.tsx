@@ -166,7 +166,7 @@ export const SERVICES_OVERVIEW: Service[] = [
     },
     // Sub-Services under E-Commerce Development
     {
-        id: 'woocommerce-devel',
+        id: 'woocommerce-development',
         icon: <WooCommerceIcon />,
         animation: <EcommAnimation />,
         title: 'WooCommerce Development',
@@ -1199,7 +1199,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         technologies: [{ name: 'Platforms', services: ['WooCommerce', 'Shopify', 'Magento', 'BigCommerce'] }]
     },
     {
-        id: 'woocommerce-devel',
+        id: 'woocommerce-development',
         title: 'WooCommerce Development Services',
         icon: <WooCommerceIcon />,
         category: PortfolioCategory.ECOMMERCE,

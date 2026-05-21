@@ -41,7 +41,7 @@ const MEGA_MENU_ITEMS = [
     href: "/services/ecommerce-development",
     icon: <EcommIcon />,
     items: [
-      { label: "WooCommerce Development", href: "/services/woocommerce-devel" },
+      { label: "WooCommerce Development", href: "/services/woocommerce-development" },
       { label: "Shopify Development", href: "/services/shopify-development" },
       { label: "Magento Development", href: "/services/magento-development" },
       { label: "BigCommerce Development", href: "/services/bigcommerce-development" },

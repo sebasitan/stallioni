@@ -14,6 +14,7 @@ export interface PageMetadata {
   ogType: 'website' | 'article';
   structuredData: string;
   noindex?: boolean;
+  hreflangAlternates?: { hreflang: string; href: string }[];
 }
 
 export const BASE_URL = 'https://www.stallioni.com';
@@ -419,6 +420,12 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
         description: regional.metaDescription,
         keywords: regionalKeywords.join(', '),
         ogImage: regionOgImages[regionSlug] || 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&h=630&auto=format&fit=crop',
+        hreflangAlternates: [
+          { hreflang: 'en-us', href: `${BASE_URL}/it-outsourcing/usa` },
+          { hreflang: 'en-au', href: `${BASE_URL}/it-outsourcing/australia` },
+          { hreflang: 'en-in', href: `${BASE_URL}/it-outsourcing/india` },
+          { hreflang: 'x-default', href: `${BASE_URL}/` },
+        ],
       };
       // Emit FAQPage schema for the regional FAQs too — qualifies for rich results.
       schema.push({
