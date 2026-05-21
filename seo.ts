@@ -343,7 +343,7 @@ const getServiceMetadata = (service: ServiceDetail): Partial<PageMetadata> => {
     title: service.metaTitle || `${service.title} | Offshore Outsourcing Services by Stallioni`,
     description: trimDescription(service.metaDescription || fallbackDescription),
     keywords: service.keywords || keywords,
-    ogImage: `https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&h=630&auto=format&fit=crop`,
+    ogImage: `${BASE_URL}/og/${service.id}.jpg`,
   };
 };
 
