@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { BlogPost } from '../types';
 import { getBlogPost, getBlogPosts } from '../utils/blogStorage';
 import MetaManager from '../components/MetaManager';
-import { getBlogPostMetadata } from '../seo';
+import { BASE_URL, getBlogPostMetadata } from '../seo';
 import { useNavigation, useModal } from '../App';
 import FadeIn from '../components/FadeIn';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -149,7 +149,7 @@ const BlogPostPage: React.FC = () => {
         );
     }
 
-    const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
+    const pageUrl = `${BASE_URL}/blog/${post.id}`;
     const encodedUrl = encodeURIComponent(pageUrl);
     const encodedTitle = encodeURIComponent(post.title);
     const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
