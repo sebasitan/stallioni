@@ -51,10 +51,23 @@ const getOrganizationSchema = () => ({
   'name': 'Stallioni',
   'url': BASE_URL,
   'logo': `${BASE_URL}/logo.svg`,
+  // Verifiable on https://www.freelancer.com/u/graphicaa — established May 2007.
+  'foundingDate': '2007',
   'sameAs': [
     'https://www.linkedin.com/in/sebastian-yesuraj/',
     'https://www.freelancer.com/u/graphicaa',
   ],
+  // Sourced from the public Freelancer.com profile linked above
+  // (4.8 / 5 across 978 client reviews). Don't change these numbers
+  // without also updating the profile — Google verifies aggregateRating
+  // against the cited sameAs URL when possible.
+  'aggregateRating': {
+    '@type': 'AggregateRating',
+    'ratingValue': '4.8',
+    'reviewCount': '978',
+    'bestRating': '5',
+    'worstRating': '1',
+  },
   'address': {
     '@type': 'PostalAddress',
     'streetAddress': '23. Jayanth complex, TP Road',

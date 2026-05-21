@@ -191,6 +191,12 @@ const BlogPostPage: React.FC = () => {
             'author': {
                 '@type': 'Person',
                 'name': post.author,
+                'url': `${BASE_URL}/about`,
+                'worksFor': {
+                    '@type': 'Organization',
+                    'name': 'Stallioni',
+                    'url': BASE_URL,
+                },
             },
             'publisher': {
                 '@type': 'Organization',
