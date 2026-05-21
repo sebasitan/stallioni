@@ -1,0 +1,1 @@
+import{j as t}from"./constants-full-mrxiUJ2M.js";import{n as r}from"./admin-DHkN4Ie5.js";import{N as s}from"./router-COHP1jpt.js";const o=({children:o})=>{const{isAuthenticated:e}=r();return e?t.jsx(t.Fragment,{children:o}):t.jsx(s,{to:"/seba/login",replace:!0})};export{o as default};
