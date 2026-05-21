@@ -119,7 +119,11 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/seba",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/seba/:path*",
       "destination": "/index.html"
     }
   ],
