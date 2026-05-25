@@ -113,30 +113,28 @@
       gtag('config', 'G-WZ2SZ03V71');
     });
   </script>
-  <!-- Google reCAPTCHA v3 — load production key on the real domain, fall back
-       to Google's universal test key on localhost so dev doesn't show
-       "ERROR for site owner: invalid site key" badges. -->
-  <script>
-    (function () {
-      var host = window.location.hostname;
-      var isLocal = host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local');
-      var key = isLocal
-        ? '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'   // Google's universal test key — always passes
-        : '6Ld3zuwsAAAAAMQ0mOVBl6M9g_apTkBK4Av3glQp';  // Production key (registered for stallioni.com)
-      var s = document.createElement('script');
-      s.defer = true;
-      s.src = 'https://www.google.com/recaptcha/api.js?render=' + key;
-      document.head.appendChild(s);
-    })();
-  </script>
+  <!-- Google reCAPTCHA v3 is loaded lazily on first form submit — see
+       utils/recaptcha.ts. Loading it here eagerly blocked the main thread on
+       every page even though it's only used in forms. -->
 
-  <!-- Microsoft Clarity (heatmaps, session recordings, scroll/click analytics) -->
+  <!-- Microsoft Clarity (heatmaps, session recordings, scroll/click analytics).
+       Deferred until the browser is idle so it never competes with first paint
+       or interaction on mobile. -->
   <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wqcct5uxof");
+    (function () {
+      var loadClarity = function () {
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "wqcct5uxof");
+      };
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadClarity, { timeout: 5000 });
+      } else {
+        window.addEventListener('load', function () { setTimeout(loadClarity, 2000); });
+      }
+    })();
   </script>
 
   <link rel="stylesheet" href="/index.css">
