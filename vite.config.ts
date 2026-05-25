@@ -30,18 +30,15 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: {
-            // Separate vendor libraries for better caching
+            // Only group genuine vendor libs for caching. We deliberately do NOT
+            // force constants-full.tsx or the admin pages into manual chunks:
+            // doing so hoisted their shared modules (icon components) into those
+            // chunks, which made the main entry STATICALLY import the 488KB
+            // constants-full + admin chunks on every page (incl. home) — the JS
+            // that delayed the hero LCP. Letting Vite auto-split keeps them as
+            // true on-demand async chunks loaded only via dynamic import.
             'react-vendor': ['react', 'react-dom'],
             'router': ['react-router-dom'],
-            // Split constants-full into its own chunk (lazy loaded)
-            'constants-full': ['./constants-full.tsx'],
-            // Group admin pages together (rarely accessed by regular users)
-            'admin': [
-              './pages/admin/AdminHome.tsx',
-              './pages/admin/PortfolioManager.tsx',
-              './pages/admin/BlogManager.tsx',
-              './pages/admin/CareersManager.tsx',
-            ],
           },
           // Optimize for mobile: smaller chunk names
           chunkFileNames: 'assets/[name]-[hash].js',
