@@ -17,6 +17,16 @@ export default defineConfig(({ mode }) => {
       }
     },
     build: {
+      // Don't <link rel="modulepreload"> the heavy lazy chunks on the entry HTML.
+      // Vite was preloading constants-full (488KB) and admin on EVERY page incl.
+      // home, so the browser downloaded + compiled them during the critical
+      // hydration window — delaying hydration and the hero repaint (mobile LCP).
+      // They're only needed on service/admin pages and are dynamically imported
+      // there, so on-demand loading is correct.
+      modulePreload: {
+        resolveDependencies: (_filename, deps) =>
+          deps.filter((d) => !/\/(constants-full|admin)-/.test(d)),
+      },
       rollupOptions: {
         output: {
           manualChunks: {
