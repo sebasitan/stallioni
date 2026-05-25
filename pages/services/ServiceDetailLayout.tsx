@@ -316,6 +316,151 @@ const WhatWeDeliver: React.FC<{ service: ServiceDetail }> = ({ service }) => {
 };
 
 // ============================================
+// OVERVIEW — dark editorial section rendering longDescription
+// ============================================
+const Overview: React.FC<{ service: ServiceDetail }> = ({ service }) => {
+    if (!service.longDescription) return null;
+
+    return (
+        <section className="bg-brand-dark py-16 md:py-20">
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <div className="max-w-3xl">
+                    <Eyebrow tone="light">Overview</Eyebrow>
+                    {/* longDescription is authored as dark-theme JSX (its own <h2>/<h3>
+                        classes); we only need to set a light base colour so default
+                        <p>/<li> text is readable. Plain-string values inherit the same. */}
+                    <div className="text-[15.5px] md:text-base text-gray-300 leading-relaxed [&_a]:text-brand-orange [&_a:hover]:underline">
+                        {service.longDescription}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
+// BENEFITS — "Why your business needs…" card grid
+// ============================================
+const Benefits: React.FC<{ service: ServiceDetail }> = ({ service }) => {
+    if (!service.benefits || service.benefits.items.length === 0) return null;
+
+    return (
+        <section className="bg-brand-light py-16 md:py-20">
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <div className="max-w-2xl mb-10">
+                    <Eyebrow>Benefits</Eyebrow>
+                    <h2 className="text-3xl md:text-4xl font-bold text-brand-dark tracking-[-0.025em] leading-[1.15]">
+                        {service.benefits.title}
+                    </h2>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {service.benefits.items.map((item, i) => (
+                        <FadeIn key={item} delay={i * 50}>
+                            <div className="h-full bg-white border border-gray-200 rounded-2xl p-5 flex items-start gap-3.5">
+                                <span className="w-7 h-7 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <Icon.Check className="w-3.5 h-3.5" />
+                                </span>
+                                <p className="text-[14.5px] text-brand-dark font-medium leading-snug">{item}</p>
+                            </div>
+                        </FadeIn>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
+// PROCESS — numbered timeline
+// ============================================
+const Process: React.FC<{ service: ServiceDetail }> = ({ service }) => {
+    if (!service.process || service.process.length === 0) return null;
+
+    return (
+        <section className="bg-white py-16 md:py-20">
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <div className="max-w-2xl mb-10">
+                    <Eyebrow>How we work</Eyebrow>
+                    <h2 className="text-3xl md:text-4xl font-bold text-brand-dark tracking-[-0.025em] leading-[1.15]">
+                        Our <span className="text-brand-orange">process.</span>
+                    </h2>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {service.process.map((p, i) => (
+                        <FadeIn key={p.step} delay={i * 60}>
+                            <div className="relative h-full bg-white border border-gray-200 rounded-2xl p-6 hover:border-brand-dark transition-colors">
+                                <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-brand-dark text-white font-bold text-sm mb-4">
+                                    {String(p.step).padStart(2, '0')}
+                                </span>
+                                <h3 className="text-base md:text-lg font-bold text-brand-dark tracking-tight leading-tight mb-2">
+                                    {p.title}
+                                </h3>
+                                <p className="text-[13.5px] text-gray-600 leading-relaxed">{p.description}</p>
+                            </div>
+                        </FadeIn>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
+// WHY CHOOSE US — checklist band
+// ============================================
+const WhyChooseUs: React.FC<{ service: ServiceDetail }> = ({ service }) => {
+    if (!service.whyChooseUs || service.whyChooseUs.points.length === 0) return null;
+
+    return (
+        <section className="bg-brand-light py-16 md:py-20">
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <div className="grid lg:grid-cols-12 gap-x-10 gap-y-8 items-start">
+                    <div className="lg:col-span-5">
+                        <Eyebrow>Why us</Eyebrow>
+                        <h2 className="text-3xl md:text-4xl font-bold text-brand-dark tracking-[-0.025em] leading-[1.15]">
+                            {service.whyChooseUs.title}
+                        </h2>
+                    </div>
+                    <div className="lg:col-span-7">
+                        <ul className="grid sm:grid-cols-2 gap-3">
+                            {service.whyChooseUs.points.map((point, i) => (
+                                <FadeIn key={point} delay={i * 50}>
+                                    <li className="flex items-start gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3.5">
+                                        <span className="w-6 h-6 rounded-md bg-brand-orange text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <Icon.Check className="w-3 h-3" />
+                                        </span>
+                                        <span className="text-[14px] text-brand-dark font-medium leading-snug">{point}</span>
+                                    </li>
+                                </FadeIn>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
+// CONCLUSION — dark closing section
+// ============================================
+const Conclusion: React.FC<{ service: ServiceDetail }> = ({ service }) => {
+    if (!service.conclusion) return null;
+
+    return (
+        <section className="bg-brand-dark py-16 md:py-20">
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <div className="max-w-3xl">
+                    <div className="text-[15.5px] md:text-base text-gray-300 leading-relaxed [&_a]:text-brand-orange [&_a:hover]:underline">
+                        {service.conclusion}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
 // FAQ — home-page style grid
 // ============================================
 const FAQ: React.FC<{ faqs: { question: string; answer: string }[] }> = ({ faqs }) => {
@@ -441,8 +586,13 @@ const ServiceDetailLayout: React.FC<{ service: ServiceDetail }> = ({ service }) 
     return (
         <div className="overflow-x-hidden bg-white">
             <Hero service={service} />
+            <Overview service={service} />
             <WhatWeDeliver service={service} />
+            <Benefits service={service} />
+            <Process service={service} />
+            <WhyChooseUs service={service} />
             <FAQ faqs={faqs} />
+            <Conclusion service={service} />
             <FinalCTA service={service} />
         </div>
     );
