@@ -45,9 +45,10 @@ function collectHtml(dir) {
         const beasties = new Beasties({
             path: DIST_DIR,
             publicPath: '/',
-            preload: 'swap',      // remaining CSS loads async, swaps in on load
-            pruneSource: false,   // keep the full stylesheet file (async-loaded)
+            preload: 'swap',            // remaining CSS loads async, swaps in on load
+            pruneSource: false,         // keep the full stylesheet file (async-loaded)
             inlineFonts: false,
+            reduceInlineStyles: false,  // leave our hand-written <style> (incl. @font-face) intact
             logLevel: 'silent',
         });
 
