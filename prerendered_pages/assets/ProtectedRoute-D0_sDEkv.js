@@ -1,0 +1,1 @@
+import{u as r,j as e}from"./shared-CkvkRlyc.js";import{N as s}from"./router-Cf2tsL_3.js";const t=({children:t})=>{const{isAuthenticated:a}=r();return a?e.jsx(e.Fragment,{children:t}):e.jsx(s,{to:"/seba/login",replace:!0})};export{t as default};
