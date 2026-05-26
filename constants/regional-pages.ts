@@ -198,4 +198,59 @@ export const REGIONAL_PAGES: Record<string, RegionalPageData> = {
         metaTitle: 'IT Outsourcing for Indian Businesses | Coimbatore Development',
         metaDescription: 'Indian businesses hire Stallioni for web, mobile, and SaaS development. Coimbatore team, INR pricing, 4.8★ on Freelancer.com since 2007, in-person meetings.',
     },
+
+    'uk': {
+        slug: 'uk',
+        regionDisplayName: 'UK',
+        badge: 'For UK & European Businesses',
+        h1Top: 'IT Outsourcing for UK & European Companies',
+        h1Highlight: 'IR35-Free, GDPR-Ready, Trusted Since 2007',
+        subhead: 'UK and European businesses hire Stallioni for web, mobile, and e-commerce builds — 4.8★ on Freelancer.com, 978 reviews, Preferred Freelancer status since 2007. Hire dedicated developers from India with near-full working-day overlap with London hours, GBP/EUR invoicing, and no IR35 headache.',
+        primaryCta: 'Get a Free Quote',
+        whySectionTitle: 'Why UK & European Companies Hire Stallioni',
+        whyPoints: [
+            { title: 'No IR35, No Off-Payroll Risk', description: 'When you engage Stallioni you contract with a company for project deliverables — not an individual contractor. That places the work cleanly outside IR35 / off-payroll working rules, removing the status-determination risk and employer NI exposure that has made UK contractor hiring so painful since 2021.' },
+            { title: 'Near-Full Working-Day Overlap', description: 'India is just 4.5–5.5 hours ahead of the UK. When it is 9 AM in London it is around 2:30 PM in Coimbatore, so your entire 9–5 working day sits inside ours. UK clients get real-time collaboration across the whole business day — far better overlap than the US gets.' },
+            { title: 'Significant Cost Saving vs UK Salaries', description: 'A senior developer in London now costs £75K–£95K base, well over £110K all-in with NI, pension and benefits. Our public Freelancer.com rate starts at $12 USD (~£9.50) and dedicated-team pricing is similarly competitive — typically a 50–60% reduction in engineering spend.' },
+            { title: 'GDPR & UK Data Protection Ready', description: 'We deploy to your chosen cloud region — AWS London (eu-west-2), AWS Ireland (eu-west-1), Azure UK South, or any EU region — so personal data stays in-region. We sign Data Processing Agreements, support data-minimisation, and never copy production data offshore.' },
+            { title: '19+ Years & Preferred Freelancer Status', description: 'Much of our public Freelancer.com work has been for UK and European clients since 2007 — 978 reviews, 4.8★, Preferred Freelancer status, 96% on-budget. Verifiable before you sign anything, not a sales claim.' },
+            { title: 'Reverse-Charge VAT, GBP/EUR Invoicing', description: 'As a non-UK / non-EU supplier we invoice without adding VAT; UK and EU business clients simply account for it under the reverse-charge mechanism. Invoice in GBP, EUR or USD, paid by bank transfer or PayPal — no FX markup, no surprise fees.' },
+        ],
+        bodyParagraphs: [
+            {
+                heading: 'Why UK Businesses Outsource Development to India',
+                text: 'Two forces have pushed UK companies toward offshore development since 2021. First, IR35 reform made hiring individual contractors expensive and legally risky — many firms simply stopped using PSCs. Second, senior engineering salaries in London, Manchester and Edinburgh have climbed past £80K while the talent pool stays tight. Outsourcing to an established India-based team solves both: you contract with a company (cleanly outside IR35), you get senior engineers online within weeks rather than a 3-month recruitment cycle, and you cut total engineering cost by roughly half. For startups, scale-ups and agencies that need to ship without growing fixed headcount, it is now a mainstream choice rather than a last resort.',
+            },
+            {
+                heading: 'Our Track Record with UK & European Clients',
+                text: 'The UK and Europe have been among our most consistent client regions on Freelancer.com since 2007. Recent and past examples on our public profile include a UK conveyancing-quote platform, a London-based Manuka honey e-commerce store, European e-commerce builds (PrestaShop, Shopify, WooCommerce), and a Norwegian travel portal. The pattern UK and EU buyers care about: clean delivery to Western quality standards, English-first communication, and a publicly verifiable review history across nearly two decades.',
+            },
+            {
+                heading: 'How We Work with UK & European Clients',
+                text: 'Most engagements start with a free 30-minute scoping call over Zoom or Google Meet during your morning or early afternoon (our afternoon). Within 48 hours we send a fixed-scope proposal with milestones, deliverables and pricing in GBP or EUR. Work usually begins within 5–7 working days. We use whatever your team already uses — Slack, GitHub, Linear, Jira, Notion, Figma — with weekly demos and milestone-based invoicing. Full IP transfer on payment, mutual NDA, and a signed DPA where personal data is involved.',
+            },
+            {
+                heading: 'GDPR, Data Residency & Compliance',
+                text: 'For UK and EU clients, data protection is non-negotiable, so we build for it from the start. Your application and its databases are deployed to the region you specify — London, Ireland, Frankfurt or elsewhere — and personal data never leaves that region. We act as a data processor under a signed DPA, follow data-minimisation in development (synthetic or anonymised data in non-production environments), and access your systems through secure, audited channels. Where you need it, we implement consent management, right-to-erasure workflows, and audit logging as part of the build.',
+            },
+            {
+                heading: 'Pricing for UK & European Clients',
+                text: 'Our Freelancer.com profile shows a public hourly rate of $12 USD (~£9.50 / €11). For dedicated-team engagements, monthly rates per developer typically run £2,800–£5,500 (€3,300–€6,400) depending on stack, seniority and team size. Most fixed-scope MVPs and redesigns fall between £4,000 and £35,000. We invoice in GBP, EUR or USD with reverse-charge VAT handling for business clients, payable by bank transfer or PayPal. No setup fees, no recruitment fees, no markup on third-party costs such as AWS or domains. Freelancer.com escrow is available for first-time clients who prefer that safety.',
+            },
+        ],
+        servicesIntro: 'These are the services UK and European clients most often hire us for. Each links to a detailed page with our stack, deliverables, and typical timelines.',
+        featuredServices: FEATURED_SERVICES_DEFAULT,
+        faqs: [
+            { question: 'Does engaging you create any IR35 / off-payroll risk?', answer: 'No. You contract with Stallioni as a company for defined project deliverables, not with an individual operating through a personal service company. That puts the engagement outside the scope of IR35 / off-payroll working rules — there is no status determination to make and no employer National Insurance exposure. We can sign your standard supplier MSA confirming this.' },
+            { question: 'How do you handle GDPR and where is our data stored?', answer: 'We deploy your application and data to the cloud region you choose — AWS London (eu-west-2), AWS Ireland, Azure UK South, Frankfurt, or any EU region — so personal data stays in-region. We sign a Data Processing Agreement, act as your data processor, use anonymised/synthetic data in non-production environments, and never copy production data to India. Consent, right-to-erasure, and audit logging can be built in where required.' },
+            { question: 'How does the time zone work with London hours?', answer: 'India is 4.5 hours ahead of the UK in summer (BST) and 5.5 hours ahead in winter (GMT). When it is 9 AM in London it is about 2:30 PM in Coimbatore, so your full 9–5 working day overlaps ours. UK clients get real-time collaboration across the entire business day — daily standups, live calls, and same-day Slack responses.' },
+            { question: 'Can you invoice in GBP or EUR, and how does VAT work?', answer: 'Yes — we invoice in GBP, EUR or USD, your choice, paid by international bank transfer or PayPal. As a non-UK / non-EU supplier we do not add VAT to the invoice; UK and EU VAT-registered businesses account for it under the reverse-charge mechanism (typically net-zero for you). We can provide all documentation your accountant needs.' },
+            { question: 'How can I verify your track record before hiring?', answer: 'Our public Freelancer.com profile at freelancer.com/u/graphicaa shows 978 reviews, a 4.8 / 5 rating since 2007, and Preferred Freelancer status. Many reviews are from UK and European clients, and the portfolio includes UK and EU projects (a UK conveyancing platform, a London Manuka honey store, European e-commerce builds). For first-time clients who prefer escrow, we can run the initial project through Freelancer.com itself.' },
+            { question: 'Do you have a UK office or company?', answer: 'No — our office is in Coimbatore, India, and we are upfront about that. We do not maintain a UK entity or phone number. Our value to UK and European clients is the cost advantage, the near-full working-day overlap, and the GDPR-compliant delivery we provide remotely. All communication happens on Slack, email, and Zoom.' },
+        ],
+        ctaHeading: 'Ship faster with an IR35-free, GDPR-ready partner that has delivered since 2007',
+        ctaSubhead: 'Free 30-minute call in your working hours. Fixed-price GBP/EUR proposal in 48 hours. Verifiable Freelancer.com track record.',
+        metaTitle: 'IT Outsourcing UK & Europe | Hire Indian Developers (IR35-Free)',
+        metaDescription: 'UK & European businesses hire Stallioni for web, mobile & e-commerce. IR35-free, GDPR-ready, London-hours overlap, GBP/EUR invoicing. 4.8★ on Freelancer.com since 2007.',
+    },
 };

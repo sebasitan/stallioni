@@ -427,6 +427,7 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
         usa: 'https://images.unsplash.com/photo-1496450681664-3df85efbd29f?q=80&w=1200&h=630&auto=format&fit=crop',
         australia: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1200&h=630&auto=format&fit=crop',
         india: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=1200&h=630&auto=format&fit=crop',
+        uk: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1200&h=630&auto=format&fit=crop',
       };
       partialMetadata = {
         title: regional.metaTitle,
@@ -437,6 +438,7 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
           { hreflang: 'en-us', href: `${BASE_URL}/it-outsourcing/usa` },
           { hreflang: 'en-au', href: `${BASE_URL}/it-outsourcing/australia` },
           { hreflang: 'en-in', href: `${BASE_URL}/it-outsourcing/india` },
+          { hreflang: 'en-gb', href: `${BASE_URL}/it-outsourcing/uk` },
           { hreflang: 'x-default', href: `${BASE_URL}/` },
         ],
       };

@@ -278,6 +278,7 @@ const Footer: React.FC = () => {
               <ul className="space-y-3 text-sm">
                 {[
                   { code: 'us', name: 'United States', href: '/it-outsourcing/usa' },
+                  { code: 'gb', name: 'United Kingdom', href: '/it-outsourcing/uk' },
                   { code: 'au', name: 'Australia', href: '/it-outsourcing/australia' },
                   { code: 'in', name: 'India', href: '/it-outsourcing/india' },
                 ].map((region) => (
