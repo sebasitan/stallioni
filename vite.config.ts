@@ -30,33 +30,18 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: {
+            // Separate vendor libraries for better caching
             'react-vendor': ['react', 'react-dom'],
             'router': ['react-router-dom'],
-            // Shared icon components are imported by BOTH the homepage and
-            // constants-full.tsx. Giving them their own chunk stops Rollup from
-            // hoisting them into the constants-full chunk (which previously forced
-            // the entry to statically import the whole 488KB constants-full on
-            // every page — the cause of the mobile-LCP render delay). With icons
-            // isolated, constants-full + admin can stay as separate async chunks
-            // WITHOUT bloating the entry (which was creating a 300ms main-thread
-            // long task and tanking desktop TBT).
-            // Modules shared between the entry (App.tsx) and the heavy lazy
-            // chunks (constants-full, admin). Isolating them stops Rollup from
-            // hoisting them INTO those chunks, which previously forced the entry
-            // to statically import the 488KB constants-full + 223KB admin bundles
-            // on every page — the cause of both the mobile-LCP render delay and
-            // the desktop main-thread long task / TBT regression.
-            'shared': [
-              './components/IconComponents.tsx',
-              './components/TechnologyIcons.tsx',
-              './contexts/AuthContext.tsx',
-              './constants.tsx',
+            // Split constants-full into its own chunk (lazy loaded)
+            'constants-full': ['./constants-full.tsx'],
+            // Group admin pages together (rarely accessed by regular users)
+            'admin': [
+              './pages/admin/AdminHome.tsx',
+              './pages/admin/PortfolioManager.tsx',
+              './pages/admin/BlogManager.tsx',
+              './pages/admin/CareersManager.tsx',
             ],
-            // constants-full.tsx and the admin pages are intentionally left to
-            // Vite's automatic splitting (they're dynamically/lazy imported). With
-            // the shared modules above isolated, they no longer get pulled into the
-            // entry's static graph, so the entry stays lean (~179KB) AND the 488KB
-            // constants-full never loads on the homepage.
           },
           // Optimize for mobile: smaller chunk names
           chunkFileNames: 'assets/[name]-[hash].js',
