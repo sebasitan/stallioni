@@ -453,6 +453,24 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
         }))
       });
     }
+  } else if (cleanRoute === '/agencies') {
+    const { AGENCIES_PAGE } = await import('./constants/agencies-page');
+    partialMetadata = {
+      title: AGENCIES_PAGE.metaTitle,
+      description: AGENCIES_PAGE.metaDescription,
+      keywords: 'white-label development, agency partner, offshore developers for agencies, IR35-free dev team, dedicated developers for agencies, agency overflow capacity',
+      ogImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&h=630&auto=format&fit=crop',
+    };
+    // FAQ schema for rich results
+    schema.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': AGENCIES_PAGE.faqs.map(f => ({
+        '@type': 'Question',
+        'name': f.question,
+        'acceptedAnswer': { '@type': 'Answer', 'text': f.answer }
+      }))
+    });
   } else if (staticMetadata[cleanRoute]) {
     partialMetadata = staticMetadata[cleanRoute];
     if (cleanRoute === '/') schema.push(getWebsiteSchema());
