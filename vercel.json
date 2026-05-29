@@ -53,6 +53,11 @@
       "permanent": true
     },
     {
+      "source": "/index.php",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/homepage",
       "destination": "/",
       "permanent": true
