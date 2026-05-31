@@ -109,8 +109,16 @@ const ContactPage: React.FC = () => {
 
         try {
             const recaptchaToken = await getRecaptchaToken('contact_form');
-            const data = Object.fromEntries(formData.entries());
+            const data: Record<string, any> = Object.fromEntries(formData.entries());
             data.recaptchaToken = recaptchaToken;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            ['utm_source', 'utm_campaign', 'utm_medium', 'utm_term', 'utm_content'].forEach((key) => {
+                const fromUrl = urlParams.get(key);
+                const fromStorage = sessionStorage.getItem('stl_' + key);
+                const value = fromUrl || fromStorage;
+                if (value) data[key] = value;
+            });
 
             const response = await fetch('/api/contact', {
                 method: 'POST',

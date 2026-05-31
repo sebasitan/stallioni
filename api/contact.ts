@@ -63,7 +63,57 @@ export default async function handler(req, res) {
             }
         }
 
-        // 4. Send Email using Google SMTP (Nodemailer)
+        // 4. Create Lead in Zoho CRM (non-blocking — if Zoho fails, email still goes through)
+        try {
+            const tokenRes = await fetch('https://accounts.zoho.com/oauth/v2/token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    refresh_token: process.env.ZOHO_REFRESH_TOKEN || '',
+                    client_id: process.env.ZOHO_CLIENT_ID || '',
+                    client_secret: process.env.ZOHO_CLIENT_SECRET || '',
+                    grant_type: 'refresh_token',
+                }),
+            });
+            const tokenData = await tokenRes.json();
+            const accessToken = tokenData.access_token;
+
+            if (accessToken) {
+                const utmSource = (req.body.utm_source as string) || '';
+                const utmCampaign = (req.body.utm_campaign as string) || '';
+
+                let leadSource = 'Website - General';
+                if (utmSource === 'smartlead' || utmSource === 'apollo') {
+                    leadSource = `Cold Email${utmCampaign ? ' - ' + utmCampaign : ''}`;
+                } else if (_subject?.includes('Partnership')) {
+                    leadSource = 'Website - Partnership';
+                } else if (_subject?.includes('Project')) {
+                    leadSource = 'Website - Project';
+                }
+
+                await fetch(`${process.env.ZOHO_API_DOMAIN}/crm/v6/Leads`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Zoho-oauthtoken ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        data: [{
+                            Last_Name: name,
+                            Email: email,
+                            Company: organization || 'Unknown',
+                            Phone: phone || '',
+                            Lead_Source: leadSource,
+                            Description: message,
+                        }],
+                    }),
+                });
+            }
+        } catch (zohoErr) {
+            console.error('Zoho lead creation failed:', zohoErr);
+        }
+
+        // 5. Send Email using Google SMTP (Nodemailer)
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 587,
