@@ -29,7 +29,7 @@ export const getWhatsAppUrl = (): string => WHATSAPP_GROUP_URL;
 // Production site key — restricted to stallioni.com. On localhost we fall back
 // to Google's universal test key so dev environments don't fail captcha
 // verification with "ERROR for site owner: invalid site key".
-const PROD_RECAPTCHA_SITE_KEY = '6Ld3zuwsAAAAAMQ0mOVBl6M9g_apTkBK4Av3glQp';
+const PROD_RECAPTCHA_SITE_KEY = '6LeASQUtAAAAAHChGJSesiHGSh0cib4AY4STjf4k';
 const TEST_RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
 const isLocalHost = (): boolean => {
