@@ -65,9 +65,12 @@ export default async function handler(req, res) {
 
         // 4. Create Lead in Zoho CRM (non-blocking — if Zoho fails, email still goes through)
         try {
+            const rt = (process.env.ZOHO_REFRESH_TOKEN || '').trim();
             console.error('Zoho env check:', JSON.stringify({
                 hasRefreshToken: !!process.env.ZOHO_REFRESH_TOKEN,
-                refreshTokenLength: (process.env.ZOHO_REFRESH_TOKEN || '').length,
+                refreshTokenLength: rt.length,
+                refreshTokenFirst20: rt.substring(0, 20),
+                refreshTokenLast10: rt.substring(rt.length - 10),
                 hasClientId: !!process.env.ZOHO_CLIENT_ID,
                 clientIdLength: (process.env.ZOHO_CLIENT_ID || '').length,
                 hasClientSecret: !!process.env.ZOHO_CLIENT_SECRET,
