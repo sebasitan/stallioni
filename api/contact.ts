@@ -126,14 +126,14 @@ export default async function handler(req, res) {
             console.error('Zoho lead creation failed:', zohoErr);
         }
 
-        // 5. Send Email using Google SMTP (Nodemailer)
+        // 5. Send Email via mail.stallioni.com SMTP (Nodemailer)
         const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false, // TLS
+            host: 'mail.stallioni.com',
+            port: 465,
+            secure: true, // SSL
             auth: {
                 user: process.env.SMTP_USER || 'contact@stallioni.com',
-                pass: process.env.SMTP_PASS, // This must be an App Password
+                pass: process.env.SMTP_PASS, // App password from mail.stallioni.com user panel
             },
         });
 
