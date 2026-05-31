@@ -65,27 +65,30 @@ export default async function handler(req, res) {
 
         // 4. Create Lead in Zoho CRM (non-blocking — if Zoho fails, email still goes through)
         try {
-            console.log('Zoho env check:', {
+            console.error('Zoho env check:', JSON.stringify({
                 hasRefreshToken: !!process.env.ZOHO_REFRESH_TOKEN,
+                refreshTokenLength: (process.env.ZOHO_REFRESH_TOKEN || '').length,
                 hasClientId: !!process.env.ZOHO_CLIENT_ID,
+                clientIdLength: (process.env.ZOHO_CLIENT_ID || '').length,
                 hasClientSecret: !!process.env.ZOHO_CLIENT_SECRET,
+                clientSecretLength: (process.env.ZOHO_CLIENT_SECRET || '').length,
                 apiDomain: process.env.ZOHO_API_DOMAIN,
-            });
+            }));
 
             const tokenRes = await fetch('https://accounts.zoho.com/oauth/v2/token', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({
-                    refresh_token: process.env.ZOHO_REFRESH_TOKEN || '',
-                    client_id: process.env.ZOHO_CLIENT_ID || '',
-                    client_secret: process.env.ZOHO_CLIENT_SECRET || '',
+                    refresh_token: (process.env.ZOHO_REFRESH_TOKEN || '').trim(),
+                    client_id: (process.env.ZOHO_CLIENT_ID || '').trim(),
+                    client_secret: (process.env.ZOHO_CLIENT_SECRET || '').trim(),
                     grant_type: 'refresh_token',
                 }),
             });
             const tokenData = await tokenRes.json();
             const accessToken = tokenData.access_token;
 
-            console.log('Zoho token response:', { status: tokenRes.status, hasAccessToken: !!accessToken, error: tokenData.error });
+            console.error('Zoho token response:', JSON.stringify({ status: tokenRes.status, body: tokenData }));
 
             if (accessToken) {
                 const utmSource = (req.body.utm_source as string) || '';
