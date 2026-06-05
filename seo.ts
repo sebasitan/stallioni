@@ -45,10 +45,49 @@ const SERVED_COUNTRIES = [
   { '@type': 'Country', name: 'Canada' },
 ];
 
+// One real verified client testimonial from the public Freelancer.com profile.
+// Quoting an individual review (with author + date + body) gives LLMs and
+// rich-result eligibility a citable quote — much stronger than AggregateRating
+// alone. Add more entries here as we get permission to quote them by name.
+const VERIFIED_REVIEWS = [
+  {
+    '@type': 'Review',
+    'author': { '@type': 'Person', 'name': 'Sofia N.' },
+    'datePublished': '2022-07-01',
+    'reviewBody': 'Stallioni Net Solution was a great partner from the start — always extremely courteous and responsive throughout the project.',
+    'reviewRating': {
+      '@type': 'Rating',
+      'ratingValue': '5',
+      'bestRating': '5',
+      'worstRating': '1',
+    },
+    'publisher': { '@type': 'Organization', 'name': 'Freelancer.com' },
+  },
+];
+
+// Entities the company is materially associated with — used by LLMs and
+// knowledge-graph builders to triangulate authority and verify claims.
+const ORG_MENTIONS = [
+  {
+    '@type': 'WebSite',
+    'name': 'Freelancer.com',
+    'url': 'https://www.freelancer.com/u/graphicaa',
+    'description': 'Public profile with 978 verified client reviews since 2007.',
+  },
+  {
+    '@type': 'WebSite',
+    'name': 'LinkedIn (Founder)',
+    'url': 'https://www.linkedin.com/in/sebastian-yesuraj/',
+    'description': 'Sebastian Yesuraj — Founder of Stallioni Net Solutions.',
+  },
+];
+
 const getOrganizationSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': `${BASE_URL}/#organization`,
   'name': 'Stallioni',
+  'alternateName': 'Stallioni Net Solutions',
   'url': BASE_URL,
   'logo': `${BASE_URL}/logo.svg`,
   // Verifiable on https://www.freelancer.com/u/graphicaa — established May 2007.
@@ -57,6 +96,8 @@ const getOrganizationSchema = () => ({
     'https://www.linkedin.com/in/sebastian-yesuraj/',
     'https://www.freelancer.com/u/graphicaa',
   ],
+  // External entities mentioned/related — feeds knowledge-graph triangulation.
+  'mentions': ORG_MENTIONS,
   // Sourced from the public Freelancer.com profile linked above
   // (4.8 / 5 across 978 client reviews). Don't change these numbers
   // without also updating the profile — Google verifies aggregateRating
@@ -68,6 +109,7 @@ const getOrganizationSchema = () => ({
     'bestRating': '5',
     'worstRating': '1',
   },
+  'review': VERIFIED_REVIEWS,
   'address': {
     '@type': 'PostalAddress',
     'streetAddress': '23. Jayanth complex, TP Road',
@@ -77,6 +119,137 @@ const getOrganizationSchema = () => ({
     'addressCountry': 'IN'
   },
   'areaServed': SERVED_COUNTRIES
+});
+
+// LocalBusiness is the more specific Schema.org subtype for businesses with a
+// physical address. Emitted alongside Organization on the homepage so Google
+// Maps + local search + AI search treat us as a brick-and-mortar entity with
+// verifiable coordinates, opening hours, and price range.
+const getLocalBusinessSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${BASE_URL}/#localbusiness`,
+  'name': 'Stallioni Net Solutions',
+  'image': `${BASE_URL}/logo.svg`,
+  'url': BASE_URL,
+  'telephone': '+91-98432-96279',
+  'email': 'contact@stallioni.com',
+  'priceRange': '$$',
+  'address': {
+    '@type': 'PostalAddress',
+    'streetAddress': '23 Jayanth Complex, TP Road',
+    'addressLocality': 'Annur, Coimbatore',
+    'postalCode': '641653',
+    'addressRegion': 'Tamil Nadu',
+    'addressCountry': 'IN'
+  },
+  'geo': {
+    '@type': 'GeoCoordinates',
+    'latitude': 11.2735,
+    'longitude': 77.1078
+  },
+  'openingHoursSpecification': [{
+    '@type': 'OpeningHoursSpecification',
+    'dayOfWeek': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    'opens': '09:00',
+    'closes': '18:00'
+  }],
+  'aggregateRating': {
+    '@type': 'AggregateRating',
+    'ratingValue': '4.8',
+    'reviewCount': '978',
+    'bestRating': '5',
+    'worstRating': '1'
+  },
+  'areaServed': SERVED_COUNTRIES,
+});
+
+// FAQ schema for the homepage — high-intent questions LLMs and Google AI
+// Overviews surface for queries like "how much does IT outsourcing cost",
+// "how do I verify a Freelancer.com agency", etc. Answers are honest and
+// trace back to facts visible elsewhere on the site (no fabrication).
+const getHomepageFaqSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  'mainEntity': [
+    {
+      '@type': 'Question',
+      'name': 'How much does it cost to outsource IT development to India?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Costs vary by project type. Marketing websites typically run $1,500–$4,500, e-commerce stores $2,500–$8,000, SaaS MVPs $8,000–$25,000, and mobile apps $4,000–$60,000+ depending on platforms and features. Our public hourly rate on Freelancer.com is $12 USD, and dedicated developer engagements range from $3,000–$6,500 per developer per month. We provide free fixed-scope quotes within 48 hours of a discovery call.'
+      }
+    },
+    {
+      '@type': 'Question',
+      'name': 'How can I verify Stallioni’s track record before hiring?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'We have a public Freelancer.com profile at freelancer.com/u/graphicaa with 978 verified client reviews, a 4.8 / 5 rating, and Preferred Freelancer status since May 2007. You can read individual reviews, view past projects, and verify our 86% on-time and 96% on-budget delivery rates before signing any contract.'
+      }
+    },
+    {
+      '@type': 'Question',
+      'name': 'What time zones do you work in?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Our team is based in Coimbatore, India (IST, UTC+5:30). For US clients, our developers work evening IST which overlaps 3–7 hours with US morning hours. For Australian clients, we work from 8 AM IST giving a full afternoon overlap with AEST/AEDT. For European clients, we share most of the business day. We adjust schedules for tight collaboration projects.'
+      }
+    },
+    {
+      '@type': 'Question',
+      'name': 'Do you provide dedicated developers or fixed-scope projects?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Both. Dedicated developer engagements run 3 months minimum at a fixed monthly rate per developer ($3,000–$6,500 depending on stack and seniority). Fixed-scope projects use milestone-based pricing — you approve a scope and pay against deliverables. Most clients choose dedicated teams for ongoing product work and fixed-scope for one-time builds like MVPs or migrations.'
+      }
+    },
+    {
+      '@type': 'Question',
+      'name': 'What payment methods do you accept?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'International clients can pay via wire transfer, PayPal, or Freelancer.com escrow (recommended for first-time clients). Indian clients pay via NEFT, IMPS, RTGS, or UPI with proper GST invoicing. We invoice in USD, AUD, EUR, GBP, or INR depending on the client preference. Most engagements are net-30.'
+      }
+    },
+    {
+      '@type': 'Question',
+      'name': 'Do you sign NDAs and assign IP rights to clients?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Yes. Every client signs a mutual NDA before scoping discussions begin, and work-for-hire IP assignment is standard — you own 100% of the code, designs, and assets we produce from the moment they are committed to your repository. We can sign your MSA or use a simple one of ours.'
+      }
+    },
+    {
+      '@type': 'Question',
+      'name': 'How long does a typical project take?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Marketing websites typically launch in 2–3 weeks. Shopify or WooCommerce stores ship in 3–5 weeks. SaaS MVPs deliver in 8–12 weeks. Custom mobile apps take 10–20 weeks depending on platforms and complexity. We use milestone-based delivery with weekly demos so progress is always visible. Most clients see a working version within 4 weeks.'
+      }
+    },
+    {
+      '@type': 'Question',
+      'name': 'How do I get started with Stallioni?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Three options: email contact@stallioni.com with a brief about your project, call +91 98432 96279, or message WhatsApp at +91 63836 80419. Within 24 hours we schedule a free 30-minute scoping call. Within 48 hours of that call, we deliver a written proposal with fixed scope, milestones, and pricing. No commitment until you sign.'
+      }
+    }
+  ]
+});
+
+// Speakable schema — tells Google Assistant / Siri which parts of the page
+// can be read aloud for voice search answers. Targets the H1 (page topic)
+// and FAQ answers (the actual answer-able content).
+const getSpeakableSchema = (url: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  'url': url,
+  'speakable': {
+    '@type': 'SpeakableSpecification',
+    'cssSelector': ['h1', '[data-speakable]', '.faq-answer']
+  }
 });
 
 const getWebsiteSchema = () => ({
@@ -452,6 +625,8 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
           'acceptedAnswer': { '@type': 'Answer', 'text': f.answer }
         }))
       });
+      // Speakable for voice search — flags H1 + FAQ answers as voice-readable.
+      schema.push(getSpeakableSchema(`${BASE_URL}${cleanRoute}`));
     }
   } else if (cleanRoute === '/agencies') {
     const { AGENCIES_PAGE } = await import('./constants/agencies-page');
@@ -473,11 +648,21 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
     });
   } else if (staticMetadata[cleanRoute]) {
     partialMetadata = staticMetadata[cleanRoute];
-    if (cleanRoute === '/') schema.push(getWebsiteSchema());
+    if (cleanRoute === '/') {
+      schema.push(getWebsiteSchema());
+      // Homepage gets the full AI-search payload:
+      // - LocalBusiness pins us to a real address/coordinates for local search
+      // - FAQPage answers high-intent queries directly (Google AI Overviews,
+      //   ChatGPT/Perplexity citations, etc.)
+      schema.push(getLocalBusinessSchema());
+      schema.push(getHomepageFaqSchema());
+    }
     if (cleanRoute === '/careers') schema.push(...getJobPostingSchema());
   } else if (cleanRoute === '/') {
     partialMetadata = staticMetadata['/'];
     schema.push(getWebsiteSchema());
+    schema.push(getLocalBusinessSchema());
+    schema.push(getHomepageFaqSchema());
   } else if (cleanRoute.startsWith('/seba')) {
     // Catch-all for any admin sub-route not explicitly listed above.
     partialMetadata = {
