@@ -628,6 +628,77 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
       // Speakable for voice search — flags H1 + FAQ answers as voice-readable.
       schema.push(getSpeakableSchema(`${BASE_URL}${cleanRoute}`));
     }
+  } else if (cleanRoute === '/resources' || cleanRoute.startsWith('/resources/')) {
+    const { RESOURCE_ARTICLES, getArticleBySlug, CATEGORY_LABELS } = await import('./constants/resources');
+    if (cleanRoute === '/resources') {
+      // Hub page metadata
+      partialMetadata = {
+        title: 'Resources | Honest Tool Reviews & Guides from a Working Agency | Stallioni',
+        description: 'Comparison guides, honest reviews, and tools-we-actually-use roundups for hosting, e-commerce, SEO, and design — written by a working digital agency.',
+        keywords: 'agency resources, tool reviews, hosting comparison, ecommerce comparison, SEO tools, web development resources',
+        ogImage: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1200&h=630&auto=format&fit=crop',
+      };
+      // ItemList schema for the hub — helps search engines understand it's a collection
+      schema.push({
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        'name': 'Stallioni Resources',
+        'numberOfItems': RESOURCE_ARTICLES.length,
+        'itemListElement': RESOURCE_ARTICLES.map((article: any, idx: number) => ({
+          '@type': 'ListItem',
+          'position': idx + 1,
+          'url': `${BASE_URL}/resources/${article.slug}`,
+          'name': article.h1,
+        })),
+      });
+    } else {
+      // Individual article page
+      const articleSlug = cleanRoute.split('/')[2];
+      const article = getArticleBySlug(articleSlug);
+      if (article) {
+        partialMetadata = {
+          title: article.metaTitle,
+          description: article.metaDescription,
+          keywords: `${article.category}, ${article.h1.toLowerCase()}, agency review, honest comparison`,
+          ogImage: article.ogImage || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1200&h=630&auto=format&fit=crop',
+          ogType: 'article',
+        };
+        // Article schema — qualifies for Google's article rich results
+        schema.push({
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          'headline': article.h1,
+          'description': article.summary,
+          'image': article.ogImage,
+          'datePublished': article.publishedDate,
+          'dateModified': article.updatedDate || article.publishedDate,
+          'author': {
+            '@type': 'Person',
+            'name': article.author,
+            'url': 'https://www.linkedin.com/in/sebastian-yesuraj/',
+          },
+          'publisher': {
+            '@type': 'Organization',
+            'name': 'Stallioni',
+            'logo': { '@type': 'ImageObject', 'url': `${BASE_URL}/logo.svg` },
+          },
+          'mainEntityOfPage': { '@type': 'WebPage', '@id': `${BASE_URL}${cleanRoute}` },
+          'articleSection': CATEGORY_LABELS[article.category],
+        });
+        // FAQPage schema — same trick we use on regional pages
+        if (article.faqs && article.faqs.length > 0) {
+          schema.push({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': article.faqs.map((f: { question: string; answer: string }) => ({
+              '@type': 'Question',
+              'name': f.question,
+              'acceptedAnswer': { '@type': 'Answer', 'text': f.answer },
+            })),
+          });
+        }
+      }
+    }
   } else if (cleanRoute === '/agencies') {
     const { AGENCIES_PAGE } = await import('./constants/agencies-page');
     partialMetadata = {

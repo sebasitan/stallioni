@@ -22,6 +22,8 @@ const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const RegionalLandingPage = lazy(() => import('./pages/RegionalLandingPage'));
 const AgenciesPage = lazy(() => import('./pages/AgenciesPage'));
+const ResourcesPage = lazy(() => import('./pages/ResourcesPage'));
+const ResourceArticlePage = lazy(() => import('./pages/ResourceArticlePage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 // Admin imports (Lazy)
@@ -190,6 +192,8 @@ const AppContent: React.FC = () => {
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="/it-outsourcing/:region" element={<RegionalLandingPage />} />
                   <Route path="/agencies" element={<AgenciesPage />} />
+                  <Route path="/resources" element={<ResourcesPage />} />
+                  <Route path="/resources/:slug" element={<ResourceArticlePage />} />
 
                   {/* Admin routes */}
                   <Route path="/seba/login" element={<AdminLogin />} />

@@ -252,6 +252,11 @@ const Footer: React.FC = () => {
                   </li>
                 ))}
                 <li>
+                  <a href="/resources" onClick={(e) => handleNav(e, '/resources')} className="text-white/70 hover:text-brand-orange transition-colors">
+                    Resources
+                  </a>
+                </li>
+                <li>
                   <a href="/agencies" onClick={(e) => handleNav(e, '/agencies')} className="text-white/70 hover:text-brand-orange transition-colors">
                     For Agencies
                   </a>
