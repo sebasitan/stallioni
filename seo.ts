@@ -1,7 +1,18 @@
-import { BLOG_POSTS, JOB_OPENINGS } from './constants';
+import { JOB_OPENINGS } from './constants';
 import { getServiceDetails } from './constants/service-loader';
 import { REGIONAL_PAGES } from './constants/regional-pages';
 import { BlogPost, ServiceDetail, JobOpening } from './types';
+
+// BLOG_POSTS lives in the heavy-data chunk so the entry bundle stays small.
+// Only routes under /blog actually need it; load + cache on first use.
+let blogPostsCache: BlogPost[] | null = null;
+const getBlogPosts = async (): Promise<BlogPost[]> => {
+  if (!blogPostsCache) {
+    const mod = await import('./constants/heavy-data');
+    blogPostsCache = mod.BLOG_POSTS;
+  }
+  return blogPostsCache;
+};
 
 export interface PageMetadata {
   title: string;
@@ -289,6 +300,12 @@ const getBreadcrumbSchema = async (path: string) => {
     serviceDetails = await getServiceDetails();
   }
 
+  // Same pattern for blog posts — only loaded when the path involves /blog.
+  let blogPosts: BlogPost[] = [];
+  if (path.includes('blog')) {
+    blogPosts = await getBlogPosts();
+  }
+
   for (let index = 0; index < parts.length; index++) {
     const part = parts[index];
     currentPath += `${part}`;
@@ -299,7 +316,7 @@ const getBreadcrumbSchema = async (path: string) => {
       if (service) itemListElement.push({ '@type': 'ListItem', position: 2, name: 'Services', item: `${BASE_URL}/services` });
     }
     if (index === 0 && part === 'blog' && parts[1]) {
-      const blog = BLOG_POSTS.find(b => b.id === parseInt(parts[1], 10));
+      const blog = blogPosts.find(b => b.id === parseInt(parts[1], 10));
       if (blog) itemListElement.push({ '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE_URL}/blog` });
     }
 
@@ -308,7 +325,7 @@ const getBreadcrumbSchema = async (path: string) => {
       name = service ? service.title : name;
     }
     if (index === 1 && parts[0] === 'blog') {
-      const blog = BLOG_POSTS.find(b => b.id === parseInt(part, 10));
+      const blog = blogPosts.find(b => b.id === parseInt(part, 10));
       name = blog ? blog.title : name;
     }
 
@@ -575,7 +592,8 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
     // posts). The route gives us a raw string — try every reasonable form.
     const rawId = cleanRoute.split('/')[2];
     const numericId = parseInt(rawId, 10);
-    const post = BLOG_POSTS.find(
+    const blogPosts = await getBlogPosts();
+    const post = blogPosts.find(
       (p) =>
         p.id === rawId ||
         p.id.toString() === rawId ||

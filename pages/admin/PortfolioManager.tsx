@@ -8,7 +8,7 @@ import {
     updatePortfolioItem,
     deletePortfolioItem
 } from '../../utils/portfolioStorage';
-import { PORTFOLIO_ITEMS } from '../../constants';
+import { PORTFOLIO_ITEMS } from '../../constants/heavy-data';
 import { uploadToCloudinary } from '../../utils/cloudinary';
 
 const PortfolioManager: React.FC = () => {

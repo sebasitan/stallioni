@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
       // there, so on-demand loading is correct.
       modulePreload: {
         resolveDependencies: (_filename, deps) =>
-          deps.filter((d) => !/\/(constants-full|admin)-/.test(d)),
+          deps.filter((d) => !/\/(constants-full|heavy-data|admin)-/.test(d)),
       },
       rollupOptions: {
         output: {
@@ -35,6 +35,10 @@ export default defineConfig(({ mode }) => {
             'router': ['react-router-dom'],
             // Split constants-full into its own chunk (lazy loaded)
             'constants-full': ['./constants-full.tsx'],
+            // Split heavy-data (PORTFOLIO_ITEMS + BLOG_POSTS) into its own chunk.
+            // Only /blog, /portfolio, and admin routes need it. seo.ts uses a
+            // dynamic import so the entry bundle never pulls it in.
+            'heavy-data': ['./constants/heavy-data.ts'],
             // Group admin pages together (rarely accessed by regular users)
             'admin': [
               './pages/admin/AdminHome.tsx',

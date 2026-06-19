@@ -1,5 +1,5 @@
 import { BlogPost } from '../types';
-import { BLOG_POSTS } from '../constants';
+import { BLOG_POSTS } from '../constants/heavy-data';
 
 const STORAGE_KEY = 'stallioni_blog_v4';
 

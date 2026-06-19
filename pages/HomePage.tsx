@@ -5,8 +5,7 @@ import FadeIn from '../components/FadeIn';
 import FreelancerBadge from '../components/FreelancerBadge';
 import { useNavigation, useModal, useToast } from '../App';
 import { WebDevIcon, MobileDevIcon, FullStackIcon, EcommIcon, DesignIcon, CrmIcon } from '../components/IconComponents';
-import { getPortfolioItems } from '../utils/portfolioStorage';
-import { getContactEmail, getTeamsId, WHATSAPP_CONTACTS } from '../constants';
+import { getContactEmail, getTeamsId, WHATSAPP_CONTACTS, HOMEPAGE_PORTFOLIO_PREVIEW } from '../constants';
 
 const TechnologyTicker = lazy(() => import('../components/TechnologyTicker'));
 
@@ -827,7 +826,7 @@ const HomePage: React.FC = () => {
     // CLIENT SUCCESS — light premium magazine
     // ============================================
     const ClientSuccessSection: React.FC = () => {
-        const featuredItems = getPortfolioItems().slice(0, 3);
+        const featuredItems = HOMEPAGE_PORTFOLIO_PREVIEW;
         const featured = featuredItems[0];
         const secondary = featuredItems.slice(1, 3);
 

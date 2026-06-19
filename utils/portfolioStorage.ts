@@ -1,5 +1,5 @@
 import { PortfolioItem } from '../types';
-import { PORTFOLIO_ITEMS } from '../constants';
+import { PORTFOLIO_ITEMS } from '../constants/heavy-data';
 
 const STORAGE_KEY = 'stallioni_portfolio_v6';
 
