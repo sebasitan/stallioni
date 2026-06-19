@@ -419,10 +419,26 @@ const getJobPostingSchema = () => JOB_OPENINGS.map(job => ({
     '@type': 'Place',
     'address': {
       '@type': 'PostalAddress',
+      'addressLocality': 'Coimbatore',
+      'addressRegion': 'Tamil Nadu',
       'addressCountry': 'IN',
     }
   },
-  'jobLocationType': 'TELECOMMUTE'
+  'jobLocationType': 'TELECOMMUTE',
+  'applicantLocationRequirements': {
+    '@type': 'Country',
+    'name': 'India'
+  },
+  'baseSalary': {
+    '@type': 'MonetaryAmount',
+    'currency': 'INR',
+    'value': {
+      '@type': 'QuantitativeValue',
+      'minValue': 1500000,
+      'maxValue': 3000000,
+      'unitText': 'YEAR'
+    }
+  }
 }));
 
 
