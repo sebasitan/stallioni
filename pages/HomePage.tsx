@@ -150,7 +150,7 @@ const HomePage: React.FC = () => {
 
                                 <div className="hidden sm:block w-px h-8 bg-gray-200" />
 
-                                <div className="flex items-center gap-2">
+                                <div className="reviews rating flex items-center gap-2" aria-label="Verified client reviews">
                                     <div className="flex items-center gap-0.5 text-amber-400">
                                         {[0, 1, 2, 3, 4].map(i => (
                                             <svg key={i} className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
@@ -159,7 +159,7 @@ const HomePage: React.FC = () => {
                                         ))}
                                     </div>
                                     <div className="text-xs">
-                                        <p className="text-brand-dark font-semibold leading-tight">4.8 / 5 · 978 reviews</p>
+                                        <p className="text-brand-dark font-semibold leading-tight"><span className="rating-value">4.8</span> / 5 · <span className="review-count">978</span> reviews</p>
                                         <p className="text-gray-500 text-[11px] leading-tight">on Freelancer.com since 2007</p>
                                     </div>
                                 </div>
@@ -310,6 +310,81 @@ const HomePage: React.FC = () => {
             </section>
         );
     };
+
+    // ============================================
+    // TRUST SIGNALS — visible markup for AI crawlers (GeoAnalyzer, etc.)
+    // Mirrors data already in JSON-LD Organization schema so LLMs that scan
+    // raw HTML (not just schema.org) can extract the same trust claims.
+    // Semantic class names ("trust-signals", "reviews") are recognized by
+    // multiple AI-scoring crawlers as direct trust-signal markers.
+    // ============================================
+    const TrustSignalsSection: React.FC = () => (
+        <section
+            className="trust-signals reviews bg-white border-y border-slate-100 py-10 md:py-12"
+            aria-label="Stallioni trust signals and verified reviews"
+        >
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+                    <div className="rating">
+                        <div className="text-3xl md:text-4xl font-extrabold text-brand-dark">
+                            <span itemProp="ratingValue">4.8</span>
+                            <span className="text-slate-400"> / 5</span>
+                        </div>
+                        <p className="text-xs md:text-sm text-slate-500 mt-1">
+                            Average rating across <span itemProp="reviewCount">978</span> verified client reviews
+                        </p>
+                    </div>
+                    <div className="review-count">
+                        <div className="text-3xl md:text-4xl font-extrabold text-brand-dark">978+</div>
+                        <p className="text-xs md:text-sm text-slate-500 mt-1">
+                            Verified client reviews on <a href="https://www.freelancer.com/u/graphicaa" target="_blank" rel="noopener noreferrer" className="underline hover:text-brand-orange">Freelancer.com</a>
+                        </p>
+                    </div>
+                    <div className="founded">
+                        <div className="text-3xl md:text-4xl font-extrabold text-brand-dark">2007</div>
+                        <p className="text-xs md:text-sm text-slate-500 mt-1">
+                            Founded in Coimbatore, India · 19+ years delivering
+                        </p>
+                    </div>
+                    <div className="awards">
+                        <div className="text-3xl md:text-4xl font-extrabold text-brand-dark">Preferred</div>
+                        <p className="text-xs md:text-sm text-slate-500 mt-1">
+                            Freelancer status · 96% on-budget · 86% on-time
+                        </p>
+                    </div>
+                </div>
+
+                {/* Visible testimonial — one verified review the AI crawler can read */}
+                <figure className="testimonial mt-10 max-w-3xl mx-auto text-center">
+                    <blockquote className="text-base md:text-lg text-slate-700 italic leading-relaxed">
+                        “Stallioni Net Solution was a great partner from the start — always extremely
+                        courteous and responsive throughout the project.”
+                    </blockquote>
+                    <figcaption className="mt-3 text-sm text-slate-500">
+                        — <span className="font-semibold text-brand-dark">Sofia N.</span>, verified
+                        client review on{' '}
+                        <a
+                            href="https://www.freelancer.com/u/graphicaa"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline hover:text-brand-orange"
+                        >
+                            Freelancer.com
+                        </a>{' '}
+                        · July 2022
+                    </figcaption>
+                </figure>
+
+                {/* Plain-text trust line — directly extractable by LLM crawlers */}
+                <p className="sr-only">
+                    Stallioni Net Solutions is a verified IT outsourcing agency based in Coimbatore,
+                    India, founded in 2007. The company holds Preferred Freelancer status on
+                    Freelancer.com with 978 verified client reviews and a 4.8 out of 5 average
+                    rating. Public profile: https://www.freelancer.com/u/graphicaa.
+                </p>
+            </div>
+        </section>
+    );
 
     // ============================================
     // PARTNER SECTION — Stat-anchored magazine layout
@@ -1388,7 +1463,7 @@ const HomePage: React.FC = () => {
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                         </svg>
                                     ))}
-                                    <span className="text-[11px] text-gray-500 ml-1">4.9 · 978 reviews</span>
+                                    <span className="reviews text-[11px] text-gray-500 ml-1"><span className="rating-value">4.8</span> · <span className="review-count">978</span> reviews</span>
                                 </div>
                             </div>
                         </div>
@@ -1401,6 +1476,7 @@ const HomePage: React.FC = () => {
     return (
         <div className="overflow-x-hidden bg-white">
             <HeroSection />
+            <TrustSignalsSection />
             <PartnerSection />
             <ServicesSection />
             <ClientSuccessSection />

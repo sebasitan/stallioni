@@ -99,10 +99,59 @@ const getOrganizationSchema = () => ({
   '@id': `${BASE_URL}/#organization`,
   'name': 'Stallioni',
   'alternateName': 'Stallioni Net Solutions',
+  'legalName': 'Stallioni Net Solutions',
   'url': BASE_URL,
   'logo': `${BASE_URL}/logo.svg`,
-  // Verifiable on https://www.freelancer.com/u/graphicaa — established May 2007.
+  'image': `${BASE_URL}/logo.svg`,
+  'description': 'India-based IT outsourcing partnership firm founded in 2007 in Coimbatore. Delivers web, mobile, e-commerce, and AI development for clients in the US, UK, Australia, India, UAE, and Canada. 4.8/5 across 978 verified client reviews on Freelancer.com with Preferred Freelancer status.',
+  'slogan': 'Affordable IT outsourcing from India — verified since 2007.',
+  'email': 'contact@stallioni.com',
+  'telephone': '+91-98432-96279',
+  'taxID': '33ACQFS3609F1Z2', // GSTIN (India)
   'foundingDate': '2007',
+  'foundingLocation': {
+    '@type': 'Place',
+    'name': 'Coimbatore, Tamil Nadu, India'
+  },
+  'founder': {
+    '@type': 'Person',
+    'name': 'Sebastian Yesuraj',
+    'jobTitle': 'Founder & Managing Partner',
+    'url': 'https://www.linkedin.com/in/sebastian-yesuraj/',
+    'sameAs': [
+      'https://www.linkedin.com/in/sebastian-yesuraj/',
+      'https://www.freelancer.com/u/graphicaa',
+    ],
+  },
+  'numberOfEmployees': {
+    '@type': 'QuantitativeValue',
+    'minValue': 10,
+    'maxValue': 50,
+  },
+  'knowsAbout': [
+    'Web Development', 'Mobile App Development', 'E-Commerce Development',
+    'WordPress Development', 'Shopify Development', 'WooCommerce Development',
+    'Laravel Development', 'PHP Development', 'React Development',
+    'Node.js Development', 'AI Chatbots', 'SEO', 'UI/UX Design',
+    'IT Outsourcing', 'Offshore Development', 'Custom Software Development',
+  ],
+  'contactPoint': [
+    {
+      '@type': 'ContactPoint',
+      'telephone': '+91-98432-96279',
+      'contactType': 'sales',
+      'email': 'contact@stallioni.com',
+      'areaServed': ['IN', 'US', 'GB', 'AU', 'AE', 'CA'],
+      'availableLanguage': ['English', 'Tamil', 'Hindi'],
+    },
+    {
+      '@type': 'ContactPoint',
+      'contactType': 'customer support',
+      'email': 'contact@stallioni.com',
+      'areaServed': 'Worldwide',
+      'availableLanguage': 'English',
+    },
+  ],
   'sameAs': [
     'https://www.linkedin.com/in/sebastian-yesuraj/',
     'https://www.freelancer.com/u/graphicaa',
@@ -121,6 +170,10 @@ const getOrganizationSchema = () => ({
     'worstRating': '1',
   },
   'review': VERIFIED_REVIEWS,
+  'award': [
+    'Preferred Freelancer on Freelancer.com (since 2007)',
+    '978 verified client reviews · 4.8/5 average rating',
+  ],
   'address': {
     '@type': 'PostalAddress',
     'streetAddress': '23. Jayanth complex, TP Road',
