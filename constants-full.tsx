@@ -933,8 +933,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'saas-development',
-        metaTitle: "SaaS Development Company in India | Build Your SaaS Product",
-        metaDescription: "End-to-end SaaS development — MVP to scale. Multi-tenancy, Stripe billing, auth, dashboards. Launch your SaaS in 90 days. Free strategy call.",
+        metaTitle: "SaaS Development Company India · MVP in 90 Days · 4.8★",
+        metaDescription: "Build & launch your SaaS — multi-tenancy, Stripe billing, auth, dashboards. 978 verified reviews on Freelancer.com since 2007. Free strategy call in 24h.",
         title: 'SaaS Application Development Services',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
@@ -1507,8 +1507,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </p>
             </>
         ),
-        metaTitle: "CMS Development Services | Stallioni Net Solutions",
-        metaDescription: "Get fast, affordable CMS development services from Stallioni Net Solutions. We build scalable, SEO-friendly CMS websites for businesses in the USA, UK, India & more.",
+        metaTitle: "CMS Development Services India · WordPress, Drupal, Joomla",
+        metaDescription: "Senior CMS developers from India — WordPress, Joomla, Drupal, Strapi, headless CMS. 978 verified client reviews · 4.8★ on Freelancer.com since 2007. Free quote in 24h.",
         keywords: "cms development services, cms website development, custom cms development, cms development company, content management system development, cms solutions, headless cms development",
         offerings: ['WordPress Development', 'Joomla Development', 'Drupal Development', 'Squarespace Development', 'Wix Development', 'Webflow Development', 'Ghost / Craft / Typo3 / HubSpot CMS', 'Headless CMS (Strapi, Sanity, Contentful, Prismic)'],
         featuresWithDesc: [
@@ -1634,8 +1634,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Joomla website development & extensions.',
         description: "At Stallioni Net Solutions, we deliver powerful, secure, and scalable Joomla development services for businesses of all sizes — including small businesses, startups, agencies, and enterprise companies.",
         longDescription: "Joomla is a flexible and robust CMS known for its strong built-in security, multilingual support, and ability to handle complex websites. Our development team specializes in building professional Joomla websites that load fast, rank well on search engines, and deliver an excellent user experience. With clients across the USA, UK, India, Middle East, and Australia, we understand global business needs and offer affordable pricing and fast delivery without compromising quality.",
-        metaTitle: "Joomla Development Services | Stallioni Net Solutions",
-        metaDescription: "Get secure, scalable, and affordable Joomla development services for businesses. Custom websites, extensions, eCommerce, and support for global brands.",
+        metaTitle: "Joomla Development Services India · Since 2007 · 4.8★",
+        metaDescription: "Custom Joomla websites, extensions, eCommerce & migrations by senior Indian developers. 978 verified reviews on Freelancer.com. Free quote in 24h.",
         keywords: "Joomla development services, Joomla website development, Custom Joomla development company, Joomla extension development, Affordable Joomla developer, Why choose Joomla for business websites?, How much does Joomla development cost?, Is Joomla safe for enterprise websites?",
         offerings: ['Custom Joomla Website Development', 'Joomla Template Design & Customization', 'Joomla Extension Development', 'Joomla E-commerce Development', 'Joomla Migration Services', 'Joomla Speed Optimization', 'Joomla Maintenance & Support', 'Joomla Security Hardening'],
         featuresWithDesc: [
@@ -5710,8 +5710,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </p>
             </>
         ),
-        metaTitle: "Performance & Load Testing Services | JMeter, K6 Experts",
-        metaDescription: "Find bottlenecks before your users do. Load testing, stress testing, and performance profiling with JMeter, K6, and Gatling. Scalable apps guaranteed.",
+        metaTitle: "Load & Performance Testing · JMeter, K6, Gatling · India",
+        metaDescription: "Find bottlenecks before users do — load testing, stress testing, performance profiling. JMeter, K6, Gatling experts. 978 reviews since 2007. Free audit.",
         keywords: "Performance & Load Testing Services, Website speed testing, Load testing company, Performance QA services, Scalability testing solutions",
         offerings: ['Load Testing', 'Stress Testing', 'Spike Testing', 'Endurance Testing', 'Scalability Testing', 'Web Performance Optimization'],
         benefits: {

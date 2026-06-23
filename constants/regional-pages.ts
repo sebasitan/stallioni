@@ -195,8 +195,8 @@ export const REGIONAL_PAGES: Record<string, RegionalPageData> = {
         ],
         ctaHeading: 'Build your next product with a Coimbatore-based partner you can verify',
         ctaSubhead: 'Free 30-minute call (in person if you are nearby). INR proposal within 48 hours. Verifiable Freelancer.com track record since 2007.',
-        metaTitle: 'IT Outsourcing for Indian Businesses | Coimbatore Development',
-        metaDescription: 'Indian businesses hire Stallioni for web, mobile, and SaaS development. Coimbatore team, INR pricing, 4.8★ on Freelancer.com since 2007, in-person meetings.',
+        metaTitle: 'IT Outsourcing in India · Coimbatore Developers · Since 2007',
+        metaDescription: 'Indian businesses hire Stallioni for web, mobile & SaaS — Coimbatore team, INR pricing, GST invoicing, in-person meetings. 978 reviews · 4.8★ rating.',
     },
 
     'uk': {
