@@ -673,21 +673,40 @@ export const getPageMetadata = async (route: string): Promise<PageMetadata> => {
     const regional = REGIONAL_PAGES[regionSlug];
     if (regional) {
       const region = regional.regionDisplayName;
-      const regionalKeywords = [
-        `IT outsourcing ${region}`,
-        `hire developers from India for ${region}`,
-        `offshore software development ${region}`,
-        `remote developers ${region}`,
-        `${region} web development outsourcing`,
-        `${region} mobile app developers India`,
-        `${region} e-commerce outsourcing`,
-        `Stallioni ${region}`,
-      ];
+      // Coimbatore is a city, not a country — keyword intent is "[service]
+      // company in coimbatore", not "outsource to coimbatore from abroad".
+      const regionalKeywords = regionSlug === 'coimbatore'
+        ? [
+          'IT company in Coimbatore',
+          'website development company in Coimbatore',
+          'shopify development company in Coimbatore',
+          'laravel development company in Coimbatore',
+          'wordpress development company in Coimbatore',
+          'woocommerce development company in Coimbatore',
+          'website maintenance service company in Coimbatore',
+          'mobile app development company in Coimbatore',
+          'best IT services in Coimbatore',
+          'software development company in Coimbatore',
+          'Annur IT company',
+          'Coimbatore web design and development',
+          'Stallioni Coimbatore',
+        ]
+        : [
+          `IT outsourcing ${region}`,
+          `hire developers from India for ${region}`,
+          `offshore software development ${region}`,
+          `remote developers ${region}`,
+          `${region} web development outsourcing`,
+          `${region} mobile app developers India`,
+          `${region} e-commerce outsourcing`,
+          `Stallioni ${region}`,
+        ];
       const regionOgImages: Record<string, string> = {
         usa: 'https://images.unsplash.com/photo-1496450681664-3df85efbd29f?q=80&w=1200&h=630&auto=format&fit=crop',
         australia: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1200&h=630&auto=format&fit=crop',
         india: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=1200&h=630&auto=format&fit=crop',
         uk: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1200&h=630&auto=format&fit=crop',
+        coimbatore: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=1200&h=630&auto=format&fit=crop',
       };
       partialMetadata = {
         title: regional.metaTitle,

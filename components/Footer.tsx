@@ -291,8 +291,9 @@ const Footer: React.FC = () => {
                   { code: 'gb', name: 'United Kingdom', href: '/it-outsourcing/uk' },
                   { code: 'au', name: 'Australia', href: '/it-outsourcing/australia' },
                   { code: 'in', name: 'India', href: '/it-outsourcing/india' },
+                  { code: 'in', name: 'Coimbatore', href: '/it-outsourcing/coimbatore' },
                 ].map((region) => (
-                  <li key={region.code}>
+                  <li key={region.href}>
                     <a
                       href={region.href}
                       onClick={(e) => handleNav(e, region.href)}

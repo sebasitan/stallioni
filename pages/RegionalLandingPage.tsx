@@ -73,6 +73,7 @@ const regionFlagMap: Record<string, { code: string; cur: string; tagline: string
     usa: { code: 'us', cur: 'USD', tagline: '4.8★ · Active since May 2007 · USD invoicing' },
     australia: { code: 'au', cur: 'AUD', tagline: '4.8★ · Active since May 2007 · AUD friendly' },
     india: { code: 'in', cur: 'INR', tagline: '4.8★ · Coimbatore, Tamil Nadu · Local team' },
+    coimbatore: { code: 'in', cur: 'INR', tagline: '4.8★ · Annur, Coimbatore · GST registered · In-person meetings' },
 };
 
 // ============================================

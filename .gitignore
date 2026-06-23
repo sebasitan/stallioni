@@ -30,3 +30,6 @@ dist-ssr
 # Claude Code local settings (per-user)
 .claude/
 
+
+# GSC / analytics exports
+https___www.stallioni.com_-Performance-on-Search-*/

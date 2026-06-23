@@ -199,6 +199,70 @@ export const REGIONAL_PAGES: Record<string, RegionalPageData> = {
         metaDescription: 'Indian businesses hire Stallioni for web, mobile & SaaS — Coimbatore team, INR pricing, GST invoicing, in-person meetings. 978 reviews · 4.8★ rating.',
     },
 
+    // Hyper-local landing page for Coimbatore-specific search queries.
+    // GSC shows position 54–100 for queries like "website maintenance service
+    // company in coimbatore", "shopify development company in coimbatore",
+    // "laravel development company in coimbatore" — all of which should rank
+    // top-3 with a dedicated Coimbatore page (we ARE in Coimbatore, registered
+    // partnership, GSTIN, 19-year track record). Different from /india which
+    // targets pan-India SMB outsourcing demand.
+    'coimbatore': {
+        slug: 'coimbatore',
+        regionDisplayName: 'Coimbatore',
+        badge: 'Local IT Company in Coimbatore',
+        h1Top: 'IT Company in Coimbatore',
+        h1Highlight: 'Since 2007 · Registered Partnership · GST Compliant',
+        subhead: 'Coimbatore-based web, mobile, e-commerce, and CMS development. Annur office, registered partnership firm, GST invoicing, in-person meetings for local clients. 978 verified client reviews on Freelancer.com since 2007 — most clients are international, the engineering team and office are entirely in Coimbatore.',
+        primaryCta: 'Visit Our Annur Office',
+        whySectionTitle: 'Why Coimbatore Businesses Hire Stallioni',
+        whyPoints: [
+            { title: 'Registered Coimbatore Office at Annur', description: 'Our office is at 23 Jayanth Complex, TP Road, Annur, Coimbatore-641653. Partnership Reg. No. 889/2014. GSTIN 33ACQFS3609F1Z2. You can verify everything in person — drop in, meet the partners, see the engineering team at work.' },
+            { title: 'Same-Day Response for Local Clients', description: 'For Coimbatore, Tirupur, Erode, and Salem clients we respond on the same business day. WhatsApp and phone calls work in real time. For most local builds we can have a sit-down meeting within 48 hours of first contact.' },
+            { title: 'GST Invoicing & Local Payment Methods', description: 'We are GST-registered (33ACQFS3609F1Z2) and issue proper tax invoices payable via NEFT, IMPS, RTGS, or UPI. No FOREX, no TT fees, no LRS friction — settlement happens in your Coimbatore bank in 24 hours.' },
+            { title: '19+ Years Delivering International Work from Coimbatore', description: 'Our public Freelancer.com profile shows 978 reviews and 4.8★ rating since May 2007, with Preferred Freelancer status. Most of those reviews are from US, UK, and Australian clients — but every project was engineered out of our Coimbatore office. Local Coimbatore businesses get the same offshore-grade quality without the international complications.' },
+            { title: 'Tamil, English & Hindi Speaking Team', description: 'Technical conversation is usually in English, but stakeholder discussions can happen in Tamil, English, or Hindi — whichever is most comfortable for your team. No language friction, no time zone gap, no cultural translation needed.' },
+            { title: 'In-Person Meetings for Kickoffs and Demos', description: 'Coimbatore and Tirupur clients can meet our team in person for project kickoffs, milestone reviews, and demos. This is one of the biggest advantages of hiring a Coimbatore-local IT partner instead of working with a remote vendor — small details get clarified instantly.' },
+        ],
+        bodyParagraphs: [
+            {
+                heading: 'Why Hire a Coimbatore-Local IT Company',
+                text: 'Most Coimbatore businesses default to one of two options when they need software: hire a freelancer from a job portal, or work with a Chennai/Bangalore vendor remotely. Both have real problems — freelancers are inconsistent and rarely senior, and remote vendors lose the in-person feedback loop that catches issues early. A Coimbatore-local IT company gives you the senior engineering of a tier-2 city firm with the in-person verification of a local partner. You can visit the office, meet the team, and see the work being built. For a local business, that level of trust matters more than a marginally lower hourly rate from a remote vendor.',
+            },
+            {
+                heading: 'Services We Offer to Coimbatore Businesses',
+                text: 'We build websites, e-commerce stores, mobile apps, and custom web applications for businesses across Coimbatore, Tirupur, Erode, Salem, and the broader Kongu region. Most local engagements fall into one of four categories: a marketing website with CMS (typically ₹1.5–4 lakh), a WooCommerce or Shopify store (₹2.5–8 lakh), a mobile app (₹4–15 lakh), or a custom dashboard / internal tool (₹3–12 lakh). We also handle WordPress, Joomla, Drupal, and Laravel maintenance, performance optimization, security audits, and SEO. Whatever stack you need, our Coimbatore team has shipped it for international clients first — local clients benefit from that compounded experience.',
+            },
+            {
+                heading: 'How Local Engagements Work',
+                text: 'For Coimbatore-area clients, engagements usually start with an in-person meeting at our Annur office or yours. Within 48 hours of that meeting we deliver a fixed-scope proposal in INR with milestones and timelines. Work typically begins within 5 working days. We use Slack, GitHub, and Notion as defaults, but WhatsApp group communication for stakeholder updates is standard for Indian SMB engagements — we adapt to whatever your team uses. Weekly demos in IST, milestone-based invoicing in INR with proper GST. Most local engagements range from 4 weeks (simple website) to 6 months (full SaaS build).',
+            },
+            {
+                heading: 'Verifiable Credentials',
+                text: 'Stallioni Net Solutions is a registered Partnership firm (Reg. No. 889/2014) with GSTIN 33ACQFS3609F1Z2. Our public Freelancer.com profile (freelancer.com/u/graphicaa) shows 978 client reviews, 4.8★ rating, and Preferred Freelancer status since May 2007. The partnership has three partners: Sebastian, Gopal, and Sathies Kumar. The engineering team works out of our Annur, Coimbatore office. For Coimbatore-area clients, you can verify everything in person — partnership registration documents, GST registration certificate, recent client deliverables, and the actual team building your project.',
+            },
+            {
+                heading: 'Local Pricing Notes',
+                text: 'Coimbatore-local pricing is in INR with applicable GST (currently 18% for IT services). Dedicated developer engagements typically run ₹40,000–₹1,20,000 per developer per month depending on stack and seniority. Fixed-scope projects: marketing websites ₹1.5–4 lakh, WooCommerce/Shopify stores ₹2.5–8 lakh, mobile apps ₹4–15 lakh, custom SaaS or dashboards ₹3–12 lakh. We are honest that we are not the cheapest option in the Coimbatore market — our pricing reflects 19 years of international client work and senior engineering standards. But we are competitive on quality-per-rupee, and for businesses where reliability matters, that math usually works out.',
+            },
+        ],
+        servicesIntro: 'Coimbatore clients most often hire us for these services. Each link goes to a detailed page with scope, deliverables, and typical INR pricing.',
+        featuredServices: FEATURED_SERVICES_DEFAULT,
+        faqs: [
+            { question: 'Where is your office in Coimbatore?', answer: 'Our office is at 23 Jayanth Complex, TP Road, Annur, Coimbatore-641653, Tamil Nadu. Annur is about 25 km north of Coimbatore city centre, well connected by road. Coimbatore, Tirupur, Erode, and Salem clients can meet our team in person — please call +91 98432 96279 or email contact@stallioni.com to schedule.' },
+            { question: 'Are you a registered company?', answer: 'Yes — Stallioni Net Solutions is a registered Partnership firm (Reg. No. 889/2014). We are GST-registered with GSTIN 33ACQFS3609F1Z2 and issue proper tax invoices. The partnership has three partners: Sebastian Yesuraj (Founder & Managing Partner), Gopal, and Sathies Kumar. Registration documents can be verified in person at our Annur office.' },
+            { question: 'Do you provide GST invoicing?', answer: 'Yes. We invoice in INR with applicable GST (18% for IT services as of 2026). GSTIN 33ACQFS3609F1Z2. Payment via NEFT, IMPS, RTGS, or UPI. We can issue advance receipts and final tax invoices per Indian accounting practice. Most engagements are net-30 from invoice date.' },
+            { question: 'Can I visit your office in Coimbatore?', answer: 'Yes — Coimbatore-area clients are welcome to visit our Annur office for project kickoffs, milestone reviews, or just to meet the team. Please call ahead so we can ensure the relevant engineers are available. For Coimbatore city centre, Tirupur, Erode, and Salem clients we can also travel to your office for major meetings.' },
+            { question: 'How is hiring a Coimbatore IT company different from hiring a Chennai or Bangalore vendor?', answer: 'The two biggest differences are in-person availability and pricing. Coimbatore-local hires let you meet the team, verify the work, and resolve issues in person — which usually catches problems early that remote vendors miss. Pricing in Coimbatore is typically 20–35% lower than Chennai or Bangalore for equivalent senior engineering. The tradeoff is a smaller talent pool than Bangalore — but for most SMB engagements, that does not matter.' },
+            { question: 'What services do you provide for Coimbatore businesses?', answer: 'We provide the same services to Coimbatore businesses as we do to international clients: website development (WordPress, custom, headless), e-commerce (WooCommerce, Shopify, Magento), mobile apps (React Native, Flutter, native), custom web applications (Laravel, React, Node.js), SEO and digital marketing, and ongoing maintenance and support. Most Coimbatore engagements range ₹1.5 lakh (simple website) to ₹40 lakh+ (full SaaS build).' },
+            { question: 'How can I verify your track record?', answer: 'Our public Freelancer.com profile at freelancer.com/u/graphicaa shows 978 reviews and 4.8★ rating since May 2007, with Preferred Freelancer status. Most reviews are from US, UK, and Australian clients — every project was engineered out of our Coimbatore office. For local Coimbatore references, we can share client contacts on request after a first call (with their permission).' },
+            { question: 'Is your team really based in Coimbatore?', answer: 'Yes. Our engineering team, the partners, and the office are all in Coimbatore (Annur, specifically). We do not run a "branch office" or relabeled Chennai team — Stallioni Net Solutions is a Coimbatore-headquartered firm and has been since 2007. Local clients can visit anytime to verify.' },
+        ],
+        ctaHeading: 'Hire a Coimbatore IT company you can actually visit',
+        ctaSubhead: 'Free 30-minute scoping meeting at our Annur office or yours. INR proposal in 48 hours. Verifiable Freelancer.com track record since 2007.',
+        metaTitle: 'IT Company in Coimbatore · Annur · Since 2007 · GST Registered',
+        metaDescription: 'Coimbatore-based web, mobile, e-commerce & CMS development. Annur office, registered partnership, GST invoicing, in-person meetings. 978 reviews · 4.8★ since 2007.',
+    },
+
     'uk': {
         slug: 'uk',
         regionDisplayName: 'UK',

@@ -1206,9 +1206,9 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Custom WooCommerce stores for growing businesses.',
         description: "We build powerful, affordable, and scalable WooCommerce development services designed for startups, agencies, and SMBs across the USA, UK, India, Middle East, and Australia.",
         longDescription: "WooCommerce remains one of the most trusted e-commerce platforms for small businesses and expanding online stores. At STALLIONI NET SOLUTIONS, we deliver powerful, affordable, and scalable WooCommerce development services designed for startups, agencies, and SMBs. Our solutions are built with speed, security, and performance in mind—ensuring that your store delivers a seamless shopping experience.",
-        metaTitle: "WooCommerce Development Services | WP Store Builders",
-        metaDescription: "Custom WooCommerce store development. Themes, plugins, migrations, speed optimization. WordPress experts since 2008. Free consultation.",
-        keywords: "WooCommerce Development Services, WooCommerce developers, WooCommerce customization, WooCommerce plugin development, How much does WooCommerce development cost?, Is WooCommerce good for small businesses?",
+        metaTitle: "WooCommerce Development India · Hire WooCommerce Developers",
+        metaDescription: "Hire senior WooCommerce developers from India — custom stores, themes, plugins, migrations, speed optimization. 978 reviews · 4.8★ since 2007. Free quote in 24h.",
+        keywords: "woocommerce development services, woocommerce development india, woocommerce development company, woocommerce development agency, hire woocommerce developers from india, woocommerce development services in india, woocommerce development company in india, offshore woocommerce development, affordable woocommerce development services, woocommerce consulting, woocommerce website development service",
         offerings: ['Custom WooCommerce Store Development', 'WooCommerce Plugin Development', 'WooCommerce Migration Services', 'WooCommerce Speed Optimization', 'Affordable WooCommerce Development Packages'],
         benefits: {
             title: 'Why Choose WooCommerce for Your Online Store?',
@@ -2214,9 +2214,9 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </p>
             </>
         ),
-        metaTitle: "Symfony Development Services | Secure & Scalable Solutions",
-        metaDescription: "Get secure, scalable, and affordable Symfony development services for web apps, APIs, and enterprise solutions by STALLIONI NET SOLUTIONS. Fast delivery & expert team.",
-        keywords: "Symfony Development Services, Symfony web development, Symfony application development, Hire Symfony developers, Custom Symfony development, Affordable Symfony development, Why choose Symfony for web development?, How much does Symfony development cost?, Is Symfony good for enterprise applications?",
+        metaTitle: "Symfony Development Services India · USA · UK · Since 2007",
+        metaDescription: "Hire senior Symfony developers from India — custom web apps, APIs, enterprise platforms. 978 verified reviews · 4.8★ on Freelancer.com since 2007. Free quote in 24h.",
+        keywords: "symfony development services, symfony development company, best symfony development services, hire symfony developers, custom symfony development, symfony development agency, symfony development consulting, uk symfony development, symfony development company usa, symfony solution development, symfony web development india, affordable symfony developers",
         offerings: ['Custom Symfony Application Development', 'Symfony Website Development', 'Symfony API Development & Integration', 'Symfony E-commerce Development', 'Symfony Migration & Upgrade Services', 'Symfony Maintenance & Support'],
         benefits: {
             title: 'Key Benefits of Using Symfony',
