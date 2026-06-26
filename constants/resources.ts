@@ -228,6 +228,27 @@ const SHOPIFY_VS_WOO: ResourceArticle = {
                     affiliateProvider: 'woocommerce',
                     ctaLabel: 'See WooCommerce',
                 },
+                {
+                    name: 'Cloudways (recommended WooCommerce hosting)',
+                    tagline: 'The managed hosting our team picks for WooCommerce clients',
+                    pricing: 'From $14 / month (pay-as-you-go)',
+                    rating: 4.7,
+                    pros: [
+                        'Hourly billing — pause or resize servers without long-term contracts',
+                        'Free SSL, free CDN, daily backups, server-level caching built in',
+                        'Choose your cloud (DigitalOcean, Vultr, Linode, AWS, GCP) — same dashboard',
+                        '24/7 live chat — actually responds in minutes, not hours',
+                        'WooCommerce-tuned PHP and Redis cache configurations out of the box',
+                    ],
+                    cons: [
+                        'Not the absolute cheapest option (Bluehost shared is cheaper, but slower and less reliable)',
+                        'No email hosting — you will need Google Workspace or Zoho separately',
+                    ],
+                    bestFor: 'WooCommerce stores doing $2k–$200k/month that want managed hosting without the agency price tag',
+                    affiliateUrl: 'https://www.cloudways.com/en/?id=2179273',
+                    affiliateProvider: 'cloudways',
+                    ctaLabel: 'Try Cloudways Free for 3 Days',
+                },
             ],
         },
         {
