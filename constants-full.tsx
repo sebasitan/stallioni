@@ -3514,6 +3514,12 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Keep your digital assets secure and online.',
         description: "Our maintenance services ensure your website or app is always running at peak performance with the latest security updates and optimizations.",
         offerings: ['Website Maintenance', 'Application Maintenance', 'Security Audits & Monitoring', 'Performance Optimization', 'Backup & Recovery', 'Hosting Support'],
+        faqs: [
+            { question: "What's included in a website maintenance plan?", answer: "Security updates and patching, plugin and dependency updates, uptime and performance monitoring, daily backups, bug fixes, and small content or design tweaks — plus a monthly report of what was done. Plans start around $99/month and scale with the size and complexity of your site or app." },
+            { question: "How fast do you respond if my site goes down?", answer: "We monitor uptime continuously and respond to critical outages within hours, not days. Higher-tier plans include priority SLAs with faster guaranteed response times, and we offer on-demand emergency support outside your plan." },
+            { question: "Do you maintain sites and apps you didn't originally build?", answer: "Yes — we regularly take over existing WordPress, WooCommerce, Laravel, React, and custom PHP projects. We start with a short audit to map the codebase, dependencies, and risks, then propose a maintenance plan. No rebuild required." },
+            { question: "Will you keep my site secure and backed up?", answer: "Yes. We apply security patches promptly, monitor for malware and vulnerabilities, and run automated backups (daily by default) with tested recovery, so if something breaks we can roll back quickly without data loss or extended downtime." },
+        ],
         technologies: [{ name: 'Tools', services: ['Monitoring', 'CloudWatch', 'Sentry', 'New Relic'] }]
     },
     {
