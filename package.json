@@ -8,9 +8,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "build:vite": "vite build && node scripts/inline-css.js",
-    "build": "vite build && node scripts/prerender.js && node scripts/critical-css.js",
-    "build:no-prerender": "vite build && node scripts/inline-css.js",
+    "sitemap": "node scripts/generate-sitemap.js",
+    "build:vite": "node scripts/generate-sitemap.js && vite build && node scripts/inline-css.js",
+    "build": "node scripts/generate-sitemap.js && vite build && node scripts/prerender.js && node scripts/critical-css.js",
+    "build:no-prerender": "node scripts/generate-sitemap.js && vite build && node scripts/inline-css.js",
     "prerender": "node scripts/prerender.js",
     "optimize:og": "node scripts/optimize-og-images.js",
     "preview": "vite preview"
