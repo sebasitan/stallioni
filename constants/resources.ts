@@ -411,6 +411,29 @@ const BEST_WOO_HOSTING: ResourceArticle = {
             heading: '2. Kinsta — premium pick if money is no object',
             body:
                 'Kinsta runs entirely on Google Cloud Platform\'s premium tier with one of the cleanest hosting dashboards in the industry (MyKinsta). For WooCommerce specifically, their setup is excellent: dedicated server resources, automatic edge caching, isolated MariaDB instances per site, and free CDN powered by Cloudflare Enterprise.\n\n**Why we recommend it for premium brands:** the support team is genuinely senior — when you open a ticket, you get an actual WordPress engineer, not a script-following Level 1 agent. The dashboard is beautiful. APM monitoring is built in. For a brand where downtime costs serious money, Kinsta is reassuring.\n\n**Why we do not recommend it for most stores:** the price. Kinsta\'s entry plan starts at $35/mo for 25,000 visits and 1 site — which sounds reasonable until you compare to Cloudways at $14/mo with no visit caps. For a typical SMB WooCommerce store, you will pay 2-3x more for Kinsta. The performance difference, in our real-world testing, is 30-80ms on TTFB — measurable, but not 2-3x worth it for most clients.',
+            productCards: [
+                {
+                    name: 'Kinsta',
+                    tagline: 'Premium managed WordPress on Google Cloud — best support in the industry',
+                    pricing: 'From $35 / month (Starter)',
+                    rating: 4.6,
+                    pros: [
+                        'Google Cloud Platform premium tier — fastest network in the business',
+                        'Cloudflare Enterprise CDN included free on every plan',
+                        'MyKinsta dashboard is the cleanest in managed WordPress',
+                        'Senior WordPress engineers on support — not script-followers',
+                        'Free site migrations + free SSL + isolated containers per site',
+                    ],
+                    cons: [
+                        '2–3× the cost of Cloudways for similar resources',
+                        'Visit-count caps — 25,000 visits/month on entry plan',
+                    ],
+                    bestFor: 'Premium brands, agencies managing client sites, stores where uptime cost > price difference',
+                    affiliateUrl: 'https://kinsta.com/wordpress-hosting?kaid=SLZHJNUOLYTB',
+                    affiliateProvider: 'kinsta',
+                    ctaLabel: 'Try Kinsta — Free Migration',
+                },
+            ],
         },
         {
             heading: '3. WP Engine — enterprise / agency-team pick',
