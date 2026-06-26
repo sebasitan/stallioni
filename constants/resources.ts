@@ -298,7 +298,7 @@ const SHOPIFY_VS_WOO: ResourceArticle = {
         'Both platforms are legitimate, mature, and capable of running multi-million-dollar businesses. The question is not which is "better" but which fits your team, timeline, and operational comfort.\n\nIf you are starting fresh and want to be selling quickly: Shopify. If you are deep in WordPress and need custom logic: WooCommerce. If you are migrating between them: budget more time and money than the migration guides suggest.\n\nWe build on both. If you want a frank scoping conversation about your specific situation, we offer free 30-minute consultations — no pitch, just an honest answer about which platform fits your project.',
     relatedServices: [
         { name: 'Shopify Development', slug: 'shopify-development' },
-        { name: 'WooCommerce Development', slug: 'woocommerce-devel' },
+        { name: 'WooCommerce Development', slug: 'woocommerce-development' },
         { name: 'E-commerce Development', slug: 'ecommerce-development' },
     ],
 };
