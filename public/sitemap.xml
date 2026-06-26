@@ -104,6 +104,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://www.stallioni.com/resources/best-woocommerce-hosting-2026</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <!-- Regional Landing Pages -->
   <url>
     <loc>https://www.stallioni.com/it-outsourcing/usa</loc>

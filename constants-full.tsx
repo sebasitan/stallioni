@@ -568,6 +568,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Website Design & Development Services',
         icon: <WebDevIcon />,
         category: PortfolioCategory.WEB,
+        relatedServices: ['ui-ux-design', 'website-development', 'frontend-development', 'responsive-mobile-first-development', 'landing-page-design', 'design-systems'],
         shortDescription: 'From UI/UX to responsive frontend development.',
         description: "Your website is the face of your business. At STALLIONI NET SOLUTIONS, we design and develop professional, fast, and user-friendly websites for small businesses, startups, agencies, and e-commerce stores. Our focus is on building websites that look great, load fast, and convert visitors into customers.",
         longDescription: "Turn Visitors into Customers with a High-Performance Website. At STALLIONI NET SOLUTIONS, we don’t just build websites—we build digital experiences that drive growth. Whether you are a startup in the USA, an agency in the UK, or an e-commerce brand in the Middle East, we deliver fast, secure, and SEO-optimized websites tailored to your unique goals.",
@@ -662,8 +663,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     },
     {
         id: 'website-development',
-        metaTitle: "Professional Website Development Services in India",
-        metaDescription: "Fast, secure, scalable websites built with React, Next.js, or WordPress. SEO-optimized, mobile-first, Core Web Vitals certified. Get a quote.",
+        metaTitle: "Website Development Services India · React, Next.js, WordPress",
+        metaDescription: "Fast, secure, SEO-ready websites — React, Next.js, WordPress. Core Web Vitals certified, mobile-first. 978 reviews · 4.8★ since 2007. Free quote in 24h.",
         title: 'Professional Website Development Services',
         icon: <WebDevIcon />,
         category: PortfolioCategory.WEB,
@@ -836,6 +837,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Custom Web Application Development Services',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
+        relatedServices: ['business-web-applications', 'saas-development', 'api-development', 'third-party-integrations', 'microservices-architecture', 'web-portals'],
         shortDescription: 'Scalable business web apps & SaaS platforms.',
         description: "At STALLIONI NET SOLUTIONS, we build powerful, scalable, and secure custom web applications that help businesses automate operations, improve efficiency, and accelerate digital growth.",
         longDescription: "Off-the-shelf software is built for the average customer — but your business isn't average. We build custom web applications that match your exact workflow: internal tools that replace 20 spreadsheets, customer-facing apps with bespoke logic your competitors can't copy, B2B platforms that scale from 10 users to 100,000. Stack: React or Next.js + Node.js / Django / Laravel + PostgreSQL on AWS or GCP. Most projects deliver a working MVP in 6–10 weeks, then iterate based on real user feedback.",
@@ -1116,6 +1118,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'E-Commerce Development Services for Small Businesses & Startups',
         icon: <EcommIcon />,
         category: PortfolioCategory.ECOMMERCE,
+        relatedServices: ['shopify-development', 'woocommerce-development', 'magento-development', 'bigcommerce-development', 'custom-ecommerce-solutions', 'marketplace-development', 'payment-gateway-integrations'],
         shortDescription: 'Comprehensive e-commerce solutions for growth.',
         description: "At STALLIONI NET SOLUTIONS, we provide complete e-commerce development services designed for small businesses, startups, agencies, and established online stores. With affordable pricing, a strong development team, and fast delivery, we help brands build powerful online stores that are fast, secure, and ready to scale in markets like USA, UK, India, Middle East, and Australia.",
         longDescription: "Whether you need WooCommerce, Shopify, Magento, BigCommerce, marketplace development, or custom solutions, we create online stores that deliver real business growth.",
@@ -1479,6 +1482,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'CMS Development Services for Modern Businesses',
         icon: <NoCodeIcon />,
         category: PortfolioCategory.WEB,
+        relatedServices: ['wordpress-development', 'joomla-development', 'drupal-development', 'headless-cms', 'multi-cms-development', 'wix-development', 'squarespace-development', 'webflow-development'],
         shortDescription: 'Custom, scalable, and easy-to-manage CMS solutions.',
         description: "We specialize in CMS development to give you full control over your content. Whether it's WordPress, Drupal, or a Headless CMS like Strapi.",
         longDescription: (
@@ -1581,8 +1585,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Custom WordPress themes and plugins.',
         description: "At Stallioni Net Solutions, we provide powerful, scalable, and affordable WordPress development services tailored for small businesses, startups, agencies, and e-commerce stores.",
         longDescription: "WordPress is the world’s most popular CMS, powering more than 40% of all websites. Our experienced development team builds fast, secure, SEO-friendly WordPress websites that help your brand grow across the USA, UK, India, Middle East, and Australia. Whether you need a simple business website, a custom theme, a high-conversion eCommerce store, or a completely custom WordPress solution, Stallioni Net Solutions delivers professional results at competitive pricing with fast delivery timelines.",
-        metaTitle: "WordPress Development Services | Stallioni Net Solutions",
-        metaDescription: "Get fast, affordable, high-quality WordPress development services for small businesses, startups, and eCommerce brands. Custom, secure, SEO-ready websites.",
+        metaTitle: "WordPress Development Services India · WooCommerce · 4.8★",
+        metaDescription: "Custom WordPress + WooCommerce builds by senior Indian developers — themes, plugins, migrations, speed-optimized. 978 reviews · 4.8★ since 2007. Free quote in 24h.",
         keywords: "WordPress development services, WordPress website development, Custom WordPress development company, Affordable WordPress developer, WooCommerce development services, How much does WordPress development cost for small businesses?, Why hire a WordPress development company?, What is the best WordPress service for startups?",
         offerings: ['Custom WordPress Website Development', 'WordPress Theme Development & Customization', 'WooCommerce Development', 'WordPress Plugin Development', 'WordPress Speed Optimization', 'WordPress Maintenance & Support', 'WordPress Migration Services', 'WordPress Security Hardening'],
         benefits: {
@@ -1993,6 +1997,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'PHP Development Services for Small Businesses & Startups',
         icon: <PHPIcon />,
         category: PortfolioCategory.WEB,
+        relatedServices: ['laravel-development', 'symfony-development', 'codeigniter-development', 'core-php-development', 'php-api-development', 'legacy-php-migration'],
         shortDescription: 'Fast, secure, and custom PHP development tailored for your business.',
         description: "If you are looking for fast, affordable, and reliable PHP development services, STALLIONI NET SOLUTIONS is here to help. We build secure, scalable custom PHP solutions that help your business grow.",
         longDescription: (
@@ -2203,14 +2208,93 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         longDescription: (
             <>
                 <p className="mb-6">
-                    Looking for a powerful and reliable framework to build your next web application? Symfony is one of the most trusted PHP frameworks in the world. At STALLIONI NET SOLUTIONS, we provide professional Symfony development services for small businesses, startups, agencies, and e-commerce companies across the USA, UK, India, Middle East, and Australia.
+                    Looking for a Symfony development company that ships enterprise-grade PHP applications without the enterprise-grade price tag? Stallioni Net Solutions has been delivering Symfony projects for clients in the USA, UK, India, UAE, and Australia since 2007. Our public Freelancer.com profile shows 978 verified reviews and a 4.8 / 5 rating with Preferred Freelancer status — most of those projects were built in PHP, with Symfony powering the larger, longer-lived applications in that portfolio.
                 </p>
                 <p className="mb-6">
-                    Our experienced Symfony developers build secure, fast, and scalable applications — all with affordable pricing, strong development capability, and quick delivery. Whether you need a custom platform, enterprise-level application, or API-based system, Symfony gives you flexibility, stability, and long-term reliability.
+                    Symfony is what we reach for when a project needs to last. It is the PHP framework behind Drupal 9+, the Magento admin layer, large parts of Laravel itself, and the API platforms running some of the most-trafficked e-commerce and SaaS systems on the web. If your application has to handle complex business logic, integrate with multiple external systems, run for ten years without a rewrite, or pass a real security audit, Symfony is the right answer — and our team has shipped versions 4, 5, 6, and 7 in production.
                 </p>
-                <h2 className="text-3xl font-bold text-white mb-4 mt-8">Why Choose Symfony for Web Development?</h2>
+
+                <h2 className="text-3xl font-bold text-white mb-4 mt-8">Why Choose Symfony for Your Next Application?</h2>
                 <p className="mb-6">
-                    Symfony is known for being robust, modular, and perfect for large-scale or complex business applications. If your business needs a long-lasting, professional, and future-ready application, Symfony is an excellent choice.
+                    Symfony's appeal is not flashy features — it is engineering discipline. The framework enforces patterns (dependency injection, service containers, event dispatchers, hexagonal architecture) that keep large codebases maintainable as teams change and requirements evolve. Three reasons enterprise teams pick Symfony over alternatives:
+                </p>
+                <ul className="list-disc pl-5 space-y-2 mb-6">
+                    <li><strong>Long-term stability</strong> — Symfony LTS releases are supported for 4 years. Symfony 6.4 LTS runs through November 2027. You can build on a Symfony version today and not worry about forced upgrades for years.</li>
+                    <li><strong>Component reusability</strong> — Symfony Components (HttpFoundation, Console, Form, Validator, Security, Messenger, etc.) are battle-tested, used independently by Laravel, Drupal, and dozens of other frameworks. You are betting on infrastructure thousands of teams already trust.</li>
+                    <li><strong>Real performance at scale</strong> — Symfony's HTTP cache, OPcache integration, and Doctrine query optimization let well-tuned applications handle thousands of requests per second on modest hardware. We have benchmarks where a Symfony 6 API on a 2 vCPU DigitalOcean droplet sustained 4,000+ requests/second with full database round-trips.</li>
+                </ul>
+
+                <h2 className="text-3xl font-bold text-white mb-4 mt-8">Symfony vs Laravel — Which Should You Pick?</h2>
+                <p className="mb-6">
+                    Our team builds in both. Honest comparison from the engagements we have shipped:
+                </p>
+                <ul className="list-disc pl-5 space-y-2 mb-6">
+                    <li><strong>Pick Laravel</strong> if you are building a marketing site, a smaller SaaS MVP, or a project that needs to ship in 6-10 weeks. The Laravel ecosystem (Eloquent, Livewire, Filament, Forge) gets you to a working product faster, and the learning curve is gentler for junior developers.</li>
+                    <li><strong>Pick Symfony</strong> if you are building an application that needs to last 5+ years, has complex business rules, integrates with legacy enterprise systems (SAP, Oracle, AS/400), or has hard compliance requirements (HIPAA, PCI DSS, GDPR). Symfony's stricter conventions and longer LTS cycle pay off as the team grows past 3-5 engineers.</li>
+                    <li><strong>Pick Symfony for APIs specifically</strong> — API Platform (built on Symfony) is the gold standard for OpenAPI-compliant REST and GraphQL APIs in PHP. We have used it for B2B integrations, mobile app backends, and headless e-commerce backends.</li>
+                </ul>
+
+                <h2 className="text-3xl font-bold text-white mb-4 mt-8">Symfony Development Services We Offer</h2>
+                <p className="mb-6">
+                    Our Symfony services cover the full lifecycle — from greenfield builds to migrating legacy CodeIgniter, Yii, or core PHP applications onto Symfony:
+                </p>
+                <ul className="list-disc pl-5 space-y-2 mb-6">
+                    <li>Custom Symfony web applications (admin panels, internal tools, B2B portals)</li>
+                    <li>Symfony API development with API Platform (REST and GraphQL)</li>
+                    <li>Enterprise platform development (CRM, ERP, custom workflow systems)</li>
+                    <li>Symfony e-commerce builds with Sylius (the Symfony-native e-commerce framework)</li>
+                    <li>Legacy PHP to Symfony migration (CodeIgniter, Yii, Zend, raw PHP)</li>
+                    <li>Symfony 4 / 5 → 6 / 7 version upgrades</li>
+                    <li>Symfony performance audits and optimization</li>
+                    <li>Symfony security audits (input validation, CSRF, SQL injection, OWASP Top 10)</li>
+                    <li>Symfony bundle / package development</li>
+                    <li>Ongoing maintenance and support contracts</li>
+                </ul>
+
+                <h2 className="text-3xl font-bold text-white mb-4 mt-8">Industries Where We Have Shipped Symfony Projects</h2>
+                <p className="mb-6">
+                    Symfony's strengths show up most clearly in industries where applications are long-lived, business logic is complex, and downtime is expensive. We have shipped Symfony projects across:
+                </p>
+                <ul className="list-disc pl-5 space-y-2 mb-6">
+                    <li><strong>Fintech & banking</strong> — payment gateways, transaction reconciliation systems, KYC platforms</li>
+                    <li><strong>Healthcare</strong> — patient management systems, appointment portals, HIPAA-compliant data flows</li>
+                    <li><strong>B2B e-commerce</strong> — custom-pricing catalogs, quote-to-order flows, ERP integrations (with Sylius)</li>
+                    <li><strong>Real estate</strong> — listing portals with complex search, agent CRMs, document management</li>
+                    <li><strong>Logistics</strong> — fleet management, route optimization, warehouse automation dashboards</li>
+                    <li><strong>SaaS startups</strong> — multi-tenant platforms, billing integrations, admin dashboards</li>
+                    <li><strong>Education</strong> — LMS platforms, assessment engines, student information systems</li>
+                </ul>
+
+                <h2 className="text-3xl font-bold text-white mb-4 mt-8">How We Engage on Symfony Projects</h2>
+                <p className="mb-6">
+                    Most Symfony engagements start with a free 30-minute discovery call. Within 48 hours we deliver a fixed-scope proposal with milestones, deliverables, and pricing. Work typically begins within 5–7 working days. We use whichever tools your team prefers — Slack, GitHub, Linear, Notion, Jira. Weekly demos, milestone-based invoicing, and full IP transfer on payment.
+                </p>
+                <p className="mb-6">
+                    Fixed-scope projects use milestone payments tied to working software, not estimated hours. Dedicated team engagements run minimum 3 months at a fixed monthly rate per Symfony developer (senior backend rates run $3,500–$6,500 USD per developer per month depending on seniority). All engineering happens out of our Coimbatore, India office — same engineers, same engineering standards, regardless of where the client is based.
+                </p>
+
+                <h2 className="text-3xl font-bold text-white mb-4 mt-8">Pricing &amp; Timelines for Symfony Development</h2>
+                <p className="mb-6">
+                    Honest ranges from recent projects:
+                </p>
+                <ul className="list-disc pl-5 space-y-2 mb-6">
+                    <li><strong>Symfony API for an existing product</strong> — typically $4,000–$15,000, 4–8 weeks</li>
+                    <li><strong>Custom internal admin / B2B portal</strong> — typically $8,000–$30,000, 8–14 weeks</li>
+                    <li><strong>CodeIgniter → Symfony migration</strong> — typically $12,000–$45,000, 12–20 weeks (depends heavily on codebase size and how much rewriting vs lifting)</li>
+                    <li><strong>Sylius e-commerce build</strong> — typically $15,000–$60,000, 14–24 weeks for a custom B2B or multi-warehouse store</li>
+                    <li><strong>Symfony 4/5 → 6/7 upgrade</strong> — typically $3,000–$12,000, 3–8 weeks</li>
+                    <li><strong>Dedicated Symfony developer</strong> — $3,500–$6,500 / month, 3-month minimum</li>
+                </ul>
+                <p className="mb-6">
+                    We provide fixed-price proposals for fixed scopes — no &quot;estimate now, invoice extras later.&quot; If scope changes mid-project, we provide a change-order in writing before billing extra. Most clients prefer this to T&amp;M because it lets them budget predictably.
+                </p>
+
+                <h2 className="text-3xl font-bold text-white mb-4 mt-8">Why Hire a Symfony Development Company from India</h2>
+                <p className="mb-6">
+                    The cost gap between US/UK Symfony engineers and offshore equivalents is real. A senior Symfony developer in San Francisco or London commands $150,000–$220,000 USD all-in. Our dedicated team rates are 50–70% lower for the same level of engineering. But the cost argument alone is not enough — our advantage is that we have been delivering to international clients (US, UK, Australia, UAE) since 2007 with a verifiable public review profile, which removes the usual offshore risks of vetting and quality consistency.
+                </p>
+                <p className="mb-6">
+                    For UK clients specifically, we are IR35-free (you contract with Stallioni Net Solutions, not individuals), GDPR-aware, and overlap with London business hours during your afternoons. For USA clients, our IST evening / your morning gives 3–4 hours of real-time overlap with EST and 6–7 hours with PST. For Australia, we cover the full business day with AEST.
                 </p>
             </>
         ),
@@ -2259,11 +2343,15 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
             ]
         },
         faqs: [
-            { question: 'What is Symfony used for?', answer: 'Symfony is a powerful PHP framework used to build secure, scalable, and high-performance web applications and APIs.' },
-            { question: 'Is Symfony good for enterprise projects?', answer: 'Yes. Symfony is one of the best frameworks for large, enterprise-level applications because of its stability and modular structure.' },
-            { question: 'How much does Symfony development cost?', answer: 'Costs vary depending on project features, timeline, and complexity. At STALLIONI NET SOLUTIONS, we offer budget-friendly prices for all project sizes.' },
-            { question: 'Can you migrate my old PHP application to Symfony?', answer: 'Yes, we can upgrade and modernize old PHP systems by rebuilding them in Symfony with improved speed and security.' },
-            { question: 'Do you provide long-term support for Symfony applications?', answer: 'Yes — we offer maintenance plans that include updates, performance optimization, and ongoing assistance.' }
+            { question: 'How much does Symfony development cost in 2026?', answer: 'Realistic ranges from our recent engagements: Symfony API builds run $4,000–$15,000 (4–8 weeks), custom internal admin or B2B portals $8,000–$30,000 (8–14 weeks), CodeIgniter or legacy PHP migration to Symfony $12,000–$45,000 (12–20 weeks), and Sylius e-commerce builds $15,000–$60,000 (14–24 weeks). Symfony 4/5 to 6/7 version upgrades typically run $3,000–$12,000 over 3–8 weeks. Dedicated Symfony developer engagements are $3,500–$6,500 per developer per month with a 3-month minimum.' },
+            { question: 'What makes Stallioni the best Symfony development company to hire?', answer: 'Three things, all publicly verifiable. First, our Freelancer.com profile (freelancer.com/u/graphicaa) shows 978 client reviews and a 4.8 / 5 rating with Preferred Freelancer status since 2007 — 19 years of delivery you can read about before signing anything. Second, our team has shipped Symfony 4, 5, 6, and 7 in production across fintech, healthcare, e-commerce, and SaaS — not just demos. Third, we publish fixed-price proposals for fixed scopes, not hourly estimates that creep — most clients tell us that predictability is the biggest difference between us and other agencies they have tried.' },
+            { question: 'Do you provide Symfony development services in the UK?', answer: 'Yes — Symfony engagements for UK clients are one of our largest service lines. We are IR35-free (you sign with Stallioni Net Solutions as a registered firm, not with individual contractors), GDPR-aware on data handling, and overlap with London business hours during your afternoons. We invoice in GBP via wire transfer. Most UK Symfony engagements start with a free 30-minute discovery call and a fixed-scope proposal within 48 hours.' },
+            { question: 'Do you offer Symfony development services in the USA?', answer: 'Yes. US Symfony engagements run from MVPs for Y Combinator–stage startups to enterprise platform builds for established mid-market companies. We invoice in USD via wire transfer or PayPal. Time-zone overlap with EST is 3–4 hours during your mornings (our late afternoons); with PST it is 6–7 hours during your mornings (our evenings). For projects that need tight collaboration, we shift schedules to maximize overlap.' },
+            { question: 'Do you do Symfony consulting or just full builds?', answer: 'Both. Symfony consultancy engagements are typically 5–20 hour blocks focused on a specific question — architecture review, performance audit, security audit, version upgrade plan, hiring help (interview support), or a code review of an existing Symfony codebase. We also do "Symfony fractional CTO" engagements where we act as the senior Symfony advisor for a team that has Laravel or generalist PHP engineers but no Symfony expert in-house.' },
+            { question: 'Should I pick Symfony or Laravel for my project?', answer: 'Pick Laravel for marketing sites, smaller SaaS MVPs, or projects that need to ship in 6–10 weeks — the Laravel ecosystem (Eloquent, Livewire, Filament, Forge) gets you to working software faster. Pick Symfony for applications that need to last 5+ years, have complex business rules, must integrate with legacy enterprise systems, or have hard compliance requirements (HIPAA, PCI DSS, GDPR). Pick Symfony specifically for APIs — API Platform (built on Symfony) is the gold standard for OpenAPI-compliant REST and GraphQL in PHP.' },
+            { question: 'Can you migrate my CodeIgniter or legacy PHP application to Symfony?', answer: 'Yes — Symfony migration is one of our most common engagements. We have migrated CodeIgniter, Yii, Zend, raw PHP, and outdated Symfony 2/3 applications onto Symfony 6 LTS or 7. Typical migration timelines are 12–20 weeks for a meaningful application; we use the strangler-fig pattern so your existing app keeps running while we migrate route-by-route, no big-bang rewrite. Costs depend heavily on codebase size and how much you want to rewrite vs lift-and-shift.' },
+            { question: 'Is Symfony safe for enterprise and compliance-regulated applications?', answer: 'Yes — Symfony has one of the strongest security records of any PHP framework. It ships with built-in protection against the OWASP Top 10 (CSRF tokens, input validation, parameterized queries via Doctrine, secure session handling, role-based access via the Security component). For HIPAA, PCI DSS, and GDPR engagements, we build on Symfony LTS releases (currently 6.4 LTS, supported through Nov 2027) for predictable security update cycles, and we run static analysis (PHPStan, Psalm) plus security audits before each release.' },
+            { question: 'Do you provide ongoing maintenance and support after a Symfony project launches?', answer: 'Yes — we offer monthly Symfony maintenance retainers covering security patches, dependency updates (Composer), Symfony minor-version upgrades, performance monitoring, and bug fixes. Retainers typically run $800–$3,500 / month depending on application size and SLA. Most clients combine a maintenance retainer with a backlog of feature work, billed against monthly hours.' }
         ],
         conclusion: (
             <>
@@ -2715,6 +2803,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Mobile App Development Services for Businesses',
         icon: <MobileDevIcon />,
         category: PortfolioCategory.MOBILE,
+        relatedServices: ['ios-app-development', 'android-app-development', 'flutter-development', 'react-native-development', 'pwa-development'],
         shortDescription: 'iOS, Android, and Cross-Platform mobile apps.',
         description: "In today’s digital world, your customers expect fast, smooth, and engaging mobile experiences. At STALLIONI NET SOLUTIONS, we help small businesses, startups, agencies, and e-commerce brands turn ideas into powerful mobile apps that drive real business growth.",
         longDescription: (
@@ -3412,11 +3501,12 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     // ============================================
     {
         id: 'maintenance-support',
-        metaTitle: "Website & App Maintenance Services | 24/7 Support | Stallioni",
-        metaDescription: "Keep your website and apps secure, fast, and online. Bug fixes, updates, monitoring, backups. Monthly plans starting at $99. Free audit.",
+        metaTitle: "Website & App Maintenance Services India · 24/7 · From $99/mo",
+        metaDescription: "Keep your site & apps secure, fast, online — bug fixes, updates, monitoring, daily backups. From $99/mo. 978 reviews · 4.8★ since 2007. Free audit in 24h.",
         title: 'Maintenance & Support Services',
         icon: <MobileDevIcon />,
         category: PortfolioCategory.SUPPORT,
+        relatedServices: ['application-maintenance', 'website-maintenance', 'security-audits', 'performance-optimization', 'backup-recovery', 'hosting-support'],
         shortDescription: 'Keep your digital assets secure and online.',
         description: "Our maintenance services ensure your website or app is always running at peak performance with the latest security updates and optimizations.",
         offerings: ['Website Maintenance', 'Application Maintenance', 'Security Audits & Monitoring', 'Performance Optimization', 'Backup & Recovery', 'Hosting Support'],
@@ -3557,8 +3647,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </p>
             </>
         ),
-        metaTitle: "Application Maintenance Services | Affordable App Support",
-        metaDescription: "Get reliable application maintenance services from STALLIONI NET SOLUTIONS. We fix bugs, optimize performance & provide proactive support for businesses and startups.",
+        metaTitle: "Application Maintenance Services India · Bug Fixes · 24/7 Support",
+        metaDescription: "Reliable application maintenance — bug fixes, performance tuning, security patches, proactive monitoring. 978 reviews · 4.8★ since 2007. Free audit in 24h.",
         keywords: "Application Maintenance Services, Application support services, Software maintenance company, Affordable app maintenance, Application monitoring and updates, What is included in application maintenance services?, How much does app maintenance cost?, Why is application maintenance important?",
         offerings: ['Corrective Maintenance', 'Adaptive Maintenance', 'Perfective Maintenance', 'Preventive Maintenance', 'Performance Optimization', 'Security Updates', 'Data Backup & Recovery', 'Version Upgrades'],
         benefits: {
@@ -4017,6 +4107,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'SEO & Digital Marketing Services for Growing Businesses',
         icon: <SeoIcon />,
         category: PortfolioCategory.SEO,
+        relatedServices: ['technical-seo', 'on-page-off-page-seo', 'local-seo', 'google-ads', 'social-media-ads', 'content-writing-strategy'],
         shortDescription: 'Grow your traffic with SEO and targeted ads.',
         description: "In today’s digital world, every business—small or big—needs strong online visibility to survive and grow. We help small businesses and startups achieve consistent growth through affordable, result-driven SEO and digital marketing services.",
         longDescription: (
@@ -4449,8 +4540,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                 </p>
             </>
         ),
-        metaTitle: "Google Ads Management Services | Fast Lead Generation",
-        metaDescription: "Get instant leads with expert Google Ads management. PPC campaigns, keyword strategy, landing pages & optimization. Affordable plans for small businesses.",
+        metaTitle: "Google Ads Management Services India · PPC for Lead Generation",
+        metaDescription: "Expert Google Ads management — PPC campaigns, keyword strategy, landing pages, conversion tracking. 978 reviews · 4.8★ since 2007. Free audit in 24h.",
         keywords: "Google Ads Management Services, PPC advertising company, Google Ads agency, Paid ads management, PPC for small businesses, Google Ads services USA / UK / India, How do Google Ads generate leads?",
         offerings: ['Account Setup & Audit', 'Keyword Research', 'Campaign Creation', 'Ad Copywriting', 'Landing Page Optimization', 'Conversion Tracking', 'Ongoing Management'],
         benefits: {
@@ -4686,6 +4777,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Cloud & DevOps Services',
         icon: <FullStackIcon />,
         category: PortfolioCategory.CLOUD,
+        relatedServices: ['cloud-setup', 'cloud-migration', 'cicd-automation', 'docker-kubernetes', 'infrastructure-as-code', 'logging-monitoring', 'hosting-support'],
         shortDescription: 'Scalable infrastructure and automated pipelines.',
         description: "Cloud and DevOps have become essential for modern businesses that want speed, scalability, security, and automation.",
         longDescription: (
@@ -5300,6 +5392,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Quality Assurance & Testing Services for High-Performing Digital Products',
         icon: <NoCodeIcon />,
         category: PortfolioCategory.SUPPORT,
+        relatedServices: ['manual-testing', 'automated-testing', 'api-testing', 'performance-testing', 'cross-browser-testing'],
         shortDescription: 'End-to-end QA to help you launch faster and avoid costly bugs.',
         description: "Delivering a high-quality digital product is not optional—it’s a necessity. We provide end-to-end Quality Assurance & Testing Services to help businesses deliver flawless user experiences.",
         longDescription: (
@@ -5861,6 +5954,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'AI, Automation & Modern Technologies for Business Growth',
         icon: <AiIcon />,
         category: PortfolioCategory.AI,
+        relatedServices: ['ai-chatbots', 'recommendation-engines', 'nlp-features', 'business-process-automation', 'real-time-apps', 'webrtc', 'ar-vr-experiences'],
         shortDescription: 'Innovate with AI, Chatbots, and Automation.',
         description: "In today’s fast-moving digital world, businesses need more than traditional development—they need AI-powered solutions, automation, and modern technologies that help them work faster, smarter, and more efficiently.",
         longDescription: (

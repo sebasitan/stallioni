@@ -121,4 +121,9 @@ export interface ServiceDetail {
   metaTitle?: string;
   metaDescription?: string;
   keywords?: string;
+  // Related services for internal linking — array of service IDs.
+  // When set, ServiceDetailLayout renders a "Related Services" section
+  // before the final CTA, passing crawl signal + link equity to listed
+  // pages. Critical for unindexed sub-services to get discovered.
+  relatedServices?: string[];
 }

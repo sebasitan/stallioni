@@ -517,6 +517,85 @@ const FAQ: React.FC<{ faqs: { question: string; answer: string }[] }> = ({ faqs 
 };
 
 // ============================================
+// RELATED SERVICES — internal linking for crawl budget
+// Renders prerender-friendly synchronous links to sibling services. The
+// titles are derived from the slug so we don't need to load the full
+// ServiceDetail catalog at render time (the catalog is in the lazy 488KB
+// constants-full chunk; pulling it for a link list would defeat the
+// purpose). Crawlers see real <a href="/services/...">; that is all
+// internal-linking SEO actually needs.
+// ============================================
+const SPECIAL_CASE_TITLES: Record<string, string> = {
+    'php-development': 'PHP Development',
+    'php-api-development': 'PHP API Development',
+    'core-php-development': 'Core PHP Development',
+    'legacy-php-migration': 'Legacy PHP Migration',
+    'cms-development': 'CMS Development',
+    'multi-cms-development': 'Multi-CMS Development',
+    'headless-cms': 'Headless CMS',
+    'ios-app-development': 'iOS App Development',
+    'ui-ux-design': 'UI/UX Design',
+    'cicd-automation': 'CI/CD Automation',
+    'cloud-devops-services': 'Cloud & DevOps Services',
+    'docker-kubernetes': 'Docker & Kubernetes',
+    'ar-vr-experiences': 'AR/VR Experiences',
+    'webrtc': 'WebRTC',
+    'nlp-features': 'NLP Features',
+    'ai-chatbots': 'AI Chatbots',
+    'ai-automation-modern-tech': 'AI Automation & Modern Tech',
+    'ecommerce-development': 'E-Commerce Development',
+    'pwa-development': 'PWA Development',
+    'seo-digital-marketing': 'SEO & Digital Marketing',
+    'on-page-off-page-seo': 'On-Page & Off-Page SEO',
+    'website-design-development': 'Website Design & Development',
+    'custom-web-application-development': 'Custom Web App Development',
+};
+
+function titleFromSlug(slug: string): string {
+    if (SPECIAL_CASE_TITLES[slug]) return SPECIAL_CASE_TITLES[slug];
+    return slug
+        .split('-')
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+}
+
+const RelatedServices: React.FC<{ service: ServiceDetail }> = ({ service }) => {
+    const { navigate } = useNavigation();
+    const related = service.relatedServices;
+    if (!related || related.length === 0) return null;
+
+    return (
+        <section className="bg-white py-14 md:py-16 border-t border-gray-100">
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <div className="mb-8">
+                    <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-brand-orange mb-2">Related services</p>
+                    <h2 className="text-2xl md:text-3xl font-bold text-brand-dark tracking-tight">
+                        Other services in this area
+                    </h2>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+                    {related.map(slug => (
+                        <a
+                            key={slug}
+                            href={`/services/${slug}`}
+                            onClick={(e) => { e.preventDefault(); navigate(`/services/${slug}`); }}
+                            className="group flex items-center justify-between gap-3 bg-brand-light hover:bg-white border border-gray-200 hover:border-brand-orange rounded-xl px-4 py-3 transition-colors"
+                        >
+                            <span className="text-sm font-semibold text-brand-dark group-hover:text-brand-orange transition-colors">
+                                {titleFromSlug(slug)}
+                            </span>
+                            <span className="w-6 h-6 rounded-full bg-white border border-gray-200 group-hover:bg-brand-orange group-hover:border-brand-orange flex items-center justify-center text-brand-dark group-hover:text-white transition-colors flex-shrink-0">
+                                <Icon.Arrow />
+                            </span>
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
 // FINAL CTA — compact dark band
 // ============================================
 const FinalCTA: React.FC<{ service: ServiceDetail }> = ({ service }) => {
@@ -593,6 +672,7 @@ const ServiceDetailLayout: React.FC<{ service: ServiceDetail }> = ({ service }) 
             <WhyChooseUs service={service} />
             <FAQ faqs={faqs} />
             <Conclusion service={service} />
+            <RelatedServices service={service} />
             <FinalCTA service={service} />
         </div>
     );
