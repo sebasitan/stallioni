@@ -668,7 +668,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Professional Website Development Services',
         icon: <WebDevIcon />,
         category: PortfolioCategory.WEB,
-        relatedServices: ['website-design-development', 'frontend-development', 'wordpress-development', 'wix-development', 'squarespace-development', 'webflow-development'],
+        relatedServices: ['website-design-development', 'frontend-development', 'wordpress-development', 'wix-development', 'squarespace-development', 'webflow-development', 'cross-browser-testing', 'manual-testing'],
         shortDescription: 'Fast, secure, and scalable websites.',
         description: "We build fast, secure, and scalable websites that help your business stand out online. Our website development services ensure high performance, clean code, and responsive layouts suitable for all industries.",
         longDescription: "Whether you need a marketing site, a content-driven WordPress build, or a custom Next.js application, our team has shipped 900+ websites across fintech, healthcare, e-commerce, SaaS, and professional services. Every site we deliver passes Core Web Vitals, is fully responsive, and ships with on-page SEO, analytics, and security hardening configured from day one. Most projects launch in 2–4 weeks with a 60-day support window included.",
@@ -983,7 +983,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'API Development Services (REST & GraphQL)',
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
-        relatedServices: ['laravel-development', 'php-api-development', 'microservices-architecture', 'third-party-integrations', 'custom-web-application-development'],
+        relatedServices: ['laravel-development', 'php-api-development', 'microservices-architecture', 'third-party-integrations', 'custom-web-application-development', 'api-testing'],
         shortDescription: 'Robust APIs for seamless integrations.',
         description: "We build secure, scalable, and high-performance APIs using REST and GraphQL. Our API development services help businesses integrate systems, automate workflows, and improve application performance.",
         longDescription: "A well-designed API is the difference between a product that scales and one that crumbles when a partner integration goes live. We build OpenAPI-documented REST APIs and Apollo-powered GraphQL endpoints with rate limiting, JWT or OAuth2 auth, structured error handling, and proper versioning. Every API ships with Postman collections, Swagger docs, and integration tests — so your internal team and external developers can plug in without a single Slack message to ours.",
@@ -2101,6 +2101,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Laravel Development Services for Modern Web Applications',
         icon: <LaravelIcon />,
         category: PortfolioCategory.WEB,
+        relatedServices: ['php-development', 'symfony-development', 'core-php-development', 'php-api-development', 'legacy-php-migration', 'api-development'],
         shortDescription: 'Modern web apps with Laravel framework.',
         description: "If you want a fast, secure, and scalable web application, Laravel is one of the best PHP frameworks available today. At STALLIONI NET SOLUTIONS, we provide professional Laravel development services for small businesses, startups, agencies, and e-commerce companies.",
         longDescription: (
@@ -4216,6 +4217,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Technical SEO Services to Improve Rankings & Website Performance',
         icon: <SeoIcon />,
         category: PortfolioCategory.SEO,
+        relatedServices: ['on-page-off-page-seo', 'local-seo', 'content-writing-strategy', 'google-ads', 'social-media-ads', 'seo-digital-marketing'],
         shortDescription: 'Optimize your site for search engines.',
         description: "A strong website foundation is the key to successful SEO. We offer expert Technical SEO Services that help search engines easily crawl, index, and understand your website.",
         longDescription: (
@@ -5140,6 +5142,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Docker & Kubernetes Services',
         icon: <DockerIcon />,
         category: PortfolioCategory.CLOUD,
+        relatedServices: ['cloud-setup', 'cicd-automation', 'infrastructure-as-code', 'logging-monitoring', 'cloud-migration', 'cloud-devops-services'],
         shortDescription: 'Containerization and orchestration for automated scaling.',
         description: "Modern applications require speed, scalability, and efficiency. This is where Docker and Kubernetes play a vital role. Docker helps you package your application into lightweight containers.",
         longDescription: (
@@ -6072,6 +6075,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'AI Chatbot Development Services for Businesses',
         icon: <AiIcon />,
         category: PortfolioCategory.AI,
+        relatedServices: ['ai-automation-modern-tech', 'nlp-features', 'recommendation-engines', 'real-time-apps', 'business-process-automation', 'webrtc'],
         shortDescription: 'Intelligent conversational AI for your business.',
         description: "Every customer expects fast, accurate, and friendly support—day and night. We build intelligent, custom AI chatbots that help companies automate customer service, sales, and internal workflows with ease.",
         longDescription: (
@@ -6495,6 +6499,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         title: 'Real-Time App Development (WebSockets)',
         icon: <AiIcon />,
         category: PortfolioCategory.AI,
+        relatedServices: ['webrtc', 'ar-vr-experiences', 'nlp-features', 'ai-chatbots'],
         shortDescription: 'Real-time features for your applications.',
         description: "Users expect speed. They want live chat, instant notifications, and real-time updates. We build high-performance real-time applications using WebSockets that keep your users engaged.",
         longDescription: (
@@ -6605,6 +6610,12 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Video and voice calling solutions.',
         description: "Implement video and voice calling directly in your application using WebRTC technology. Secure, low-latency communication for telehealth, meetings, and more.",
         offerings: ['Video Calling', 'Voice Calling', 'Screen Sharing', 'Group Calls', 'Recording'],
+        faqs: [
+            { question: "What can you build with WebRTC?", answer: "Real-time video and voice calling, screen sharing, group calls, and call recording — embedded directly in your web or mobile app. Common uses include telehealth consultations, online meetings, customer-support video chat, and live tutoring, all running in the browser with no separate app to install." },
+            { question: "Is WebRTC secure enough for telehealth or finance?", answer: "Yes. WebRTC encrypts all audio, video, and data streams by default using DTLS-SRTP. For healthcare clients we build HIPAA-aware flows with encrypted media, access controls, and audit logging so sensitive consultations stay private." },
+            { question: "Do you use providers like Twilio and Agora, or build custom WebRTC?", answer: "Both, depending on scale and budget. For a fast launch we integrate managed providers such as Twilio, Vonage, Daily.co, or Agora. For high call volumes or full control we build on raw WebRTC with your own signaling and TURN servers, which lowers per-minute cost at scale." },
+            { question: "How many people can join a single call?", answer: "One-to-one and small group calls run peer-to-peer. For larger rooms like webinars or virtual classrooms we add an SFU media server so dozens to hundreds of participants stay smooth without overloading each user's device." },
+        ],
         technologies: [{ name: 'Tech', services: ['WebRTC', 'Twilio', 'Vonage', 'Daily.co', 'Agora'] }]
     },
     {
@@ -6615,6 +6626,12 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         shortDescription: 'Immersive augmented and virtual reality.',
         description: "Create immersive AR/VR experiences for training, marketing, gaming, and more. We develop for web, mobile, and dedicated VR headsets.",
         offerings: ['AR Mobile Apps', 'VR Experiences', '3D Visualization', 'Virtual Tours', 'Training Simulations'],
+        faqs: [
+            { question: "What kinds of AR/VR projects do you build?", answer: "AR mobile apps, VR experiences, 3D product visualization, virtual tours, and training simulations. Clients typically use them for product demos, real-estate walkthroughs, retail try-before-you-buy, marketing activations, and immersive employee training." },
+            { question: "Do users need a headset, or does it work on a phone?", answer: "Both. We build web-based AR that runs in a normal phone browser, native AR with ARKit on iOS and ARCore on Android, and full VR for headsets like Meta Quest using Unity or Unreal Engine. We choose the platform that fits your audience and budget." },
+            { question: "Can AR/VR run in a browser with no app download?", answer: "Yes. WebAR and WebVR let users scan a QR code or open a link and see the experience instantly, with no app to install. It is lower friction for marketing and e-commerce, while native apps still win for graphics-heavy or offline experiences." },
+            { question: "How much does an AR/VR project cost?", answer: "It depends on fidelity. A simple WebAR product viewer or virtual tour is a modest build, while a custom Unity or Unreal VR training simulation with 3D modeling is larger. We give a fixed quote after a short discovery call so you know the cost before committing." },
+        ],
         technologies: [{ name: 'Tech', services: ['Unity', 'Unreal Engine', 'A-Frame', 'Three.js', 'ARKit/ARCore'] }]
     },
 ];
