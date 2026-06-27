@@ -153,6 +153,7 @@ const getOrganizationSchema = () => ({
     },
   ],
   'sameAs': [
+    'https://www.linkedin.com/company/stallioni-net-solutions',
     'https://www.linkedin.com/in/sebastian-yesuraj/',
     'https://www.freelancer.com/u/graphicaa',
   ],
