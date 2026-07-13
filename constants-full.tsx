@@ -4027,7 +4027,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
                     Your hosting server is the foundation of your website. If your server is slow, insecure, or misconfigured, your business suffers. STALLIONI NET SOLUTIONS offers expert Web Hosting Support & Server Management Services to ensure your server is secure, fast, and always online.
                 </p>
                 <p className="mb-6">
-                    We act as your dedicated server team—handling setup, migration, security, and troubleshooting so you can focus on running your business. We support AWS, DigitalOcean, Google Cloud, Bluehost, SiteGround, Godaddy, and cPanel/WHM servers.
+                    We act as your dedicated server team—handling setup, migration, security, and troubleshooting so you can focus on running your business. We support AWS, DigitalOcean, Google Cloud, Bluehost, SiteGround, Godaddy, and cPanel/WHM servers. Still choosing a managed WordPress or WooCommerce host? Read our <a href="/resources/cloudways-vs-kinsta-vs-wp-engine">Cloudways vs Kinsta vs WP Engine comparison</a>.
                 </p>
 
                 <h2 className="text-3xl font-bold text-white mb-4 mt-8">Why You Needs Professional Hosting Support</h2>

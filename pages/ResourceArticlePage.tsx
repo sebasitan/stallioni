@@ -66,12 +66,27 @@ function renderStars(rating: number): React.ReactNode {
     );
 }
 
-// Inline markdown: **bold** → <strong>
+// Inline markdown: **bold** → <strong>, [label](href) → <a>
 function renderInline(text: string): React.ReactNode {
-    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
     return parts.map((part, idx) => {
         if (part.startsWith('**') && part.endsWith('**')) {
             return <strong key={idx} className="font-bold text-brand-dark">{part.slice(2, -2)}</strong>;
+        }
+        const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (link) {
+            const [, label, href] = link;
+            const isExternal = /^https?:\/\//.test(href);
+            return (
+                <a
+                    key={idx}
+                    href={href}
+                    className="text-brand-orange font-semibold hover:underline"
+                    {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                    {label}
+                </a>
+            );
         }
         return part;
     });
