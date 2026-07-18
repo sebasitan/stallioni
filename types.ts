@@ -126,4 +126,10 @@ export interface ServiceDetail {
   // before the final CTA, passing crawl signal + link equity to listed
   // pages. Critical for unindexed sub-services to get discovered.
   relatedServices?: string[];
+  // Related resource articles for internal linking — {title, slug} pairs.
+  // Renders a "Related reading" block that passes link equity from the
+  // service page to the article (the reciprocal of an article's
+  // relatedServices). Used to funnel indexed money-page equity into
+  // comparison/informational articles that rank on lower authority.
+  relatedResources?: { title: string; slug: string }[];
 }

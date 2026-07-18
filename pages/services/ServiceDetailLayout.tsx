@@ -596,6 +596,48 @@ const RelatedServices: React.FC<{ service: ServiceDetail }> = ({ service }) => {
 };
 
 // ============================================
+// RELATED READING — service → resource-article links
+// The reciprocal of an article's relatedServices: passes link equity from
+// an indexed service page into topical comparison/guide articles. Plain
+// prerendered <a href="/resources/..."> is all crawlers need.
+// ============================================
+const RelatedResources: React.FC<{ service: ServiceDetail }> = ({ service }) => {
+    const { navigate } = useNavigation();
+    const resources = service.relatedResources;
+    if (!resources || resources.length === 0) return null;
+
+    return (
+        <section className="bg-brand-light py-14 md:py-16 border-t border-gray-100">
+            <div className="container mx-auto px-6 max-w-[1400px]">
+                <div className="mb-8">
+                    <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-brand-orange mb-2">Related reading</p>
+                    <h2 className="text-2xl md:text-3xl font-bold text-brand-dark tracking-tight">
+                        Guides from our team
+                    </h2>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+                    {resources.map(({ title, slug }) => (
+                        <a
+                            key={slug}
+                            href={`/resources/${slug}`}
+                            onClick={(e) => { e.preventDefault(); navigate(`/resources/${slug}`); }}
+                            className="group flex items-center justify-between gap-3 bg-white hover:bg-white border border-gray-200 hover:border-brand-orange rounded-xl px-4 py-3 transition-colors"
+                        >
+                            <span className="text-sm font-semibold text-brand-dark group-hover:text-brand-orange transition-colors">
+                                {title}
+                            </span>
+                            <span className="w-6 h-6 rounded-full bg-brand-light border border-gray-200 group-hover:bg-brand-orange group-hover:border-brand-orange flex items-center justify-center text-brand-dark group-hover:text-white transition-colors flex-shrink-0">
+                                <Icon.Arrow />
+                            </span>
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// ============================================
 // FINAL CTA — compact dark band
 // ============================================
 const FinalCTA: React.FC<{ service: ServiceDetail }> = ({ service }) => {
@@ -673,6 +715,7 @@ const ServiceDetailLayout: React.FC<{ service: ServiceDetail }> = ({ service }) 
             <FAQ faqs={faqs} />
             <Conclusion service={service} />
             <RelatedServices service={service} />
+            <RelatedResources service={service} />
             <FinalCTA service={service} />
         </div>
     );

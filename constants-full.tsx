@@ -1121,6 +1121,10 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <EcommIcon />,
         category: PortfolioCategory.ECOMMERCE,
         relatedServices: ['shopify-development', 'woocommerce-development', 'magento-development', 'bigcommerce-development', 'custom-ecommerce-solutions', 'marketplace-development', 'payment-gateway-integrations'],
+        relatedResources: [
+            { title: 'Best WooCommerce Hosting in 2026', slug: 'best-woocommerce-hosting-2026' },
+            { title: 'Shopify vs WooCommerce in 2026', slug: 'shopify-vs-woocommerce-2026' },
+        ],
         shortDescription: 'Comprehensive e-commerce solutions for growth.',
         description: "At STALLIONI NET SOLUTIONS, we provide complete e-commerce development services designed for small businesses, startups, agencies, and established online stores. With affordable pricing, a strong development team, and fast delivery, we help brands build powerful online stores that are fast, secure, and ready to scale in markets like USA, UK, India, Middle East, and Australia.",
         longDescription: "Whether you need WooCommerce, Shopify, Magento, BigCommerce, marketplace development, or custom solutions, we create online stores that deliver real business growth.",
@@ -1209,6 +1213,10 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <WooCommerceIcon />,
         category: PortfolioCategory.ECOMMERCE,
         shortDescription: 'Custom WooCommerce stores for growing businesses.',
+        relatedResources: [
+            { title: 'Best WooCommerce Hosting in 2026', slug: 'best-woocommerce-hosting-2026' },
+            { title: 'Cloudways vs Kinsta vs WP Engine (2026)', slug: 'cloudways-vs-kinsta-vs-wp-engine' },
+        ],
         description: "We build powerful, affordable, and scalable WooCommerce development services designed for startups, agencies, and SMBs across the USA, UK, India, Middle East, and Australia.",
         longDescription: "WooCommerce remains one of the most trusted e-commerce platforms for small businesses and expanding online stores. At STALLIONI NET SOLUTIONS, we deliver powerful, affordable, and scalable WooCommerce development services designed for startups, agencies, and SMBs. Our solutions are built with speed, security, and performance in mind—ensuring that your store delivers a seamless shopping experience.",
         metaTitle: "WooCommerce Development India · Hire WooCommerce Developers",
@@ -1585,6 +1593,10 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <WordPressIcon />,
         category: PortfolioCategory.WEB,
         relatedServices: ['cms-development', 'drupal-development', 'joomla-development', 'woocommerce-development', 'headless-cms', 'multi-cms-development'],
+        relatedResources: [
+            { title: 'Cloudways vs Kinsta vs WP Engine (2026)', slug: 'cloudways-vs-kinsta-vs-wp-engine' },
+            { title: 'Best WooCommerce Hosting in 2026', slug: 'best-woocommerce-hosting-2026' },
+        ],
         shortDescription: 'Custom WordPress themes and plugins.',
         description: "At Stallioni Net Solutions, we provide powerful, scalable, and affordable WordPress development services tailored for small businesses, startups, agencies, and e-commerce stores.",
         longDescription: "WordPress is the world’s most popular CMS, powering more than 40% of all websites. Our experienced development team builds fast, secure, SEO-friendly WordPress websites that help your brand grow across the USA, UK, India, Middle East, and Australia. Whether you need a simple business website, a custom theme, a high-conversion eCommerce store, or a completely custom WordPress solution, Stallioni Net Solutions delivers professional results at competitive pricing with fast delivery timelines.",
@@ -3528,6 +3540,9 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Reliable, affordable, and scalable website maintenance.',
+        relatedResources: [
+            { title: 'Cloudways vs Kinsta vs WP Engine (2026)', slug: 'cloudways-vs-kinsta-vs-wp-engine' },
+        ],
         description: "Modern websites require continuous care, updates, and performance checks to stay secure and competitive. At STALLIONI NET SOLUTIONS, we offer reliable, affordable, and scalable website maintenance services designed specifically for small businesses, startups, agencies, and e-commerce brands.",
         longDescription: (
             <>
@@ -3825,6 +3840,10 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.SUPPORT,
         relatedServices: ['website-maintenance', 'security-audits', 'hosting-support', 'performance-testing', 'application-maintenance', 'backup-recovery'],
+        relatedResources: [
+            { title: 'Cloudways vs Kinsta vs WP Engine (2026)', slug: 'cloudways-vs-kinsta-vs-wp-engine' },
+            { title: 'Best WooCommerce Hosting in 2026', slug: 'best-woocommerce-hosting-2026' },
+        ],
         shortDescription: 'Make your website lightning fast.',
         description: "A fast, smooth, and high-performing digital experience is essential for attracting customers. We provide professional Performance Optimization Services designed for small businesses and startups.",
         longDescription: (
