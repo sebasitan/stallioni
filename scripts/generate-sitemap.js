@@ -103,6 +103,9 @@ const xmlEscape = (s) =>
   add('/contact', gitDate('pages/ContactPage.tsx'), 'monthly', '0.7');
   add('/agencies', gitDate('constants/agencies-page.ts'), 'monthly', '0.8');
   add('/resources', gitDate('constants/resources.ts'), 'weekly', '0.7');
+  // Linked from the footer on every page — must be prerendered or it hard-404s
+  // (there is no SPA catch-all rewrite in vercel.json).
+  add('/privacy-policy', gitDate('pages/PrivacyPolicy.tsx'), 'yearly', '0.3');
 
   // --- Service detail pages (all defined in constants-full.tsx)
   const servicesDate = gitDate('constants-full.tsx');
