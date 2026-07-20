@@ -23,22 +23,27 @@
       "permanent": true
     },
     {
-      "source": "/B429_live/:path*",
+      "source": "/B429_live",
       "destination": "/blog",
       "permanent": true
     },
     {
-      "source": "/wp-content/:path*",
+      "source": "/B429_live/(.*)",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/(.*)",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/wp-admin/:path*",
+      "source": "/wp-admin/(.*)",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/wp-includes/:path*",
+      "source": "/wp-includes/(.*)",
       "destination": "/",
       "permanent": true
     },
@@ -63,12 +68,17 @@
       "permanent": true
     },
     {
+      "source": "/homepage/(.*)",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/meet-paige",
       "destination": "/about",
       "permanent": true
     },
     {
-      "source": "/meet-paige/:path*",
+      "source": "/meet-paige/(.*)",
       "destination": "/about",
       "permanent": true
     },
@@ -78,7 +88,7 @@
       "permanent": true
     },
     {
-      "source": "/feed/:path*",
+      "source": "/feed/(.*)",
       "destination": "/blog",
       "permanent": true
     },
@@ -88,27 +98,47 @@
       "permanent": true
     },
     {
-      "source": "/comments/feed/:path*",
+      "source": "/comments/feed/(.*)",
       "destination": "/blog",
       "permanent": true
     },
     {
-      "source": "/category/:slug*",
+      "source": "/category",
       "destination": "/blog",
       "permanent": true
     },
     {
-      "source": "/tag/:slug*",
+      "source": "/category/(.*)",
       "destination": "/blog",
       "permanent": true
     },
     {
-      "source": "/author/:slug*",
+      "source": "/tag",
       "destination": "/blog",
       "permanent": true
     },
     {
-      "source": "/:year(\\d{4})/:rest*",
+      "source": "/tag/(.*)",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/author",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/author/(.*)",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/:year(\\d{4})",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/:year(\\d{4})/(.*)",
       "destination": "/blog",
       "permanent": true
     },
