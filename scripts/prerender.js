@@ -151,40 +151,65 @@ function dedupeScriptTags(html) {
     });
 
     let ok = 0;
-    let failed = 0;
+    const failures = [];
+
+    // A route that renders is written to disk; one that doesn't is retried,
+    // because `networkidle0` is timing-sensitive and a single slow chunk load
+    // is enough to blow the budget on an otherwise healthy page.
+    const ATTEMPTS = 3;
+
+    const renderRoute = async (route) => {
+        const url = `http://localhost:${PORT}${route}`;
+        await page.goto(url, { waitUntil: 'networkidle0', timeout: PAGE_TIMEOUT_MS });
+        // Wait for the React app to finish hydrating + meta tags to settle.
+        await page
+            .waitForSelector('footer', { timeout: 10000 })
+            .catch(() => {});
+        await new Promise((r) => setTimeout(r, RENDER_WAIT_MS));
+
+        const html = dedupeScriptTags(injectPrerenderedFlag(await page.content()));
+
+        const relativePath =
+            route === '/' ? 'index.html'
+                : route === '/404' ? '404.html'
+                    : path.join(route.substring(1), 'index.html');
+        const outPath = path.join(DIST_DIR, relativePath);
+        fs.mkdirSync(path.dirname(outPath), { recursive: true });
+        fs.writeFileSync(outPath, html);
+    };
 
     for (const route of routes) {
-        const url = `http://localhost:${PORT}${route}`;
-        try {
-            await page.goto(url, { waitUntil: 'networkidle0', timeout: PAGE_TIMEOUT_MS });
-            // Wait for the React app to finish hydrating + meta tags to settle.
-            await page
-                .waitForSelector('footer', { timeout: 10000 })
-                .catch(() => {});
-            await new Promise((r) => setTimeout(r, RENDER_WAIT_MS));
-
-            const html = dedupeScriptTags(injectPrerenderedFlag(await page.content()));
-
-            const relativePath =
-                route === '/' ? 'index.html'
-                    : route === '/404' ? '404.html'
-                    : path.join(route.substring(1), 'index.html');
-            const outPath = path.join(DIST_DIR, relativePath);
-            fs.mkdirSync(path.dirname(outPath), { recursive: true });
-            fs.writeFileSync(outPath, html);
-            console.log(`  ok  ${route}`);
-            ok++;
-        } catch (e) {
-            console.error(`  FAIL ${route}:`, e.message);
-            failed++;
+        let lastErr;
+        for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+            try {
+                await renderRoute(route);
+                lastErr = null;
+                if (attempt > 1) console.log(`  ok  ${route} (attempt ${attempt})`);
+                else console.log(`  ok  ${route}`);
+                break;
+            } catch (e) {
+                lastErr = e;
+                console.error(`  retry ${route} (attempt ${attempt}/${ATTEMPTS}): ${e.message}`);
+            }
         }
+        if (lastErr) failures.push({ route, message: lastErr.message });
+        else ok++;
     }
 
     await browser.close();
     server.close();
 
-    console.log(`Pre-rendering done. ok=${ok} failed=${failed}`);
-    // Don't fail the build on per-route render errors; the SPA fallback
-    // will still serve those routes (just without prerendered HTML).
+    console.log(`Pre-rendering done. ok=${ok} failed=${failures.length}`);
+
+    // Fail the build when a route never rendered. There is no SPA fallback
+    // rewrite in vercel.json — an unrendered route is served as a hard 404,
+    // so shipping a partial prerender silently deletes pages from the site
+    // (this is what made /privacy-policy a site-wide 404). Loud build failure
+    // beats a quiet 404.
+    if (failures.length) {
+        console.error('\n[prerender] These routes never rendered and would 404 in production:');
+        for (const f of failures) console.error(`  ${f.route} — ${f.message}`);
+        process.exit(1);
+    }
     process.exit(0);
 })();

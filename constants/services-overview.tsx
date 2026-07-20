@@ -204,6 +204,31 @@ export const SERVICES_OVERVIEW: Service[] = [
         description: 'Expert PHP development using modern frameworks for robust back-end solutions.',
         features: ['Laravel', 'Symfony', 'CodeIgniter', 'Core PHP']
     },
+    // Sub-Services under PHP Development
+    {
+        id: 'core-php-development',
+        icon: <FullStackIcon />,
+        animation: <FullStackAnimation />,
+        title: 'Core PHP Development',
+        description: 'Custom, fast, and secure Core PHP development built from scratch.',
+        features: ['Custom Builds', 'No Framework Lock-In', 'Secure Code', 'Full Flexibility']
+    },
+    {
+        id: 'php-api-development',
+        icon: <FullStackIcon />,
+        animation: <FullStackAnimation />,
+        title: 'PHP API Development',
+        description: 'Secure and scalable PHP APIs that connect your systems and apps.',
+        features: ['REST APIs', 'Third-Party Integration', 'Authentication', 'Documentation']
+    },
+    {
+        id: 'legacy-php-migration',
+        icon: <FullStackIcon />,
+        animation: <FullStackAnimation />,
+        title: 'Legacy PHP Migration',
+        description: 'Modern, secure, and high-performance upgrades for outdated PHP apps.',
+        features: ['Version Upgrades', 'Framework Migration', 'Security Fixes', 'Zero Data Loss']
+    },
     {
         id: 'mobile-app-development',
         icon: <MobileDevIcon />,
@@ -521,5 +546,21 @@ export const SERVICES_OVERVIEW: Service[] = [
         title: 'Real-Time Apps (WebSockets)',
         description: 'Instant updates for chat, tracking, and dashboards.',
         features: ['Live Chat', 'Real-Time Tracking', 'Live Dashboards', 'Notifications']
+    },
+    {
+        id: 'webrtc',
+        icon: <AiIcon />,
+        animation: <AIAnimation />,
+        title: 'WebRTC (Video/Voice)',
+        description: 'Video and voice calling built directly into your application.',
+        features: ['Video Calling', 'Voice Calling', 'Screen Sharing', 'Low Latency']
+    },
+    {
+        id: 'ar-vr-experiences',
+        icon: <AiIcon />,
+        animation: <AIAnimation />,
+        title: 'AR/VR Experiences',
+        description: 'Immersive augmented and virtual reality for training and marketing.',
+        features: ['AR Mobile Apps', 'VR Experiences', '3D Product Views', 'Headset Support']
     }
 ];

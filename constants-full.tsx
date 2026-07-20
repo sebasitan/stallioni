@@ -626,6 +626,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <DesignIcon />,
         category: PortfolioCategory.DESIGN,
         shortDescription: 'User-centric design for digital products.',
+        relatedServices: ['website-design-development', 'frontend-development', 'design-systems', 'landing-page-design', 'responsive-mobile-first-development', 'cross-browser-testing'],
         description: "At STALLIONI NET SOLUTIONS, we create clean, user-friendly, and conversion-focused UI/UX designs that help businesses grow. Our goal is simple—design websites and applications that are easy to use, visually appealing, and built to convert visitors into customers.",
         longDescription: "Great design is invisible — users feel it before they notice it. Our senior UX team starts every project with user research, journey mapping, and competitive analysis, then translates findings into wireframes, prototypes, and high-fidelity Figma designs. We build with accessibility (WCAG 2.1 AA) and conversion psychology baked in, so every flow earns its place. Handoff includes a complete design system, interactive prototype, and developer-ready specs.",
         offerings: ['User Research', 'Wireframing & Prototyping', 'Visual Design', 'Usability Testing', 'Design Systems'],
@@ -703,6 +704,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <WebDevIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Modern frontend development with React, Vue, & Svelte.',
+        relatedServices: ['ui-ux-design', 'responsive-mobile-first-development', 'design-systems', 'website-development', 'cross-browser-testing', 'performance-testing'],
         description: "We build modern, fast, and scalable frontend applications using the latest frameworks—React, Vue, and Svelte. Our team focuses on clean code, strong UI architecture, and smooth performance across all devices.",
         longDescription: "Our frontend engineers have shipped production interfaces for SaaS dashboards, e-commerce storefronts, and enterprise admin panels at scale. We're opinionated about TypeScript, component-driven design, and bundle budgets — so the apps we hand over are not just pretty but also maintainable. Expect Lighthouse scores above 90, accessible markup, and a test suite that catches regressions before they ship.",
         offerings: ['React.js Development', 'Vue.js Development', 'Svelte Development', 'SPA Development'],
@@ -735,6 +737,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <WebDevIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Websites that look perfect on all devices.',
+        relatedServices: ['frontend-development', 'ui-ux-design', 'cross-browser-testing', 'performance-testing', 'website-design-development', 'pwa-development'],
         description: "We create websites that look perfect on all screen sizes—mobile, tablet, and desktop. Our mobile-first approach ensures faster loading and better user experience.",
         longDescription: "Over 65% of web traffic now comes from mobile devices, and Google ranks sites on mobile-first indexing. We design from the smallest viewport up, then progressively enhance for larger screens — the opposite of how most agencies still work. Every project includes touch-target testing, responsive image pipelines, fluid typography, and a Core Web Vitals audit so your site loads fast on a 4G connection in a coffee shop, not just a fiber line in an office.",
         offerings: ['Fluid Grids', 'Flexible Layouts', 'Speed Optimization', 'Cross-Device Testing'],
@@ -773,6 +776,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <DesignIcon />,
         category: PortfolioCategory.DESIGN,
         shortDescription: 'High-converting landing pages that drive results.',
+        relatedServices: ['ui-ux-design', 'design-systems', 'on-page-off-page-seo', 'google-ads', 'frontend-development', 'content-writing-strategy'],
         description: "A great landing page increases leads, sales, and conversions. We design conversion-optimized landing pages for businesses, startups, agencies, and e-commerce brands.",
         longDescription: "Most landing pages bury the value proposition, leak attention with distractions, and load too slowly to keep visitors around. We design pages that respect the visitor's intent: one clear offer, one decisive CTA, and zero friction. Every page is built on a tested layout, ships in under 7 days, and is set up for A/B testing from day one — so you can measure CTR and conversion rate, not guess.",
         offerings: ['Clear Messaging', 'Strong Visuals', 'CTA Optimization', 'Mobile-Friendly Layout', 'A/B Testing Ready'],
@@ -804,6 +808,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <DesignIcon />,
         category: PortfolioCategory.DESIGN,
         shortDescription: 'Scalable design systems for consistent branding.',
+        relatedServices: ['ui-ux-design', 'frontend-development', 'landing-page-design', 'responsive-mobile-first-development', 'website-design-development', 'cross-browser-testing'],
         description: "Our design system services help brands maintain visual consistency and scale faster. We build reusable components, guidelines, and UI libraries that keep your brand uniform across all products.",
         longDescription: "Without a design system, every new feature reinvents the wheel — and your product drifts visually across teams. We build production-grade design systems in Figma with paired React/Vue component libraries, design tokens (colors, spacing, typography), Storybook documentation, and contribution guidelines. The result: your designers and engineers stop debating button styles and start shipping features 3× faster.",
         offerings: ['Component Libraries', 'Color Palette & Style Guide', 'Interaction & UX Patterns', 'Developer Handoff'],
@@ -898,6 +903,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Powerful business apps aimed at growth.',
+        relatedServices: ['custom-web-application-development', 'saas-development', 'web-portals', 'api-development', 'microservices-architecture', 'business-process-automation'],
         description: "At STALLIONI NET SOLUTIONS, we build powerful business web applications that simplify operations and help companies grow faster. From CRM, ERP, HR systems to workflow automation tools, our solutions are designed for small businesses, startups, agencies, and e-commerce brands looking to improve efficiency and productivity.",
         longDescription: "Off-the-shelf SaaS gets you 80% of the way — but the last 20% is where productivity is lost to manual exports, duplicate data entry, and tools that don't talk to each other. We build custom CRM, ERP, HR, and workflow apps that fit how your team actually works, integrate with your existing stack (Salesforce, QuickBooks, Slack, etc.), and give leadership real-time dashboards instead of monthly spreadsheets. Most projects scope in 1 week and ship a working MVP in 4–8 weeks.",
         offerings: ['CRM Development', 'ERP Development', 'HR Management Systems', 'Workflow Automation Tools', 'Custom Internal Applications'],
@@ -942,6 +948,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Building scalable Software-as-a-Service platforms.',
+        relatedServices: ['business-web-applications', 'custom-web-application-development', 'microservices-architecture', 'api-development', 'cloud-setup', 'logging-monitoring'],
         description: "We help businesses build scalable SaaS applications that users love. Whether you're a startup launching a new software product or an enterprise looking to migrate to the cloud, our SaaS experts ensure fast development, secure architecture, and long-term reliability.",
         longDescription: "Building a SaaS isn't just shipping a web app — it's multi-tenancy, Stripe billing, auth and SSO, role-based access, audit logs, usage metering, and an admin dashboard that doesn't fall over at 10,000 users. We've shipped these foundations dozens of times and can stand up a production-ready MVP in 8–12 weeks. Stack: TypeScript + React on the frontend, Node.js / Python / Go on the backend, PostgreSQL, Redis, and AWS or GCP. Pricing is fixed-scope so you know what you're paying before we write a line of code.",
         offerings: ['Multi-Tenant Architecture', 'Subscription & Billing Modules', 'User Dashboards & Analytics', 'Cloud Hosting & DevOps', 'Mobile-Friendly SaaS Platforms'],
@@ -1019,6 +1026,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Connect tools for better automation.',
+        relatedServices: ['api-development', 'php-api-development', 'payment-gateway-integrations', 'api-testing', 'microservices-architecture', 'business-process-automation'],
         description: "We help businesses connect their systems with the tools they rely on every day. From payment gateways to CRMs to marketing platforms, our third-party integration services ensure smooth data exchange and improved business automation.",
         longDescription: "Most businesses run on a stack of 10–30 SaaS tools that don't talk to each other natively. We've built integrations for 500+ third-party platforms — Stripe, PayPal, Razorpay, Salesforce, HubSpot, Zoho, Mailchimp, Twilio, Slack, QuickBooks, Shopify, and many more. Our integrations use proper webhook handling, idempotency keys, retry logic, and sandbox testing — so they don't break when an API changes or a webhook fires twice. If your platform doesn't have an off-the-shelf connector, we'll build one in days, not weeks.",
         offerings: ['Payment Gateways', 'CRM Integrations', 'E-commerce Platforms', 'Marketing Tools', 'Social & Communication APIs'],
@@ -1052,6 +1060,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Scalable microservices for enterprise applications.',
+        relatedServices: ['api-development', 'docker-kubernetes', 'cloud-devops-services', 'infrastructure-as-code', 'saas-development', 'logging-monitoring'],
         description: "We help businesses build scalable and high-performance systems using microservices architecture. Perfect for startups and growing companies needing flexibility, speed, and efficient resource usage.",
         longDescription: "Monoliths are great until they aren't — when one team's deploy blocks another's, when a memory leak in billing takes down checkout, when a 10× traffic spike forces an emergency rewrite. We design microservices the right way: bounded contexts mapped to domain boundaries, gRPC or REST between services, Kubernetes for orchestration, service mesh for observability, and an API gateway for clients. Equally important — we know when NOT to use microservices, and we'll tell you if your team is better off with a modular monolith.",
         offerings: ['Microservice-Based Apps', 'API Gateway Setup', 'Containerization', 'Cloud Integration', 'Event-Driven Systems'],
@@ -1085,6 +1094,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Self-service portals for stakeholders.',
+        relatedServices: ['business-web-applications', 'custom-web-application-development', 'saas-development', 'api-development', 'application-maintenance', 'logging-monitoring'],
         description: "We build secure, user-friendly web portals that improve communication and streamline operations for businesses. From customer self-service portals to vendor and partner dashboards, our solutions help companies operate smoothly at scale.",
         longDescription: "Portals reduce support tickets, eliminate manual data entry, and give external stakeholders the information they need without a back-and-forth email chain. We've built customer self-service hubs, vendor portals with PO workflows, partner co-marketing dashboards, and franchise/dealer management systems. Every portal we ship includes role-based access control, single sign-on (SAML, OAuth, Google Workspace), full audit logs, and a permissions admin UI — so your operations team can manage access without filing IT tickets.",
         offerings: ['Customer Portals', 'Vendor Portals', 'Partner Portals', 'Internal Employee Portals', 'Custom Business Portals'],
@@ -1213,6 +1223,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <WooCommerceIcon />,
         category: PortfolioCategory.ECOMMERCE,
         shortDescription: 'Custom WooCommerce stores for growing businesses.',
+        relatedServices: ['ecommerce-development', 'wordpress-development', 'shopify-development', 'custom-ecommerce-solutions', 'payment-gateway-integrations', 'hosting-support'],
         relatedResources: [
             { title: 'Best WooCommerce Hosting in 2026', slug: 'best-woocommerce-hosting-2026' },
             { title: 'Cloudways vs Kinsta vs WP Engine (2026)', slug: 'cloudways-vs-kinsta-vs-wp-engine' },
@@ -1253,6 +1264,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <ShopifyIcon />,
         category: PortfolioCategory.ECOMMERCE,
         shortDescription: 'Expert Shopify store setup and customization.',
+        relatedServices: ['ecommerce-development', 'woocommerce-development', 'magento-development', 'custom-ecommerce-solutions', 'payment-gateway-integrations', 'marketplace-development'],
         description: "Shopify is a top choice for small businesses and e-commerce stores that need a fast, reliable, and scalable online shop. We offer complete Shopify Development Services designed to help startups, agencies, and e-commerce merchants launch faster and sell more.",
         longDescription: "At STALLIONI NET SOLUTIONS, we offer complete Shopify Development Services designed to help startups, agencies, and e-commerce merchants in the USA, UK, India, Middle East, and Australia launch faster and sell more. Our packages combine clean design, performance optimization, and conversion-focused development — all at affordable pricing and delivered quickly by an experienced team.",
         metaTitle: "Shopify Development Services | Fast & Affordable Builds",
@@ -1298,6 +1310,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MagentoIcon />,
         category: PortfolioCategory.ECOMMERCE,
         shortDescription: 'High-performance e-commerce for growing businesses.',
+        relatedServices: ['ecommerce-development', 'shopify-development', 'woocommerce-development', 'custom-ecommerce-solutions', 'payment-gateway-integrations', 'performance-optimization'],
         description: "Magento (Adobe Commerce) is one of the world’s most powerful and scalable e-commerce platforms. We deliver secure, fast, and robust Magento Development Services tailored for small businesses, startups, and enterprises.",
         longDescription: "Ideally suited for growing businesses, high-volume online stores, and enterprises that need complete customization and performance. Our expert development team builds custom Magento stores that support complex catalogs, multi-store functionality, API integrations, and advanced checkout experiences.",
         metaTitle: "Magento Development Services | Expert Magento Developers",
@@ -1336,6 +1349,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <EcommIcon />,
         category: PortfolioCategory.ECOMMERCE,
         shortDescription: 'Scalable online stores with BigCommerce.',
+        relatedServices: ['ecommerce-development', 'shopify-development', 'magento-development', 'custom-ecommerce-solutions', 'payment-gateway-integrations', 'marketplace-development'],
         description: "BigCommerce is one of the fastest-growing SaaS e-commerce platforms. We deliver BigCommerce Development Services tailored for scalable online stores without heavy technical maintenance.",
         longDescription: "Our expert developers help you build high-performing BigCommerce stores with custom themes, API integrations, headless commerce, and conversion-driven features — all at affordable pricing and backed by fast delivery. BigCommerce is designed for scalability and stability.",
         metaTitle: "BigCommerce Development Services | E-Commerce Experts",
@@ -1374,6 +1388,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.ECOMMERCE,
         shortDescription: 'Tailored e-commerce platforms for unique needs.',
+        relatedServices: ['ecommerce-development', 'marketplace-development', 'payment-gateway-integrations', 'api-development', 'saas-development', 'performance-testing'],
         description: "Every business is unique. We build Custom E-Commerce Solutions for startups and enterprises that need custom features, personalized workflows, or specialized integrations.",
         longDescription: "Whether you need a fully custom-built e-commerce platform, a hybrid system, or a tailored upgrade to an existing store, our strong development team builds scalable, secure, and conversion-focused solutions. Off-the-shelf platforms aren't always enough.",
         metaTitle: "Custom E-Commerce Solutions | Tailored Online Store Development",
@@ -1413,6 +1428,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <EcommIcon />,
         category: PortfolioCategory.ECOMMERCE,
         shortDescription: 'Build your own marketplace like Amazon or Etsy.',
+        relatedServices: ['ecommerce-development', 'custom-ecommerce-solutions', 'payment-gateway-integrations', 'api-development', 'saas-development', 'real-time-apps'],
         description: "We specialize in Multi-Vendor Marketplace Development. Whether you're building a niche marketplace, a B2B trading platform, or a global e-commerce system, we deliver scalable solutions.",
         longDescription: "A multi-vendor marketplace allows multiple sellers to list products, manage inventory, and handle orders under one platform. We build complete marketplace ecosystems with custom features, scalable architecture, and advanced vendor management tools for startups and enterprises.",
         metaTitle: "Multi-Vendor Marketplace Development | Stallioni",
@@ -1451,6 +1467,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <EcommIcon />,
         category: PortfolioCategory.ECOMMERCE,
         shortDescription: 'Secure payment processing for your store.',
+        relatedServices: ['ecommerce-development', 'third-party-integrations', 'custom-ecommerce-solutions', 'api-development', 'security-audits', 'api-testing'],
         description: "A seamless and secure payment experience is crucial. We provide professional Payment Gateway Integration Services for secure, fast, and reliable transactions across all platforms.",
         longDescription: "Whether you're running a small online shop, a subscription business, or a marketplace, we integrate global and local payment providers ensuring PCI-DSS compliance and fast implementation. Improve your checkout performance and conversions with our expert integration.",
         metaTitle: "Payment Gateway Integration | Stripe, PayPal, Razorpay Setup",
@@ -1651,6 +1668,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Joomla website development & extensions.',
+        relatedServices: ['cms-development', 'drupal-development', 'wordpress-development', 'multi-cms-development', 'headless-cms', 'website-maintenance'],
         description: "At Stallioni Net Solutions, we deliver powerful, secure, and scalable Joomla development services for businesses of all sizes — including small businesses, startups, agencies, and enterprise companies.",
         longDescription: "Joomla is a flexible and robust CMS known for its strong built-in security, multilingual support, and ability to handle complex websites. Our development team specializes in building professional Joomla websites that load fast, rank well on search engines, and deliver an excellent user experience. With clients across the USA, UK, India, Middle East, and Australia, we understand global business needs and offer affordable pricing and fast delivery without compromising quality.",
         metaTitle: "Joomla Development Services India · Since 2007 · 4.8★",
@@ -1703,6 +1721,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Enterprise Drupal solutions.',
+        relatedServices: ['cms-development', 'joomla-development', 'wordpress-development', 'multi-cms-development', 'headless-cms', 'application-maintenance'],
         description: "Stallioni Net Solutions provides expert Drupal development services for companies that require strong security, high performance, and enterprise-level scalability.",
         longDescription: "Drupal is trusted by government organizations, universities, corporations, and global enterprises because of its flexibility and advanced content management capabilities. We specialize in building feature-rich Drupal websites for small businesses, startups, agencies, NGOs, eCommerce companies, and enterprise organizations. Our team serves global markets across the USA, UK, India, Middle East, and Australia, offering affordable pricing, a strong development team, and fast delivery for all Drupal projects.",
         metaTitle: "Drupal Development Services | Stallioni Net Solutions",
@@ -1755,6 +1774,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Professional Squarespace websites for creatives.',
+        relatedServices: ['wix-development', 'webflow-development', 'website-design-development', 'landing-page-design', 'on-page-off-page-seo', 'website-maintenance'],
         description: "Stallioni Net Solutions offers professional and affordable Squarespace development services designed for small businesses, startups, creative professionals, and e-commerce stores.",
         longDescription: "Squarespace is known for its clean designs, ease of use, and powerful built-in features — making it perfect for brands that want a stunning website without high maintenance. Our team builds custom, modern, mobile-friendly Squarespace websites optimized for performance and search engines. Serving clients across the USA, UK, India, Middle East, and Australia, we deliver fast, reliable, and budget-friendly Squarespace solutions that help businesses grow online.",
         metaTitle: "Squarespace Development Services | Stallioni Net Solutions",
@@ -1807,6 +1827,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Custom, fast, and SEO-ready Wix websites.',
+        relatedServices: ['squarespace-development', 'webflow-development', 'website-design-development', 'landing-page-design', 'on-page-off-page-seo', 'website-maintenance'],
         description: "At Stallioni Net Solutions, we provide professional, affordable, and high-performing Wix development services for small businesses, startups, agencies, and e-commerce stores.",
         longDescription: "Wix is one of the best platforms for business owners who want a modern website with easy editing, beautiful templates, and powerful built-in features. Whether you need a business site, booking website, restaurant site, portfolio, or online store — our expert team builds custom, fast, and SEO-ready Wix websites. With our strong development team and fast delivery process, you get a stunning Wix website that represents your brand and helps you attract more customers.",
         metaTitle: "Wix Development Services | Stallioni Net Solutions",
@@ -1860,6 +1881,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Modern, high-performance Webflow websites.',
+        relatedServices: ['wix-development', 'squarespace-development', 'website-design-development', 'design-systems', 'on-page-off-page-seo', 'website-maintenance'],
         description: "At Stallioni Net Solutions, we specialize in delivering powerful, visually stunning, and high-performance Webflow development services for small businesses, startups, agencies, and e-commerce brands.",
         longDescription: "Webflow is one of the most advanced website-building platforms today — offering full design control, clean code, fast loading times, and SEO-friendly architecture. We build custom Webflow websites for clients across the USA, UK, India, Middle East, and Australia, ensuring top-quality performance, flawless animations, and smooth user experiences. With affordable pricing, a strong development team, and fast delivery, Stallioni Net Solutions helps your business stand out with premium Webflow solutions.",
         metaTitle: "Webflow Development Services | Stallioni Net Solutions",
@@ -1913,6 +1935,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Specialized CMS solutions for unique needs.',
+        relatedServices: ['cms-development', 'wordpress-development', 'drupal-development', 'joomla-development', 'headless-cms', 'website-maintenance'],
         description: "At Stallioni Net Solutions, we provide specialized development services across multiple CMS platforms — Ghost, Craft CMS, Typo3, and HubSpot CMS.",
         longDescription: "These platforms are powerful alternatives to traditional CMS systems and are ideal for businesses looking for high-performance publishing tools, highly customizable websites, enterprise-grade security, and advanced marketing features. Our development team has strong experience building websites for small businesses, startups, agencies, e-commerce stores, and enterprise clients. We deliver solutions that meet your business goals while staying affordable and fast.",
         metaTitle: "Ghost, Craft, Typo3 & HubSpot CMS Development | Stallioni",
@@ -1958,6 +1981,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Strapi, Sanity, Contentful, Prismic solutions.',
+        relatedServices: ['cms-development', 'multi-cms-development', 'frontend-development', 'api-development', 'wordpress-development', 'performance-optimization'],
         description: "At Stallioni Net Solutions, we specialize in modern, scalable, and high-performance Headless CMS development using platforms like Strapi, Sanity, Contentful, and Prismic.",
         longDescription: "A headless CMS separates the backend from the frontend, allowing you to deliver content across websites, apps, digital screens, e-commerce stores, and any device. This approach is perfect for startups, small businesses, enterprise teams, and e-commerce brands needing speed, flexibility, and future-proof technology. Our expert development team builds headless solutions that load fast, scale smoothly, and integrate easily with all major frameworks (React, Next.js, Vue, Nuxt, Flutter, etc.).",
         metaTitle: "Headless CMS Development Services | Stallioni Net Solutions",
@@ -2220,6 +2244,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Enterprise PHP with Symfony framework.',
+        relatedServices: ['php-development', 'laravel-development', 'codeigniter-development', 'core-php-development', 'php-api-development', 'legacy-php-migration'],
         description: "Looking for a powerful and reliable framework to build your next web application? Symfony is one of the most trusted PHP frameworks in the world. At STALLIONI NET SOLUTIONS, we provide professional Symfony development services for small businesses, startups, agencies, and e-commerce companies.",
         longDescription: (
             <>
@@ -2408,6 +2433,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Lightweight PHP apps with CodeIgniter.',
+        relatedServices: ['php-development', 'laravel-development', 'symfony-development', 'core-php-development', 'php-api-development', 'legacy-php-migration'],
         description: "If you need a fast, lightweight, and affordable web application, CodeIgniter is one of the best PHP frameworks to choose. At STALLIONI NET SOLUTIONS, we provide professional CodeIgniter development services for small businesses, startups, agencies, and e-commerce stores.",
         longDescription: (
             <>
@@ -2513,6 +2539,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <PHPIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Custom, fast, and secure Core PHP development.',
+        relatedServices: ['php-development', 'laravel-development', 'symfony-development', 'codeigniter-development', 'php-api-development', 'legacy-php-migration'],
         description: "If you want a website or web application built from scratch with complete flexibility, Core PHP is one of the best options. At STALLIONI NET SOLUTIONS, we offer professional Core PHP development services for small businesses, startups, agencies, and e-commerce brands.",
         longDescription: (
             <>
@@ -2615,6 +2642,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <PHPIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Secure and scalable PHP API development.',
+        relatedServices: ['php-development', 'api-development', 'laravel-development', 'core-php-development', 'third-party-integrations', 'api-testing'],
         description: "Modern businesses depend on fast, secure, and reliable APIs to connect systems, mobile apps, websites, and third-party platforms. At STALLIONI NET SOLUTIONS, we provide professional PHP API development services for small businesses, startups, agencies, and e-commerce brands.",
         longDescription: (
             <>
@@ -2716,6 +2744,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <PHPIcon />,
         category: PortfolioCategory.WEB,
         shortDescription: 'Modern, secure & high-performance upgrades.',
+        relatedServices: ['php-development', 'core-php-development', 'laravel-development', 'symfony-development', 'application-maintenance', 'security-audits'],
         description: "If you are still running your business on an old or outdated PHP application, you may be facing slow performance, security risks, and difficulty in making updates. We offer professional Migration from Legacy PHP Systems to help businesses move to modern, secure platforms.",
         longDescription: (
             <>
@@ -2937,6 +2966,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.MOBILE,
         shortDescription: 'Native iOS apps for iPhone & iPad.',
+        relatedServices: ['mobile-app-development', 'android-app-development', 'flutter-development', 'react-native-development', 'pwa-development', 'manual-testing'],
         description: "Apple users expect premium quality, smooth performance, and elegant design — and that’s exactly what we deliver at STALLIONI NET SOLUTIONS. Our expert iOS app development team builds high-performance apps for iPhone, iPad, Apple Watch, and Apple TV that help businesses stand out and scale faster.",
         longDescription: (
             <>
@@ -3056,6 +3086,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.MOBILE,
         shortDescription: 'Native Android apps for all devices.',
+        relatedServices: ['mobile-app-development', 'ios-app-development', 'flutter-development', 'react-native-development', 'pwa-development', 'manual-testing'],
         description: "Android is the world’s most widely used mobile platform. At STALLIONI NET SOLUTIONS, we help startups, small businesses, agencies, and e-commerce brands build high-performance Android apps that attract, engage, and retain users using Kotlin and Java.",
         longDescription: (
             <>
@@ -3176,6 +3207,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FlutterIcon />,
         category: PortfolioCategory.MOBILE,
         shortDescription: 'Beautiful apps from a single codebase.',
+        relatedServices: ['mobile-app-development', 'react-native-development', 'ios-app-development', 'android-app-development', 'pwa-development', 'automated-testing'],
         description: "If you want one app that works perfectly on both iOS and Android, Flutter is one of the best and most cost-efficient solutions available today. We build high-performance, beautiful, and scalable Flutter apps.",
         longDescription: (
             <>
@@ -3290,6 +3322,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.MOBILE,
         shortDescription: 'Cross-platform apps with React Native.',
+        relatedServices: ['mobile-app-development', 'flutter-development', 'ios-app-development', 'android-app-development', 'pwa-development', 'automated-testing'],
         description: "React Native is one of the most powerful frameworks for building cross-platform mobile apps quickly and cost-effectively. We build fast, scalable, and user-friendly mobile apps that look and feel like native applications using React Native.",
         longDescription: (
             <>
@@ -3404,6 +3437,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.MOBILE,
         shortDescription: 'App-like experiences on the web.',
+        relatedServices: ['mobile-app-development', 'frontend-development', 'responsive-mobile-first-development', 'performance-optimization', 'cross-browser-testing', 'website-development'],
         description: "Progressive Web Apps (PWAs) are the future of mobile experiences — fast, lightweight, and accessible on any device without the need for downloads. We help startups and businesses build powerful PWAs that deliver mobile-app-like performance directly through the browser.",
         longDescription: (
             <>
@@ -3540,6 +3574,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Reliable, affordable, and scalable website maintenance.',
+        relatedServices: ['maintenance-support', 'application-maintenance', 'security-audits', 'backup-recovery', 'hosting-support', 'performance-optimization'],
         relatedResources: [
             { title: 'Cloudways vs Kinsta vs WP Engine (2026)', slug: 'cloudways-vs-kinsta-vs-wp-engine' },
         ],
@@ -3642,6 +3677,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Proactive support for web and mobile applications.',
+        relatedServices: ['maintenance-support', 'website-maintenance', 'security-audits', 'backup-recovery', 'hosting-support', 'logging-monitoring'],
         description: "Modern applications must stay fast, secure, stable, and scalable to support your growing business needs. At STALLIONI NET SOLUTIONS, we help companies of all sizes maintain, update, optimize, and support their applications.",
         longDescription: (
             <>
@@ -3740,6 +3776,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Protect your digital assets from threats.',
+        relatedServices: ['maintenance-support', 'application-maintenance', 'backup-recovery', 'website-maintenance', 'api-testing', 'hosting-support'],
         description: "In today’s digital world, security threats evolve every day. STALLIONI NET SOLUTIONS provides comprehensive Security Audits & Monitoring Services to keep your business safe from cyberattacks.",
         longDescription: (
             <>
@@ -3945,6 +3982,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Secure automated backups to prevent data loss.',
+        relatedServices: ['maintenance-support', 'hosting-support', 'application-maintenance', 'security-audits', 'cloud-setup', 'website-maintenance'],
         description: "Data loss can happen at any time due to hacking, server failure, or human error. We provide secure, automated backup and recovery solutions to keep your business safe.",
         longDescription: (
             <>
@@ -4039,6 +4077,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <MobileDevIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Expert management for your hosting environment.',
+        relatedServices: ['maintenance-support', 'backup-recovery', 'cloud-setup', 'performance-optimization', 'website-maintenance', 'logging-monitoring'],
         description: "Your hosting server is the foundation of your website. STALLIONI NET SOLUTIONS offers expert Web Hosting Support & Server Management Services to ensure your server is secure, fast, and always online.",
         longDescription: (
             <>
@@ -4336,6 +4375,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <SeoIcon />,
         category: PortfolioCategory.SEO,
         shortDescription: 'Boost rankings with content and authority building.',
+        relatedServices: ['seo-digital-marketing', 'technical-seo', 'local-seo', 'content-writing-strategy', 'google-ads', 'landing-page-design'],
         description: "To rank higher on Google, your website needs strong On-Page SEO to optimize your pages—and powerful Off-Page SEO to build authority and trust. We offer fully managed services for both.",
         longDescription: (
             <>
@@ -4444,6 +4484,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <SeoIcon />,
         category: PortfolioCategory.SEO,
         shortDescription: 'Dominate local search results.',
+        relatedServices: ['seo-digital-marketing', 'on-page-off-page-seo', 'technical-seo', 'google-ads', 'content-writing-strategy', 'social-media-ads'],
         description: "If your business depends on customers in a specific city, area, or region, you need Local SEO. At STALLIONI NET SOLUTIONS, we help small businesses, startups, service providers, and retail stores appear at the top of Google Maps, local search results, and 'near me' searches.",
         longDescription: (
             <>
@@ -4541,6 +4582,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <SeoIcon />,
         category: PortfolioCategory.SEO,
         shortDescription: 'PPC campaigns that drive conversions.',
+        relatedServices: ['seo-digital-marketing', 'social-media-ads', 'landing-page-design', 'on-page-off-page-seo', 'local-seo', 'content-writing-strategy'],
         description: "If your business needs fast results, more leads, and higher sales, Google Ads (PPC) is one of the most powerful digital marketing channels. We create high-converting campaigns.",
         longDescription: (
             <>
@@ -4631,6 +4673,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <SeoIcon />,
         category: PortfolioCategory.SEO,
         shortDescription: 'Targeted ads on Facebook, Instagram & more.',
+        relatedServices: ['seo-digital-marketing', 'google-ads', 'content-writing-strategy', 'on-page-off-page-seo', 'landing-page-design', 'local-seo'],
         description: "Social media platforms have become one of the most powerful tools for reaching customers. We specialize in creating highly targeted and cost-effective Social Media Ads.",
         longDescription: (
             <>
@@ -4721,6 +4764,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <SeoIcon />,
         category: PortfolioCategory.SEO,
         shortDescription: 'Content that ranks and converts.',
+        relatedServices: ['seo-digital-marketing', 'on-page-off-page-seo', 'technical-seo', 'local-seo', 'social-media-ads', 'google-ads'],
         description: "Content is one of the most powerful tools in digital marketing. We provide professional Content Writing & Strategy Services designed to get results.",
         longDescription: (
             <>
@@ -4911,6 +4955,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.CLOUD,
         shortDescription: 'Secure and scalable cloud setup.',
+        relatedServices: ['cloud-devops-services', 'cloud-migration', 'infrastructure-as-code', 'docker-kubernetes', 'logging-monitoring', 'hosting-support'],
         description: "Cloud platforms like AWS, Microsoft Azure, and Google Cloud Platform (GCP) have become the backbone of modern businesses. We offer complete Cloud Setup Services.",
         longDescription: (
             <>
@@ -5001,6 +5046,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.CLOUD,
         shortDescription: 'Migrate to the cloud seamlessly.',
+        relatedServices: ['cloud-devops-services', 'cloud-setup', 'infrastructure-as-code', 'docker-kubernetes', 'cicd-automation', 'backup-recovery'],
         description: "Cloud migration is one of the most important steps for businesses that want to reduce costs, improve performance, and become future-ready.",
         longDescription: (
             <>
@@ -5085,6 +5131,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.CLOUD,
         shortDescription: 'Automate your build and deployment pipeline.',
+        relatedServices: ['cloud-devops-services', 'docker-kubernetes', 'infrastructure-as-code', 'automated-testing', 'logging-monitoring', 'cloud-setup'],
         description: "In today’s fast-moving digital world, businesses must deliver software updates faster, safer, and with fewer errors. CI/CD helps companies automate their development.",
         longDescription: (
             <>
@@ -5254,6 +5301,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.CLOUD,
         shortDescription: 'Manage infrastructure utilizing code.',
+        relatedServices: ['cloud-devops-services', 'cloud-setup', 'docker-kubernetes', 'cicd-automation', 'cloud-migration', 'logging-monitoring'],
         description: "Infrastructure as Code (IaC) has become the foundation of modern cloud infrastructure and DevOps practices. Manage everything using code — fast, repeatable, and error-free.",
         longDescription: (
             <>
@@ -5338,6 +5386,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <FullStackIcon />,
         category: PortfolioCategory.CLOUD,
         shortDescription: 'Visibility into your infrastructure.',
+        relatedServices: ['cloud-devops-services', 'infrastructure-as-code', 'cicd-automation', 'performance-testing', 'application-maintenance', 'cloud-setup'],
         description: "In today’s digital world, performance issues and system failures can happen at any time. We provide end-to-end Monitoring and Logging Solutions.",
         longDescription: (
             <>
@@ -5534,6 +5583,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Detailed manual testing for UX and functionality.',
+        relatedServices: ['quality-assurance-testing', 'automated-testing', 'cross-browser-testing', 'api-testing', 'performance-testing', 'security-audits'],
         description: "Our dedicated QA team tests your product exactly the way real users interact with it—making sure every button, form, workflow, and screen performs smoothly.",
         longDescription: (
             <>
@@ -5628,6 +5678,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Scalable automation for faster releases.',
+        relatedServices: ['quality-assurance-testing', 'manual-testing', 'api-testing', 'cicd-automation', 'cross-browser-testing', 'performance-testing'],
         description: "In today’s fast-paced digital world, businesses need to release software updates quickly. We provide powerful Automated Testing Services that help startups and agencies deliver flawless digital products with faster release cycles.",
         longDescription: (
             <>
@@ -5717,6 +5768,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Ensure secure and reliable API integrations.',
+        relatedServices: ['quality-assurance-testing', 'automated-testing', 'api-development', 'php-api-development', 'performance-testing', 'third-party-integrations'],
         description: "APIs are the backbone of modern digital products. We offer comprehensive API Testing Services to ensure your integrations perform perfectly under all conditions.",
         longDescription: (
             <>
@@ -5806,6 +5858,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Test your application under load.',
+        relatedServices: ['quality-assurance-testing', 'performance-optimization', 'automated-testing', 'logging-monitoring', 'api-testing', 'cross-browser-testing'],
         description: "Speed and stability are two of the most important factors for success. We provide advanced Performance & Load Testing Services to ensure your application performs flawlessly under real-world traffic.",
         longDescription: (
             <>
@@ -5895,6 +5948,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <NoCodeIcon />,
         category: PortfolioCategory.SUPPORT,
         shortDescription: 'Works perfectly on all browsers.',
+        relatedServices: ['quality-assurance-testing', 'manual-testing', 'automated-testing', 'frontend-development', 'responsive-mobile-first-development', 'performance-testing'],
         description: "Your users come from different browsers, devices, and screen sizes. We ensure that every visitor enjoys a smooth, consistent, and bug-free experience.",
         longDescription: (
             <>
@@ -6207,6 +6261,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <AiIcon />,
         category: PortfolioCategory.AI,
         shortDescription: 'Personalized recommendations that drive engagement.',
+        relatedServices: ['ai-automation-modern-tech', 'ai-chatbots', 'nlp-features', 'business-process-automation', 'real-time-apps', 'custom-ecommerce-solutions'],
         description: "Every online business wants higher engagement, more conversions, and a better customer experience. We build advanced, affordable, and high-performance recommendation engines for eCommerce stores, media companies, agencies, and SaaS systems.",
         longDescription: (
             <>
@@ -6314,6 +6369,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <AiIcon />,
         category: PortfolioCategory.AI,
         shortDescription: 'Natural Language Processing solutions.',
+        relatedServices: ['ai-automation-modern-tech', 'ai-chatbots', 'recommendation-engines', 'business-process-automation', 'real-time-apps', 'webrtc'],
         description: "Today, businesses receive huge amounts of text data—emails, chats, reviews, and documents. Understanding all this manually is impossible. This is where Natural Language Processing (NLP) becomes a game-changer.",
         longDescription: (
             <>
@@ -6423,6 +6479,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <AiIcon />,
         category: PortfolioCategory.AI,
         shortDescription: 'Automate repetetive business tasks.',
+        relatedServices: ['ai-automation-modern-tech', 'ai-chatbots', 'nlp-features', 'recommendation-engines', 'third-party-integrations', 'saas-development'],
         description: "Manually managing invoices, data entry, and workflows slows down your business. We help you automate repetitive tasks using smart tools, saving you time and reducing errors.",
         longDescription: (
             <>
@@ -6633,6 +6690,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <AiIcon />,
         category: PortfolioCategory.AI,
         shortDescription: 'Video and voice calling solutions.',
+        relatedServices: ['ai-automation-modern-tech', 'real-time-apps', 'ar-vr-experiences', 'ai-chatbots', 'mobile-app-development', 'nlp-features'],
         description: "Implement video and voice calling directly in your application using WebRTC technology. Secure, low-latency communication for telehealth, meetings, and more.",
         offerings: ['Video Calling', 'Voice Calling', 'Screen Sharing', 'Group Calls', 'Recording'],
         faqs: [
@@ -6649,6 +6707,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
         icon: <AiIcon />,
         category: PortfolioCategory.AI,
         shortDescription: 'Immersive augmented and virtual reality.',
+        relatedServices: ['ai-automation-modern-tech', 'webrtc', 'real-time-apps', 'ai-chatbots', 'ui-ux-design', 'nlp-features'],
         description: "Create immersive AR/VR experiences for training, marketing, gaming, and more. We develop for web, mobile, and dedicated VR headsets.",
         offerings: ['AR Mobile Apps', 'VR Experiences', '3D Visualization', 'Virtual Tours', 'Training Simulations'],
         faqs: [
