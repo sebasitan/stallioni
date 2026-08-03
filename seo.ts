@@ -521,7 +521,7 @@ const staticMetadata: Record<string, Partial<PageMetadata>> = {
     title: 'About Stallioni | Leading IT Outsourcing Company in India',
     description: 'Learn about Stallioni, a global IT outsourcing company delivering affordable, high-quality software development with expert remote teams. Trusted in 35+ countries.',
     keywords: 'about Stallioni, IT outsourcing company in India, offshore development company, remote development team India, global software outsourcing partner, Indian software development company, about stallioni, trusted offshore development partner, IT outsourcing company India, remote development teams, hire Indian developers, software development India since 2007, global technology partner, offshore development center coimbatore',
-    ogImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c7da?q=80&w=1200&h=630&auto=format&fit=crop',
+    ogImage: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1200&h=630&auto=format&fit=crop',
   },
   '/services': {
     title: 'IT Outsourcing Services | Stallioni - Offshore Development India',
@@ -545,7 +545,7 @@ const staticMetadata: Record<string, Partial<PageMetadata>> = {
     title: 'Careers — Freelance Developer Jobs at Stallioni',
     description: 'Join Stallioni as a freelance WordPress, React, PHP, or AI developer. Contract-based remote jobs with global clients. Apply today.',
     keywords: 'freelance developer jobs, contract developer jobs India, remote WordPress developer, freelance React developer, PHP developer jobs, AI developer freelance, contract-based jobs, remote development jobs, freelance tech jobs India, work from home developer',
-    ogImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c7da?q=80&w=1200&h=630&auto=format&fit=crop',
+    ogImage: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1200&h=630&auto=format&fit=crop',
   },
   '/contact': {
     title: 'Contact Stallioni | Get a Free Outsourcing Quote',

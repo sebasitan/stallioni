@@ -21,8 +21,8 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
     'sveltekit': { slug: 'svelte', color: 'FF3E00' },
     'astro': { slug: 'astro', color: 'BC52EE' },
     'remix': { slug: 'remix', color: '000000' },
-    'nuxt': { slug: 'nuxtdotjs', color: '00DC82' },
-    'nuxt.js': { slug: 'nuxtdotjs', color: '00DC82' },
+    'nuxt': { slug: 'nuxt', color: '00DC82' },
+    'nuxt.js': { slug: 'nuxt', color: '00DC82' },
     'gatsby': { slug: 'gatsby', color: '663399' },
 
     // Languages
@@ -32,7 +32,7 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
     'java': { slug: 'openjdk', color: '437291' },
     '.net': { slug: 'dotnet', color: '512BD4' },
     'dotnet': { slug: 'dotnet', color: '512BD4' },
-    'c#': { slug: 'csharp', color: '512BD4' },
+    'c#': { slug: 'dotnet', color: '512BD4' },
     'go': { slug: 'go', color: '00ADD8' },
     'golang': { slug: 'go', color: '00ADD8' },
     'rust': { slug: 'rust', color: '000000' },
@@ -43,8 +43,8 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
     'php': { slug: 'php', color: '777BB4' },
     'html5': { slug: 'html5', color: 'E34F26' },
     'html': { slug: 'html5', color: 'E34F26' },
-    'css3': { slug: 'css3', color: '1572B6' },
-    'css': { slug: 'css3', color: '1572B6' },
+    'css3': { slug: 'css', color: '1572B6' },
+    'css': { slug: 'css', color: '1572B6' },
     'sass': { slug: 'sass', color: 'CC6699' },
     'scss': { slug: 'sass', color: 'CC6699' },
 
@@ -69,7 +69,6 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
     'flutter': { slug: 'flutter', color: '02569B' },
     'ios': { slug: 'ios', color: '000000' },
     'android': { slug: 'android', color: '34A853' },
-    'xamarin': { slug: 'xamarin', color: '3498DB' },
     'ionic': { slug: 'ionic', color: '3880FF' },
     'capacitor': { slug: 'capacitor', color: '119EFF' },
     'expo': { slug: 'expo', color: '000020' },
@@ -96,7 +95,6 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
     // AI / ML
     'tensorflow': { slug: 'tensorflow', color: 'FF6F00' },
     'pytorch': { slug: 'pytorch', color: 'EE4C2C' },
-    'openai': { slug: 'openai', color: '412991' },
     'anthropic': { slug: 'anthropic', color: 'D97757' },
     'claude': { slug: 'anthropic', color: 'D97757' },
     'gemini': { slug: 'googlegemini', color: '8E75B2' },
@@ -109,10 +107,6 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
     'keras': { slug: 'keras', color: 'D00000' },
 
     // Cloud / DevOps
-    'aws': { slug: 'amazonwebservices', color: '232F3E' },
-    'amazon web services': { slug: 'amazonwebservices', color: '232F3E' },
-    'azure': { slug: 'microsoftazure', color: '0078D4' },
-    'microsoft azure': { slug: 'microsoftazure', color: '0078D4' },
     'google cloud': { slug: 'googlecloud', color: '4285F4' },
     'gcp': { slug: 'googlecloud', color: '4285F4' },
     'docker': { slug: 'docker', color: '2496ED' },
@@ -136,7 +130,6 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
     // CMS / E-commerce
     'wordpress': { slug: 'wordpress', color: '21759B' },
     'shopify': { slug: 'shopify', color: '7AB55C' },
-    'magento': { slug: 'magento', color: 'EE672F' },
     'woocommerce': { slug: 'woocommerce', color: '96588A' },
     'bigcommerce': { slug: 'bigcommerce', color: '121118' },
     'webflow': { slug: 'webflow', color: '146EF5' },
@@ -152,16 +145,12 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
 
     // Design / prototype tools
     'figma': { slug: 'figma', color: 'F24E1E' },
-    'adobe xd': { slug: 'adobexd', color: 'FF61F6' },
     'sketch': { slug: 'sketch', color: 'F7B500' },
-    'invision': { slug: 'invision', color: 'FF3366' },
     'framer': { slug: 'framer', color: '0055FF' },
     'maze': { slug: 'maze', color: '7F44FE' },
     'storybook': { slug: 'storybook', color: 'FF4785' },
     'miro': { slug: 'miro', color: 'FFD02F' },
     'notion': { slug: 'notion', color: '000000' },
-    'unbounce': { slug: 'unbounce', color: 'EC2C20' },
-    'zeroheight': { slug: 'zeroheight', color: '0066FF' },
 
     // CSS frameworks
     'tailwind': { slug: 'tailwindcss', color: '06B6D4' },
@@ -179,10 +168,8 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
     'airtable': { slug: 'airtable', color: '18BFFF' },
 
     // Business / CRM
-    'salesforce': { slug: 'salesforce', color: '00A1E0' },
     'hubspot': { slug: 'hubspot', color: 'FF7A59' },
     'zoho': { slug: 'zoho', color: 'C8202F' },
-    'pipedrive': { slug: 'pipedrive', color: '17191B' },
     'intercom': { slug: 'intercom', color: '1F8DED' },
 
     // Payments
@@ -196,7 +183,6 @@ const TECH_ICON_MAP: Record<string, { slug: string; color: string }> = {
     'google analytics': { slug: 'googleanalytics', color: 'E37400' },
     'mailchimp': { slug: 'mailchimp', color: '000000' },
     'semrush': { slug: 'semrush', color: 'FF642D' },
-    'ahrefs': { slug: 'ahrefs', color: '0084FF' },
     'meta': { slug: 'meta', color: '0467DF' },
 
     // CSS specifics / techniques (no logo) — handled via fallback dot

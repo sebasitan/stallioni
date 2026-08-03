@@ -149,7 +149,7 @@ const AboutPage: React.FC = () => {
                                         onError={(e) => {
                                             const img = e.currentTarget;
                                             if (img.src.indexOf('unsplash') === -1) {
-                                                img.src = 'https://images.unsplash.com/photo-1522071820081-009f0129c7da?q=80&w=800&h=900&auto=format&fit=crop';
+                                                img.src = 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=800&h=900&auto=format&fit=crop';
                                             }
                                         }}
                                         className="w-full object-cover bg-gray-200 aspect-[4/5]"
