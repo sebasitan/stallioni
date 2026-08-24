@@ -33,8 +33,8 @@ const DEFAULT_OG_IMAGE = 'https://images.unsplash.com/photo-1552664730-d307ca884
 
 
 export const defaultMetadata: Omit<PageMetadata, 'ogUrl' | 'structuredData'> = {
-  title: 'IT Outsourcing Company in India | Hire Dedicated Developers',
-  description: 'Scale faster with affordable IT outsourcing from India. Hire dedicated remote developers for web, mobile, AI, and SaaS projects. 900+ projects delivered.',
+  title: 'Stallioni Net Solutions | IT Outsourcing Company in India',
+  description: 'Stallioni Net Solutions — IT outsourcing company in India since 2007. Hire dedicated remote developers for web, mobile, AI and SaaS. 900+ projects done.',
   keywords: 'IT outsourcing company, hire remote developers, offshore development team, affordable IT outsourcing, software outsourcing services, dedicated developer team, outsourcing for startups, global IT service provider',
   ogTitle: 'Best IT Outsourcing Company | Stallioni Net Solutions',
   ogDescription: 'Scale faster with affordable IT outsourcing. Hire expert developers and remote teams for web, mobile, and SaaS projects. Trusted in USA, UK, India & more.',
