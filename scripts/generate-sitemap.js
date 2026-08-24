@@ -33,6 +33,10 @@ const OUT_PATH = path.join(ROOT, 'public', 'sitemap.xml');
 const TODAY = new Date().toISOString().slice(0, 10);
 
 // Last git commit date (YYYY-MM-DD) that touched a file, for an honest lastmod.
+// Later of two YYYY-MM-DD dates — for pages whose indexed content is owned
+// by more than one source file.
+const maxDate = (a, b) => (a > b ? a : b);
+
 const gitDateCache = new Map();
 function gitDate(relFile) {
   if (gitDateCache.has(relFile)) return gitDateCache.get(relFile);
@@ -94,7 +98,10 @@ const xmlEscape = (s) =>
     urls.push({ loc: `${BASE_URL}${loc}`, lastmod, changefreq, priority });
 
   // --- Static core pages (lastmod = git date of the component that owns them)
-  add('/', gitDate('pages/HomePage.tsx'), 'weekly', '1.0');
+  // The homepage is the one page whose <title> and description live entirely
+  // in defaultMetadata in seo.ts (every other page has its own staticMetadata
+  // entry), so a seo.ts change really does change what Google indexes here.
+  add('/', maxDate(gitDate('pages/HomePage.tsx'), gitDate('seo.ts')), 'weekly', '1.0');
   add('/about', gitDate('pages/AboutPage.tsx'), 'monthly', '0.8');
   add('/services', gitDate('pages/ServicesPage.tsx'), 'weekly', '0.9');
   add('/portfolio', gitDate('pages/PortfolioPage.tsx'), 'weekly', '0.7');
