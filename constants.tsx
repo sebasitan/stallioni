@@ -9,6 +9,9 @@ export {
     getWhatsAppPhone,
     getTeamsId,
     WHATSAPP_CONTACTS,
+    WHATSAPP_GROUP_URL,
+    WHATSAPP_GATE_EVENT,
+    openWhatsAppGate,
     RECAPTCHA_SITE_KEY,
 } from './constants/nav';
 export type { WhatsAppContact } from './constants/nav';

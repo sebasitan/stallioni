@@ -9,7 +9,7 @@ export interface WhatsAppContact {
     url: string; // full WhatsApp URL (group invite or wa.me)
 }
 
-export const WHATSAPP_GROUP_URL = 'https://chat.whatsapp.com/Gm0SQQtnheB41ttEKKFXEj';
+export const WHATSAPP_GROUP_URL = 'https://chat.whatsapp.com/FRAENF513QmDGIS0eekbaT';
 
 export const WHATSAPP_CONTACTS: WhatsAppContact[] = [
     { name: 'Stallioni Support Group', url: WHATSAPP_GROUP_URL },
@@ -25,6 +25,14 @@ export const getTeamsId = (): string => `${teamsIdParts.user}@${teamsIdParts.dom
 // for backward compat with existing call sites that pass it straight to window.open.
 export const getWhatsAppPhone = (): string => WHATSAPP_GROUP_URL;
 export const getWhatsAppUrl = (): string => WHATSAPP_GROUP_URL;
+
+// The group invite link is never handed out directly: every WhatsApp button
+// fires this event, and <WhatsAppGate /> asks for project details first and
+// only then shows the link. See components/WhatsAppGate.tsx.
+export const WHATSAPP_GATE_EVENT = 'stallioni:whatsapp-gate';
+export const openWhatsAppGate = (): void => {
+    window.dispatchEvent(new Event(WHATSAPP_GATE_EVENT));
+};
 
 // Production site key — restricted to stallioni.com. On localhost we fall back
 // to Google's universal test key so dev environments don't fail captcha

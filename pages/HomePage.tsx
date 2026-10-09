@@ -5,7 +5,7 @@ import FadeIn from '../components/FadeIn';
 import FreelancerBadge from '../components/FreelancerBadge';
 import { useNavigation, useModal, useToast } from '../App';
 import { WebDevIcon, MobileDevIcon, FullStackIcon, EcommIcon, DesignIcon, CrmIcon } from '../components/IconComponents';
-import { getContactEmail, getTeamsId, WHATSAPP_CONTACTS, HOMEPAGE_PORTFOLIO_PREVIEW } from '../constants';
+import { getContactEmail, getTeamsId, WHATSAPP_CONTACTS, HOMEPAGE_PORTFOLIO_PREVIEW, openWhatsAppGate } from '../constants';
 
 const TechnologyTicker = lazy(() => import('../components/TechnologyTicker'));
 
@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
             return;
         }
         if (type === 'whatsapp') {
-            if (target) window.open(target, '_blank', 'noopener,noreferrer');
+            openWhatsAppGate();
             return;
         }
         if (type === 'teams') {

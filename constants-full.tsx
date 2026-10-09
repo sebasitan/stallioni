@@ -19,7 +19,7 @@ export interface WhatsAppContact {
     url: string;
 }
 
-export const WHATSAPP_GROUP_URL = 'https://chat.whatsapp.com/Gm0SQQtnheB41ttEKKFXEj';
+export const WHATSAPP_GROUP_URL = 'https://chat.whatsapp.com/FRAENF513QmDGIS0eekbaT';
 
 export const WHATSAPP_CONTACTS: WhatsAppContact[] = [
     { name: 'Stallioni Support Group', url: WHATSAPP_GROUP_URL },

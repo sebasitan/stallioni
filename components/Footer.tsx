@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NAV_LINKS, getContactEmail, getTeamsId, WHATSAPP_CONTACTS } from '../constants';
+import { NAV_LINKS, getContactEmail, getTeamsId, WHATSAPP_CONTACTS, openWhatsAppGate } from '../constants';
 import { SocialIcons } from './IconComponents';
 import { useNavigation, useToast } from '../App';
 import FreelancerBadge from './FreelancerBadge';
@@ -37,8 +37,8 @@ const Footer: React.FC = () => {
         }
         return;
       case 'whatsapp':
-        url = target || '';
-        break;
+        openWhatsAppGate();
+        return;
       case 'teams':
         url = `https://teams.microsoft.com/l/chat/0/0?users=${getTeamsId()}`;
         break;

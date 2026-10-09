@@ -5,6 +5,8 @@ import { useToast } from '../App';
 import { uploadToCloudinary } from '../utils/cloudinary';
 import { getJobOpenings, JobOpening } from '../utils/careersStorage';
 
+const HIRING = false;
+
 // ============================================
 // Icons
 // ============================================
@@ -328,7 +330,9 @@ const CareersPage: React.FC = () => {
             ];
         }
 
-        setJobs(displayJobs);
+        // Not hiring (2026-10-09): the listed roles drew a flood of unsolicited
+        // applications. Flip HIRING to true to show openings and the form again.
+        setJobs(HIRING ? displayJobs : []);
     }, []);
 
     return (
@@ -349,7 +353,7 @@ const CareersPage: React.FC = () => {
                                 <p className="mt-4 text-base text-gray-500 leading-relaxed">
                                     {jobs.length > 0
                                         ? 'Every application is reviewed within 5 business days.'
-                                        : 'Send us a general application and we will reach out as new roles open.'}
+                                        : "We're not hiring at the moment, so we can't take applications — by form, email or WhatsApp."}
                                 </p>
                             </div>
                             {jobs.length > 0 && (
@@ -372,13 +376,7 @@ const CareersPage: React.FC = () => {
                     {jobs.length === 0 && (
                         <FadeIn>
                             <div className="bg-white border border-dashed border-gray-300 rounded-2xl p-10 text-center">
-                                <p className="text-gray-500 mb-6">No openings right now — but we're always reviewing applications.</p>
-                                <button
-                                    onClick={() => handleApply('General Application')}
-                                    className="inline-flex items-center justify-center gap-2 bg-brand-dark text-white text-sm font-medium py-2.5 px-5 rounded-full hover:bg-brand-dark-hover transition-colors"
-                                >
-                                    Send general application
-                                </button>
+                                <p className="text-gray-500">No openings right now, and we're not accepting general applications. Thanks for your interest.</p>
                             </div>
                         </FadeIn>
                     )}

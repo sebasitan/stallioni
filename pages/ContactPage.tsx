@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import FadeIn from '../components/FadeIn';
 import FreelancerBadge from '../components/FreelancerBadge';
 import { useToast } from '../App';
-import { getContactEmail, getTeamsId, WHATSAPP_CONTACTS } from '../constants';
+import { getContactEmail, getTeamsId, WHATSAPP_CONTACTS, openWhatsAppGate } from '../constants';
 import { getRecaptchaToken } from '../utils/recaptcha';
 
 // ============================================
@@ -87,7 +87,7 @@ const ContactPage: React.FC = () => {
                 }
                 break;
             case 'whatsapp':
-                if (target) window.open(target, '_blank', 'noopener,noreferrer');
+                openWhatsAppGate();
                 break;
             case 'teams':
                 window.open(`https://teams.microsoft.com/l/chat/0/0?users=${getTeamsId()}`, '_blank', 'noopener,noreferrer');

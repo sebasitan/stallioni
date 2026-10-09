@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { ChatbotIcon, CloseIcon, SendIcon } from './IconComponents';
-import { getContactEmail, getWhatsAppPhone, getTeamsId } from '../constants';
+import { getContactEmail, getTeamsId, openWhatsAppGate } from '../constants';
 import { useToast, useNavigation } from '../App';
 import { SERVICES_OVERVIEW } from '../constants/services-overview';
 import { getRecaptchaToken } from '../utils/recaptcha';
@@ -130,8 +130,13 @@ const Chatbot: React.FC = () => {
         if (lowerText.match(/^(hi|hello|hey|greetings|good morning|hola|aria)/)) {
             return { type: 'static', content: "Hello! I'm Aria, your Stallioni Assistant. How can I help you today? I can help with hiring developers, project estimates, or answering questions about our services." };
         }
+        // Job seekers — checked before the "hire / developer" branch, which
+        // would otherwise answer "I'm a developer looking for a job" as a sales lead.
+        if (/(job|jobs|career|careers|vacancy|vacancies|fresher|internship|intern|resume|cv|are you hiring)/.test(lowerText)) {
+            return { type: 'static', content: "We're not hiring right now, so we can't take job or internship applications — here, on WhatsApp, or by email. Thanks for your interest." };
+        }
         if (lowerText.includes('hire') || lowerText.includes('developer') || lowerText.includes('team')) {
-            return { type: 'static', content: "Excellent! We have top-tier developers ready to join your team. You can check our [Careers Page] or tell me what technology you need expertise in." };
+            return { type: 'static', content: "Happy to help. Tell me what you need built or fixed and which technology it's on, and I'll point you to the right people." };
         }
         if (lowerText.includes('cost') || lowerText.includes('price') || lowerText.includes('quote') || lowerText.includes('estimate') || lowerText.includes('budget')) {
             return { type: 'static', content: "Our pricing is flexible and tailored to your project scope. I can help you get a custom quote. Would you like to [Get a project estimate] or [Book a consultation]?" };
@@ -274,8 +279,8 @@ const Chatbot: React.FC = () => {
 
         // Direct contact actions
         if (lowerReply.includes('whatsapp')) {
-            window.open(getWhatsAppPhone(), '_blank', 'noopener,noreferrer');
-            setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: `Opened WhatsApp — our team will reply shortly.` }]);
+            openWhatsAppGate();
+            setMessages(prev => [...prev, { role: 'user', text: replyText }, { role: 'model', text: `Tell us a little about the project and we'll connect you on WhatsApp.` }]);
             setIsOpen(false);
             return;
         }

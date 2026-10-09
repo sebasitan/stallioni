@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-ro
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Chatbot from './components/Chatbot';
+import WhatsAppGate from './components/WhatsAppGate';
 import ContactModal from './components/ContactModal';
 import Toast from './components/Toast';
 import MetaManager from './components/MetaManager';
@@ -215,6 +216,7 @@ const AppContent: React.FC = () => {
             </main>
             <Footer />
             <Chatbot />
+            <WhatsAppGate />
             <ContactModal
               isOpen={isModalOpen}
               onClose={closeModal}
