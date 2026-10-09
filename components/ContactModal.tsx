@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { SERVICES_OVERVIEW, RECAPTCHA_SITE_KEY } from '../constants';
+import { SERVICES_OVERVIEW } from '../constants';
 import { getContactEmail } from '../constants';
 import { useToast } from '../App';
+import { getRecaptchaToken } from '../utils/recaptcha';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -53,18 +54,10 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, modalType 
     if (submitButton) submitButton.disabled = true;
 
     try {
-      // 1. Generate reCAPTCHA Token
-      if (typeof window.grecaptcha === 'undefined') {
-        throw new Error('reCAPTCHA not loaded');
-      }
-
-      const recaptchaToken = await new Promise<string>((resolve, reject) => {
-        window.grecaptcha.ready(() => {
-          window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'modal_form' })
-            .then(resolve)
-            .catch(reject);
-        });
-      });
+      // 1. Generate reCAPTCHA Token. The script is lazy-loaded on first submit
+      // (utils/recaptcha.ts), so window.grecaptcha is never defined up front —
+      // checking it directly here made every modal submission throw.
+      const recaptchaToken = await getRecaptchaToken('modal_form');
 
       // 2. Prepare data
       const data = Object.fromEntries(formData.entries());
